@@ -1,0 +1,16 @@
+<svg width="420" height="260" viewBox="0 0 420 260" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Logo Mogador Hotels &amp; Resorts</title>
+  <desc id="desc">Logo Mogador en rouge #9A1917 et gris #636362.</desc>
+  <g transform="translate(150 4) scale(0.62)">
+    <ellipse cx="110" cy="102" rx="74" ry="92" fill="#9A1917"/>
+    <ellipse cx="110" cy="102" rx="82" ry="100" stroke="#9A1917" stroke-width="5"/>
+    <ellipse cx="110" cy="102" rx="65" ry="82" stroke="#FFFFFF" stroke-width="3" opacity="0.95"/>
+    <path d="M63 165V58C63 45 72 36 84 36C97 36 106 45 106 58V137" stroke="#FFFFFF" stroke-width="16" stroke-linecap="round"/>
+    <path d="M157 165V58C157 45 148 36 136 36C123 36 114 45 114 58V137" stroke="#FFFFFF" stroke-width="16" stroke-linecap="round"/>
+    <path d="M84 151C84 124 136 122 136 95C136 83 125 75 111 75C96 75 84 83 84 97" stroke="#FFFFFF" stroke-width="13" stroke-linecap="round"/>
+    <path d="M136 151C136 178 84 180 84 207C84 220 96 228 110 228C125 228 136 219 136 205" stroke="#FFFFFF" stroke-width="13" stroke-linecap="round"/>
+    <path d="M110 137L132 174L110 211L88 174L110 137Z" fill="#FFFFFF"/>
+  </g>
+  <text x="210" y="180" text-anchor="middle" font-family="Gouda, Georgia, serif" font-size="72" fill="#636362" letter-spacing="-4">Mogador</text>
+  <text x="210" y="214" text-anchor="middle" font-family="Calibre, Avenir, Arial, sans-serif" font-size="22" fill="#1D1D1B" letter-spacing="4">HOTELS &amp; RESORTS</text>
+</svg>
