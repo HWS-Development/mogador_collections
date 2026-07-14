@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import PageHero from '../components/PageHero'
 import BookingBar from '../components/BookingBar'
 import Link from '../router/Link'
@@ -9,6 +10,25 @@ import NotFoundPage from './NotFoundPage'
 export default function HotelPage({ slug, t, lang }) {
   const hotel = hotels.find((item) => item.slug === slug)
   const details = hotel ? officialHotelDetails[hotel.slug] : null
+  const [activeRoom, setActiveRoom] = useState(0)
+  const [activePhoto, setActivePhoto] = useState(0)
+  const [photoDirection, setPhotoDirection] = useState(1)
+  const safeGallery = hotel?.gallery?.length ? hotel.gallery : [hotel?.image].filter(Boolean)
+
+  useEffect(() => {
+    setActivePhoto(0)
+    setPhotoDirection(1)
+  }, [activeRoom])
+
+  useEffect(() => {
+    const photoCount = Math.max(safeGallery.length, 1)
+    const timer = window.setInterval(() => {
+      setPhotoDirection(1)
+      setActivePhoto((value) => (value + 1) % photoCount)
+    }, 5500)
+
+    return () => window.clearInterval(timer)
+  }, [activeRoom, safeGallery.length])
 
   useSeo({
     title: hotel ? `${hotel.name} | ${hotel.destination} | Mogador Hotels & Resorts` : 'Hôtel introuvable | Mogador Hotels & Resorts',
@@ -18,7 +38,7 @@ export default function HotelPage({ slug, t, lang }) {
 
   if (!hotel) return <NotFoundPage t={t} lang={lang} />
 
-  const gallery = hotel.gallery?.length ? hotel.gallery : [hotel.image].filter(Boolean)
+  const gallery = safeGallery
   const heroImage = hotel.image || gallery[0] || details?.sections?.[0]?.image || '/assets/legacy/menara-salon.jpg'
   const overview = details?.overview || [hotel.description]
   const sections = details?.sections || [
@@ -32,11 +52,25 @@ export default function HotelPage({ slug, t, lang }) {
   const rooms = hotel.rooms.map((room, index) => ({
     name: room,
     image: roomImages[index % roomImages.length] || accommodationImage,
+    photos: buildRoomPhotos(index, roomImages, gallery, accommodationImage),
     description: getRoomDescription(room, hotel),
     facts: getRoomFacts(room, hotel, index),
   }))
   const serviceGroups = buildServiceGroups(hotel, sections, gallery, heroImage)
   const sliderImages = [...new Set([heroImage, ...gallery, ...sections.map((section) => section.image)].filter(Boolean))]
+  const activeRoomData = rooms[activeRoom] || rooms[0]
+  const activePhotos = activeRoomData?.photos?.length ? activeRoomData.photos : [activeRoomData?.image || accommodationImage].filter(Boolean)
+  const visiblePhoto = activePhotos[activePhoto % activePhotos.length] || activeRoomData?.image || accommodationImage
+
+  const goRoomPhoto = (direction) => {
+    setPhotoDirection(direction)
+    setActivePhoto((value) => (value + direction + activePhotos.length) % activePhotos.length)
+  }
+
+  const goRoom = (direction) => {
+    setPhotoDirection(direction)
+    setActiveRoom((value) => (value + direction + rooms.length) % rooms.length)
+  }
 
   return (
     <div className="gm-page gm-hotel-page">
@@ -86,24 +120,87 @@ export default function HotelPage({ slug, t, lang }) {
         </section>
       ) : null}
 
-      <section className="gm-room-catalog gm-page-section" aria-label="Catégories d’hébergement">
-        <div className="gm-section-head gm-reveal">
-          <span className="gm-label">Hébergement</span>
-          <h2>Chaque catégorie transforme le besoin client en choix évident.</h2>
-          <p>Des descriptifs plus sensoriels, des preuves rapides et un CTA direct évitent la fiche froide et accélèrent la réservation.</p>
+      <section className="gm-room-showcase gm-room-showcase--cinema gm-page-section" aria-label="Hébergement">
+        <div className="gm-room-showcase__intro gm-reveal">
+          <span className="gm-label">Dormir</span>
+          <h2>Chambres & suites</h2>
+          <p>Une sélection claire, sensorielle et orientée réservation directe: choisissez l’atmosphère, vérifiez les preuves utiles, puis réservez depuis le site officiel.</p>
         </div>
-        <div className="gm-room-catalog__grid">
-          {rooms.map((room, index) => (
-            <article className="gm-room-card gm-reveal" style={{ '--delay': `${index * 45}ms` }} key={`${room.name}-${index}`}>
-              <img src={room.image} alt={`${hotel.name} - ${room.name}`} loading="lazy" />
-              <div>
-                <span>{String(index + 1).padStart(2, '0')}</span>
-                <h3>{room.name}</h3>
-                <p>{room.description}</p>
-                <div className="gm-room-card__facts">{room.facts.map((fact) => <small key={fact}>{fact}</small>)}</div>
-                <Link to="/#reservation" data-track={`room_booking_${hotel.slug}_${index}`}>Choisir cette chambre</Link>
+        <div className="gm-room-cinematic gm-reveal" role="region" aria-label={`Catégories d’hébergement ${hotel.name}`}>
+          <div className="gm-room-tabs" aria-label="Choisir une chambre">
+            {rooms.map((room, index) => (
+              <button className={index === activeRoom ? 'is-active' : ''} type="button" onClick={() => setActiveRoom(index)} key={`${room.name}-tab`}>
+                {room.name}
+              </button>
+            ))}
+          </div>
+          <div className="gm-room-cinematic__detail">
+            <div className="gm-room-cinematic__gallery">
+              <div className="gm-room-cinema-frame" data-direction={photoDirection}>
+                <img src={visiblePhoto} alt={`${hotel.name} - ${activeRoomData.name}`} loading="lazy" key={`${activeRoomData.name}-${visiblePhoto}-${activePhoto}`} />
+                <div className="gm-room-cinema-frame__shade" />
+                <div className="gm-room-cinema-frame__border" />
+                <div className="gm-room-cinema-frame__label"><i />{hotel.destination} / {hotel.category}</div>
+                <div className="gm-room-cinema-frame__title">
+                  <h3>{activeRoomData.name}</h3>
+                  <span>{String(activeRoom + 1).padStart(2, '0')} / {String(rooms.length).padStart(2, '0')}</span>
+                </div>
+                <button type="button" onClick={() => goRoomPhoto(-1)} aria-label="Photo précédente">‹</button>
+                <button type="button" onClick={() => goRoomPhoto(1)} aria-label="Photo suivante">›</button>
+                <div className="gm-room-photo-progress">
+                  <span>{String((activePhoto % activePhotos.length) + 1).padStart(2, '0')}</span>
+                  <i key={`${activeRoom}-${activePhoto}`} />
+                  <span>{String(activePhotos.length).padStart(2, '0')}</span>
+                </div>
               </div>
+              <div className="gm-room-thumbs" style={{ '--thumb-count': Math.min(activePhotos.length, 7) }}>
+                {activePhotos.slice(0, 7).map((photo, index) => (
+                  <button className={index === activePhoto % activePhotos.length ? 'is-active' : ''} type="button" onClick={() => { setPhotoDirection(index > activePhoto ? 1 : -1); setActivePhoto(index) }} aria-label={`Photo ${index + 1}`} key={`${photo}-${index}`}>
+                    <img src={photo} alt="" loading="lazy" />
+                  </button>
+                ))}
+              </div>
+            </div>
+            <article className="gm-room-info-card" key={`${activeRoomData.name}-desc`}>
+              <span className="gm-room-corner gm-room-corner--tl" />
+              <span className="gm-room-corner gm-room-corner--tr" />
+              <span className="gm-room-corner gm-room-corner--bl" />
+              <span className="gm-room-corner gm-room-corner--br" />
+              <span className="gm-label">{hotel.family}</span>
+              <h3>{activeRoomData.name}</h3>
+              <i />
+              <p>{activeRoomData.description}</p>
+              <div>
+                <strong>Repères utiles</strong>
+                <ul>{activeRoomData.facts.map((fact) => <li key={fact}>{fact}</li>)}</ul>
+              </div>
+              <footer>
+                <Link to="/#reservation" data-track={`room_book_${hotel.slug}_${activeRoom}`}>Réserver</Link>
+                <div>
+                  <button type="button" onClick={() => goRoom(-1)} aria-label="Chambre précédente">‹</button>
+                  <button type="button" onClick={() => goRoom(1)} aria-label="Chambre suivante">›</button>
+                </div>
+              </footer>
             </article>
+          </div>
+          <div className="gm-room-marquee" aria-hidden="true">
+            <div>{[...rooms, ...rooms].map((room, index) => <span key={`${room.name}-${index}`}>{room.name}<i /></span>)}</div>
+          </div>
+        </div>
+      </section>
+
+      <section className="gm-scroll-overlays gm-page-section" aria-label="Moments de séjour">
+        <article className="gm-scroll-overlays__copy gm-reveal">
+          <span className="gm-label">Expérience client au coeur</span>
+          <h2>Des moments de vie plutôt qu’un catalogue.</h2>
+          <p>Chaque fiche réunit les images, les services et les repères utiles pour aider à choisir le bon séjour: famille, couple, affaires, détente ou événement.</p>
+        </article>
+        <div className="gm-scroll-overlays__media">
+          {sliderImages.slice(0, 4).map((image, index) => (
+            <figure className="gm-scroll-overlay-card gm-reveal" style={{ '--delay': `${index * 70}ms` }} key={`${image}-overlay-${index}`}>
+              <img src={image} alt={`${hotel.name} - moment de séjour ${index + 1}`} loading="lazy" />
+              <figcaption>{['Arrivée', 'Hébergement', 'Table', 'Événement'][index] || 'Moment Mogador'}</figcaption>
+            </figure>
           ))}
         </div>
       </section>
@@ -190,6 +287,18 @@ function getRoomFacts(room, hotel, index) {
   if (/famille|2 lits|twin|double/i.test(room)) facts.push('Idéal famille')
   if (index === 0 && hotel.facts?.[0]) facts.push(hotel.facts[0])
   return [...new Set(facts)].slice(0, 4)
+}
+
+function buildRoomPhotos(index, roomImages, gallery, fallback) {
+  const ordered = [
+    roomImages[index % roomImages.length],
+    gallery[index % gallery.length],
+    gallery[(index + 1) % gallery.length],
+    roomImages[(index + 1) % roomImages.length],
+    fallback,
+  ].filter(Boolean)
+
+  return [...new Set(ordered)]
 }
 
 function buildServiceGroups(hotel, sections, gallery, heroImage) {

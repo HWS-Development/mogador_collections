@@ -224,12 +224,13 @@ export function useLuxuryMotion(path) {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const root = document.querySelector('.gm-home, .gm-page')
     if (!root) return undefined
+    const isHome = root.classList.contains('gm-home')
 
     root.classList.add('gm-luxury-motion')
 
     if (reduceMotion) {
       root.classList.add('gm-motion-reduced')
-      root.querySelectorAll('.gm-reveal, .reveal').forEach((element) => {
+      root.querySelectorAll('.gm-reveal, .reveal, .gm-radical-reveal, .gm-radical-use, .gm-radical-chapter, .gm-radical-hotel, .gm-radical-moment').forEach((element) => {
         element.style.opacity = '1'
         element.style.transform = 'none'
         element.style.filter = 'none'
@@ -254,7 +255,12 @@ export function useLuxuryMotion(path) {
 
     window.addEventListener('pointermove', onPointerMove, { passive: true })
 
-    const magneticSelector = [
+    const magneticSelector = isHome ? [
+      '.gm-radical-use',
+      '.gm-radical-chapter',
+      '.gm-radical-hotel',
+      '.gm-radical-moment',
+      '.gm-radical-destination-list a',
       '.gm-path',
       '.gm-immersion-card',
       '.gm-hotel-lead',
@@ -275,10 +281,9 @@ export function useLuxuryMotion(path) {
       '.gm-direct-proof article',
       '.gm-contact-hotels__grid article',
       '.gm-experience-index__grid article',
-      '.gm-attraction-grid section',
-    ].join(', ')
+    ].join(', ') : ''
 
-    root.querySelectorAll(magneticSelector).forEach((element) => {
+    if (magneticSelector) root.querySelectorAll(magneticSelector).forEach((element) => {
       element.classList.add('gm-magnetic')
 
       const onMove = (event) => {
@@ -311,14 +316,122 @@ export function useLuxuryMotion(path) {
 
     frame = window.requestAnimationFrame(() => {
       ctx = gsap.context(() => {
-        const hero = root.querySelector('.gm-hero, .gm-page-hero')
-        const heroImage = root.querySelector('.gm-hero__image img, .gm-page-hero__media img')
+        const hero = root.querySelector('.gm-radical-hero, .gm-hero, .gm-page-hero')
+        const heroImage = root.querySelector('.gm-radical-hero__photo img, .gm-hero__image img, .gm-page-hero__media img')
 
         if (hero) {
           if (heroImage) {
-            gsap.fromTo(heroImage, { scale: 1.045, yPercent: -1 }, { scale: 1.02, yPercent: 0, duration: 0.55, clearProps: 'transform', ease: 'power2.out' })
+            const heroTimeline = gsap.timeline({ defaults: { ease: 'power4.out' } })
+            const heroChrome = root.querySelectorAll('.gm-radical-hero__topline, .gm-hero__content, .gm-page-hero__content')
+            const heroContent = root.querySelectorAll('.gm-radical-hero__content > *, .gm-hero__content > *, .gm-page-hero__content > *')
+            const heroBooking = root.querySelectorAll('.gm-radical-compare, .gm-radical-booking, .gm-booking, .gm-page-hero__booking')
+
+            heroTimeline.fromTo(heroImage, { scale: isHome ? 1.16 : 1.045, filter: isHome ? 'brightness(0.72) saturate(0.72)' : 'brightness(0.92)' }, { scale: 1.02, filter: 'brightness(1) saturate(1)', duration: isHome ? 1.35 : 0.8, clearProps: 'transform,filter' }, 0)
+            if (heroChrome.length) heroTimeline.from(heroChrome, { y: isHome ? -22 : 16, autoAlpha: 0, duration: isHome ? 0.72 : 0.5 }, 0.15)
+            if (heroContent.length) heroTimeline.from(heroContent, { x: isHome ? -46 : 0, y: isHome ? 0 : 18, autoAlpha: 0, stagger: isHome ? 0.075 : 0.045, duration: isHome ? 0.86 : 0.55 }, 0.28)
+            if (heroBooking.length) heroTimeline.from(heroBooking, { y: isHome ? 42 : 22, autoAlpha: 0, stagger: 0.06, duration: isHome ? 0.76 : 0.55 }, 0.45)
           }
         }
+
+        runDirectionalScrollMotion(root)
+
+        if (!isHome) {
+          runInteriorLuxuryMotion(root)
+          return
+        }
+
+        gsap.utils.toArray('.gm-radical-section-head, .gm-radical-intro__copy, .gm-radical-services, .gm-section-head, .gm-page-intro > div, .gm-offer-engine > div:first-child, .gm-mice-command > div:first-child, .gm-reservation-takeover__copy, .gm-hotel-sales-panel__copy, .gm-hotel-booking-panel > div:first-child').forEach((element) => {
+          gsap.from(element, {
+            x: -56,
+            y: 22,
+            autoAlpha: 0,
+            filter: 'blur(12px)',
+            duration: 0.9,
+            clearProps: 'transform,filter,opacity,visibility',
+            ease: 'power4.out',
+            immediateRender: false,
+            scrollTrigger: { trigger: element, start: 'top 84%', toggleActions: 'play none none reverse' },
+          })
+        })
+
+        gsap.utils.toArray('.gm-radical-usage__grid, .gm-radical-signatures__grid, .gm-radical-moments, .gm-radical-numbers, .gm-radical-destination-list, .gm-room-catalog__grid, .gm-hotel-directory__grid, .gm-values__grid, .gm-contact-hotels__grid, .gm-experience-index__grid, .gm-charter-list, .gm-offer-showcase__grid, .gm-offer-gallery, .gm-hotel-slider__track, .gm-service-matrix__grid, .gm-hotel-gallery__grid, .gm-facilities, .gm-direct-proof, .gm-mice-command__stats, .gm-feature-list').forEach((grid) => {
+          const children = Array.from(grid.children)
+          if (!children.length) return
+
+          gsap.from(children, {
+            x: 86,
+            y: 18,
+            autoAlpha: 0,
+            rotationY: -24,
+            rotationX: 7,
+            transformPerspective: 1100,
+            transformOrigin: 'left center',
+            filter: 'blur(10px)',
+            stagger: { each: 0.09, from: 'start' },
+            duration: 0.86,
+            ease: 'power4.out',
+            clearProps: 'transform,filter,opacity,visibility',
+            immediateRender: false,
+            scrollTrigger: { trigger: grid, start: 'top 82%', toggleActions: 'play none none reverse' },
+          })
+        })
+
+        gsap.utils.toArray('.gm-radical-chapter').forEach((chapter, index) => {
+          const media = chapter.querySelector('.gm-radical-chapter__media')
+          const copy = chapter.querySelector('.gm-radical-chapter__copy')
+          const direction = index % 2 === 0 ? -1 : 1
+
+          const timeline = gsap.timeline({
+            scrollTrigger: { trigger: chapter, start: 'top 78%', toggleActions: 'play none none reverse' },
+            defaults: { ease: 'power4.out' },
+          })
+
+          if (media) timeline.from(media, { x: direction * 70, autoAlpha: 0, rotationY: direction * -22, transformPerspective: 1200, clipPath: 'inset(0 38% 0 0)', duration: 0.95, clearProps: 'transform,clipPath,opacity,visibility' }, 0)
+          if (copy?.children?.length) timeline.from(copy.children, { x: direction * -42, autoAlpha: 0, stagger: 0.07, duration: 0.74, clearProps: 'transform,opacity,visibility' }, 0.16)
+        })
+
+        gsap.utils.toArray('.gm-story-row, .gm-business-row, .gm-destination-guide, .gm-hotel-section').forEach((row, index) => {
+          const media = row.querySelector('figure, .gm-attraction-grid, .gm-hotel-section figure')
+          const copy = row.querySelector(':scope > div:not(.gm-attraction-grid), .gm-destination-guide__body')
+          const reverse = row.className.includes('--reverse')
+          const direction = reverse ? 1 : -1
+
+          const timeline = gsap.timeline({
+            scrollTrigger: { trigger: row, start: 'top 78%', toggleActions: 'play none none reverse' },
+            defaults: { ease: 'power4.out' },
+          })
+
+          if (media) timeline.from(media, { x: direction * 72, autoAlpha: 0, rotationY: direction * -24, transformPerspective: 1200, filter: 'blur(10px)', duration: 0.95, clearProps: 'transform,filter,opacity,visibility' }, 0)
+          if (copy?.children?.length) timeline.from(copy.children, { x: direction * -44, autoAlpha: 0, stagger: 0.075, duration: 0.72, clearProps: 'transform,opacity,visibility' }, 0.14)
+
+          const nested = row.querySelectorAll('.gm-attraction-grid section, .gm-feature-list span')
+          if (nested.length) {
+            gsap.from(nested, {
+              x: 54,
+              autoAlpha: 0,
+              rotationY: -18,
+              transformPerspective: 1000,
+              stagger: 0.055,
+              duration: 0.62,
+              ease: 'power3.out',
+              clearProps: 'transform,opacity,visibility',
+              immediateRender: false,
+              scrollTrigger: { trigger: row, start: 'top 68%', toggleActions: 'play none none reverse' },
+            })
+          }
+        })
+
+        gsap.utils.toArray('.gm-radical-use img, .gm-radical-chapter__media img, .gm-radical-hotel img, .gm-radical-moment img, .gm-radical-destinations__visual img, .gm-story-row img, .gm-business-row img, .gm-destination-guide img, .gm-hotel-section img, .gm-page-hero__media img').forEach((image) => {
+          gsap.fromTo(image, { scale: 1.16, xPercent: -3, filter: 'contrast(0.86) saturate(0.72)' }, {
+            scale: 1.03,
+            xPercent: 0,
+            filter: 'contrast(1) saturate(1)',
+            duration: 1.15,
+            ease: 'power3.out',
+            clearProps: 'transform,filter',
+            scrollTrigger: { trigger: image, start: 'top 88%', toggleActions: 'play none none reverse' },
+          })
+        })
 
         gsap.utils.toArray('.gm-section-head, .gm-page-intro > div, .gm-reservation-takeover__copy, .gm-hotel-sales-panel__copy, .gm-hotel-booking-panel > div:first-child').forEach((element) => {
           gsap.from(element, {
@@ -331,23 +444,27 @@ export function useLuxuryMotion(path) {
           })
         })
 
-        gsap.utils.toArray('.gm-path, .gm-immersion-card, .gm-hotel-lead, .gm-experience, .gm-booking-intent, .gm-collection, .gm-destination, .gm-hotel-tile, .gm-room-card, .gm-offer-card, .gm-editorial-card, .gm-loyalty-visual, .gm-service-card, .gm-hotel-slide, .gm-magazine-gallery__item, .gm-offer-gallery__item').forEach((card, index) => {
+        gsap.utils.toArray('.gm-radical-use, .gm-radical-hotel, .gm-radical-moment, .gm-charter-row, .gm-attraction-grid section, .gm-facilities article, .gm-hotel-gallery figure, .gm-final, .gm-path, .gm-immersion-card, .gm-hotel-lead, .gm-experience, .gm-booking-intent, .gm-collection, .gm-destination, .gm-hotel-tile, .gm-room-card, .gm-offer-card, .gm-editorial-card, .gm-loyalty-visual, .gm-service-card, .gm-hotel-slide, .gm-magazine-gallery__item, .gm-offer-gallery__item').forEach((card, index) => {
           gsap.from(card, {
-            y: 52,
-            rotationX: index % 2 ? -5 : 5,
-            transformPerspective: 1000,
-            duration: 0.72,
+            x: index % 2 ? 48 : -48,
+            y: 32,
+            autoAlpha: 0,
+            rotationY: index % 2 ? -16 : 16,
+            rotationX: index % 2 ? -8 : 8,
+            transformPerspective: 1100,
+            filter: 'blur(8px)',
+            duration: 0.82,
             clearProps: 'transform,filter,opacity,visibility',
-            ease: 'power3.out',
+            ease: 'power4.out',
             immediateRender: false,
-            scrollTrigger: { trigger: card, start: 'top 88%', toggleActions: 'play none none none' },
+            scrollTrigger: { trigger: card, start: 'top 88%', toggleActions: 'play none none reverse' },
           })
         })
 
-        gsap.utils.toArray('.gm-path img, .gm-immersion-card img, .gm-hotel-lead img, .gm-experience img, .gm-destination img, .gm-hotel-tile img, .gm-room-card img, .gm-offer-card img, .gm-editorial-card img, .gm-loyalty-visual img, .gm-service-card img, .gm-hotel-slide img, .gm-magazine-gallery__item img, .gm-offer-gallery__item img, .gm-hotel-gallery img').forEach((image) => {
-          gsap.fromTo(image, { yPercent: -5, scale: 1.08 }, {
-            yPercent: 5,
-            scale: 1.08,
+        gsap.utils.toArray('.gm-path img, .gm-immersion-card img, .gm-hotel-lead img, .gm-experience img, .gm-destination img, .gm-hotel-tile img, .gm-room-card img, .gm-offer-card img, .gm-editorial-card img, .gm-loyalty-visual img, .gm-service-card img, .gm-hotel-slide img, .gm-magazine-gallery__item img, .gm-offer-gallery__item img, .gm-hotel-gallery img, .gm-offer-gallery img').forEach((image) => {
+          gsap.fromTo(image, { yPercent: -7, scale: 1.12 }, {
+            yPercent: 7,
+            scale: 1.12,
             ease: 'none',
             scrollTrigger: { trigger: image, start: 'top bottom', end: 'bottom top', scrub: 0.85 },
           })
@@ -379,6 +496,164 @@ export function useLuxuryMotion(path) {
       ctx?.revert()
     }
   }, [path])
+}
+
+function runInteriorLuxuryMotion(root) {
+  gsap.utils.toArray('.gm-section-head, .gm-page-intro > div, .gm-offer-engine > div:first-child, .gm-mice-command > div:first-child, .gm-hotel-sales-panel__copy, .gm-hotel-booking-panel > div:first-child').forEach((element) => {
+    gsap.from(element, {
+      y: 24,
+      autoAlpha: 0,
+      duration: 0.58,
+      ease: 'power2.out',
+      clearProps: 'transform,opacity,visibility',
+      immediateRender: false,
+      scrollTrigger: { trigger: element, start: 'top 86%', toggleActions: 'play none none none' },
+    })
+  })
+
+  gsap.utils.toArray('.gm-story-row, .gm-business-row, .gm-destination-guide, .gm-hotel-section').forEach((row) => {
+    const media = row.querySelector('figure')
+    const copy = row.querySelector(':scope > div:not(.gm-attraction-grid), .gm-destination-guide__body')
+    const timeline = gsap.timeline({
+      scrollTrigger: { trigger: row, start: 'top 80%', toggleActions: 'play none none none' },
+      defaults: { ease: 'power2.out' },
+    })
+
+    if (media) timeline.from(media, { x: -34, autoAlpha: 0, duration: 0.62, clearProps: 'transform,opacity,visibility' }, 0)
+    if (copy?.children?.length) timeline.from(copy.children, { x: 28, autoAlpha: 0, stagger: 0.04, duration: 0.5, clearProps: 'transform,opacity,visibility' }, 0.1)
+  })
+
+  gsap.utils.toArray('.gm-hotel-directory__grid, .gm-values__grid, .gm-contact-hotels__grid, .gm-experience-index__grid, .gm-charter-list, .gm-charter-compliance__grid, .gm-charter-palette, .gm-offer-showcase__grid, .gm-offer-gallery, .gm-hotel-slider__track, .gm-service-matrix__grid, .gm-hotel-gallery__grid, .gm-facilities, .gm-brand-proof, .gm-direct-proof, .gm-mice-command__stats, .gm-feature-list, .gm-attraction-grid, .gm-scroll-overlays__media').forEach((grid) => {
+    const children = Array.from(grid.children).filter((child) => child.tagName !== 'SMALL')
+    if (!children.length) return
+    const ordered = centerOut(children)
+    const centerIndex = Math.floor((children.length - 1) / 2)
+
+    gsap.from(ordered, {
+      x: (_, element) => {
+        const index = children.indexOf(element)
+        if (index === centerIndex) return 0
+        return index > centerIndex ? 24 : -24
+      },
+      y: 12,
+      autoAlpha: 0,
+      stagger: 0.055,
+      duration: 0.54,
+      ease: 'power2.out',
+      clearProps: 'transform,opacity,visibility',
+      immediateRender: false,
+      scrollTrigger: { trigger: grid, start: 'top 84%', toggleActions: 'play none none none' },
+    })
+  })
+
+  gsap.utils.toArray('.gm-hotel-slide, .gm-offer-gallery__item, .gm-hotel-gallery figure, .gm-room-card, .gm-scroll-overlay-card, .gm-brand-proof article, .gm-service-card, .gm-offer-card, .gm-hotel-tile, .gm-charter-row').forEach((card, index) => {
+    gsap.from(card, {
+      x: 22 + (index % 3) * 8,
+      autoAlpha: 0,
+      duration: 0.52,
+      ease: 'power2.out',
+      clearProps: 'transform,opacity,visibility',
+      immediateRender: false,
+      scrollTrigger: { trigger: card, start: 'top 88%', toggleActions: 'play none none none' },
+    })
+  })
+
+  gsap.utils.toArray('.gm-page img').forEach((image) => {
+    gsap.from(image, {
+      x: -18,
+      scale: 1.025,
+      autoAlpha: 0,
+      duration: 0.6,
+      ease: 'power2.out',
+      clearProps: 'transform,opacity,visibility',
+      immediateRender: false,
+      scrollTrigger: { trigger: image, start: 'top 90%', toggleActions: 'play none none none' },
+    })
+  })
+}
+
+function runDirectionalScrollMotion(root) {
+  const imageBlocks = root.querySelectorAll([
+    '.gm-page-hero__media',
+    '.gm-story-row figure',
+    '.gm-business-row figure',
+    '.gm-destination-guide figure',
+    '.gm-hotel-section figure',
+    '.gm-attraction-grid__media',
+    '.gm-hotel-tile__media',
+    '.gm-room-card > img',
+    '.gm-scroll-overlay-card',
+    '.gm-charter-compliance__grid article',
+    '.gm-service-card > img',
+    '.gm-offer-card > img',
+    '.gm-hotel-slide',
+    '.gm-hotel-gallery figure',
+    '.gm-offer-gallery__item img',
+    '.gm-radical-chapter__media',
+    '.gm-radical-destinations__visual',
+    '.gm-radical-use img',
+    '.gm-radical-hotel img',
+    '.gm-radical-moment img',
+  ].join(', '))
+
+  imageBlocks.forEach((element) => {
+    gsap.from(element, {
+      x: -38,
+      autoAlpha: 0,
+      duration: 0.68,
+      ease: 'power2.out',
+      clearProps: 'transform,opacity,visibility',
+      immediateRender: false,
+      scrollTrigger: { trigger: element, start: 'top 88%', toggleActions: 'play none none none' },
+    })
+  })
+
+  const textBlocks = root.querySelectorAll([
+    '.gm-page-hero__content',
+    '.gm-page-intro .gm-rich-copy',
+    '.gm-section-head',
+    '.gm-story-row > div:not(.gm-attraction-grid)',
+    '.gm-business-row > div',
+    '.gm-destination-guide__body',
+    '.gm-hotel-section > div',
+    '.gm-hotel-tile__body',
+    '.gm-room-card > div',
+    '.gm-room-showcase__intro',
+    '.gm-scroll-overlays__copy',
+    '.gm-service-card > div',
+    '.gm-offer-card > div',
+    '.gm-mice-command > div:first-child',
+    '.gm-offer-engine > div:first-child',
+    '.gm-hotel-sales-panel__copy',
+    '.gm-hotel-booking-panel > div:first-child',
+    '.gm-radical-chapter__copy',
+    '.gm-radical-destinations__copy',
+    '.gm-radical-use > div',
+    '.gm-radical-hotel > div',
+    '.gm-radical-moment > div',
+    '.gm-radical-final',
+  ].join(', '))
+
+  textBlocks.forEach((element) => {
+    gsap.from(element, {
+      x: 34,
+      autoAlpha: 0,
+      duration: 0.62,
+      ease: 'power2.out',
+      clearProps: 'transform,opacity,visibility',
+      immediateRender: false,
+      scrollTrigger: { trigger: element, start: 'top 88%', toggleActions: 'play none none none' },
+    })
+  })
+}
+
+function centerOut(items) {
+  const center = Math.floor((items.length - 1) / 2)
+  return [...items].sort((a, b) => {
+    const distance = Math.abs(items.indexOf(a) - center) - Math.abs(items.indexOf(b) - center)
+    if (distance !== 0) return distance
+    return items.indexOf(a) - items.indexOf(b)
+  })
 }
 
 function getGmPageType(root) {
@@ -527,13 +802,17 @@ function runPageSpecificMotion(type) {
   }
 
   if (type === 'offers') {
-    gsap.from('.gm-offer-row', {
+    const offerBoard = document.querySelector('.gm-offer-board')
+    const offerRows = document.querySelectorAll('.gm-offer-row')
+    if (!offerBoard || !offerRows.length) return
+
+    gsap.from(offerRows, {
       xPercent: -4,
       stagger: 0.08,
       duration: 0.78,
       ease: 'power3.out',
       immediateRender: false,
-      scrollTrigger: { trigger: '.gm-offer-board', start: 'top 76%', toggleActions: 'play none none none' },
+      scrollTrigger: { trigger: offerBoard, start: 'top 76%', toggleActions: 'play none none none' },
     })
   }
 

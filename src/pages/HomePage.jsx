@@ -5,77 +5,100 @@ import BookingBar from '../components/BookingBar'
 import Icon from '../components/Icon'
 import Link from '../router/Link'
 import { images } from '../data/images'
-import { brand, brandMoments, destinations, directReasons, hotels, magazineArticles, mice, offers, stats } from '../data/siteData'
+import { brand, brandMoments, destinations, directReasons, hotels, mice, stats } from '../data/siteData'
 import { useSeo } from '../hooks/usePageEffects'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const signatureSlugs = ['grand-mogador-agdal', 'grand-mogador-menara', 'grand-mogador-sea-view-tanger', 'mogador-opera']
+const serviceNames = ['Piscines', 'Restaurants', 'Bars', 'Spa', 'Fitness', 'Kids & loisirs', 'Business', 'Congrès']
 
-const travellerPaths = [
-  ['Famille', 'Séjours fluides, chambres adaptées, piscines et loisirs.', images.legacy.agadirPool, 'people', '/hotels'],
-  ['Couple', 'Spa, gastronomie, suites et parenthèses lumineuses.', images.legacy.seaSuite, 'spa', '/experiences'],
-  ['Business', 'Salles, hébergement, congrès et accompagnement groupes.', images.legacy.agdalCongress, 'meeting', '/reunions-evenements'],
+const usageCards = [
+  ['Dormir', 'Chambres, suites et séjours famille', 'Comparer les hôtels par destination, niveau de confort et usage.', images.legacy.menaraRoom, '/hotels', 'bed'],
+  ['Se détendre', 'Spas, hammams et piscines', 'Composer une parenthèse bien-être dans les adresses Mogador.', images.official.spa, '/experiences', 'spa'],
+  ['Se réunir', 'Congrès, séminaires et groupes', 'Marrakech, Casablanca et Tanger pour vos événements corporate.', images.official.mice, '/reunions-evenements', 'meeting'],
+  ['Manger', 'Restaurants, salons et saveurs marocaines', 'Tables marocaines, cuisines du monde et pauses conviviales.', images.official.restaurant, '/experiences', 'dining'],
+  ['Explorer', 'Cinq destinations au Maroc', 'Marrakech, Tanger, Casablanca, Agadir et Essaouira.', images.official.destinations.marrakech, '/destinations', 'local'],
 ]
 
-const bookingIntents = [
-  ['Un séjour', 'Comparez les hôtels, choisissez vos dates et sécurisez votre avantage direct.', images.legacy.seaSuite, '/#reservation', 'Réserver maintenant'],
-  ['Un événement', 'Congrès, séminaire, groupe ou réception: une équipe commerciale vous répond.', images.legacy.agdalCongress, '/reunions-evenements', 'Demander un devis'],
-  ['Une expérience', 'Spa, gastronomie, loisirs et moments locaux pour composer un séjour complet.', images.legacy.homeSpa, '/experiences', 'Composer mon séjour'],
+const chapters = [
+  {
+    number: '01',
+    kicker: 'Une histoire marocaine',
+    title: 'Un groupe hôtelier, plusieurs façons de vivre le Maroc.',
+    text: 'Mogador Hotels & Resorts réunit des adresses urbaines, resorts, hôtels 5 étoiles, appart-hôtels et lieux d’événements. La promesse est simple: choisir une destination, comprendre l’expérience, réserver directement avec la marque.',
+    image: images.official.universe,
+    to: '/hotels',
+    cta: 'Découvrir le groupe',
+  },
+  {
+    number: '02',
+    kicker: 'Chambres, suites et resorts',
+    title: 'Des séjours pour dormir, respirer, travailler ou partir en famille.',
+    text: 'Des chambres 5 étoiles de Marrakech et Tanger aux séjours libres en appart-hôtel, chaque adresse met en avant le confort, les services essentiels et l’accès direct aux équipes Mogador.',
+    image: images.legacy.seaSuite,
+    to: '/hotels',
+    cta: 'Voir les hôtels',
+  },
+  {
+    number: '03',
+    kicker: 'Gastronomie et salons',
+    title: 'Une table marocaine ouverte aux cuisines du monde.',
+    text: 'Restaurants, salons de thé, petits-déjeuners, room service et moments conviviaux accompagnent le séjour sans transformer la page en promesse vide.',
+    image: images.official.restaurant,
+    to: '/experiences',
+    cta: 'Découvrir les expériences',
+  },
+  {
+    number: '04',
+    kicker: 'Spa et détente',
+    title: 'Hammams, soins, piscines et rituels de repos.',
+    text: 'Le bien-être Mogador s’exprime par des espaces concrets: spas, salles de massage, piscines intérieures et extérieures, fitness et loisirs selon les établissements.',
+    image: images.official.spa,
+    to: '/experiences',
+    cta: 'Préparer mon séjour',
+  },
+  {
+    number: '05',
+    kicker: 'Événements',
+    title: 'Le Grand Palais des Congrès donne une vraie force corporate au groupe.',
+    text: mice.text,
+    image: images.official.mice,
+    to: '/reunions-evenements',
+    cta: 'Planifier un événement',
+  },
 ]
 
-const immersionMoments = [
-  ['Dormir', 'Chambres & suites', 'Des espaces pensés pour le repos, la lumière et le confort.', images.legacy.menaraRoom, '/hotels'],
-  ['Manger', 'Restaurants & salons', 'Cuisine marocaine, tables internationales, pauses gourmandes.', images.legacy.homeRestaurant, '/experiences'],
-  ['Se détendre', 'Spa & loisirs', 'Hammams, soins, piscines et rituels inspirés du Maroc.', images.legacy.homeSpa, '/experiences'],
-  ['Se réunir', 'MICE & congrès', 'Salles, palais des congrès et accompagnement corporate.', images.legacy.agdalCongress, '/reunions-evenements'],
-  ['Explorer', 'Destinations', 'Marrakech, Tanger, Agadir, Essaouira et Casablanca.', images.legacy.destMarrakech, '/destinations'],
-]
-
-const collections = [
-  ['Grand Mogador', '5 étoiles', 'Bleu et beige', 'gm-collection--grand'],
-  ['Mogador', '4 étoiles', 'Rouge et gris', 'gm-collection--mogador'],
-  ['Mogador Express', 'Séjours actifs', 'Bleu express', 'gm-collection--express'],
-  ['Aqua Fun', 'Famille', 'Bleus aquatiques', 'gm-collection--aqua'],
-  ['Grand Palais', 'MICE', 'Rouge palais', 'gm-collection--palace'],
-]
-
-const experienceIcons = [
-  ['spa', 'Spa'],
-  ['dining', 'Gastronomie'],
-  ['leisure', 'Loisirs'],
-  ['meeting', 'Événements'],
-  ['local', 'Culture'],
-]
+const signatureSlugs = ['grand-mogador-agdal', 'grand-mogador-menara', 'grand-mogador-sea-view-tanger']
 
 export default function HomePage({ t, lang }) {
   const rootRef = useRef(null)
   useSeo({ title: t.home.seoTitle, description: t.home.seoDescription, lang })
 
   const signatureHotels = signatureSlugs.map((slug) => hotels.find((hotel) => hotel.slug === slug)).filter(Boolean)
-  const [leadHotel, ...otherHotels] = signatureHotels
-  const [leadDestination, ...otherDestinations] = destinations
 
   useEffect(() => {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const ctx = gsap.context(() => {
-      if (reduceMotion) {
-        gsap.set('.gm-reveal, .gm-hero__content, .gm-booking', { autoAlpha: 1, clearProps: 'transform,filter' })
-        return
-      }
+      gsap.set('.gm-radical-reveal', { autoAlpha: 1 })
+      if (reduceMotion) return
 
-      gsap.from('.gm-hero__image img', { scale: 1.025, duration: 0.45, clearProps: 'transform', ease: 'power2.out' })
+      gsap.from('.gm-radical-hero__photo img', {
+        scale: 1.04,
+        duration: 1.1,
+        ease: 'power2.out',
+        clearProps: 'transform',
+      })
 
-      gsap.utils.toArray('.gm-reveal').forEach((element) => {
+      gsap.utils.toArray('.gm-radical-reveal').forEach((element) => {
         gsap.from(element, {
-          y: 30,
-          duration: 0.72,
-          clearProps: 'transform,filter,opacity,visibility',
+          y: 28,
+          autoAlpha: 0,
+          duration: 0.75,
           ease: 'power3.out',
-          immediateRender: false,
+          clearProps: 'transform,opacity,visibility',
           scrollTrigger: {
             trigger: element,
-            start: 'top 88%',
+            start: 'top 86%',
             toggleActions: 'play none none none',
           },
         })
@@ -86,207 +109,165 @@ export default function HomePage({ t, lang }) {
   }, [])
 
   return (
-    <main className="gm-home" ref={rootRef}>
-      <section className="gm-hero" aria-label="Accueil Mogador Hotels & Resorts">
-        <div className="gm-hero__image" aria-hidden="true"><img src={images.official.homeHero} alt="" loading="eager" decoding="async" fetchPriority="high" /></div>
-        <div className="gm-hero__content">
+    <main className="gm-home gm-radical-home" ref={rootRef}>
+      <section className="gm-radical-hero" aria-label="Accueil Mogador Hotels & Resorts">
+        <div className="gm-radical-hero__photo" aria-hidden="true">
+          <img src={images.official.homeHero} alt="" loading="eager" decoding="async" fetchPriority="high" />
+        </div>
+        <div className="gm-radical-hero__shade" aria-hidden="true" />
+        <div className="gm-radical-hero__topline">
+          <img src={images.brand.logoWhite} alt="Mogador Hotels & Resorts" />
+          <Link to="/#reservation" className="gm-radical-book-link" data-track="home_top_booking">Réserver</Link>
+        </div>
+        <div className="gm-radical-hero__content">
+          <span className="gm-radical-eyebrow">Site officiel</span>
+          <h1>Escale de luxe au Maroc</h1>
+          <p>Mogador Hotels & Resorts rassemble douze hôtels, cinq destinations et le Grand Palais des Congrès Marrakech pour des séjours, événements et expériences réservés en direct.</p>
+        </div>
+        <aside className="gm-radical-compare" aria-label="Avantage site officiel">
           <span>Site officiel</span>
-          <h1>Séjours d’exception au Maroc</h1>
-          <p>Mogador Hotels & Resorts réunit douze hôtels, cinq destinations et une hospitalité marocaine conçue pour réserver directement auprès de la marque.</p>
-          <div className="gm-actions">
-            <Link to="/#reservation" className="gm-button gm-button--primary" data-track="home_hero_booking">Réserver maintenant</Link>
-            <Link to="/hotels" className="gm-button gm-button--ghost" data-track="home_hero_hotels">Découvrir les hôtels</Link>
-          </div>
-        </div>
-        <div className="gm-booking"><BookingBar t={t} /></div>
-      </section>
-
-      <section className="gm-direct" aria-label="Réservation directe">
-        {directReasons.map(([title, text]) => <article key={title}><strong>{title}</strong><span>{text}</span></article>)}
-      </section>
-
-      <section className="gm-reservation-takeover gm-reveal" aria-label="Réserver dès maintenant">
-        <div className="gm-reservation-takeover__copy">
-          <span className="gm-label">Conversion directe</span>
-          <h2>Réservez maintenant. Le bon canal, la bonne équipe, le bon avantage.</h2>
-          <p>Le parcours met en avant la réservation directe, les demandes MICE et les expériences à forte valeur pour réduire la dépendance aux OTA.</p>
-        </div>
-        <BookingBar t={t} />
-        <div className="gm-booking-intents" aria-label="Intentions de réservation">
-          {bookingIntents.map(([title, text, image, to, label]) => (
-            <Link className="gm-booking-intent" to={to} key={title} style={{ '--card-image': `url(${image})` }} data-track={`home_intent_${title.toLowerCase().replace(/\s/g, '_')}`}>
-              <img src={image} alt={title} loading="eager" decoding="async" fetchPriority={title === 'Un séjour' ? 'high' : 'auto'} />
-              <div>
-                <strong>{title}</strong>
-                <span>{text}</span>
-                <em>{label}</em>
-              </div>
-            </Link>
-          ))}
+          <strong>Meilleurs tarifs & contact direct</strong>
+          <small>Autres sites: intermédiaires</small>
+        </aside>
+        <div className="gm-radical-booking" id="reservation">
+          <BookingBar t={t} />
         </div>
       </section>
 
-      <section className="gm-brand-signature gm-reveal" id="marque" aria-label="Promesse Mogador">
-        <div className="gm-brand-signature__copy">
-          <span className="gm-label">La marque</span>
-          <h2>Une chaîne marocaine, pensée comme une expérience de confiance.</h2>
-          <p>{brand.mission}</p>
-        </div>
-        <figure className="gm-brand-signature__visual">
-          <img src={images.official.universe} alt="Hospitalité et art de vivre Mogador Hotels & Resorts" loading="eager" decoding="async" fetchPriority="high" />
-          <figcaption>
-            <span>Moroccan lifestyle</span>
-            <strong>Hospitalité, patrimoine et confiance client.</strong>
-          </figcaption>
-        </figure>
-        <div className="gm-brand-signature__proof" aria-label="Preuves de marque">
-          <article><strong>12</strong><span>hôtels au Maroc</span></article>
-          <article><strong>5</strong><span>destinations</span></article>
-          <article><strong>Direct</strong><span>réservation officielle</span></article>
-        </div>
-      </section>
-
-      <section className="gm-brand-film gm-reveal" aria-label="Film de marque Mogador">
-        <div className="gm-brand-film__media">
-          <video muted playsInline controls preload="none" poster={images.official.homeHero} aria-label="Film d'ambiance Mogador Hotels & Resorts">
-            <source src={images.videos.brandFilm} type="video/mp4" />
-            Votre navigateur ne prend pas en charge la lecture vidéo.
-          </video>
-        </div>
-        <div className="gm-brand-film__panel">
-          <span className="gm-label">Film d’inspiration</span>
-          <h2>Voir le Maroc avant de choisir son adresse.</h2>
-          <p>Un temps fort cinématique installe l’émotion attendue dans le cahier des charges: lumière, hospitalité, destinations et désir de réserver en direct.</p>
-          <div className="gm-brand-film__meta" aria-label="Parcours mis en avant">
-            <span>Séjours</span>
-            <span>Expériences</span>
-            <span>MICE</span>
-          </div>
-          <div className="gm-actions">
-            <Link to="/#reservation" className="gm-button gm-button--primary" data-track="home_film_booking">Réserver en direct</Link>
-            <Link to="/experiences" className="gm-button gm-button--ghost" data-track="home_film_experiences">Découvrir les expériences</Link>
-          </div>
-        </div>
-      </section>
-
-      <section className="gm-immersion-board" id="parcours" aria-label="Univers Mogador inspiré des usages hôteliers premium">
-        <div className="gm-section-head gm-reveal">
-          <span className="gm-label">Parcours premium</span>
-          <h2>Dormir, manger, se détendre, se réunir, explorer: chaque envie mène à une réservation.</h2>
-          <p>Une navigation par moments de vie, plus émotionnelle et plus commerciale qu’un simple catalogue d’hôtels.</p>
-        </div>
-        <div className="gm-immersion-board__grid">
-          {immersionMoments.map(([kicker, title, text, image, to], index) => (
-            <Link className={`gm-immersion-card gm-immersion-card--${index + 1} gm-reveal`} to={to} key={title} style={{ '--card-image': `url(${image})` }}>
-              <img src={image} alt={title} loading="eager" decoding="async" fetchPriority={index < 2 ? 'high' : 'auto'} />
-              <div>
-                <span>{kicker}</span>
-                <h3>{title}</h3>
-                <p>{text}</p>
-                <strong>Découvrir et réserver</strong>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      <section className="gm-paths" aria-label="Choisir son séjour">
-        {travellerPaths.map(([label, text, image, icon, to]) => (
-          <Link className="gm-path gm-reveal" to={to} key={label} style={{ '--card-image': `url(${image})` }}>
-            <img src={image} alt={label} loading="lazy" decoding="async" />
-            <div><Icon name={icon} /><strong>{label}</strong><span>{text}</span></div>
-          </Link>
+      <section className="gm-radical-direct gm-radical-reveal" aria-label="Pourquoi réserver en direct">
+        {directReasons.map(([title, text]) => (
+          <article key={title}>
+            <strong>{title}</strong>
+            <span>{text}</span>
+          </article>
         ))}
       </section>
 
-      <section className="gm-split gm-destinations" aria-label="Destinations Mogador">
-        <div className="gm-split__copy gm-reveal">
-          <span className="gm-label">Destinations</span>
-          <h2>Cinq portes d’entrée vers le Maroc.</h2>
-          <p>Marrakech, Casablanca, Tanger, Agadir et Essaouira structurent la découverte par envies de séjour.</p>
-          <Link to="/destinations" className="gm-link">Toutes les destinations</Link>
+      <section className="gm-radical-intro" aria-label="Présentation Mogador">
+        <div className="gm-radical-intro__number gm-radical-reveal">01</div>
+        <div className="gm-radical-intro__copy gm-radical-reveal">
+          <span className="gm-radical-eyebrow">Une histoire de marque</span>
+          <h2>Hospitalité marocaine, adresses concrètes, réservation directe.</h2>
+          <p>{brand.mission}</p>
         </div>
-        <article className="gm-destination gm-reveal">
-          <img src={leadDestination.image} alt={leadDestination.name} loading="lazy" decoding="async" />
-          <div><span>Destination phare</span><h3>{leadDestination.name}</h3><p>{leadDestination.text}</p></div>
-        </article>
-        <nav className="gm-destination-list" aria-label="Autres destinations">
-          {otherDestinations.map((destination) => <Link className="gm-reveal" to={`/destinations#${destination.slug}`} key={destination.slug}><strong>{destination.name}</strong><span>{destination.hotels} hôtel{destination.hotels > 1 ? 's' : ''}</span></Link>)}
-        </nav>
-      </section>
-
-      <section className="gm-collections" aria-label="Collections Mogador">
-        <div className="gm-section-head gm-reveal">
-          <span className="gm-label">Collections</span>
-          <h2>Une architecture de marque lisible.</h2>
-          <p>Chaque gamme utilise sa couleur de charte pour clarifier le niveau d’expérience.</p>
-        </div>
-        <div className="gm-collections__grid">
-          {collections.map(([name, meta, tone, className]) => <article className={`gm-collection ${className} gm-reveal`} key={name}><span>{meta}</span><h3>{name}</h3><p>{tone}</p></article>)}
+        <div className="gm-radical-services gm-radical-reveal" aria-label="Services et prestations">
+          <span>Services & prestations</span>
+          <div>{serviceNames.map((service) => <strong key={service}>{service}</strong>)}</div>
         </div>
       </section>
 
-      <section className="gm-hotels" aria-label="Hôtels signature">
-        <div className="gm-section-head gm-reveal">
-          <span className="gm-label">Hôtels signature</span>
-          <h2>Des adresses concrètes pour porter le prestige.</h2>
+      <section className="gm-radical-usage" aria-label="Parcours par envie">
+        <div className="gm-radical-section-head gm-radical-reveal">
+          <span className="gm-radical-eyebrow">Choisir par envie</span>
+          <h2>Dormir, se détendre, se réunir, manger, explorer.</h2>
+          <p>La navigation doit être immédiate: le visiteur ne cherche pas une brochure, il cherche le bon séjour.</p>
         </div>
-        {leadHotel ? <Link className="gm-hotel-lead gm-reveal" to={`/hotels/${leadHotel.slug}`}>
-          <img src={leadHotel.image} alt={leadHotel.name} loading="lazy" decoding="async" />
-          <div><span>{leadHotel.destination} / {leadHotel.category}</span><h3>{leadHotel.name}</h3><p>{leadHotel.baseline}</p><strong>Voir les disponibilités</strong></div>
-        </Link> : null}
-        <div className="gm-hotel-list">
-          {otherHotels.map((hotel) => <Link className="gm-reveal" to={`/hotels/${hotel.slug}`} key={hotel.slug}><img src={hotel.image} alt={hotel.name} loading="lazy" decoding="async" /><div><span>{hotel.destination}</span><h3>{hotel.name}</h3><p>{hotel.category}</p></div></Link>)}
-        </div>
-      </section>
-
-      <section className="gm-experiences" aria-label="Expériences Mogador">
-        <div className="gm-section-head gm-reveal">
-          <span className="gm-label">Expériences</span>
-          <h2>L’émotion avant l’inventaire.</h2>
-          <p>Le site doit vendre des moments: bien-être, gastronomie, art de vivre, loisirs et événements.</p>
-        </div>
-        <div className="gm-experience-grid">
-          {brandMoments.map((moment) => <article className="gm-experience gm-reveal" key={moment.title}><img src={moment.image} alt={moment.title} loading="lazy" decoding="async" /><div><span>{moment.label}</span><h3>{moment.title}</h3><p>{moment.text}</p></div></article>)}
-        </div>
-        <div className="gm-icons gm-reveal">{experienceIcons.map(([icon, label]) => <span key={label}><Icon name={icon} />{label}</span>)}</div>
-      </section>
-
-      <section className="gm-offers" aria-label="Offres directes">
-        <div className="gm-section-head gm-reveal">
-          <span className="gm-label">Offres directes</span>
-          <h2>Rendre le choix direct évident.</h2>
-        </div>
-        <div className="gm-offer-list">
-          {offers.map((offer) => <article className="gm-reveal" key={offer.title}><span>{offer.badge}</span><h3>{offer.title}</h3><p>{offer.text}</p><small>{offer.urgency}</small></article>)}
-        </div>
-        <Link to="/#reservation" className="gm-button gm-button--primary gm-reveal" data-track="home_offers_booking">Réserver en direct</Link>
-      </section>
-
-      <section className="gm-mice" aria-label="Grand Palais des Congrès Marrakech">
-        <img src={images.official.mice} alt="" loading="lazy" decoding="async" aria-hidden="true" />
-        <div className="gm-mice__content gm-reveal">
-          <span className="gm-label">Grand Palais des Congrès Marrakech</span>
-          <h2>Une capacité corporate qui crédibilise le groupe.</h2>
-          <p>{mice.text}</p>
-          <div className="gm-mice__stats">{mice.stats.slice(0, 3).map((stat) => <article key={stat.label}><strong>{stat.value}</strong><span>{stat.label}</span></article>)}</div>
-          <Link to="/reunions-evenements" className="gm-button gm-button--light" data-track="home_mice_quote">Demander une proposition</Link>
+        <div className="gm-radical-usage__grid">
+          {usageCards.map(([label, title, text, image, to, icon], index) => (
+            <Link className="gm-radical-use gm-radical-reveal" to={to} key={label} data-track={`home_use_${label.toLowerCase().replace(/\s/g, '_')}`}>
+              <img src={image} alt={title} loading={index < 2 ? 'eager' : 'lazy'} decoding="async" />
+              <div>
+                <span><Icon name={icon} /> {label}</span>
+                <h3>{title}</h3>
+                <p>{text}</p>
+                <strong>Découvrir</strong>
+              </div>
+            </Link>
+          ))}
         </div>
       </section>
 
-      <section className="gm-numbers" aria-label="Mogador en chiffres">
-        {stats.map((stat) => <article className="gm-reveal" key={stat.label}><strong>{stat.value}</strong><span>{stat.label}</span></article>)}
+      <section className="gm-radical-chapters" aria-label="Chapitres Mogador">
+        {chapters.map((chapter, index) => (
+          <article className={`gm-radical-chapter gm-radical-chapter--${index % 2 === 0 ? 'left' : 'right'} gm-radical-reveal`} key={chapter.number}>
+            <div className="gm-radical-chapter__media">
+              <img src={chapter.image} alt={chapter.title} loading={index < 2 ? 'eager' : 'lazy'} decoding="async" />
+            </div>
+            <div className="gm-radical-chapter__copy">
+              <span className="gm-radical-chapter__number">{chapter.number}</span>
+              <span className="gm-radical-eyebrow">{chapter.kicker}</span>
+              <h2>{chapter.title}</h2>
+              <p>{chapter.text}</p>
+              <Link to={chapter.to} className="gm-radical-text-link" data-track={`home_chapter_${chapter.number}`}>{chapter.cta}</Link>
+            </div>
+          </article>
+        ))}
       </section>
 
-      <section className="gm-final" aria-label="Réservation officielle Mogador">
-        <img src={images.brand.logo} alt="Mogador Hotels & Resorts" />
-        <span className="gm-label">Site officiel</span>
-        <h2>Votre séjour commence ici.</h2>
-        <p>Choisissez la destination, comparez les hôtels, découvrez les expériences et réservez directement auprès de Mogador Hotels & Resorts.</p>
-        <div>{magazineArticles.slice(0, 3).map((article) => <Link to="/magazine" key={article.slug}>{article.title}</Link>)}</div>
-        <div className="gm-actions"><Link className="gm-button gm-button--primary" to="/#reservation" data-track="home_final_booking">Réserver maintenant</Link><Link className="gm-button gm-button--secondary-dark" to="/contact" data-track="home_final_contact">Contacter Mogador</Link></div>
+      <section className="gm-radical-signatures" aria-label="Hôtels signature">
+        <div className="gm-radical-section-head gm-radical-reveal">
+          <span className="gm-radical-eyebrow">Hôtels signature</span>
+          <h2>Trois adresses pour comprendre le niveau Grand Mogador.</h2>
+        </div>
+        <div className="gm-radical-signatures__grid">
+          {signatureHotels.map((hotel, index) => (
+            <article className="gm-hotel-tile gm-hotel-tile--signature gm-radical-reveal" style={{ '--delay': `${index * 70}ms` }} key={hotel.slug}>
+              <Link className="gm-hotel-tile__media" to={`/hotels/${hotel.slug}`}>
+                <img src={hotel.image} alt={hotel.name} loading="lazy" decoding="async" />
+              </Link>
+              <div className="gm-hotel-tile__body">
+                <span className="gm-hotel-tile__topline">{hotel.destination} / {hotel.category}</span>
+                <h3>{hotel.name}</h3>
+                <i />
+                <p>{hotel.baseline}</p>
+                <div className="gm-hotel-tile__badges">{hotel.facts.slice(0, 3).map((fact) => <small key={fact}>{fact}</small>)}</div>
+                <div className="gm-hotel-tile__actions"><Link className="gm-hotel-tile__details" to={`/hotels/${hotel.slug}`}>Détails</Link></div>
+              </div>
+            </article>
+          ))}
+        </div>
       </section>
 
+      <section className="gm-radical-destinations" aria-label="Destinations Mogador">
+        <div className="gm-radical-destinations__visual gm-radical-reveal">
+          <img src={images.official.destinations.tanger} alt="Destinations Mogador au Maroc" loading="lazy" decoding="async" />
+        </div>
+        <div className="gm-radical-destinations__copy gm-radical-reveal">
+          <span className="gm-radical-eyebrow">Le Maroc Mogador</span>
+          <h2>Cinq destinations, une seule porte officielle.</h2>
+          <div className="gm-radical-destination-list">
+            {destinations.map((destination) => (
+              <Link to={`/destinations#${destination.slug}`} key={destination.slug}>
+                <strong>{destination.name}</strong>
+                <span>{destination.hotels} hôtel{destination.hotels > 1 ? 's' : ''}</span>
+              </Link>
+            ))}
+          </div>
+          <Link to="/destinations" className="gm-radical-text-link" data-track="home_destinations_all">Toutes les destinations</Link>
+        </div>
+      </section>
+
+      <section className="gm-radical-moments" aria-label="Moments de séjour">
+        {brandMoments.map((moment) => (
+          <article className="gm-radical-moment gm-radical-reveal" key={moment.title}>
+            <img src={moment.image} alt={moment.title} loading="lazy" decoding="async" />
+            <div>
+              <span>{moment.label}</span>
+              <h3>{moment.title}</h3>
+              <p>{moment.text}</p>
+            </div>
+          </article>
+        ))}
+      </section>
+
+      <section className="gm-radical-numbers" aria-label="Mogador en chiffres">
+        {stats.slice(0, 4).map((stat) => (
+          <article className="gm-radical-reveal" key={stat.label}>
+            <strong>{stat.value}</strong>
+            <span>{stat.label}</span>
+          </article>
+        ))}
+      </section>
+
+      <section className="gm-radical-final" aria-label="Réservation officielle Mogador">
+        <span className="gm-radical-eyebrow">Réservez votre séjour</span>
+        <h2>Le bon prix, le bon hôtel, le bon contact: commencez sur le site officiel.</h2>
+        <div className="gm-radical-final__actions">
+          <Link to="/#reservation" className="gm-radical-button" data-track="home_final_booking">Réserver maintenant</Link>
+          <Link to="/contact" className="gm-radical-button gm-radical-button--light" data-track="home_final_contact">Contacter Mogador</Link>
+        </div>
+        <small>{brand.phone}</small>
+      </section>
     </main>
   )
 }

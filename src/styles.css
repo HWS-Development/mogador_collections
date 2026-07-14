@@ -1,22 +1,6 @@
 @font-face {
-  font-family: "Myanmar MN";
-  src: local("Myanmar MN"), local("MyanmarMN"), local("Avenir"), local("Segoe UI");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Cedra 4F";
-  src: local("Cedra 4F"), local("Cedra4F"), local("Avenir Next"), local("Avenir"), local("Segoe UI");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
   font-family: "Cedra 4F Wide";
-  src: local("Cedra 4F Wide"), local("Cedra4F Wide"), local("Avenir Next Condensed"), local("Avenir Next"), local("Segoe UI");
+  src: local("Cedra 4F Wide"), local("Cedra4F Wide"), local("Avenir Next Condensed"), local("Avenir Next");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -24,7 +8,7 @@
 
 @font-face {
   font-family: "Avenir";
-  src: local("Avenir"), local("Avenir Next"), local("Segoe UI");
+  src: local("Avenir"), local("Avenir Next");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -32,8 +16,16 @@
 
 @font-face {
   font-family: "Avenir Next";
-  src: local("Avenir Next"), local("Avenir"), local("Segoe UI");
+  src: local("Avenir Next"), local("Avenir");
   font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Century Gothic Bold";
+  src: local("Century Gothic Bold"), local("CenturyGothic-Bold"), local("Century Gothic");
+  font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
@@ -61,9 +53,9 @@
   --line-red: rgba(154, 25, 23, 0.14);
   --shadow: 0 24px 78px rgba(29, 29, 27, 0.1);
   --shadow-deep: 0 34px 110px rgba(29, 29, 27, 0.22);
-  --display-font: "Cedra 4F Wide", "Cedra 4F", "Avenir Next", "Avenir", "Segoe UI", sans-serif;
-  --body-font: "Myanmar MN", "Avenir", "Segoe UI", Arial, sans-serif;
-  --title-font: "Cedra 4F", "Avenir Next", "Avenir", "Segoe UI", sans-serif;
+  --display-font: "Cedra 4F Wide", "Avenir Next", "Avenir", sans-serif;
+  --body-font: "Avenir", "Avenir Next", sans-serif;
+  --title-font: "Century Gothic Bold", "Avenir Next", "Avenir", sans-serif;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
   --scroll-progress: 0;
   font-family: var(--body-font);
@@ -5996,6 +5988,7 @@ html body .gm-page .gm-room-card > div {
   .gm-hotel-slider__track {
     grid-auto-columns: minmax(280px, 88vw);
   }
+
 }
 
 /* Absolute final lock: human-scale typography and booking readability. */
@@ -6643,5 +6636,2329 @@ html body .gm-page .gm-service-card {
 
   html body .gm-page .gm-hotel-tile__actions {
     grid-template-columns: 1fr !important;
+  }
+}
+/* Radical Don CeSar x The Hotel Brussels inspired homepage */
+.gm-radical-home {
+  --radical-ink: #211814;
+  --radical-muted: #766960;
+  --radical-paper: #f7f0e8;
+  --radical-cream: #fffaf3;
+  --radical-line: rgba(88, 61, 42, 0.2);
+  --radical-red: #9a1917;
+  --radical-blue: #242943;
+  background: var(--radical-paper);
+  color: var(--radical-ink);
+  overflow: clip;
+}
+
+.gm-radical-home :where(h1, h2, h3, p) {
+  margin: 0;
+}
+
+.gm-radical-home img {
+  display: block;
+  width: 100%;
+}
+
+.gm-radical-eyebrow {
+  color: var(--radical-red);
+  font-size: clamp(0.72rem, 0.9vw, 0.84rem);
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.gm-radical-hero {
+  position: relative;
+  min-height: 100svh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  isolation: isolate;
+  background: #111;
+}
+
+.gm-radical-hero__photo,
+.gm-radical-hero__shade {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+}
+
+.gm-radical-hero__photo img {
+  height: 100%;
+  object-fit: cover;
+}
+
+.gm-radical-hero__shade {
+  z-index: -1;
+  background:
+    linear-gradient(90deg, rgba(15, 10, 7, 0.75), rgba(15, 10, 7, 0.34) 47%, rgba(15, 10, 7, 0.14)),
+    linear-gradient(0deg, rgba(15, 10, 7, 0.66), transparent 45%);
+}
+
+.gm-radical-hero__topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: clamp(1.1rem, 3vw, 2.5rem) clamp(1rem, 4vw, 4.5rem);
+}
+
+.gm-radical-hero__topline img {
+  width: min(190px, 48vw);
+  height: auto;
+}
+
+.gm-radical-book-link,
+.gm-radical-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3rem;
+  padding: 0.9rem 1.35rem;
+  border: 1px solid rgba(255, 255, 255, 0.68);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.94);
+  color: var(--radical-red);
+  font-size: 0.76rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.gm-radical-hero__content {
+  width: min(760px, calc(100% - 2rem));
+  align-self: center;
+  padding: clamp(3rem, 9vw, 8rem) clamp(1rem, 4vw, 4.5rem) clamp(8rem, 13vw, 12rem);
+  color: white;
+}
+
+.gm-radical-hero__content h1 {
+  max-width: 11ch;
+  margin-top: 0.7rem;
+  font-family: var(--display-font);
+  font-size: clamp(3.5rem, 10.8vw, 9.5rem);
+  font-weight: 400;
+  line-height: 0.88;
+  letter-spacing: -0.08em;
+}
+
+.gm-radical-hero__content p {
+  max-width: 620px;
+  margin-top: 1.4rem;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: clamp(1rem, 1.45vw, 1.32rem);
+  line-height: 1.55;
+}
+
+.gm-radical-compare {
+  position: absolute;
+  right: clamp(1rem, 4vw, 4.5rem);
+  bottom: clamp(9rem, 13vw, 11.5rem);
+  width: min(310px, calc(100% - 2rem));
+  padding: 1.2rem;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(255, 250, 243, 0.92);
+  color: var(--radical-ink);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.22);
+}
+
+.gm-radical-compare span,
+.gm-radical-compare small {
+  display: block;
+  color: var(--radical-muted);
+  font-size: 0.76rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.gm-radical-compare strong {
+  display: block;
+  margin: 0.35rem 0 0.55rem;
+  color: var(--radical-red);
+  font-family: var(--display-font);
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1.05;
+}
+
+.gm-radical-booking {
+  margin: 0 clamp(1rem, 4vw, 4.5rem) clamp(1rem, 3vw, 2.4rem);
+  padding: 0.75rem;
+  background: rgba(255, 250, 243, 0.96);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.24);
+}
+
+.gm-radical-booking .booking-bar {
+  margin: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.gm-radical-direct {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-bottom: 1px solid var(--radical-line);
+  background: var(--radical-cream);
+}
+
+.gm-radical-direct article {
+  display: grid;
+  gap: 0.45rem;
+  padding: clamp(1.2rem, 3vw, 2.2rem);
+  border-right: 1px solid var(--radical-line);
+}
+
+.gm-radical-direct article:last-child {
+  border-right: 0;
+}
+
+.gm-radical-direct strong {
+  color: var(--radical-red);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.gm-radical-direct span {
+  color: var(--radical-muted);
+  line-height: 1.5;
+}
+
+.gm-radical-intro,
+.gm-radical-usage,
+.gm-radical-signatures,
+.gm-radical-destinations,
+.gm-radical-moments,
+.gm-radical-numbers,
+.gm-radical-final {
+  padding: clamp(4rem, 8vw, 8rem) clamp(1rem, 4vw, 4.5rem);
+}
+
+.gm-radical-intro {
+  display: grid;
+  grid-template-columns: minmax(7rem, 0.35fr) minmax(0, 1fr) minmax(280px, 0.55fr);
+  gap: clamp(1.5rem, 4vw, 4rem);
+  align-items: start;
+}
+
+.gm-radical-intro__number,
+.gm-radical-chapter__number {
+  color: var(--radical-red);
+  font-family: var(--display-font);
+  font-size: clamp(4.5rem, 11vw, 10rem);
+  line-height: 0.85;
+}
+
+.gm-radical-intro h2,
+.gm-radical-section-head h2,
+.gm-radical-chapter h2,
+.gm-radical-destinations h2,
+.gm-radical-final h2 {
+  margin-top: 0.55rem;
+  font-family: var(--display-font);
+  font-size: clamp(2.25rem, 5vw, 5.6rem);
+  font-weight: 400;
+  line-height: 0.96;
+  letter-spacing: -0.055em;
+}
+
+.gm-radical-intro p,
+.gm-radical-section-head p,
+.gm-radical-chapter p,
+.gm-radical-destinations p,
+.gm-radical-final p {
+  margin-top: 1.1rem;
+  color: var(--radical-muted);
+  font-size: clamp(1rem, 1.22vw, 1.18rem);
+  line-height: 1.7;
+}
+
+.gm-radical-services {
+  padding: 1.4rem;
+  border: 1px solid var(--radical-line);
+  background: var(--radical-cream);
+}
+
+.gm-radical-services span {
+  display: block;
+  margin-bottom: 1rem;
+  color: var(--radical-red);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.gm-radical-services div {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.7rem 1rem;
+}
+
+.gm-radical-services strong {
+  padding-bottom: 0.65rem;
+  border-bottom: 1px solid var(--radical-line);
+  font-family: var(--title-font);
+  font-size: 1.1rem;
+  font-weight: 400;
+}
+
+.gm-radical-section-head {
+  max-width: 920px;
+  margin-bottom: clamp(1.8rem, 4vw, 3.5rem);
+}
+
+.gm-radical-usage__grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: clamp(0.8rem, 1.5vw, 1.2rem);
+}
+
+.gm-radical-use {
+  position: relative;
+  min-height: 460px;
+  display: flex;
+  align-items: flex-end;
+  grid-column: span 4;
+  overflow: hidden;
+  color: white;
+  text-decoration: none;
+  background: #211814;
+}
+
+.gm-radical-use:first-child,
+.gm-radical-use:nth-child(2) {
+  grid-column: span 6;
+}
+
+.gm-radical-use img {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s ease;
+}
+
+.gm-radical-use::after {
+  position: absolute;
+  inset: 0;
+  content: '';
+  background: linear-gradient(0deg, rgba(21, 14, 10, 0.78), rgba(21, 14, 10, 0.05) 64%);
+}
+
+.gm-radical-use div {
+  position: relative;
+  z-index: 1;
+  padding: clamp(1.2rem, 2.4vw, 2rem);
+}
+
+.gm-radical-use span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: rgba(255, 255, 255, 0.78);
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.gm-radical-use svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.gm-radical-use h3 {
+  max-width: 13ch;
+  margin-top: 0.7rem;
+  font-family: var(--display-font);
+  font-size: clamp(2rem, 3.8vw, 4.2rem);
+  font-weight: 400;
+  line-height: 0.96;
+  letter-spacing: -0.05em;
+}
+
+.gm-radical-use p {
+  max-width: 420px;
+  margin-top: 0.85rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.55;
+}
+
+.gm-radical-use strong,
+.gm-radical-text-link {
+  display: inline-flex;
+  margin-top: 1rem;
+  color: inherit;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.gm-radical-text-link {
+  color: var(--radical-red);
+}
+
+.gm-radical-use:hover img,
+.gm-radical-hotel:hover img,
+.gm-radical-moment:hover img {
+  transform: scale(1.045);
+}
+
+.gm-radical-chapters {
+  display: grid;
+  gap: clamp(3rem, 7vw, 7rem);
+  padding: clamp(2rem, 5vw, 4rem) clamp(1rem, 4vw, 4.5rem) clamp(4rem, 8vw, 8rem);
+}
+
+.gm-radical-chapter {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+  gap: clamp(1.5rem, 5vw, 5rem);
+  align-items: center;
+}
+
+.gm-radical-chapter--right .gm-radical-chapter__media {
+  order: 2;
+}
+
+.gm-radical-chapter__media {
+  position: relative;
+  min-height: clamp(420px, 58vw, 720px);
+  overflow: hidden;
+  background: var(--radical-cream);
+}
+
+.gm-radical-chapter__media img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gm-radical-chapter__number {
+  display: block;
+  margin-bottom: 1rem;
+  font-size: clamp(3.8rem, 8vw, 7rem);
+}
+
+.gm-radical-signatures {
+  background: var(--radical-blue);
+  color: white;
+}
+
+.gm-radical-signatures .gm-radical-section-head p,
+.gm-radical-signatures .gm-radical-eyebrow {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.gm-radical-signatures__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.gm-radical-hotel {
+  display: grid;
+  grid-template-rows: 360px 1fr;
+  overflow: hidden;
+  background: #15192e;
+  color: white;
+  text-decoration: none;
+}
+
+.gm-radical-hotel img,
+.gm-radical-moment img {
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s ease;
+}
+
+.gm-radical-hotel div {
+  display: grid;
+  gap: 0.65rem;
+  padding: 1.35rem;
+}
+
+.gm-radical-hotel span,
+.gm-radical-moment span {
+  color: var(--radical-red);
+  font-size: 0.75rem;
+  font-weight: 900;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.gm-radical-hotel h3,
+.gm-radical-moment h3 {
+  font-family: var(--display-font);
+  font-size: clamp(1.7rem, 2.3vw, 2.5rem);
+  font-weight: 400;
+  line-height: 1;
+}
+
+.gm-radical-hotel p,
+.gm-radical-moment p {
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.55;
+}
+
+.gm-radical-hotel strong {
+  color: white;
+  font-size: 0.75rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.gm-radical-destinations {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(320px, 1fr);
+  gap: clamp(1.5rem, 5vw, 5rem);
+  align-items: center;
+  background: var(--radical-cream);
+}
+
+.gm-radical-destinations__visual {
+  min-height: 660px;
+  overflow: hidden;
+}
+
+.gm-radical-destinations__visual img {
+  height: 100%;
+  object-fit: cover;
+}
+
+.gm-radical-destination-list {
+  display: grid;
+  margin: 2rem 0 0.5rem;
+  border-top: 1px solid var(--radical-line);
+}
+
+.gm-radical-destination-list a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--radical-line);
+  color: var(--radical-ink);
+  text-decoration: none;
+}
+
+.gm-radical-destination-list strong {
+  font-family: var(--display-font);
+  font-size: clamp(1.4rem, 2.2vw, 2rem);
+  font-weight: 400;
+}
+
+.gm-radical-destination-list span {
+  color: var(--radical-muted);
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.gm-radical-moments {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--radical-line);
+}
+
+.gm-radical-moment {
+  display: grid;
+  grid-template-rows: 340px 1fr;
+  overflow: hidden;
+  background: var(--radical-ink);
+  color: white;
+}
+
+.gm-radical-moment div {
+  display: grid;
+  gap: 0.7rem;
+  padding: 1.35rem;
+}
+
+.gm-radical-numbers {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  padding-top: 0;
+  background: var(--radical-line);
+}
+
+.gm-radical-numbers article {
+  display: grid;
+  gap: 0.5rem;
+  padding: clamp(1.2rem, 3vw, 2.2rem);
+  background: var(--radical-paper);
+}
+
+.gm-radical-numbers strong {
+  color: var(--radical-red);
+  font-family: var(--display-font);
+  font-size: clamp(2.6rem, 5.5vw, 5.2rem);
+  font-weight: 400;
+  line-height: 0.95;
+}
+
+.gm-radical-numbers span {
+  color: var(--radical-muted);
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.gm-radical-final {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  background: var(--radical-red);
+  color: white;
+}
+
+.gm-radical-final .gm-radical-eyebrow,
+.gm-radical-final small {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.gm-radical-final h2 {
+  max-width: 960px;
+  margin-right: auto;
+  margin-left: auto;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.gm-radical-final__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.8rem;
+  margin-top: 1.8rem;
+}
+
+.gm-radical-button--light {
+  background: transparent;
+  color: white;
+}
+
+.gm-radical-final small {
+  margin-top: 1.4rem;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+}
+
+@media (max-width: 980px) {
+  .gm-radical-compare {
+    position: static;
+    margin: 0 1rem 1rem;
+  }
+
+  .gm-radical-hero__content {
+    padding-bottom: 2rem;
+  }
+
+  .gm-radical-direct,
+  .gm-radical-intro,
+  .gm-radical-chapter,
+  .gm-radical-signatures__grid,
+  .gm-radical-destinations,
+  .gm-radical-moments,
+  .gm-radical-numbers {
+    grid-template-columns: 1fr;
+  }
+
+  .gm-radical-chapter--right .gm-radical-chapter__media {
+    order: 0;
+  }
+
+  .gm-radical-use,
+  .gm-radical-use:first-child,
+  .gm-radical-use:nth-child(2) {
+    grid-column: span 6;
+  }
+}
+
+@media (max-width: 700px) {
+  .gm-radical-hero {
+    min-height: auto;
+  }
+
+  .gm-radical-hero__topline {
+    padding: 1rem;
+  }
+
+  .gm-radical-book-link {
+    min-height: 2.6rem;
+    padding: 0.75rem 1rem;
+  }
+
+  .gm-radical-hero__content {
+    width: auto;
+    padding: 4.5rem 1rem 2rem;
+  }
+
+  .gm-radical-hero__content h1 {
+    font-size: clamp(3.4rem, 19vw, 5.2rem);
+  }
+
+  .gm-radical-booking {
+    margin: 0 1rem 1rem;
+  }
+
+  .gm-radical-direct article {
+    border-right: 0;
+    border-bottom: 1px solid var(--radical-line);
+  }
+
+  .gm-radical-intro,
+  .gm-radical-usage,
+  .gm-radical-signatures,
+  .gm-radical-destinations,
+  .gm-radical-moments,
+  .gm-radical-numbers,
+  .gm-radical-final,
+  .gm-radical-chapters {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .gm-radical-services div {
+    grid-template-columns: 1fr;
+  }
+
+  .gm-radical-use,
+  .gm-radical-use:first-child,
+  .gm-radical-use:nth-child(2) {
+    grid-column: 1 / -1;
+    min-height: 390px;
+  }
+
+  .gm-radical-chapter__media,
+  .gm-radical-destinations__visual {
+    min-height: 360px;
+  }
+
+  .gm-radical-hotel,
+  .gm-radical-moment {
+    grid-template-rows: 280px 1fr;
+  }
+
+  .gm-radical-final__actions {
+    width: 100%;
+  }
+
+  .gm-radical-final__actions a {
+    width: 100%;
+  }
+}
+
+/* Site-wide cinematic motion support */
+.gm-luxury-motion {
+  --lux-x: 50%;
+  --lux-y: 35%;
+  isolation: isolate;
+}
+
+.gm-luxury-motion::before {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  content: '';
+  background:
+    radial-gradient(circle at var(--lux-x) var(--lux-y), rgba(154, 25, 23, 0.13), transparent 26rem),
+    linear-gradient(120deg, rgba(255, 246, 232, 0.06), rgba(44, 47, 77, 0.05));
+  mix-blend-mode: multiply;
+}
+
+.gm-luxury-motion > * {
+  position: relative;
+  z-index: 1;
+}
+
+.gm-luxury-motion :where(.gm-radical-usage__grid, .gm-radical-signatures__grid, .gm-radical-moments, .gm-radical-numbers, .gm-radical-destination-list, .gm-room-catalog__grid, .gm-hotel-directory__grid, .gm-values__grid, .gm-contact-hotels__grid, .gm-experience-index__grid, .gm-charter-list, .gm-offer-showcase__grid, .gm-offer-gallery, .gm-hotel-slider__track, .gm-service-matrix__grid, .gm-hotel-gallery__grid, .gm-facilities, .gm-direct-proof, .gm-mice-command__stats, .gm-feature-list, .gm-story-stack, .gm-brand-moments, .gm-business-sections, .gm-destination-guides, .gm-hotel-sections) {
+  perspective: 1200px;
+  transform-style: preserve-3d;
+}
+
+.gm-luxury-motion :where(.gm-radical-use, .gm-radical-chapter, .gm-radical-hotel, .gm-radical-moment, .gm-story-row, .gm-business-row, .gm-destination-guide, .gm-charter-row, .gm-attraction-grid section, .gm-hotel-section, .gm-hotel-gallery figure, .gm-facilities article, .gm-final, .gm-path, .gm-immersion-card, .gm-hotel-lead, .gm-experience, .gm-booking-intent, .gm-collection, .gm-destination, .gm-hotel-tile, .gm-room-card, .gm-offer-card, .gm-editorial-card, .gm-loyalty-visual, .gm-service-card, .gm-hotel-slide, .gm-magazine-gallery__item, .gm-offer-gallery__item) {
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  will-change: transform, opacity, filter;
+}
+
+.gm-luxury-motion :where(.gm-radical-use, .gm-radical-hotel, .gm-radical-moment, .gm-story-row figure, .gm-business-row figure, .gm-destination-guide figure, .gm-attraction-grid section, .gm-hotel-section figure, .gm-hotel-gallery figure, .gm-hotel-slide, .gm-offer-gallery__item, .gm-hotel-tile, .gm-room-card, .gm-offer-card, .gm-editorial-card, .gm-experience, .gm-destination, .gm-service-card, .gm-loyalty-visual) {
+  position: relative;
+  overflow: hidden;
+}
+
+.gm-luxury-motion :where(.gm-radical-use, .gm-radical-hotel, .gm-radical-moment, .gm-story-row figure, .gm-business-row figure, .gm-destination-guide figure, .gm-attraction-grid section, .gm-hotel-section figure, .gm-hotel-gallery figure, .gm-hotel-slide, .gm-offer-gallery__item, .gm-hotel-tile, .gm-room-card, .gm-offer-card, .gm-editorial-card, .gm-experience, .gm-destination, .gm-service-card, .gm-loyalty-visual)::before {
+  position: absolute;
+  inset: -1px;
+  z-index: 2;
+  pointer-events: none;
+  content: '';
+  background: linear-gradient(115deg, transparent 0%, rgba(255, 255, 255, 0.18) 42%, transparent 58%);
+  opacity: 0;
+  transform: translateX(-35%);
+  transition: opacity 0.35s ease, transform 0.75s ease;
+}
+
+.gm-luxury-motion :where(.gm-radical-use, .gm-radical-hotel, .gm-radical-moment, .gm-story-row figure, .gm-business-row figure, .gm-destination-guide figure, .gm-attraction-grid section, .gm-hotel-section figure, .gm-hotel-gallery figure, .gm-hotel-slide, .gm-offer-gallery__item, .gm-hotel-tile, .gm-room-card, .gm-offer-card, .gm-editorial-card, .gm-experience, .gm-destination, .gm-service-card, .gm-loyalty-visual):hover::before {
+  opacity: 1;
+  transform: translateX(35%);
+}
+
+.gm-luxury-motion .gm-magnetic {
+  transform: translate3d(var(--magnet-x, 0), var(--magnet-y, 0), 0) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.gm-luxury-motion .gm-magnetic:hover {
+  box-shadow: 0 28px 90px rgba(22, 14, 10, 0.2);
+}
+
+.gm-luxury-motion :where(.gm-radical-use img, .gm-radical-chapter__media img, .gm-radical-hotel img, .gm-radical-moment img, .gm-radical-destinations__visual img, .gm-story-row img, .gm-business-row img, .gm-destination-guide img, .gm-attraction-grid img, .gm-hotel-section img, .gm-page-hero__media img, .gm-hotel-tile img, .gm-room-card img, .gm-offer-card img, .gm-editorial-card img, .gm-service-card img, .gm-hotel-slide img, .gm-offer-gallery__item img, .gm-hotel-gallery img) {
+  will-change: transform, filter;
+}
+
+.gm-luxury-motion .gm-page-hero,
+.gm-luxury-motion .gm-story-row,
+.gm-luxury-motion .gm-business-row,
+.gm-luxury-motion .gm-destination-guide,
+.gm-luxury-motion .gm-hotel-section {
+  perspective: 1300px;
+  transform-style: preserve-3d;
+}
+
+.gm-luxury-motion :where(.gm-story-row figure, .gm-business-row figure, .gm-destination-guide figure, .gm-hotel-section figure, .gm-page-hero__media) img {
+  transform-origin: center;
+}
+
+.gm-luxury-motion :where(.gm-charter-row, .gm-feature-list span, .gm-direct-proof article, .gm-mice-command__stats article, .gm-facilities article) {
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+}
+
+.gm-luxury-motion .gm-radical-hero::after,
+.gm-luxury-motion .gm-page-hero::after,
+.gm-luxury-motion .gm-hero::after {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  content: '';
+  background:
+    linear-gradient(90deg, rgba(154, 25, 23, 0.16), transparent 38%, rgba(44, 47, 77, 0.18)),
+    radial-gradient(circle at var(--lux-x) var(--lux-y), rgba(255, 255, 255, 0.18), transparent 24rem);
+  mix-blend-mode: screen;
+}
+
+.gm-luxury-motion.gm-motion-reduced *,
+html body .gm-motion-reduced * {
+  animation: none !important;
+  transition: none !important;
+  transform: none !important;
+  filter: none !important;
+}
+
+/* Internal pages use restrained fade-in motion; the stronger cinematic treatment stays on the homepage. */
+.gm-page.gm-luxury-motion::before {
+  opacity: 0.28;
+}
+
+.gm-page.gm-luxury-motion .gm-magnetic,
+.gm-page.gm-luxury-motion .gm-magnetic:hover {
+  transform: none;
+  box-shadow: inherit;
+}
+
+.gm-page.gm-luxury-motion :where(.gm-story-row figure, .gm-business-row figure, .gm-destination-guide figure, .gm-attraction-grid section, .gm-hotel-section figure, .gm-hotel-gallery figure, .gm-hotel-slide, .gm-offer-gallery__item, .gm-hotel-tile, .gm-room-card, .gm-offer-card, .gm-service-card)::before {
+  opacity: 0;
+  transition-duration: 0.45s;
+}
+
+.gm-page.gm-luxury-motion :where(.gm-story-row figure, .gm-business-row figure, .gm-destination-guide figure, .gm-attraction-grid section, .gm-hotel-section figure, .gm-hotel-gallery figure, .gm-hotel-slide, .gm-offer-gallery__item, .gm-hotel-tile, .gm-room-card, .gm-offer-card, .gm-service-card):hover::before {
+  opacity: 0.35;
+}
+
+/* Destination attraction cards: uniform premium grid, matching card sizes across each city. */
+html body .gm-page .gm-destination-guide .gm-attraction-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)) !important;
+  align-items: stretch;
+}
+
+html body .gm-page .gm-attraction-grid section {
+  height: 100%;
+  min-height: 430px;
+  grid-template-rows: 220px auto 1fr;
+  gap: 0.75rem;
+  padding: 1.05rem;
+  background: #fffdf9;
+}
+
+html body .gm-page .gm-attraction-grid__media {
+  height: 220px;
+  aspect-ratio: auto;
+  margin: -1.05rem -1.05rem 0.4rem;
+}
+
+html body .gm-page .gm-attraction-grid h4 {
+  min-height: 2.8em;
+  display: flex;
+  align-items: flex-end;
+}
+
+html body .gm-page .gm-attraction-grid p {
+  display: -webkit-box;
+  min-height: 7.75em;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+}
+
+@media (max-width: 760px) {
+  html body .gm-page .gm-attraction-grid section {
+    min-height: 390px;
+    grid-template-rows: 190px auto 1fr;
+  }
+
+  html body .gm-page .gm-attraction-grid__media {
+    height: 190px;
+  }
+}
+
+/* Requested refinement: hotels carousel zoomed out, closer to the Four Seasons rail. */
+html body .gm-hotel-carousel {
+  --hotel-card-width: clamp(260px, 23vw, 360px);
+}
+
+html body .gm-hotels-page .gm-hotel-carousel .gm-hotel-tile {
+  grid-template-rows: 285px auto !important;
+  min-height: 430px !important;
+  transform: scale(0.84) translateY(14px) !important;
+}
+
+html body .gm-hotels-page .gm-hotel-carousel .gm-hotel-tile.is-active {
+  min-height: 560px !important;
+  transform: scale(1) translateY(0) !important;
+}
+
+html body .gm-hotels-page .gm-hotel-carousel .gm-hotel-tile__body {
+  min-height: 145px !important;
+  padding: clamp(1.15rem, 2vw, 1.85rem) !important;
+}
+
+html body .gm-hotels-page .gm-hotel-carousel .gm-hotel-tile h3 {
+  font-size: clamp(0.9rem, 1.12vw, 1.16rem) !important;
+  letter-spacing: 0.2em !important;
+}
+
+html body .gm-hotels-page .gm-hotel-carousel .gm-hotel-tile p {
+  font-size: clamp(0.88rem, 0.95vw, 1rem) !important;
+  line-height: 1.62 !important;
+}
+
+/* Cinematic room section: Mogador colors only. */
+html body .gm-room-showcase--cinema {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 88% 10%, rgba(191, 165, 147, 0.18), transparent 32%),
+    radial-gradient(circle at 8% 92%, rgba(154, 25, 23, 0.12), transparent 34%),
+    linear-gradient(180deg, #f8f5f0 0%, #fffdfb 58%, #f8f5f0 100%) !important;
+}
+
+html body .gm-room-cinematic {
+  position: relative;
+  z-index: 1;
+  width: min(1500px, calc(100% - 2rem));
+  margin: clamp(2.8rem, 5vw, 4.8rem) auto 0;
+}
+
+html body .gm-room-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.7rem;
+  margin-bottom: clamp(2.6rem, 5vw, 4rem);
+}
+
+html body .gm-room-tabs button {
+  min-height: 44px;
+  padding: 0.95rem clamp(1.05rem, 2vw, 1.65rem);
+  border: 1px solid rgba(29, 29, 27, 0.2);
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--display-font);
+  font-size: clamp(0.62rem, 0.7vw, 0.72rem);
+  font-weight: 900;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  transition: color 0.45s var(--ease), border-color 0.45s var(--ease), background 0.45s var(--ease), box-shadow 0.45s var(--ease);
+}
+
+html body .gm-room-tabs button:hover,
+html body .gm-room-tabs button.is-active {
+  border-color: var(--red);
+  background: var(--red);
+  color: var(--white);
+  box-shadow: 0 18px 42px rgba(154, 25, 23, 0.18);
+}
+
+html body .gm-room-cinematic__detail {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(360px, 5fr);
+  gap: clamp(2rem, 4vw, 4rem);
+  align-items: stretch;
+}
+
+html body .gm-room-cinematic__gallery {
+  min-width: 0;
+}
+
+html body .gm-room-cinema-frame {
+  position: relative;
+  min-height: clamp(420px, 52vw, 640px);
+  overflow: hidden;
+  background: var(--grand-blue);
+  box-shadow: 0 32px 90px rgba(29, 29, 27, 0.2);
+}
+
+html body .gm-room-cinema-frame > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  animation: gm-room-photo-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  will-change: transform, opacity, filter;
+}
+
+html body .gm-room-cinema-frame[data-direction="-1"] > img {
+  animation-name: gm-room-photo-in-reverse;
+}
+
+@keyframes gm-room-photo-in {
+  from { opacity: 0; transform: translateX(58px) scale(1.06); filter: blur(8px); }
+  to { opacity: 1; transform: translateX(0) scale(1); filter: blur(0); }
+}
+
+@keyframes gm-room-photo-in-reverse {
+  from { opacity: 0; transform: translateX(-58px) scale(1.06); filter: blur(8px); }
+  to { opacity: 1; transform: translateX(0) scale(1); filter: blur(0); }
+}
+
+html body .gm-room-cinema-frame__shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(44, 47, 77, 0.18) 0%, transparent 38%, rgba(44, 47, 77, 0.76) 100%);
+  pointer-events: none;
+}
+
+html body .gm-room-cinema-frame__border {
+  position: absolute;
+  inset: 1rem;
+  border: 1px solid rgba(191, 165, 147, 0.52);
+  pointer-events: none;
+}
+
+html body .gm-room-cinema-frame__label {
+  position: absolute;
+  top: clamp(1.4rem, 2vw, 2rem);
+  left: clamp(1.4rem, 2vw, 2rem);
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: var(--white);
+  font-family: var(--display-font);
+  font-size: 0.66rem;
+  font-weight: 900;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+}
+
+html body .gm-room-cinema-frame__label i {
+  width: 34px;
+  height: 1px;
+  background: var(--grand-beige);
+}
+
+html body .gm-room-cinema-frame__title {
+  position: absolute;
+  right: clamp(1.4rem, 2vw, 2rem);
+  bottom: clamp(5.8rem, 8vw, 7rem);
+  left: clamp(1.4rem, 2vw, 2rem);
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1rem;
+  color: var(--white);
+}
+
+html body .gm-room-cinema-frame__title h3 {
+  max-width: 15ch;
+  color: var(--white);
+  font-family: var(--title-font);
+  font-size: clamp(1.55rem, 2.8vw, 2.8rem);
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  line-height: 1.08;
+  text-transform: uppercase;
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.42);
+}
+
+html body .gm-room-cinema-frame__title span {
+  color: var(--grand-beige);
+  font-family: var(--display-font);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.3em;
+  white-space: nowrap;
+}
+
+html body .gm-room-cinema-frame > button {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  display: grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border: 1px solid rgba(255, 253, 251, 0.36);
+  background: rgba(255, 253, 251, 0.1);
+  color: var(--white);
+  font-size: 1.6rem;
+  transform: translateY(-50%);
+  transition: background 0.35s var(--ease), border-color 0.35s var(--ease), color 0.35s var(--ease);
+}
+
+html body .gm-room-cinema-frame > button:hover {
+  border-color: var(--grand-beige);
+  background: var(--grand-beige);
+  color: var(--grand-blue);
+}
+
+html body .gm-room-cinema-frame > button:first-of-type { left: 1rem; }
+html body .gm-room-cinema-frame > button:last-of-type { right: 1rem; }
+
+html body .gm-room-photo-progress {
+  position: absolute;
+  right: clamp(1.4rem, 2vw, 2rem);
+  bottom: clamp(1.4rem, 2vw, 2rem);
+  left: clamp(1.4rem, 2vw, 2rem);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--white);
+}
+
+html body .gm-room-photo-progress span {
+  color: var(--grand-beige);
+  font-family: var(--display-font);
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.3em;
+}
+
+html body .gm-room-photo-progress i {
+  position: relative;
+  flex: 1;
+  height: 1px;
+  overflow: hidden;
+  background: rgba(255, 253, 251, 0.24);
+}
+
+html body .gm-room-photo-progress i::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, var(--grand-beige), rgba(255, 253, 251, 0.86));
+  transform-origin: left;
+  animation: gm-room-progress 5.45s linear both;
+}
+
+@keyframes gm-room-progress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+html body .gm-room-thumbs {
+  display: grid;
+  grid-template-columns: repeat(var(--thumb-count), minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+html body .gm-room-thumbs button {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border: 0;
+  background: var(--grand-blue);
+  opacity: 0.66;
+  transition: opacity 0.35s var(--ease), box-shadow 0.35s var(--ease), transform 0.35s var(--ease);
+}
+
+html body .gm-room-thumbs button::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(44, 47, 77, 0.34);
+  transition: opacity 0.35s var(--ease);
+}
+
+html body .gm-room-thumbs button.is-active,
+html body .gm-room-thumbs button:hover {
+  opacity: 1;
+  transform: translateY(-2px);
+  box-shadow: 0 0 0 2px var(--grand-beige), 0 0 0 5px #f8f5f0;
+}
+
+html body .gm-room-thumbs button.is-active::after,
+html body .gm-room-thumbs button:hover::after {
+  opacity: 0;
+}
+
+html body .gm-room-thumbs img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+html body .gm-room-info-card {
+  position: relative;
+  display: flex;
+  min-height: 100%;
+  flex-direction: column;
+  padding: clamp(2rem, 4vw, 3rem);
+  border: 1px solid rgba(191, 165, 147, 0.44);
+  background: var(--white);
+  box-shadow: 0 24px 70px rgba(29, 29, 27, 0.1);
+  animation: gm-room-info-in 0.75s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes gm-room-info-in {
+  from { opacity: 0; transform: translateX(34px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+html body .gm-room-corner {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-color: var(--red);
+}
+
+html body .gm-room-corner--tl { top: 1rem; left: 1rem; border-top: 1px solid; border-left: 1px solid; }
+html body .gm-room-corner--tr { top: 1rem; right: 1rem; border-top: 1px solid; border-right: 1px solid; }
+html body .gm-room-corner--bl { bottom: 1rem; left: 1rem; border-bottom: 1px solid; border-left: 1px solid; }
+html body .gm-room-corner--br { right: 1rem; bottom: 1rem; border-right: 1px solid; border-bottom: 1px solid; }
+
+html body .gm-room-info-card h3 {
+  margin-top: 1rem;
+  color: var(--red);
+  font-family: var(--title-font);
+  font-size: clamp(1.35rem, 2.25vw, 2.3rem);
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  line-height: 1.12;
+  text-transform: uppercase;
+}
+
+html body .gm-room-info-card > i {
+  width: 64px;
+  height: 2px;
+  margin-top: 1.25rem;
+  background: var(--grand-beige);
+}
+
+html body .gm-room-info-card p {
+  margin-top: 1.6rem;
+  color: rgba(29, 29, 27, 0.76);
+  font-size: 0.98rem;
+  line-height: 1.85;
+}
+
+html body .gm-room-info-card strong {
+  display: block;
+  margin-top: 2rem;
+  color: var(--red);
+  font-family: var(--display-font);
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+html body .gm-room-info-card ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem 1.4rem;
+  margin-top: 1rem;
+}
+
+html body .gm-room-info-card li {
+  display: flex;
+  gap: 0.75rem;
+  color: var(--ink);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+html body .gm-room-info-card li::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  flex: 0 0 auto;
+  margin-top: 0.48rem;
+  background: var(--grand-beige);
+  box-shadow: 0 0 0 4px rgba(191, 165, 147, 0.2);
+}
+
+html body .gm-room-info-card footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: auto;
+  padding-top: 2.4rem;
+}
+
+html body .gm-room-info-card footer > a {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1.4rem;
+  background: var(--red);
+  color: var(--white);
+  font-family: var(--display-font);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+html body .gm-room-info-card footer div {
+  display: flex;
+  gap: 0.5rem;
+}
+
+html body .gm-room-info-card footer button {
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(154, 25, 23, 0.36);
+  background: transparent;
+  color: var(--red);
+  font-size: 1.4rem;
+}
+
+html body .gm-room-info-card footer button:hover {
+  background: var(--red);
+  color: var(--white);
+}
+
+html body .gm-room-marquee {
+  overflow: hidden;
+  margin-top: clamp(3rem, 6vw, 5rem);
+  border-top: 1px solid rgba(191, 165, 147, 0.34);
+  border-bottom: 1px solid rgba(191, 165, 147, 0.34);
+  padding: 1.25rem 0;
+}
+
+html body .gm-room-marquee div {
+  display: flex;
+  width: max-content;
+  gap: 2rem;
+  animation: gm-room-marquee 28s linear infinite;
+}
+
+html body .gm-room-marquee span {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  color: rgba(154, 25, 23, 0.72);
+  font-family: var(--display-font);
+  font-size: 0.82rem;
+  font-weight: 900;
+  letter-spacing: 0.36em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+html body .gm-room-marquee span i {
+  width: 7px;
+  height: 7px;
+  background: var(--grand-beige);
+  transform: rotate(45deg);
+}
+
+@keyframes gm-room-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@media (max-width: 980px) {
+  html body .gm-room-cinematic__detail {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 680px) {
+  html body .gm-room-cinematic {
+    width: min(100% - 1rem, 1500px);
+  }
+
+  html body .gm-room-cinema-frame {
+    min-height: 430px;
+  }
+
+  html body .gm-room-cinema-frame__title {
+    display: block;
+  }
+
+  html body .gm-room-cinema-frame__title span {
+    display: block;
+    margin-top: 1rem;
+  }
+
+  html body .gm-room-info-card ul {
+    grid-template-columns: 1fr;
+  }
+
+  html body .gm-room-thumbs {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+/* Hotel accommodation stage: The Hotel-inspired split structure, adapted to Mogador brand rules. */
+html body .gm-hotel-page .gm-brand-proof {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(0.8rem, 1.4vw, 1.1rem);
+  background:
+    linear-gradient(135deg, rgba(154, 25, 23, 0.08), transparent 32%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(245, 238, 231, 0.72));
+}
+
+html body .gm-hotel-page .gm-brand-proof article {
+  position: relative;
+  min-height: 220px;
+  padding: clamp(1.1rem, 2vw, 1.65rem);
+  overflow: hidden;
+  border: 1px solid rgba(154, 25, 23, 0.12);
+  border-radius: 0 2.2rem 2.2rem 2.2rem;
+  background: rgba(255, 253, 249, 0.78);
+}
+
+html body .gm-hotel-page .gm-brand-proof article::after {
+  content: "";
+  position: absolute;
+  right: -1.4rem;
+  bottom: -1.4rem;
+  width: 120px;
+  height: 120px;
+  background: url('/assets/brand/mogador-mark.svg') center / contain no-repeat;
+  opacity: 0.055;
+}
+
+html body .gm-hotel-page .gm-brand-proof span,
+html body .gm-hotel-page .gm-scroll-overlays figcaption {
+  font-family: var(--display-font);
+  text-transform: uppercase;
+}
+
+html body .gm-hotel-page .gm-brand-proof span {
+  display: inline-flex;
+  margin-bottom: 1rem;
+  color: var(--red);
+  font-size: 0.66rem;
+  letter-spacing: 0.22em;
+}
+
+html body .gm-hotel-page .gm-brand-proof h3 {
+  margin-bottom: 0.8rem;
+  color: var(--grand-blue);
+  font-family: var(--title-font);
+  font-size: clamp(1.18rem, 1.65vw, 1.65rem);
+  line-height: 1.1;
+}
+
+html body .gm-hotel-page .gm-brand-proof p {
+  max-width: 34ch;
+  font-size: 0.95rem;
+  line-height: 1.58;
+}
+
+html body .gm-hotel-page .gm-room-showcase {
+  width: 100vw;
+  max-width: none;
+  margin-left: 50%;
+  padding-right: 0;
+  padding-left: 0;
+  transform: translateX(-50%);
+  background: var(--black);
+}
+
+html body .gm-hotel-page .gm-room-showcase__intro {
+  display: grid;
+  grid-template-columns: minmax(0, 0.38fr) minmax(0, 0.62fr);
+  gap: clamp(1rem, 2.5vw, 2rem);
+  width: min(100%, 1440px);
+  margin: 0 auto;
+  padding: clamp(2.3rem, 5vw, 5rem) clamp(1rem, 5vw, 5rem) clamp(1.4rem, 3vw, 2.6rem);
+  color: var(--white);
+}
+
+html body .gm-hotel-page .gm-room-showcase__intro .gm-label {
+  color: var(--grand-beige);
+}
+
+html body .gm-hotel-page .gm-room-showcase__intro h2 {
+  color: var(--white);
+  font-family: var(--display-font);
+  font-size: clamp(2.4rem, 6.4vw, 7.4rem);
+  font-weight: 300;
+  line-height: 0.9;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+html body .gm-hotel-page .gm-room-showcase__intro p {
+  align-self: end;
+  max-width: 58ch;
+  color: rgba(255, 253, 249, 0.72);
+}
+
+html body .gm-hotel-page .gm-scroll-overlays {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.34fr) minmax(0, 0.66fr);
+  gap: clamp(1rem, 3vw, 2.6rem);
+  align-items: start;
+}
+
+html body .gm-hotel-page .gm-scroll-overlays__copy {
+  position: sticky;
+  top: 110px;
+  padding: clamp(1.2rem, 2.5vw, 2rem);
+  border-left: 3px solid var(--red);
+  background: rgba(255, 253, 249, 0.78);
+}
+
+html body .gm-hotel-page .gm-scroll-overlays__copy h2 {
+  margin: 0.5rem 0 1rem;
+  color: var(--grand-blue);
+  font-family: var(--display-font);
+  font-size: clamp(1.8rem, 3.8vw, 4.2rem);
+  font-weight: 300;
+  line-height: 0.95;
+}
+
+html body .gm-hotel-page .gm-scroll-overlays__media {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(0.8rem, 1.6vw, 1.2rem);
+}
+
+html body .gm-hotel-page .gm-scroll-overlay-card {
+  position: relative;
+  min-height: 330px;
+  margin: 0;
+  overflow: hidden;
+  border-radius: 0 2.4rem 2.4rem 2.4rem;
+  box-shadow: var(--shadow);
+}
+
+html body .gm-hotel-page .gm-scroll-overlay-card:nth-child(even) {
+  margin-top: clamp(2rem, 7vw, 6rem);
+}
+
+html body .gm-hotel-page .gm-scroll-overlay-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+html body .gm-hotel-page .gm-scroll-overlay-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 35%, rgba(29, 29, 27, 0.68));
+}
+
+html body .gm-hotel-page .gm-scroll-overlay-card figcaption {
+  position: absolute;
+  left: 1rem;
+  bottom: 1rem;
+  z-index: 1;
+  padding: 0.55rem 0.72rem;
+  background: rgba(255, 253, 249, 0.92);
+  color: var(--red);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+}
+
+@media (max-width: 1020px) {
+  html body .gm-hotel-page .gm-brand-proof,
+  html body .gm-hotel-page .gm-scroll-overlays {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  html body .gm-hotel-page .gm-scroll-overlays__copy {
+    position: relative;
+    top: auto;
+  }
+}
+
+@media (max-width: 720px) {
+  html body .gm-hotel-page .gm-brand-proof,
+  html body .gm-hotel-page .gm-room-showcase__intro,
+  html body .gm-hotel-page .gm-scroll-overlays,
+  html body .gm-hotel-page .gm-scroll-overlays__media {
+    grid-template-columns: 1fr;
+  }
+
+  html body .gm-hotel-page .gm-scroll-overlay-card:nth-child(even) {
+    margin-top: 0;
+  }
+}
+
+html body .gm-charter-compliance {
+  background:
+    linear-gradient(90deg, rgba(154, 25, 23, 0.06), transparent 34%),
+    var(--paper);
+}
+
+html body .gm-charter-compliance__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.8rem, 1.4vw, 1.2rem);
+}
+
+html body .gm-charter-compliance__grid article {
+  display: grid;
+  grid-template-rows: 280px 1fr;
+  overflow: hidden;
+  border: 1px solid rgba(154, 25, 23, 0.12);
+  background: rgba(255, 253, 249, 0.9);
+  box-shadow: var(--shadow);
+}
+
+html body .gm-charter-compliance__grid img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+html body .gm-charter-compliance__grid div {
+  padding: clamp(1rem, 2vw, 1.5rem);
+}
+
+html body .gm-charter-compliance__grid span {
+  display: inline-flex;
+  margin-bottom: 0.65rem;
+  color: var(--red);
+  font-family: var(--display-font);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+}
+
+html body .gm-charter-compliance__grid h3 {
+  margin-bottom: 0.65rem;
+  color: var(--grand-blue);
+  font-family: var(--title-font);
+  font-size: clamp(1.25rem, 1.7vw, 1.75rem);
+}
+
+html body .gm-charter-palette {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 0.7rem;
+  margin-top: clamp(1rem, 2vw, 1.5rem);
+}
+
+html body .gm-charter-palette span {
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  gap: 0.35rem 0.7rem;
+  align-items: center;
+  padding: 0.7rem;
+  border: 1px solid rgba(99, 99, 98, 0.16);
+  background: rgba(255, 253, 249, 0.82);
+  color: var(--ink);
+  font-family: var(--title-font);
+  font-size: 0.82rem;
+}
+
+html body .gm-charter-palette i {
+  width: 34px;
+  height: 34px;
+  grid-row: span 2;
+  border-radius: 50%;
+  background: var(--swatch);
+  box-shadow: inset 0 0 0 1px rgba(29, 29, 27, 0.1);
+}
+
+html body .gm-charter-palette small {
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+
+@media (max-width: 860px) {
+  html body .gm-charter-compliance__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Four Seasons-inspired hotel grids, using only Mogador charter colours. */
+html body .gm-hotel-page .gm-room-showcase--cinema {
+  width: 100vw;
+  max-width: none;
+  margin-left: 50%;
+  padding: clamp(4rem, 8vw, 7rem) 0 clamp(3rem, 6vw, 5.5rem);
+  overflow: hidden;
+  transform: translateX(-50%);
+  background:
+    radial-gradient(circle at 50% 8%, rgba(191, 165, 147, 0.22), transparent 24rem),
+    linear-gradient(180deg, #fffdf9 0%, #f7f3ef 58%, #fffdf9 100%);
+  color: var(--ink);
+}
+
+html body .gm-hotel-page .gm-room-showcase--cinema::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, transparent 0 9%, rgba(154, 25, 23, 0.08) 9.05% 9.12%, transparent 9.2% 100%),
+    linear-gradient(90deg, transparent 0 90%, rgba(44, 47, 77, 0.08) 90.05% 90.12%, transparent 90.2% 100%);
+}
+
+html body .gm-hotel-page .gm-room-showcase--cinema .gm-room-showcase__intro {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(220px, 0.32fr) minmax(0, 0.68fr);
+  gap: clamp(1rem, 3vw, 3rem);
+  width: min(100%, 1260px);
+  margin: 0 auto clamp(2rem, 5vw, 4rem);
+  padding: 0 clamp(1rem, 4vw, 3.5rem);
+  color: var(--ink);
+}
+
+html body .gm-hotel-page .gm-room-showcase--cinema .gm-label {
+  display: inline-grid;
+  grid-template-columns: 46px auto 46px;
+  gap: 0.7rem;
+  align-items: center;
+  color: var(--red);
+}
+
+html body .gm-hotel-page .gm-room-showcase--cinema .gm-label::before,
+html body .gm-hotel-page .gm-room-showcase--cinema .gm-label::after {
+  content: "";
+  height: 1px;
+  background: var(--grand-beige);
+}
+
+html body .gm-hotel-page .gm-room-showcase--cinema .gm-room-showcase__intro h2 {
+  color: var(--ink);
+  font-family: var(--title-font);
+  font-size: clamp(2rem, 4.8vw, 4.4rem);
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  line-height: 1.02;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+html body .gm-hotel-page .gm-room-showcase--cinema .gm-room-showcase__intro p {
+  max-width: 44ch;
+  color: rgba(29, 29, 27, 0.72);
+  font-size: 0.98rem;
+  letter-spacing: 0.02em;
+  line-height: 1.7;
+}
+
+html body .gm-hotel-tile__topline {
+  color: var(--red);
+  font-family: var(--display-font);
+  font-size: 0.66rem;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+html body .gm-hotels-page .gm-hotel-directory {
+  padding: clamp(4rem, 8vw, 7rem) 0;
+  overflow: hidden;
+  background: linear-gradient(180deg, #fffdf9, #f7f3ef 52%, #fffdf9);
+}
+
+html body .gm-hotels-page .gm-hotel-directory .gm-section-head {
+  width: min(100% - 2rem, 980px);
+  margin: 0 auto clamp(2rem, 4vw, 3rem);
+  text-align: center;
+}
+
+html body .gm-hotels-page .gm-hotel-directory__grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 330px), 1fr)) !important;
+  gap: clamp(1rem, 2vw, 1.6rem) !important;
+  width: min(100% - 2rem, 1360px);
+  margin: 0 auto;
+  perspective: 1400px;
+}
+
+html body .gm-hotels-page .gm-hotel-tile {
+  display: grid !important;
+  grid-column: auto !important;
+  grid-template-columns: 1fr !important;
+  grid-template-rows: 360px auto !important;
+  min-height: 590px !important;
+  border: 1px solid rgba(99, 99, 98, 0.16) !important;
+  border-radius: 0 !important;
+  background: #fff !important;
+  box-shadow: 0 18px 44px rgba(29, 29, 27, 0.08) !important;
+  transform: none !important;
+}
+
+html body .gm-hotels-page .gm-hotel-directory__grid .gm-hotel-tile:nth-child(n) {
+  grid-column: auto !important;
+  grid-row: auto !important;
+  grid-template-columns: 1fr !important;
+  grid-template-rows: 360px auto !important;
+}
+
+html body .gm-hotels-page .gm-hotel-directory__grid .gm-hotel-tile:nth-child(n) .gm-hotel-tile__media,
+html body .gm-hotels-page .gm-hotel-directory__grid .gm-hotel-tile:nth-child(n) .gm-hotel-tile__media img {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+html body .gm-hotels-page .gm-hotel-tile:nth-child(3n + 2) {
+  transform: translateY(-26px) !important;
+}
+
+html body .gm-hotels-page .gm-hotel-tile:hover {
+  transform: translateY(-12px) !important;
+  box-shadow: 0 34px 84px rgba(29, 29, 27, 0.16) !important;
+}
+
+html body .gm-hotels-page .gm-hotel-tile__media {
+  min-height: 0;
+  overflow: hidden;
+}
+
+html body .gm-hotels-page .gm-hotel-tile__media img {
+  width: 100%;
+  height: 100% !important;
+  object-fit: cover;
+  transform: scale(1.04);
+  transition: transform 0.9s var(--ease);
+}
+
+html body .gm-hotels-page .gm-hotel-tile:hover .gm-hotel-tile__media img {
+  transform: scale(1.12);
+}
+
+html body .gm-hotels-page .gm-hotel-tile__body {
+  display: grid;
+  justify-items: center;
+  gap: 0.9rem !important;
+  padding: clamp(1.2rem, 2vw, 1.8rem) !important;
+  text-align: center;
+}
+
+html body .gm-hotels-page .gm-hotel-tile h3 {
+  max-width: 18ch !important;
+  color: var(--ink);
+  font-family: var(--title-font);
+  font-size: clamp(1.22rem, 1.7vw, 1.9rem) !important;
+  font-weight: 900;
+  letter-spacing: 0.18em !important;
+  line-height: 1.2 !important;
+  text-transform: uppercase !important;
+}
+
+html body .gm-hotels-page .gm-hotel-tile p {
+  max-width: 36ch;
+  color: rgba(29, 29, 27, 0.68) !important;
+  line-height: 1.65 !important;
+  text-align: center !important;
+}
+
+html body .gm-hotels-page .gm-hotel-tile__badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+html body .gm-hotels-page .gm-hotel-tile__badges small {
+  border: 1px solid rgba(154, 25, 23, 0.14);
+  padding: 0.42rem 0.55rem;
+  color: var(--gray);
+  font-size: 0.66rem;
+}
+
+html body .gm-hotels-page .gm-hotel-tile__actions {
+  display: flex !important;
+  justify-content: center;
+}
+
+html body .gm-hotels-page .gm-hotel-tile__book {
+  display: none !important;
+}
+
+html body .gm-hotels-page .gm-hotel-carousel-section {
+  overflow: hidden;
+  padding: clamp(5rem, 8vw, 8rem) 0 clamp(4rem, 7vw, 7rem) !important;
+  background: #fff;
+}
+
+html body .gm-hotels-page .gm-hotel-carousel-section .gm-section-head {
+  width: min(900px, calc(100% - 2rem));
+  margin: 0 auto clamp(3rem, 5vw, 5rem);
+  text-align: center;
+}
+
+html body .gm-hotel-carousel {
+  --hotel-card-width: clamp(300px, 28vw, 430px);
+  --hotel-card-step: calc(var(--hotel-card-width) + clamp(1.4rem, 2.5vw, 2.6rem));
+  width: 100vw;
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+
+html body .gm-hotel-carousel__viewport {
+  overflow: visible;
+  width: 100%;
+}
+
+html body .gm-hotel-carousel__track {
+  display: flex;
+  align-items: center;
+  gap: clamp(1.4rem, 2.5vw, 2.6rem);
+  width: max-content;
+  padding: 1rem 0 2rem;
+  transform: translateX(calc(50vw - (var(--active-hotel) * var(--hotel-card-step)) - (var(--hotel-card-width) / 2)));
+  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+html body .gm-hotels-page .gm-hotel-carousel .gm-hotel-tile {
+  flex: 0 0 var(--hotel-card-width) !important;
+  display: grid !important;
+  grid-template-rows: 330px auto !important;
+  min-height: 520px !important;
+  overflow: hidden !important;
+  border: 1px solid rgba(99, 99, 98, 0.18) !important;
+  background: #fff !important;
+  box-shadow: none !important;
+  opacity: 0.72 !important;
+  transform: scale(0.92) translateY(18px) !important;
+  transition: opacity 0.65s var(--ease), transform 0.8s var(--ease), box-shadow 0.8s var(--ease) !important;
+}
+
+html body .gm-hotels-page .gm-hotel-carousel .gm-hotel-tile.is-active {
+  z-index: 3 !important;
+  min-height: 650px !important;
+  opacity: 1 !important;
+  transform: scale(1.08) translateY(0) !important;
+  box-shadow: 0 24px 70px rgba(29, 29, 27, 0.18) !important;
+}
+
+html body .gm-hotels-page .gm-hotel-carousel .gm-hotel-tile__media {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+html body .gm-hotels-page .gm-hotel-carousel .gm-hotel-tile__media img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  transform: scale(1.04) !important;
+  transition: transform 1s var(--ease) !important;
+}
+
+html body .gm-hotels-page .gm-hotel-carousel .gm-hotel-tile.is-active .gm-hotel-tile__media img {
+  transform: scale(1.1) !important;
+}
+
+html body .gm-hotels-page .gm-hotel-carousel .gm-hotel-tile__body {
+  display: grid !important;
+  justify-items: center !important;
+  gap: 0.9rem !important;
+  min-height: 190px !important;
+  padding: clamp(1.5rem, 2.6vw, 2.4rem) !important;
+  text-align: center !important;
+}
+
+html body .gm-hotels-page .gm-hotel-carousel .gm-hotel-tile h3 {
+  max-width: 18ch !important;
+  margin: 0 !important;
+  color: var(--ink) !important;
+  font-family: var(--title-font) !important;
+  font-size: clamp(1rem, 1.45vw, 1.42rem) !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.22em !important;
+  line-height: 1.25 !important;
+  text-transform: uppercase !important;
+}
+
+html body .gm-hotels-page .gm-hotel-carousel .gm-hotel-tile i,
+html body .gm-hotels-page .gm-hotel-carousel .gm-hotel-tile__body > i {
+  width: 54px;
+  height: 3px;
+  background: var(--ink);
+}
+
+html body .gm-hotels-page .gm-hotel-carousel .gm-hotel-tile p {
+  max-width: 38ch !important;
+  color: rgba(29, 29, 27, 0.74) !important;
+  font-size: clamp(0.98rem, 1.08vw, 1.12rem) !important;
+  line-height: 1.74 !important;
+}
+
+html body .gm-hotels-page .gm-hotel-carousel .gm-hotel-tile__badges {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  justify-content: center !important;
+  gap: 0.45rem !important;
+}
+
+html body .gm-hotels-page .gm-hotel-carousel .gm-hotel-tile__badges small {
+  padding: 0.45rem 0.6rem !important;
+  border: 1px solid rgba(154, 25, 23, 0.16) !important;
+  color: var(--gray) !important;
+  font-size: 0.66rem !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+}
+
+html body .gm-hotels-page .gm-hotel-carousel .gm-hotel-tile__details {
+  min-width: 178px !important;
+  min-height: 48px !important;
+  border: 1px solid var(--ink) !important;
+  background: transparent !important;
+  color: var(--ink) !important;
+}
+
+html body .gm-hotel-carousel__controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(1.2rem, 2.5vw, 2rem);
+  margin-top: clamp(1.5rem, 4vw, 2.6rem);
+}
+
+html body .gm-hotel-carousel__controls button {
+  width: 48px;
+  height: 48px;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font-size: 2.3rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+html body .gm-hotel-carousel__controls strong {
+  color: var(--ink);
+  font-family: var(--display-font);
+  font-size: 0.82rem;
+  font-weight: 900;
+  letter-spacing: 0.22em;
+}
+
+@media (max-width: 760px) {
+  html body .gm-hotel-carousel {
+    --hotel-card-width: min(82vw, 340px);
+  }
+
+  html body .gm-hotels-page .gm-hotel-carousel .gm-hotel-tile {
+    grid-template-rows: 270px auto !important;
+    min-height: 460px !important;
+  }
+
+  html body .gm-hotels-page .gm-hotel-carousel .gm-hotel-tile.is-active {
+    min-height: 590px !important;
+    transform: translateY(0) scale(1.02) !important;
+  }
+}
+
+html body .gm-hotels-page .gm-hotel-tile__details {
+  min-width: 180px;
+  border: 1px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+}
+
+html body .gm-page .gm-hotel-tile,
+html body .gm-radical-signatures .gm-hotel-tile {
+  display: grid !important;
+  grid-template-rows: 310px 1fr !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 620px !important;
+  overflow: hidden !important;
+  border: 1px solid rgba(99, 99, 98, 0.18) !important;
+  background: #fff !important;
+  box-shadow: 0 22px 60px rgba(29, 29, 27, 0.12) !important;
+  color: var(--ink) !important;
+  text-decoration: none !important;
+}
+
+html body .gm-page .gm-hotel-tile__media,
+html body .gm-radical-signatures .gm-hotel-tile__media {
+  display: block !important;
+  min-width: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  overflow: hidden !important;
+}
+
+html body .gm-page .gm-hotel-tile__media img,
+html body .gm-radical-signatures .gm-hotel-tile__media img {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  transform: none !important;
+}
+
+html body .gm-page .gm-hotel-tile__body,
+html body .gm-radical-signatures .gm-hotel-tile__body {
+  display: grid !important;
+  align-content: start !important;
+  justify-items: center !important;
+  gap: 0.82rem !important;
+  min-width: 0 !important;
+  padding: clamp(1.35rem, 2.2vw, 2rem) !important;
+  text-align: center !important;
+}
+
+html body .gm-page .gm-hotel-tile__topline,
+html body .gm-radical-signatures .gm-hotel-tile__topline {
+  max-width: 100% !important;
+  color: var(--red) !important;
+  font-size: 0.72rem !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.13em !important;
+  line-height: 1.25 !important;
+  text-transform: uppercase !important;
+  white-space: normal !important;
+}
+
+html body .gm-page .gm-hotel-tile h3,
+html body .gm-radical-signatures .gm-hotel-tile h3 {
+  max-width: 15ch !important;
+  margin: 0 !important;
+  color: var(--ink) !important;
+  font-family: var(--title-font) !important;
+  font-size: clamp(1.05rem, 1.3vw, 1.32rem) !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.2em !important;
+  line-height: 1.28 !important;
+  text-transform: uppercase !important;
+  overflow-wrap: anywhere !important;
+}
+
+html body .gm-page .gm-hotel-tile__body > i,
+html body .gm-radical-signatures .gm-hotel-tile__body > i {
+  display: block !important;
+  width: 52px !important;
+  height: 3px !important;
+  background: var(--ink) !important;
+}
+
+html body .gm-page .gm-hotel-tile p,
+html body .gm-radical-signatures .gm-hotel-tile p {
+  max-width: 35ch !important;
+  margin: 0 !important;
+  color: rgba(29, 29, 27, 0.72) !important;
+  font-size: clamp(0.92rem, 1vw, 1rem) !important;
+  line-height: 1.62 !important;
+}
+
+html body .gm-page .gm-hotel-tile__badges,
+html body .gm-radical-signatures .gm-hotel-tile__badges {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  justify-content: center !important;
+  gap: 0.42rem !important;
+  width: 100% !important;
+}
+
+html body .gm-page .gm-hotel-tile__badges small,
+html body .gm-radical-signatures .gm-hotel-tile__badges small {
+  max-width: 100% !important;
+  padding: 0.42rem 0.55rem !important;
+  border: 1px solid rgba(154, 25, 23, 0.16) !important;
+  color: var(--gray) !important;
+  font-size: 0.62rem !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.1em !important;
+  line-height: 1.25 !important;
+  text-transform: uppercase !important;
+}
+
+html body .gm-page .gm-hotel-tile__actions,
+html body .gm-radical-signatures .gm-hotel-tile__actions {
+  display: flex !important;
+  justify-content: center !important;
+  width: 100% !important;
+  margin-top: 0.2rem !important;
+}
+
+html body .gm-page .gm-hotel-tile__details,
+html body .gm-radical-signatures .gm-hotel-tile__details {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 164px !important;
+  min-height: 48px !important;
+  border: 1px solid var(--ink) !important;
+  background: transparent !important;
+  color: var(--ink) !important;
+  font-size: 0.72rem !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.14em !important;
+  text-decoration: none !important;
+  text-transform: uppercase !important;
+}
+
+html body .gm-hotels-page .gm-hotel-carousel {
+  --hotel-card-width: clamp(260px, 23vw, 360px) !important;
+  --hotel-card-step: calc(var(--hotel-card-width) + clamp(1.2rem, 2vw, 2rem)) !important;
+}
+
+html body .gm-hotels-page .gm-hotel-carousel__track {
+  gap: clamp(1.2rem, 2vw, 2rem) !important;
+  padding: 1rem 0 2rem !important;
+}
+
+html body .gm-hotels-page .gm-hotel-carousel .gm-hotel-tile,
+html body .gm-hotels-page .gm-hotel-carousel .gm-hotel-tile.is-active {
+  flex: 0 0 var(--hotel-card-width) !important;
+  min-height: 620px !important;
+  opacity: 1 !important;
+  transform: translateY(0) scale(1) !important;
+}
+
+html body .gm-hotels-page .gm-hotel-carousel .gm-hotel-tile:not(.is-active) {
+  opacity: 0.64 !important;
+  transform: translateY(14px) scale(0.96) !important;
+}
+
+html body .gm-hotels-page .gm-hotel-carousel .gm-hotel-tile.is-active {
+  box-shadow: 0 26px 70px rgba(29, 29, 27, 0.16) !important;
+}
+
+html body .gm-radical-signatures__grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: clamp(1rem, 2vw, 1.5rem) !important;
+  background: transparent !important;
+}
+
+html body .gm-radical-signatures .gm-hotel-tile--signature {
+  min-height: 640px !important;
+}
+
+@media (max-width: 980px) {
+  html body .gm-radical-signatures__grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 760px) {
+  html body .gm-hotels-page .gm-hotel-carousel {
+    --hotel-card-width: min(86vw, 340px) !important;
+  }
+
+  html body .gm-page .gm-hotel-tile,
+  html body .gm-radical-signatures .gm-hotel-tile,
+  html body .gm-hotels-page .gm-hotel-carousel .gm-hotel-tile,
+  html body .gm-hotels-page .gm-hotel-carousel .gm-hotel-tile.is-active {
+    grid-template-rows: 250px 1fr !important;
+    min-height: 600px !important;
+  }
+}
+
+html body .gm-hotels-page .gm-hotel-tile__details:hover {
+  border-color: var(--red);
+  background: var(--red);
+  color: var(--white);
+}
+
+@media (max-width: 900px) {
+  html body .gm-hotel-page .gm-room-showcase--cinema .gm-room-showcase__intro {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  html body .gm-hotels-page .gm-hotel-tile:nth-child(3n + 2),
+  html body .gm-hotels-page .gm-hotel-tile:hover {
+    transform: none !important;
+  }
+}
+
+html body .gm-hotels-page .gm-hotel-carousel .gm-hotel-tile:nth-child(n),
+html body .gm-hotels-page .gm-hotel-carousel .gm-hotel-tile:nth-child(1),
+html body .gm-hotels-page .gm-hotel-carousel .gm-hotel-tile:nth-child(6n) {
+  grid-column: auto !important;
+  grid-row: auto !important;
+  grid-template-columns: 1fr !important;
+  grid-template-rows: 310px 1fr !important;
+  width: var(--hotel-card-width) !important;
+  min-width: var(--hotel-card-width) !important;
+  max-width: var(--hotel-card-width) !important;
+}
+
+html body .gm-hotels-page .gm-hotel-carousel .gm-hotel-tile:nth-child(n) .gm-hotel-tile__media,
+html body .gm-hotels-page .gm-hotel-carousel .gm-hotel-tile:nth-child(1) .gm-hotel-tile__media,
+html body .gm-hotels-page .gm-hotel-carousel .gm-hotel-tile:nth-child(6n) .gm-hotel-tile__media {
+  grid-column: auto !important;
+  grid-row: auto !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  height: 100% !important;
+}
+
+html body .gm-hotels-page .gm-hotel-carousel .gm-hotel-tile:nth-child(n) .gm-hotel-tile__body,
+html body .gm-hotels-page .gm-hotel-carousel .gm-hotel-tile:nth-child(1) .gm-hotel-tile__body,
+html body .gm-hotels-page .gm-hotel-carousel .gm-hotel-tile:nth-child(6n) .gm-hotel-tile__body {
+  grid-column: auto !important;
+  grid-row: auto !important;
+  width: 100% !important;
+  min-width: 0 !important;
+}
+
+html body .gm-hotels-page .gm-hotel-carousel .gm-hotel-tile:nth-child(n) h3,
+html body .gm-hotels-page .gm-hotel-carousel .gm-hotel-tile:nth-child(1) h3,
+html body .gm-hotels-page .gm-hotel-carousel .gm-hotel-tile:nth-child(6n) h3 {
+  max-width: 15ch !important;
+  font-size: clamp(1.05rem, 1.3vw, 1.32rem) !important;
+  line-height: 1.28 !important;
+}
+
+@media (max-width: 760px) {
+  html body .gm-hotels-page .gm-hotel-carousel .gm-hotel-tile:nth-child(n),
+  html body .gm-hotels-page .gm-hotel-carousel .gm-hotel-tile:nth-child(1),
+  html body .gm-hotels-page .gm-hotel-carousel .gm-hotel-tile:nth-child(6n) {
+    grid-template-rows: 250px 1fr !important;
   }
 }
