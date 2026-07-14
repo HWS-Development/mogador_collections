@@ -1,4 +1,5 @@
 import PageHero from '../components/PageHero'
+import GallerySlider from '../components/GallerySlider'
 import Link from '../router/Link'
 import { loyaltyBenefits } from '../data/siteData'
 import { directBookingBenefits } from '../data/officialContent'
@@ -46,14 +47,7 @@ export default function LoyaltyPage({ t, lang }) {
           <span className="gm-label">Avantages relationnels</span>
           <h2>Faire revenir le client avec du service, des attentions et des offres directes.</h2>
         </div>
-        <div className="gm-loyalty-gallery__grid">
-          {loyaltyGallery.map(([image, title, body, label], index) => (
-            <article className="gm-loyalty-visual gm-reveal" style={{ '--delay': `${index * 70}ms` }} key={title}>
-              <img src={image} alt={title} loading="lazy" />
-              <div><span>{label}</span><h3>{title}</h3><p>{body}</p></div>
-            </article>
-          ))}
-        </div>
+        <GallerySlider items={loyaltyGallery.map(([image, title, body, label]) => ({ image, title, text: `${label} · ${body}` }))} label="Galerie programme fidélité Mogador" />
       </section>
 
       <section className="gm-page-section gm-direct-proof" aria-label="Avantages réservation directe">

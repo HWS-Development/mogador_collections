@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import PageHero from '../components/PageHero'
 import BookingBar from '../components/BookingBar'
+import GallerySlider from '../components/GallerySlider'
 import Link from '../router/Link'
 import { hotels } from '../data/siteData'
 import { officialHotelDetails } from '../data/officialContent'
@@ -25,7 +26,7 @@ export default function HotelPage({ slug, t, lang }) {
     const timer = window.setInterval(() => {
       setPhotoDirection(1)
       setActivePhoto((value) => (value + 1) % photoCount)
-    }, 5500)
+    }, 3000)
 
     return () => window.clearInterval(timer)
   }, [activeRoom, safeGallery.length])
@@ -104,14 +105,7 @@ export default function HotelPage({ slug, t, lang }) {
           <h2>Voir l’hôtel avant de choisir sa chambre.</h2>
           <p>Un parcours visuel rapide pour projeter le client dans les espaces clés: arrivée, chambre, table, loisirs et événements.</p>
         </div>
-        <div className="gm-hotel-slider__track">
-          {sliderImages.map((image, index) => (
-            <figure className="gm-hotel-slide gm-reveal" style={{ '--delay': `${index * 55}ms` }} key={`${image}-${index}`}>
-              <img src={image} alt={`${hotel.name} - ambiance ${index + 1}`} loading="lazy" />
-              <figcaption><span>{String(index + 1).padStart(2, '0')}</span><strong>{index === 0 ? hotel.name : 'Moment Mogador'}</strong></figcaption>
-            </figure>
-          ))}
-        </div>
+        <GallerySlider items={sliderImages.map((image, index) => ({ image, title: index === 0 ? hotel.name : 'Moment Mogador', text: `${hotel.destination} / ${hotel.category}` }))} label={`Galerie immersive ${hotel.name}`} />
       </section>
 
       {details?.facilities?.length ? (
@@ -234,13 +228,7 @@ export default function HotelPage({ slug, t, lang }) {
           <span className="gm-label">Galerie</span>
           <h2>Chambres, salons, restauration et espaces de vie.</h2>
         </div>
-        <div className="gm-hotel-gallery__grid">
-          {(gallery.length ? gallery : sections.map((section) => section.image)).filter(Boolean).map((src, index) => (
-            <figure className="gm-reveal" style={{ '--delay': `${index * 60}ms` }} key={`${src}-${index}`}>
-              <img src={src} alt={`${hotel.name} - galerie ${index + 1}`} loading="lazy" />
-            </figure>
-          ))}
-        </div>
+        <GallerySlider items={(gallery.length ? gallery : sections.map((section) => section.image)).filter(Boolean).map((image, index) => ({ image, title: `${hotel.name}`, text: `Galerie ${String(index + 1).padStart(2, '0')}` }))} label={`Galerie de l’hôtel ${hotel.name}`} />
       </section>
 
       <section className="gm-final gm-final--compact" aria-label="Réserver cet hôtel">

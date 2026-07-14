@@ -1,5 +1,6 @@
 import PageHero from '../components/PageHero'
 import BookingBar from '../components/BookingBar'
+import GallerySlider from '../components/GallerySlider'
 import Link from '../router/Link'
 import { offers } from '../data/siteData'
 import { directBookingBenefits } from '../data/officialContent'
@@ -19,6 +20,13 @@ const offerGallery = [
   ['/assets/official/mice-official.jpg', 'MICE', 'Demander un devis groupe'],
 ]
 
+const featuredOffer = {
+  title: 'Offre directe',
+  kicker: 'Offre à la une',
+  image: '/assets/legacy/sea-suite.jpg',
+  text: 'Réservez sur le site officiel Mogador et gardez un contact direct avec nos équipes pour choisir votre destination, vos dates et les attentions utiles à votre séjour.',
+}
+
 export default function OffersPage({ t, lang }) {
   const [title, text] = t.pages.offers
   useSeo({ title: `${title} | Mogador Hotels & Resorts`, description: text, lang })
@@ -26,6 +34,24 @@ export default function OffersPage({ t, lang }) {
   return (
     <div className="gm-page gm-offers-page">
       <PageHero eyebrow="Trouvez nos offres" title={title} text={text} image="/assets/legacy/agadir-pool.jpg" primary={{ to: '/#reservation', label: t.common.bookDirect }} secondary={{ to: '/programme-fidelite', label: t.nav.loyalty }} t={t} />
+
+      <section className="gm-fs-offer-intro gm-page-section" aria-label="Introduction offres Mogador">
+        <Link to="/destinations">Mogador</Link>
+        <h2>{title}</h2>
+        <p>{text}</p>
+      </section>
+
+      <section className="gm-fs-featured-offer gm-page-section" aria-label="Offre à la une Mogador">
+        <figure className="gm-reveal">
+          <img src={featuredOffer.image} alt={featuredOffer.title} loading="lazy" />
+        </figure>
+        <article className="gm-reveal">
+          <span>{featuredOffer.kicker}</span>
+          <h2>{featuredOffer.title}</h2>
+          <p>{featuredOffer.text}</p>
+          <Link to="/#reservation">Détails</Link>
+        </article>
+      </section>
 
       <section className="gm-offer-engine gm-page-section" id="reservation-offres">
         <div>
@@ -36,23 +62,23 @@ export default function OffersPage({ t, lang }) {
         <BookingBar t={t} />
       </section>
 
-      <section className="gm-offer-showcase gm-page-section" aria-label="Offres Mogador">
+      <section className="gm-fs-offers-grid gm-page-section" aria-label="Toutes les offres Mogador">
         <div className="gm-section-head gm-reveal">
-          <span className="gm-label">Offres à pousser</span>
-          <h2>Des offres visibles, désirables, répétées et orientées action immédiate.</h2>
+          <span className="gm-label">Toutes les offres</span>
+          <h2>Des offres claires pour réserver directement selon votre envie de séjour.</h2>
+          <Link to="/#reservation">Meilleur tarif garanti</Link>
         </div>
-        <div className="gm-offer-showcase__grid">
+        <div className="gm-fs-offers-grid__cards">
           {offers.map((offer, index) => {
             const [image, body] = offerVisuals[offer.title] || ['/assets/legacy/sea-suite.jpg', offer.text]
             return (
-              <article className="gm-offer-card gm-reveal" style={{ '--delay': `${index * 70}ms` }} key={offer.title}>
+              <article className="gm-fs-offer-card gm-reveal" style={{ '--delay': `${index * 70}ms` }} key={offer.title}>
                 <img src={image} alt={offer.title} loading="lazy" />
                 <div>
                   <span>{offer.badge}</span>
                   <h3>{offer.title}</h3>
                   <p>{body}</p>
-                  <strong>{offer.urgency}</strong>
-                  <Link to="/#reservation" data-track={`offer_booking_${offer.title.toLowerCase().replace(/\s|&/g, '_')}`}>Voir les dates</Link>
+                  <Link to="/#reservation" data-track={`offer_booking_${offer.title.toLowerCase().replace(/\s|&/g, '_')}`}>Voir l’offre</Link>
                 </div>
               </article>
             )
@@ -61,12 +87,11 @@ export default function OffersPage({ t, lang }) {
       </section>
 
       <section className="gm-offer-gallery gm-page-section" aria-label="Galerie commerciale offres Mogador">
-        {offerGallery.map(([image, title, text]) => (
-          <Link className="gm-offer-gallery__item gm-reveal" to="/#reservation" key={title}>
-            <img src={image} alt={title} loading="lazy" />
-            <div><strong>{title}</strong><span>{text}</span></div>
-          </Link>
-        ))}
+        <div className="gm-section-head gm-reveal">
+          <span className="gm-label">Galerie</span>
+          <h2>Les moments Mogador à composer autour de votre offre.</h2>
+        </div>
+        <GallerySlider items={offerGallery} label="Galerie offres Mogador" />
       </section>
 
       <section className="gm-page-section gm-direct-proof" aria-label="Pourquoi réserver sur notre site web">

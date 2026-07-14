@@ -1,4 +1,5 @@
 import PageHero from '../components/PageHero'
+import GallerySlider from '../components/GallerySlider'
 import Link from '../router/Link'
 import { magazineArticles } from '../data/siteData'
 import { useSeo } from '../hooks/usePageEffects'
@@ -93,14 +94,7 @@ export default function MagazinePage({ t, lang }) {
           <span className="gm-label">Carnet visuel</span>
           <h2>Le Maroc Mogador en images, par envies de séjour.</h2>
         </div>
-        <div className="gm-magazine-gallery__grid">
-          {magazineGallery.map(([image, label, body], index) => (
-            <figure className={`gm-magazine-gallery__item gm-magazine-gallery__item--${index + 1} gm-reveal`} key={label}>
-              <img src={image} alt={label} loading="eager" decoding="async" fetchPriority={index < 2 ? 'high' : 'auto'} />
-              <figcaption><strong>{label}</strong><span>{body}</span></figcaption>
-            </figure>
-          ))}
-        </div>
+        <GallerySlider items={magazineGallery} label="Galerie inspiration Mogador" />
       </section>
     </div>
   )

@@ -115,10 +115,6 @@ export default function HomePage({ t, lang }) {
           <img src={images.official.homeHero} alt="" loading="eager" decoding="async" fetchPriority="high" />
         </div>
         <div className="gm-radical-hero__shade" aria-hidden="true" />
-        <div className="gm-radical-hero__topline">
-          <img src={images.brand.logoWhite} alt="Mogador Hotels & Resorts" />
-          <Link to="/#reservation" className="gm-radical-book-link" data-track="home_top_booking">Réserver</Link>
-        </div>
         <div className="gm-radical-hero__content">
           <span className="gm-radical-eyebrow">Site officiel</span>
           <h1>Escale de luxe au Maroc</h1>
