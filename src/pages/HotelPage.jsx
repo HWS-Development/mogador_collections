@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import PageHero from '../components/PageHero'
 import BookingBar from '../components/BookingBar'
 import GallerySlider from '../components/GallerySlider'
+import SignatureExperience from '../components/SignatureExperience'
 import Link from '../router/Link'
 import { hotels } from '../data/siteData'
 import { officialHotelDetails } from '../data/officialContent'
@@ -77,6 +78,8 @@ export default function HotelPage({ slug, t, lang }) {
     <div className="gm-page gm-hotel-page">
       <PageHero eyebrow={`${hotel.destination} / ${hotel.category}`} title={hotel.name} text={hotel.baseline} image={heroImage} primary={{ to: '/#reservation', label: t.common.bookDirect }} secondary={{ to: '/contact', label: t.nav.contact }} booking t={t} />
 
+      <SignatureExperience variant="hotels" title={`Séjourner à ${hotel.name}`} text={`${hotel.destination}, ${hotel.category}: découvrez les chambres, services, restaurants et espaces de détente de cette adresse Mogador avant de réserver sur le site officiel.`} image={heroImage} cta="/#reservation" />
+
       <section className="gm-page-intro gm-page-section">
         <div>
           <span className="gm-label">{details ? 'Fiche hôtel Mogador' : 'Portefeuille Mogador'}</span>
@@ -103,7 +106,7 @@ export default function HotelPage({ slug, t, lang }) {
         <div className="gm-section-head gm-reveal">
           <span className="gm-label">Immersion visuelle</span>
           <h2>Voir l’hôtel avant de choisir sa chambre.</h2>
-          <p>Un parcours visuel rapide pour projeter le client dans les espaces clés: arrivée, chambre, table, loisirs et événements.</p>
+          <p>Un aperçu des espaces clés de l’hôtel: arrivée, chambre, table, loisirs et événements.</p>
         </div>
         <GallerySlider items={sliderImages.map((image, index) => ({ image, title: index === 0 ? hotel.name : 'Moment Mogador', text: `${hotel.destination} / ${hotel.category}` }))} label={`Galerie immersive ${hotel.name}`} />
       </section>
@@ -118,7 +121,7 @@ export default function HotelPage({ slug, t, lang }) {
         <div className="gm-room-showcase__intro gm-reveal">
           <span className="gm-label">Dormir</span>
           <h2>Chambres & suites</h2>
-          <p>Une sélection claire, sensorielle et orientée réservation directe: choisissez l’atmosphère, vérifiez les preuves utiles, puis réservez depuis le site officiel.</p>
+          <p>Choisissez l’atmosphère adaptée à votre séjour, consultez les informations utiles, puis réservez depuis le site officiel.</p>
         </div>
         <div className="gm-room-cinematic gm-reveal" role="region" aria-label={`Catégories d’hébergement ${hotel.name}`}>
           <div className="gm-room-tabs" aria-label="Choisir une chambre">
@@ -137,14 +140,14 @@ export default function HotelPage({ slug, t, lang }) {
                 <div className="gm-room-cinema-frame__label"><i />{hotel.destination} / {hotel.category}</div>
                 <div className="gm-room-cinema-frame__title">
                   <h3>{activeRoomData.name}</h3>
-                  <span>{String(activeRoom + 1).padStart(2, '0')} / {String(rooms.length).padStart(2, '0')}</span>
+                  <span>Chambre sélectionnée</span>
                 </div>
                 <button type="button" onClick={() => goRoomPhoto(-1)} aria-label="Photo précédente">‹</button>
                 <button type="button" onClick={() => goRoomPhoto(1)} aria-label="Photo suivante">›</button>
                 <div className="gm-room-photo-progress">
-                  <span>{String((activePhoto % activePhotos.length) + 1).padStart(2, '0')}</span>
+                  <span>Photo</span>
                   <i key={`${activeRoom}-${activePhoto}`} />
-                  <span>{String(activePhotos.length).padStart(2, '0')}</span>
+                  <span>Galerie</span>
                 </div>
               </div>
               <div className="gm-room-thumbs" style={{ '--thumb-count': Math.min(activePhotos.length, 7) }}>
@@ -186,8 +189,8 @@ export default function HotelPage({ slug, t, lang }) {
       <section className="gm-scroll-overlays gm-page-section" aria-label="Moments de séjour">
         <article className="gm-scroll-overlays__copy gm-reveal">
           <span className="gm-label">Expérience client au coeur</span>
-          <h2>Des moments de vie plutôt qu’un catalogue.</h2>
-          <p>Chaque fiche réunit les images, les services et les repères utiles pour aider à choisir le bon séjour: famille, couple, affaires, détente ou événement.</p>
+          <h2>Les moments clés de votre séjour.</h2>
+          <p>Images, services et informations pratiques aident à choisir le bon séjour: famille, couple, affaires, détente ou événement.</p>
         </article>
         <div className="gm-scroll-overlays__media">
           {sliderImages.slice(0, 4).map((image, index) => (
@@ -228,13 +231,13 @@ export default function HotelPage({ slug, t, lang }) {
           <span className="gm-label">Galerie</span>
           <h2>Chambres, salons, restauration et espaces de vie.</h2>
         </div>
-        <GallerySlider items={(gallery.length ? gallery : sections.map((section) => section.image)).filter(Boolean).map((image, index) => ({ image, title: `${hotel.name}`, text: `Galerie ${String(index + 1).padStart(2, '0')}` }))} label={`Galerie de l’hôtel ${hotel.name}`} />
+        <GallerySlider items={(gallery.length ? gallery : sections.map((section) => section.image)).filter(Boolean).map((image) => ({ image, title: `${hotel.name}`, text: 'Galerie officielle' }))} label={`Galerie de l’hôtel ${hotel.name}`} />
       </section>
 
       <section className="gm-final gm-final--compact" aria-label="Réserver cet hôtel">
         <span className="gm-label">Réservation directe</span>
         <h2>Réserver {hotel.name} depuis le site officiel.</h2>
-        <p>Le parcours priorise le contact direct, les disponibilités et les demandes groupes ou MICE sans détour inutile.</p>
+        <p>Le site officiel facilite le contact direct, les disponibilités et les demandes groupes ou MICE.</p>
         <div className="gm-actions"><Link className="gm-button gm-button--primary" to="/#reservation">{t.common.bookDirect}</Link><Link className="gm-button gm-button--secondary-dark" to="/contact">Contacter l’hôtel</Link></div>
       </section>
     </div>
@@ -246,7 +249,6 @@ function HotelSection({ section, index }) {
     <article className={`gm-hotel-section ${index % 2 ? 'gm-hotel-section--reverse' : ''} gm-reveal`}>
       <figure><img src={section.image} alt={section.title} loading="lazy" /></figure>
       <div>
-        <span className="gm-label">{String(index + 1).padStart(2, '0')}</span>
         <h2>{section.title}</h2>
         {section.text ? <p>{section.text}</p> : null}
         <div className="gm-feature-list">

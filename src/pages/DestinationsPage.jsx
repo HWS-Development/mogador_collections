@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import PageHero from '../components/PageHero'
+import SignatureExperience from '../components/SignatureExperience'
 import Link from '../router/Link'
 import { destinations, hotels } from '../data/siteData'
 import { destinationGuides } from '../data/officialContent'
@@ -30,11 +31,13 @@ export default function DestinationsPage({ t, lang }) {
     <div className="gm-page gm-destinations-page gm-destinations-page--calm">
       <PageHero eyebrow="Nos destinations" title={title} text={text} image="/assets/official/dest-marrakech-official.jpg" primary={{ to: '/#reservation', label: t.common.bookDirect }} secondary={{ to: '/hotels', label: t.common.seeHotels }} t={t} />
 
+      <SignatureExperience variant="destinations" cta="/hotels" />
+
       <section className="gm-destination-lounge gm-page-section" aria-label="Explorer les destinations Mogador">
         <div className="gm-destination-lounge__intro gm-reveal">
           <span className="gm-label">Le Maroc Mogador</span>
-          <h2>Cinq destinations, une lecture simple.</h2>
-          <p>Un parcours volontairement plus calme: choisir une ville, comprendre son ambiance, puis accéder directement aux hôtels disponibles.</p>
+          <h2>Cinq destinations Mogador au Maroc.</h2>
+          <p>Choisissez votre ville, consultez les hôtels associés et préparez votre séjour directement depuis le site officiel.</p>
         </div>
 
         <div className="gm-destination-filterbar gm-reveal" aria-label="Filtrer les destinations">
@@ -49,7 +52,7 @@ export default function DestinationsPage({ t, lang }) {
           <aside className="gm-destination-menu gm-reveal" aria-label="Choisir une destination">
             {visibleDestinations.map((destination) => (
               <button className={destination.slug === activeDestination.slug ? 'is-active' : ''} type="button" onClick={() => setActiveSlug(destination.slug)} key={destination.slug}>
-                <span>{String(destination.hotels).padStart(2, '0')} hôtel{destination.hotels > 1 ? 's' : ''}</span>
+                <span>{destination.hotels} hôtel{destination.hotels > 1 ? 's' : ''}</span>
                 <strong>{destination.name}</strong>
               </button>
             ))}
@@ -92,7 +95,7 @@ export default function DestinationsPage({ t, lang }) {
       <section className="gm-destination-attractions gm-page-section" aria-label={`À voir à ${activeDestination.name}`}>
         <div className="gm-section-head gm-reveal">
           <span className="gm-label">À vivre sur place</span>
-          <h2>Repères utiles sans surcharge visuelle.</h2>
+          <h2>À découvrir pendant votre séjour.</h2>
         </div>
         <div className="gm-destination-attractions__grid">
           {activeAttractions.map(([name, description, image], index) => {
@@ -100,7 +103,7 @@ export default function DestinationsPage({ t, lang }) {
             return (
               <article className="gm-reveal" style={{ '--delay': `${index * 70}ms` }} key={name}>
                 <img src={attractionImage} alt={name} loading="lazy" />
-                <div><span>{String(index + 1).padStart(2, '0')}</span><h3>{name}</h3><p>{description}</p></div>
+                <div><h3>{name}</h3><p>{description}</p></div>
               </article>
             )
           })}

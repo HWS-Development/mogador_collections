@@ -43,7 +43,7 @@ export default function GallerySlider({ items, label = 'Galerie', className = ''
       </div>
       <button className="gm-fs-gallery__arrow gm-fs-gallery__arrow--next" type="button" onClick={() => go(1)} aria-label="Image suivante">›</button>
       <div className="gm-fs-gallery__counter" aria-live="polite">
-        {String(active + 1).padStart(2, '0')} / {String(count).padStart(2, '0')}
+        Image sélectionnée
       </div>
     </div>
   )

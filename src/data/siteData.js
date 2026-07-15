@@ -455,8 +455,8 @@ export const magazineArticles = [
   {
     slug: 'hotel-luxe-maroc-experience',
     category: 'Inspiration voyage',
-    title: 'Hôtel luxe Maroc: ce qui transforme une adresse en souvenir.',
-    excerpt: 'Hospitalité, lumière, service et patrimoine culturel comme leviers de désir.',
+    title: 'Hôtel luxe Maroc: services, confort et hospitalité.',
+    excerpt: 'Hospitalité, lumière, service et patrimoine culturel au coeur des séjours Mogador.',
     keywords: ['hôtel luxe Maroc', 'resort Maroc'],
   },
   {

@@ -755,7 +755,7 @@ html body .gm-hotel-sales-panel .booking-bar p,
 html body .gm-hotel-booking-panel .booking-bar p,
 html body .gm-offer-engine .booking-bar p {
   color: rgba(29, 29, 27, 0.74) !important;
-  text-align: left !important;
+  text-align: center !important;
 }
 
 html body .booking-bar label span,
@@ -2248,6 +2248,462 @@ html body .gm-luxury-motion .gm-final img {
   html body .gm-luxury-motion .gm-magnetic {
     transform: none !important;
   }
+}
+
+/* Final home polish: breathing, corrected destination map and unified CTAs. */
+html body .gm-radical-home {
+  overflow-x: clip;
+}
+
+html body .gm-radical-home :where(.gm-radical-intents, .gm-radical-direct, .gm-radical-intro, .gm-radical-map, .gm-radical-usage, .gm-radical-constellation, .gm-radical-signatures, .gm-radical-destinations, .gm-radical-moments, .gm-radical-numbers, .gm-radical-final) {
+  margin-block: 0;
+  padding-block: clamp(5.5rem, 10vw, 10rem) !important;
+}
+
+html body .gm-radical-home .gm-radical-direct {
+  align-items: stretch !important;
+  padding-block: clamp(1.15rem, 2.4vw, 2.4rem) !important;
+}
+
+html body .gm-radical-home :where(.gm-radical-intents, .gm-radical-direct, .gm-radical-intro, .gm-radical-map, .gm-radical-usage, .gm-radical-constellation, .gm-radical-signatures, .gm-radical-destinations, .gm-radical-moments, .gm-radical-numbers) + :where(.gm-radical-direct, .gm-radical-intro, .gm-radical-map, .gm-radical-usage, .gm-radical-constellation, .gm-radical-signatures, .gm-radical-destinations, .gm-radical-moments, .gm-radical-numbers, .gm-radical-final) {
+  margin-top: clamp(1rem, 3vw, 2.5rem);
+}
+
+html body .gm-radical-map {
+  grid-template-columns: minmax(0, 0.82fr) minmax(420px, 1.18fr) !important;
+  align-items: stretch !important;
+  gap: clamp(2rem, 5vw, 6rem) !important;
+  padding-inline: clamp(1.25rem, 5vw, 6rem) !important;
+  background:
+    radial-gradient(circle at 82% 22%, rgba(84, 191, 209, 0.13), transparent 22rem),
+    linear-gradient(135deg, #fff9f4 0%, #f2e3da 54%, rgba(154, 25, 23, 0.08) 100%) !important;
+}
+
+html body .gm-radical-map__copy {
+  align-content: center !important;
+  justify-items: start !important;
+  max-width: 560px;
+  gap: clamp(1rem, 2vw, 1.45rem) !important;
+}
+
+html body .gm-radical-map__copy h2 {
+  max-width: 12ch !important;
+  font-size: clamp(2.55rem, 5vw, 5.4rem) !important;
+  line-height: 0.98 !important;
+  letter-spacing: -0.045em;
+}
+
+html body .gm-radical-map__copy p {
+  max-width: 48ch !important;
+  color: rgba(44, 47, 77, 0.72);
+  font-size: clamp(1rem, 1.25vw, 1.16rem);
+  line-height: 1.75;
+}
+
+html body .gm-radical-map__stage {
+  display: block !important;
+  min-height: clamp(520px, 48vw, 680px) !important;
+  max-width: 860px;
+  justify-self: stretch;
+  overflow: hidden !important;
+  border-radius: clamp(1.8rem, 4vw, 4.2rem) !important;
+  background:
+    radial-gradient(circle at 76% 22%, rgba(84, 191, 209, 0.28), transparent 18rem),
+    linear-gradient(145deg, #120b0a, #2c2f4d 58%, #9a1917) !important;
+  box-shadow:
+    0 46px 120px rgba(29, 29, 27, 0.28),
+    0 18px 42px rgba(154, 25, 23, 0.14) !important;
+}
+
+html body .gm-radical-map__stage::after {
+  content: "MAROC";
+  position: absolute;
+  right: -0.14em;
+  bottom: -0.19em;
+  z-index: 3;
+  color: rgba(255, 255, 255, 0.1);
+  font-family: var(--display-font);
+  font-size: clamp(6rem, 14vw, 14rem);
+  font-weight: 400;
+  line-height: 0.78;
+  letter-spacing: -0.08em;
+  pointer-events: none;
+}
+
+html body .gm-radical-map__stage img {
+  position: absolute !important;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  border-radius: inherit !important;
+  object-fit: cover !important;
+  filter: saturate(0.96) contrast(1.18) brightness(0.72) !important;
+  transform: scale(1.07) translateX(-1.5%) !important;
+}
+
+html body .gm-radical-map__stage:hover img {
+  filter: saturate(1.08) contrast(1.22) brightness(0.78) !important;
+  transform: scale(1.11) translateX(-1.5%) !important;
+}
+
+html body .gm-radical-map__stage::before {
+  inset: clamp(1rem, 2vw, 1.5rem) !important;
+  z-index: 5 !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+  border-radius: calc(clamp(1.8rem, 4vw, 4.2rem) - 0.85rem) !important;
+  box-shadow:
+    inset 0 0 80px rgba(255, 255, 255, 0.08),
+    inset 0 0 0 1px rgba(191, 165, 147, 0.18);
+}
+
+html body .gm-radical-map__orb {
+  z-index: 4 !important;
+  width: min(58vw, 590px) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 0 0 90px rgba(84, 191, 209, 0.12);
+}
+
+html body .gm-radical-map__mast,
+html body .gm-radical-map__plate {
+  position: absolute;
+  z-index: 7;
+  display: grid;
+  gap: 0.25rem;
+  color: var(--white);
+  pointer-events: none;
+}
+
+html body .gm-radical-map__mast {
+  left: clamp(2rem, 4vw, 3rem);
+  top: clamp(2rem, 4vw, 3rem);
+  max-width: 280px;
+}
+
+html body .gm-radical-map__mast span,
+html body .gm-radical-map__plate span {
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+html body .gm-radical-map__mast strong {
+  font-family: var(--title-font);
+  font-size: clamp(1.55rem, 2.7vw, 2.55rem);
+  font-weight: 600;
+  line-height: 0.98;
+  text-transform: uppercase;
+  text-shadow: 0 18px 48px rgba(0, 0, 0, 0.42);
+}
+
+html body .gm-radical-map__plate {
+  right: clamp(1.35rem, 3vw, 2.4rem);
+  bottom: clamp(1.35rem, 3vw, 2.4rem);
+  width: min(360px, 42%);
+  padding: clamp(1rem, 1.8vw, 1.35rem);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 1.3rem;
+  background: linear-gradient(135deg, rgba(13, 10, 14, 0.64), rgba(44, 47, 77, 0.36));
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.26);
+  backdrop-filter: blur(18px);
+}
+
+html body .gm-radical-map__plate strong {
+  font-family: var(--title-font);
+  font-size: clamp(1rem, 1.55vw, 1.35rem);
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+html body .gm-radical-map__trace {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+html body .gm-radical-map__trace span {
+  position: absolute;
+  height: 1px;
+  transform-origin: left center;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), rgba(191, 165, 147, 0.48), transparent);
+  box-shadow: 0 0 24px rgba(255, 255, 255, 0.22);
+}
+
+html body .gm-radical-map__trace span:nth-child(1) {
+  left: 36%;
+  top: 34%;
+  width: 27%;
+  transform: rotate(-14deg);
+}
+
+html body .gm-radical-map__trace span:nth-child(2) {
+  left: 40%;
+  top: 49%;
+  width: 30%;
+  transform: rotate(15deg);
+}
+
+html body .gm-radical-map__trace span:nth-child(3) {
+  left: 30%;
+  top: 66%;
+  width: 42%;
+  transform: rotate(-7deg);
+}
+
+html body .gm-radical-map__pin,
+html body .gm-radical-map__pin:hover {
+  width: auto !important;
+  min-width: 136px !important;
+  max-width: min(190px, 34vw) !important;
+  min-height: 3.35rem !important;
+  border-color: rgba(255, 255, 255, 0.25) !important;
+  border-radius: 1.1rem 999px 999px 999px !important;
+  background: linear-gradient(135deg, rgba(154, 25, 23, 0.96), rgba(127, 18, 16, 0.82)) !important;
+  box-shadow:
+    0 18px 46px rgba(0, 0, 0, 0.24),
+    0 0 0 1px rgba(255, 255, 255, 0.08) inset !important;
+  backdrop-filter: blur(20px);
+  transform: translate(-50%, -50%) !important;
+}
+
+html body .gm-radical-map__pin:hover {
+  background: linear-gradient(135deg, var(--white), #f6e9df) !important;
+  color: var(--red) !important;
+  transform: translate(-50%, calc(-50% - 4px)) !important;
+}
+
+html body .gm-radical-map__pin span {
+  width: 0.82rem !important;
+  background: var(--grand-beige) !important;
+  box-shadow:
+    0 0 0 7px rgba(191, 165, 147, 0.16),
+    0 0 32px rgba(255, 255, 255, 0.38) !important;
+}
+
+html body .gm-radical-map__pin::after {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.22), transparent 42%);
+  pointer-events: none;
+}
+
+html body .gm-radical-map__stage .gm-radical-map__pin:nth-of-type(4) {
+  left: 58% !important;
+  top: 82% !important;
+}
+
+html body .gm-radical-map__stage .gm-radical-map__pin:nth-of-type(5) {
+  left: 24% !important;
+  top: 68% !important;
+}
+
+html body .gm-radical-usage {
+  overflow: hidden;
+}
+
+html body .gm-radical-usage__grid {
+  grid-template-columns: repeat(12, minmax(0, 1fr)) !important;
+  gap: clamp(1rem, 2vw, 1.5rem) !important;
+  max-width: 1280px;
+  margin-inline: auto;
+}
+
+html body .gm-radical-use,
+html body .gm-radical-use:first-child,
+html body .gm-radical-use:nth-child(2) {
+  min-width: 0;
+  border-radius: clamp(1.4rem, 2.6vw, 2.4rem);
+  transform: none !important;
+}
+
+html body .gm-radical-use img {
+  width: 100%;
+}
+
+html body :where(.gm-button, .reserve-link, .booking-bar button, .gm-radical-book-link, .gm-radical-text-link, .gm-radical-use strong, .gm-radical-map__pin) {
+  min-height: 3rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  border: 1px solid var(--red) !important;
+  border-radius: 999px !important;
+  color: var(--white) !important;
+  background: var(--red) !important;
+  box-shadow: 0 16px 38px rgba(154, 25, 23, 0.18);
+  font-family: var(--body-font);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.13em;
+  line-height: 1;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+html body :where(.gm-button, .reserve-link, .booking-bar button, .gm-radical-book-link, .gm-radical-text-link, .gm-radical-use strong):hover {
+  color: var(--white) !important;
+  background: #7f1210 !important;
+  border-color: #7f1210 !important;
+  box-shadow: 0 20px 48px rgba(154, 25, 23, 0.24);
+}
+
+html body :where(.gm-button--ghost, .gm-button--outline-light, .gm-button--secondary-dark) {
+  color: var(--red) !important;
+  background: transparent !important;
+  border-color: rgba(154, 25, 23, 0.45) !important;
+  box-shadow: none;
+}
+
+html body :where(.gm-button--ghost, .gm-button--outline-light, .gm-button--secondary-dark):hover {
+  color: var(--white) !important;
+  background: var(--red) !important;
+  border-color: var(--red) !important;
+}
+
+html body .gm-radical-map__stage .gm-radical-map__pin {
+  justify-content: start !important;
+  min-height: 3.35rem !important;
+  padding: 0.72rem 1.05rem 0.72rem 2.85rem !important;
+  border-color: rgba(255, 255, 255, 0.25) !important;
+  border-radius: 1.1rem 999px 999px 999px !important;
+  background: linear-gradient(135deg, rgba(154, 25, 23, 0.96), rgba(127, 18, 16, 0.82)) !important;
+  box-shadow:
+    0 18px 46px rgba(0, 0, 0, 0.24),
+    0 0 0 1px rgba(255, 255, 255, 0.08) inset !important;
+}
+
+html body .gm-radical-map__stage .gm-radical-map__pin:hover {
+  color: var(--red) !important;
+  background: linear-gradient(135deg, var(--white), #f6e9df) !important;
+  border-color: rgba(255, 255, 255, 0.68) !important;
+}
+
+@media (max-width: 980px) {
+  html body .gm-radical-map {
+    grid-template-columns: 1fr !important;
+  }
+
+  html body .gm-radical-map__copy {
+    max-width: 720px;
+  }
+
+  html body .gm-radical-map__copy h2 {
+    max-width: 14ch !important;
+  }
+
+  html body .gm-radical-use,
+  html body .gm-radical-use:first-child,
+  html body .gm-radical-use:nth-child(2) {
+    grid-column: span 6 !important;
+  }
+}
+
+@media (max-width: 700px) {
+  html body .gm-radical-home :where(.gm-radical-intents, .gm-radical-direct, .gm-radical-intro, .gm-radical-map, .gm-radical-usage, .gm-radical-constellation, .gm-radical-signatures, .gm-radical-destinations, .gm-radical-moments, .gm-radical-numbers, .gm-radical-final) {
+    padding-block: clamp(4rem, 16vw, 6rem) !important;
+  }
+
+  html body .gm-radical-map__stage {
+    display: grid !important;
+    min-height: auto !important;
+    gap: 0.85rem !important;
+    padding: 0.85rem !important;
+    border-radius: 1.75rem !important;
+  }
+
+  html body .gm-radical-map__stage::after,
+  html body .gm-radical-map__mast,
+  html body .gm-radical-map__trace,
+  html body .gm-radical-map__plate {
+    display: none !important;
+  }
+
+  html body .gm-radical-map__stage img {
+    position: relative !important;
+    height: 260px !important;
+    transform: none !important;
+  }
+
+  html body .gm-radical-map__pin,
+  html body .gm-radical-map__pin:hover {
+    position: relative !important;
+    left: auto !important;
+    top: auto !important;
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    transform: none !important;
+  }
+
+  html body .gm-radical-map__stage .gm-radical-map__pin:nth-of-type(4),
+  html body .gm-radical-map__stage .gm-radical-map__pin:nth-of-type(5) {
+    left: auto !important;
+    top: auto !important;
+  }
+
+  html body .gm-radical-use,
+  html body .gm-radical-use:first-child,
+  html body .gm-radical-use:nth-child(2) {
+    grid-column: 1 / -1 !important;
+    min-height: 380px;
+  }
+}
+
+html body .gm-hotels-page .gm-hotel-carousel__progress {
+  min-height: 3.2rem !important;
+  align-items: center !important;
+  gap: 0.55rem !important;
+  padding-inline: clamp(1rem, 5vw, 4rem) !important;
+  overflow-x: auto !important;
+  scrollbar-width: thin;
+}
+
+html body .gm-hotels-page .gm-hotel-carousel__progress button {
+  flex: 0 0 auto !important;
+  width: clamp(4.2rem, 7vw, 6.4rem) !important;
+  min-width: clamp(4.2rem, 7vw, 6.4rem) !important;
+  height: 0.72rem !important;
+  min-height: 0.72rem !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: rgba(154, 25, 23, 0.18) !important;
+  opacity: 1 !important;
+}
+
+html body .gm-hotels-page .gm-hotel-carousel__progress button::after {
+  inset: 0 !important;
+  height: auto !important;
+  border-radius: inherit !important;
+  background: var(--red) !important;
+  transform: scaleX(0.2) !important;
+  transform-origin: left center !important;
+}
+
+html body .gm-hotels-page .gm-hotel-carousel__progress button.is-active::after {
+  transform: scaleX(1) !important;
+}
+
+html body .gm-offers-page .gm-offer-gallery {
+  padding-block: clamp(4.5rem, 7vw, 7rem) !important;
+}
+
+html body .gm-offers-page .gm-offer-gallery .gm-fs-gallery {
+  min-height: auto !important;
+  max-width: min(1180px, calc(100vw - 2rem));
+  margin-inline: auto;
+}
+
+html body .gm-offers-page .gm-offer-gallery .gm-fs-gallery__stage {
+  min-height: clamp(420px, 48vw, 620px) !important;
+}
+
+html body .gm-offers-page .gm-offer-gallery .gm-fs-gallery__slide--active {
+  min-height: clamp(380px, 42vw, 560px) !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -6785,16 +7241,173 @@ html body .gm-page .gm-service-card {
 }
 
 .gm-radical-booking {
-  margin: 0 clamp(1rem, 4vw, 4.5rem) clamp(1rem, 3vw, 2.4rem);
-  padding: 0.75rem;
+  align-self: end;
+  height: auto;
+  min-height: 0;
+  margin: 0 clamp(1rem, 4vw, 4.5rem) clamp(0.6rem, 1.6vw, 1.35rem);
+  padding: clamp(0.42rem, 0.9vw, 0.62rem);
   background: rgba(255, 250, 243, 0.96);
   box-shadow: 0 24px 70px rgba(0, 0, 0, 0.24);
 }
 
 .gm-radical-booking .booking-bar {
   margin: 0;
+  padding: clamp(0.45rem, 0.8vw, 0.58rem);
   background: transparent;
   box-shadow: none;
+}
+
+.gm-radical-booking .booking-bar__seal,
+.gm-radical-booking .booking-bar label {
+  min-height: 54px;
+  padding-block: 0.54rem;
+}
+
+.gm-radical-booking .booking-bar p {
+  margin: 0.08rem 0 0;
+}
+
+.gm-radical-intents {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(240px, 0.34fr) 1fr;
+  gap: clamp(1rem, 2.4vw, 2.2rem);
+  padding: clamp(1rem, 2vw, 1.6rem) clamp(1rem, 4vw, 4.5rem) clamp(1.6rem, 3vw, 2.8rem);
+  background:
+    radial-gradient(circle at var(--lux-x, 50%) var(--lux-y, 50%), rgba(191, 165, 147, 0.22), transparent 20rem),
+    linear-gradient(135deg, #17121a 0%, var(--grand-blue) 58%, #130b0b 100%);
+  color: white;
+  overflow: hidden;
+}
+
+.gm-radical-intents::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: 38px 38px;
+  mask-image: radial-gradient(circle at 50% 50%, black, transparent 72%);
+  opacity: 0.6;
+}
+
+.gm-radical-intents__head,
+.gm-radical-intents__grid {
+  position: relative;
+  z-index: 1;
+}
+
+.gm-radical-intents__head {
+  display: grid;
+  align-content: center;
+  gap: 0.7rem;
+  padding: clamp(1rem, 2vw, 1.4rem);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(16px);
+}
+
+.gm-radical-intents__head h2 {
+  max-width: 9ch;
+  color: white;
+  font-family: var(--display-font);
+  font-size: clamp(2rem, 4.2vw, 4.6rem);
+  font-weight: 400;
+  line-height: 0.94;
+}
+
+.gm-radical-intents__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.gm-radical-intent {
+  position: relative;
+  display: grid;
+  min-height: 250px;
+  align-content: end;
+  gap: 0.6rem;
+  overflow: hidden;
+  padding: clamp(1rem, 2.2vw, 1.7rem);
+  border-right: 1px solid rgba(255, 255, 255, 0.16);
+  isolation: isolate;
+  transform: perspective(900px) rotateX(var(--card-rx, 0deg)) rotateY(var(--card-ry, 0deg)) translate3d(var(--card-tx, 0), var(--card-ty, 0), 0);
+  transition: transform 0.34s var(--ease), background 0.34s var(--ease), color 0.34s var(--ease);
+}
+
+.gm-radical-intent:last-child {
+  border-right: 0;
+}
+
+.gm-radical-intent::before,
+.gm-radical-intent::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.36s var(--ease), transform 0.36s var(--ease);
+}
+
+.gm-radical-intent::before {
+  background: radial-gradient(circle at var(--card-x, 50%) var(--card-y, 50%), rgba(255, 255, 255, 0.28), transparent 17rem);
+}
+
+.gm-radical-intent::after {
+  background: linear-gradient(160deg, rgba(154, 25, 23, 0.92), rgba(191, 165, 147, 0.34));
+  transform: translateY(12%);
+}
+
+.gm-radical-intent:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.gm-radical-intent:hover::before,
+.gm-radical-intent:hover::after {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.gm-radical-intent span {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  color: rgba(255, 255, 255, 0.17);
+  font-family: var(--display-font);
+  font-size: clamp(2.4rem, 5vw, 5.2rem);
+  line-height: 1;
+}
+
+.gm-radical-intent small,
+.gm-radical-intent strong {
+  color: var(--grand-beige);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.gm-radical-intent h3 {
+  max-width: 12ch;
+  color: white;
+  font-family: var(--title-font);
+  font-size: clamp(1.25rem, 1.65vw, 1.9rem);
+  line-height: 1.05;
+}
+
+.gm-radical-intent p {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.gm-radical-intent strong {
+  margin-top: 0.45rem;
+  color: white;
 }
 
 .gm-radical-direct {
@@ -6807,7 +7420,7 @@ html body .gm-page .gm-service-card {
 .gm-radical-direct article {
   display: grid;
   gap: 0.45rem;
-  padding: clamp(1.2rem, 3vw, 2.2rem);
+  padding: clamp(0.9rem, 1.7vw, 1.35rem) clamp(1.1rem, 2.5vw, 2rem);
   border-right: 1px solid var(--radical-line);
 }
 
@@ -6827,7 +7440,9 @@ html body .gm-page .gm-service-card {
 }
 
 .gm-radical-intro,
+.gm-radical-map,
 .gm-radical-usage,
+.gm-radical-constellation,
 .gm-radical-signatures,
 .gm-radical-destinations,
 .gm-radical-moments,
@@ -6841,6 +7456,176 @@ html body .gm-page .gm-service-card {
   grid-template-columns: minmax(7rem, 0.35fr) minmax(0, 1fr) minmax(280px, 0.55fr);
   gap: clamp(1.5rem, 4vw, 4rem);
   align-items: start;
+}
+
+.gm-radical-map {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(280px, 0.42fr) minmax(0, 1fr);
+  gap: clamp(1.4rem, 4vw, 4.5rem);
+  align-items: center;
+  background:
+    radial-gradient(circle at 76% 44%, rgba(84, 191, 209, 0.12), transparent 24rem),
+    linear-gradient(135deg, var(--paper), #f3e5dc 52%, rgba(154, 25, 23, 0.08));
+}
+
+.gm-radical-map__copy {
+  display: grid;
+  gap: 1rem;
+}
+
+.gm-radical-map__copy h2 {
+  max-width: 11ch;
+  color: var(--radical-ink);
+  font-family: var(--display-font);
+  font-size: clamp(2.4rem, 5vw, 5.8rem);
+  font-weight: 400;
+  line-height: 0.94;
+}
+
+.gm-radical-map__copy p {
+  max-width: 58ch;
+}
+
+.gm-radical-map__stage {
+  position: relative;
+  min-height: clamp(520px, 56vw, 760px);
+  overflow: hidden;
+  border-radius: 0 4rem 4rem 4rem;
+  background: var(--grand-blue);
+  box-shadow: var(--shadow-deep);
+  transform-style: preserve-3d;
+}
+
+.gm-radical-map__stage::before {
+  content: "";
+  position: absolute;
+  inset: 1.1rem;
+  z-index: 2;
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  border-radius: 0 3.1rem 3.1rem 3.1rem;
+  pointer-events: none;
+}
+
+.gm-radical-map__stage img {
+  width: 100%;
+  height: 100%;
+  min-height: inherit;
+  object-fit: cover;
+  filter: saturate(0.92) contrast(1.05) brightness(0.72);
+  transform: scale(1.06);
+  transition: transform 1s var(--ease), filter 1s var(--ease);
+}
+
+.gm-radical-map__stage:hover img {
+  filter: saturate(1.08) contrast(1.08) brightness(0.82);
+  transform: scale(1.1);
+}
+
+.gm-radical-map__orb {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: min(62vw, 620px);
+  aspect-ratio: 1;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.gm-radical-map__orb::before,
+.gm-radical-map__orb::after {
+  content: "";
+  position: absolute;
+  inset: 12%;
+  border: 1px solid rgba(191, 165, 147, 0.34);
+  border-radius: inherit;
+  animation: gm-portal-spin 18s linear infinite;
+}
+
+.gm-radical-map__orb::after {
+  inset: 26%;
+  animation-duration: 12s;
+  animation-direction: reverse;
+}
+
+.gm-radical-map__pin {
+  position: absolute;
+  left: var(--pin-x);
+  top: var(--pin-y);
+  z-index: 4;
+  display: grid;
+  min-width: 150px;
+  gap: 0.16rem;
+  padding: 0.82rem 0.92rem 0.82rem 2.6rem;
+  color: white;
+  background: rgba(13, 10, 14, 0.68);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  box-shadow: 0 18px 54px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(16px);
+  transform: translate(-50%, -50%) perspective(900px) rotateX(var(--card-rx, 0deg)) rotateY(var(--card-ry, 0deg));
+  transition: transform 0.28s var(--ease), background 0.28s var(--ease), border-color 0.28s var(--ease);
+  animation: gm-pin-arrive 0.74s var(--ease) var(--pin-delay, 0ms) both;
+}
+
+.gm-radical-map__pin:hover {
+  background: rgba(154, 25, 23, 0.92);
+  border-color: rgba(255, 255, 255, 0.55);
+  transform: translate(-50%, -54%) perspective(900px) rotateX(var(--card-rx, 0deg)) rotateY(var(--card-ry, 0deg));
+}
+
+.gm-radical-map__pin span {
+  position: absolute;
+  left: 0.9rem;
+  top: 50%;
+  width: 1rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--grand-beige);
+  box-shadow: 0 0 0 0 rgba(191, 165, 147, 0.56);
+  transform: translateY(-50%);
+  animation: gm-pin-pulse 1.8s ease-out infinite;
+}
+
+.gm-radical-map__pin strong,
+.gm-radical-map__pin small {
+  position: relative;
+  z-index: 1;
+}
+
+.gm-radical-map__pin strong {
+  font-family: var(--title-font);
+  font-size: 0.92rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.gm-radical-map__pin small {
+  color: rgba(255, 255, 255, 0.74);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+@keyframes gm-pin-pulse {
+  70% { box-shadow: 0 0 0 14px rgba(191, 165, 147, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(191, 165, 147, 0); }
+}
+
+@keyframes gm-pin-arrive {
+  0% {
+    opacity: 0;
+    filter: blur(10px);
+    transform: translate(-50%, -36%) scale(0.92);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translate(-50%, -50%) scale(1);
+  }
 }
 
 .gm-radical-intro__number,
@@ -6914,6 +7699,143 @@ html body .gm-page .gm-service-card {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   gap: clamp(0.8rem, 1.5vw, 1.2rem);
+}
+
+.gm-radical-constellation {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 20% 18%, rgba(154, 25, 23, 0.11), transparent 28rem),
+    radial-gradient(circle at 78% 70%, rgba(44, 47, 77, 0.12), transparent 30rem),
+    var(--radical-paper);
+}
+
+.gm-radical-constellation::before {
+  content: "";
+  position: absolute;
+  inset: 4vw;
+  pointer-events: none;
+  border: 1px solid rgba(154, 25, 23, 0.12);
+  transform: rotate(-1deg);
+}
+
+.gm-radical-constellation__grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: clamp(0.8rem, 1.7vw, 1.4rem);
+  perspective: 1600px;
+}
+
+.gm-radical-scene {
+  position: relative;
+  min-height: clamp(440px, 52vw, 720px);
+  display: flex;
+  align-items: flex-end;
+  grid-column: span 6;
+  overflow: hidden;
+  isolation: isolate;
+  color: white;
+  text-decoration: none;
+  background: var(--radical-ink);
+  box-shadow: 0 24px 70px rgba(29, 29, 27, 0.13);
+  transform: translate3d(0, 0, 0) rotateX(var(--card-rx, 0deg)) rotateY(var(--card-ry, 0deg));
+  transition: transform 500ms var(--ease), box-shadow 500ms var(--ease), clip-path 500ms var(--ease);
+}
+
+.gm-radical-scene:nth-child(2),
+.gm-radical-scene:nth-child(3) {
+  min-height: clamp(360px, 42vw, 560px);
+}
+
+.gm-radical-scene img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.05);
+  filter: saturate(0.92) contrast(1.04);
+  transition: transform 900ms var(--ease), filter 600ms var(--ease);
+  z-index: -2;
+}
+
+.gm-radical-scene::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(circle at var(--card-x, 50%) var(--card-y, 50%), rgba(255, 255, 255, 0.18), transparent 16rem),
+    linear-gradient(0deg, rgba(12, 9, 7, 0.82), rgba(12, 9, 7, 0.12) 62%, rgba(12, 9, 7, 0.32));
+}
+
+.gm-radical-scene::after {
+  content: "";
+  position: absolute;
+  inset: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 360ms var(--ease), transform 500ms var(--ease);
+}
+
+.gm-radical-scene > span {
+  position: absolute;
+  top: clamp(1rem, 2vw, 1.6rem);
+  left: clamp(1rem, 2vw, 1.6rem);
+  color: rgba(255, 255, 255, 0.68);
+  font-family: var(--display-font);
+  font-size: clamp(3.8rem, 8vw, 8rem);
+  line-height: 0.8;
+  letter-spacing: -0.08em;
+}
+
+.gm-radical-scene div {
+  position: relative;
+  z-index: 1;
+  width: min(560px, 100%);
+  padding: clamp(1.3rem, 3vw, 2.5rem);
+}
+
+.gm-radical-scene h3 {
+  font-family: var(--display-font);
+  font-size: clamp(3rem, 6vw, 6.4rem);
+  font-weight: 400;
+  line-height: 0.88;
+  letter-spacing: -0.075em;
+}
+
+.gm-radical-scene p {
+  margin-top: 1rem;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: clamp(1rem, 1.28vw, 1.2rem);
+  line-height: 1.62;
+}
+
+.gm-radical-scene strong {
+  display: inline-flex;
+  margin-top: 1.1rem;
+  color: white;
+  font-size: 0.76rem;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.gm-radical-scene:hover {
+  box-shadow: 0 34px 100px rgba(29, 29, 27, 0.24);
+  transform: translate3d(var(--card-tx, 0), var(--card-ty, -6px), 36px) rotateX(var(--card-rx, 0deg)) rotateY(var(--card-ry, 0deg));
+}
+
+.gm-radical-scene:hover img {
+  transform: scale(1.12) translate3d(calc((50% - var(--card-x, 50%)) * 0.04), calc((50% - var(--card-y, 50%)) * 0.04), 0);
+  filter: saturate(1.08) contrast(1.08);
+}
+
+.gm-radical-scene:hover::after {
+  opacity: 1;
+  transform: scale(1);
 }
 
 .gm-radical-use {
@@ -7236,6 +8158,14 @@ html body .gm-page .gm-service-card {
   text-transform: uppercase;
 }
 
+.gm-radical-final p {
+  max-width: 720px;
+  margin-right: auto;
+  margin-left: auto;
+  color: rgba(255, 255, 255, 0.78);
+  text-align: center;
+}
+
 .gm-radical-final__actions {
   display: flex;
   flex-wrap: wrap;
@@ -7266,13 +8196,44 @@ html body .gm-page .gm-service-card {
   }
 
   .gm-radical-direct,
+  .gm-radical-intents,
+  .gm-radical-map,
   .gm-radical-intro,
   .gm-radical-chapter,
   .gm-radical-signatures__grid,
+  .gm-radical-constellation__grid,
   .gm-radical-destinations,
   .gm-radical-moments,
   .gm-radical-numbers {
     grid-template-columns: 1fr;
+  }
+
+  .gm-radical-map__copy h2 {
+    max-width: 14ch;
+  }
+
+  .gm-radical-map__stage {
+    min-height: 620px;
+  }
+
+  .gm-radical-intents__head h2 {
+    max-width: 14ch;
+  }
+
+  .gm-radical-intents__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .gm-radical-intent:nth-child(2n) {
+    border-right: 0;
+  }
+
+  .gm-radical-intent:nth-child(n + 3) {
+    border-top: 1px solid rgba(255, 255, 255, 0.16);
+  }
+
+  .gm-radical-scene {
+    grid-column: 1 / -1;
   }
 
   .gm-radical-chapter--right .gm-radical-chapter__media {
@@ -7313,6 +8274,54 @@ html body .gm-page .gm-service-card {
     margin: 0 1rem 1rem;
   }
 
+  .gm-radical-intents {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .gm-radical-map__stage {
+    min-height: auto;
+    display: grid;
+    gap: 0.75rem;
+    padding: 1rem;
+    border-radius: 0 2rem 2rem 2rem;
+  }
+
+  .gm-radical-map__stage::before,
+  .gm-radical-map__orb {
+    display: none;
+  }
+
+  .gm-radical-map__stage img {
+    height: 260px;
+    min-height: 0;
+    border-radius: 0 1.4rem 1.4rem 1.4rem;
+  }
+
+  .gm-radical-map__pin,
+  .gm-radical-map__pin:hover {
+    position: relative;
+    left: auto;
+    top: auto;
+    min-width: 0;
+    transform: none;
+  }
+
+  .gm-radical-intents__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gm-radical-intent,
+  .gm-radical-intent:nth-child(2n) {
+    min-height: 210px;
+    border-right: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.16);
+  }
+
+  .gm-radical-intent:first-child {
+    border-top: 0;
+  }
+
   .gm-radical-direct article {
     border-right: 0;
     border-bottom: 1px solid var(--radical-line);
@@ -7320,6 +8329,7 @@ html body .gm-page .gm-service-card {
 
   .gm-radical-intro,
   .gm-radical-usage,
+  .gm-radical-constellation,
   .gm-radical-signatures,
   .gm-radical-destinations,
   .gm-radical-moments,
@@ -7336,7 +8346,8 @@ html body .gm-page .gm-service-card {
 
   .gm-radical-use,
   .gm-radical-use:first-child,
-  .gm-radical-use:nth-child(2) {
+  .gm-radical-use:nth-child(2),
+  .gm-radical-scene {
     grid-column: 1 / -1;
     min-height: 390px;
   }
@@ -7384,7 +8395,7 @@ html body .gm-page .gm-service-card {
   z-index: 1;
 }
 
-.gm-luxury-motion :where(.gm-radical-usage__grid, .gm-radical-signatures__grid, .gm-radical-moments, .gm-radical-numbers, .gm-radical-destination-list, .gm-room-catalog__grid, .gm-hotel-directory__grid, .gm-values__grid, .gm-contact-hotels__grid, .gm-experience-index__grid, .gm-charter-list, .gm-offer-showcase__grid, .gm-offer-gallery, .gm-hotel-slider__track, .gm-service-matrix__grid, .gm-hotel-gallery__grid, .gm-facilities, .gm-direct-proof, .gm-mice-command__stats, .gm-feature-list, .gm-story-stack, .gm-brand-moments, .gm-business-sections, .gm-destination-guides, .gm-hotel-sections) {
+.gm-luxury-motion :where(.gm-radical-usage__grid, .gm-radical-constellation__grid, .gm-radical-signatures__grid, .gm-radical-moments, .gm-radical-numbers, .gm-radical-destination-list, .gm-room-catalog__grid, .gm-hotel-directory__grid, .gm-values__grid, .gm-contact-hotels__grid, .gm-experience-index__grid, .gm-charter-list, .gm-offer-showcase__grid, .gm-offer-gallery, .gm-hotel-slider__track, .gm-service-matrix__grid, .gm-hotel-gallery__grid, .gm-facilities, .gm-direct-proof, .gm-mice-command__stats, .gm-feature-list, .gm-story-stack, .gm-brand-moments, .gm-business-sections, .gm-destination-guides, .gm-hotel-sections) {
   perspective: 1200px;
   transform-style: preserve-3d;
 }
@@ -7426,7 +8437,7 @@ html body .gm-page .gm-service-card {
   box-shadow: 0 28px 90px rgba(22, 14, 10, 0.2);
 }
 
-.gm-luxury-motion :where(.gm-radical-use img, .gm-radical-chapter__media img, .gm-radical-hotel img, .gm-radical-moment img, .gm-radical-destinations__visual img, .gm-story-row img, .gm-business-row img, .gm-destination-guide img, .gm-attraction-grid img, .gm-hotel-section img, .gm-page-hero__media img, .gm-hotel-tile img, .gm-room-card img, .gm-offer-card img, .gm-editorial-card img, .gm-service-card img, .gm-hotel-slide img, .gm-offer-gallery__item img, .gm-hotel-gallery img) {
+.gm-luxury-motion :where(.gm-radical-use img, .gm-radical-scene img, .gm-radical-chapter__media img, .gm-radical-hotel img, .gm-radical-moment img, .gm-radical-destinations__visual img, .gm-story-row img, .gm-business-row img, .gm-destination-guide img, .gm-attraction-grid img, .gm-hotel-section img, .gm-page-hero__media img, .gm-hotel-tile img, .gm-room-card img, .gm-offer-card img, .gm-editorial-card img, .gm-service-card img, .gm-hotel-slide img, .gm-offer-gallery__item img, .gm-hotel-gallery img) {
   will-change: transform, filter;
 }
 
@@ -8534,6 +9545,141 @@ html body .gm-hotels-page .gm-hotel-carousel-section .gm-section-head {
   text-align: center;
 }
 
+html body .gm-hotel-compass {
+  display: grid;
+  gap: clamp(1rem, 2vw, 1.6rem);
+  width: min(1180px, calc(100% - 2rem));
+  margin: 0 auto clamp(2rem, 4vw, 3.4rem);
+}
+
+html body .gm-hotel-compass__filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.55rem;
+}
+
+html body .gm-hotel-compass__filters button {
+  min-height: 44px;
+  border: 1px solid rgba(154, 25, 23, 0.18);
+  border-radius: 999px;
+  padding: 0.72rem 1rem;
+  color: var(--gray);
+  background: rgba(255, 253, 249, 0.78);
+  cursor: pointer;
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: color 260ms var(--ease), background 260ms var(--ease), border-color 260ms var(--ease), transform 260ms var(--ease);
+}
+
+html body .gm-hotel-compass__filters button:hover,
+html body .gm-hotel-compass__filters button.is-active {
+  border-color: var(--red);
+  color: var(--white);
+  background: var(--red);
+  transform: translateY(-2px);
+}
+
+html body .gm-hotel-compass__active {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(90px, 0.18fr) minmax(280px, 1fr) minmax(220px, 0.55fr) minmax(220px, 0.55fr);
+  gap: 1px;
+  overflow: hidden;
+  border: 1px solid rgba(99, 99, 98, 0.16);
+  background: rgba(99, 99, 98, 0.16);
+  box-shadow: 0 24px 90px rgba(29, 29, 27, 0.08);
+}
+
+html body .gm-hotel-compass__active > span,
+html body .gm-hotel-compass__active > div,
+html body .gm-hotel-compass__active nav {
+  background: rgba(255, 253, 249, 0.94);
+}
+
+html body .gm-hotel-compass__active > span {
+  display: grid;
+  place-items: center;
+  color: var(--red);
+  font-family: var(--display-font);
+  font-size: clamp(1.9rem, 4vw, 4.6rem);
+  line-height: 0.95;
+  letter-spacing: -0.06em;
+}
+
+html body .gm-hotel-compass__active > div:not(.gm-hotel-compass__proofs) {
+  display: grid;
+  align-content: center;
+  gap: 0.5rem;
+  padding: clamp(1rem, 2.4vw, 2rem);
+}
+
+html body .gm-hotel-compass__active strong {
+  color: var(--ink);
+  font-family: var(--title-font);
+  font-size: clamp(1rem, 1.5vw, 1.35rem);
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+html body .gm-hotel-compass__active p {
+  max-width: 66ch;
+  margin: 0;
+  color: rgba(29, 29, 27, 0.7);
+  line-height: 1.65;
+}
+
+html body .gm-hotel-compass__proofs {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  gap: 0.4rem;
+  padding: clamp(1rem, 2vw, 1.4rem);
+}
+
+html body .gm-hotel-compass__proofs small {
+  border: 1px solid rgba(154, 25, 23, 0.16);
+  padding: 0.42rem 0.55rem;
+  color: var(--red);
+  background: rgba(255, 255, 255, 0.72);
+  font-size: 0.62rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+html body .gm-hotel-compass__active nav {
+  display: grid;
+  align-content: stretch;
+}
+
+html body .gm-hotel-compass__active nav a {
+  display: grid;
+  place-items: center;
+  min-height: 58px;
+  border-bottom: 1px solid rgba(154, 25, 23, 0.14);
+  color: var(--ink);
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-align: center;
+  text-transform: uppercase;
+  transition: color 260ms var(--ease), background 260ms var(--ease);
+}
+
+html body .gm-hotel-compass__active nav a:last-child {
+  border-bottom: 0;
+}
+
+html body .gm-hotel-compass__active nav a:hover,
+html body .gm-hotel-compass__active nav a:nth-child(2) {
+  color: var(--white);
+  background: var(--red);
+}
+
 html body .gm-hotel-carousel {
   --hotel-card-width: clamp(300px, 28vw, 430px);
   --hotel-card-step: calc(var(--hotel-card-width) + clamp(1.4rem, 2.5vw, 2.6rem));
@@ -8684,7 +9830,105 @@ html body .gm-hotel-carousel__controls strong {
   letter-spacing: 0.22em;
 }
 
+html body .gm-hotel-carousel__progress {
+  display: flex;
+  justify-content: center;
+  gap: 0.38rem;
+  width: min(840px, calc(100% - 2rem));
+  margin: 1.2rem auto 0;
+}
+
+html body .gm-hotel-carousel__progress button {
+  position: relative;
+  flex: 1 1 0;
+  height: 4px;
+  min-width: 20px;
+  border: 0;
+  overflow: hidden;
+  background: rgba(154, 25, 23, 0.16);
+  cursor: pointer;
+}
+
+html body .gm-hotel-carousel__progress button::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--red);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 320ms var(--ease);
+}
+
+html body .gm-hotel-carousel__progress button.is-active::after {
+  transform: scaleX(1);
+}
+
+html body .gm-hotel-carousel__progress span {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (max-width: 1080px) {
+  html body .gm-hotel-compass__active {
+    grid-template-columns: minmax(80px, 0.22fr) minmax(0, 1fr) minmax(220px, 0.68fr);
+  }
+
+  html body .gm-hotel-compass__active nav {
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  html body .gm-hotel-compass__active nav a {
+    border-bottom: 0;
+    border-right: 1px solid rgba(154, 25, 23, 0.14);
+  }
+
+  html body .gm-hotel-compass__active nav a:last-child {
+    border-right: 0;
+  }
+}
+
 @media (max-width: 760px) {
+  html body .gm-hotel-compass__filters {
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 0.4rem;
+    scroll-snap-type: x mandatory;
+  }
+
+  html body .gm-hotel-compass__filters button {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+  }
+
+  html body .gm-hotel-compass__active {
+    grid-template-columns: 1fr;
+  }
+
+  html body .gm-hotel-compass__active > span {
+    justify-items: start;
+    min-height: 92px;
+    padding: 1rem;
+  }
+
+  html body .gm-hotel-compass__proofs {
+    justify-content: flex-start;
+  }
+
+  html body .gm-hotel-compass__active nav {
+    grid-template-columns: 1fr;
+  }
+
+  html body .gm-hotel-compass__active nav a {
+    border-right: 0;
+    border-bottom: 1px solid rgba(154, 25, 23, 0.14);
+  }
+
   html body .gm-hotel-carousel {
     --hotel-card-width: min(82vw, 340px);
   }
@@ -10845,4 +12089,4348 @@ html body :where(.gm-home, .gm-page) :where(.gm-hotel-tile, .gm-room-card, .gm-o
 
 html body :where(.gm-home, .gm-page) .gm-section-head p {
   text-align: center !important;
+}
+
+/* High-conversion motion layer: object reveals, portal cues and tactile 3D cards. */
+html body .gm-high-conversion-motion {
+  --portal-rotate: 0deg;
+  --portal-scale: 1;
+}
+
+html body .gm-high-conversion-motion :where(.gm-page-section, .gm-radical-direct, .gm-radical-intents, .gm-radical-map, .gm-radical-usage, .gm-radical-constellation, .gm-radical-story, .gm-radical-signatures, .gm-radical-destinations, .gm-radical-moments, .gm-radical-numbers) {
+  position: relative;
+  isolation: isolate;
+}
+
+html body .gm-high-conversion-motion :where(.gm-page-section, .gm-radical-direct, .gm-radical-intents, .gm-radical-map, .gm-radical-usage, .gm-radical-constellation, .gm-radical-story, .gm-radical-signatures, .gm-radical-destinations, .gm-radical-moments, .gm-radical-numbers)::after {
+  content: "";
+  position: absolute;
+  inset: auto 8% -1px;
+  z-index: -1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(154, 25, 23, 0.25), rgba(44, 47, 77, 0.16), transparent);
+  transform: scaleX(calc(0.36 + (var(--scroll-progress, 0) * 0.64)));
+  transform-origin: center;
+  opacity: 0.78;
+}
+
+html body .gm-high-conversion-motion :where(.gm-section-head)::before {
+  transform: rotate(var(--portal-rotate)) scale(var(--portal-scale)) !important;
+  box-shadow:
+    0 0 0 1px rgba(154, 25, 23, 0.08),
+    0 18px 55px rgba(154, 25, 23, 0.12),
+    inset 0 0 34px rgba(154, 25, 23, 0.06);
+}
+
+html body .gm-high-conversion-motion :where(.gm-section-head)::after {
+  display: block !important;
+  order: 5;
+  width: min(360px, 56vw);
+  height: 1px;
+  margin: 0.2rem auto 0;
+  background: linear-gradient(90deg, transparent, rgba(154, 25, 23, 0.5), transparent);
+  opacity: 0.45;
+  transform: scaleX(0.76);
+}
+
+html body .gm-high-conversion-motion :where(.gm-hotel-tile, .gm-room-card, .gm-offer-card, .gm-fs-offer-card, .gm-editorial-card, .gm-experience-card, .gm-service-card, .gm-destination-feature, .gm-seminar-type, .gm-values__grid article, .gm-contact-hotels__grid article, .gm-experience-index__grid article) {
+  position: relative;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  transform: translate3d(var(--magnet-x, 0), var(--magnet-y, 0), 0) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+  transition: transform 260ms var(--ease), box-shadow 260ms var(--ease), border-color 260ms var(--ease), background 260ms var(--ease);
+}
+
+html body .gm-high-conversion-motion :where(.gm-hotel-tile, .gm-room-card, .gm-offer-card, .gm-fs-offer-card, .gm-editorial-card, .gm-experience-card, .gm-service-card, .gm-destination-feature, .gm-seminar-type, .gm-values__grid article, .gm-contact-hotels__grid article, .gm-experience-index__grid article)::after {
+  content: "";
+  position: absolute;
+  inset: -45%;
+  z-index: 3;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at var(--spot-x, 50%) var(--spot-y, 50%), rgba(255, 255, 255, 0.34), transparent 12rem),
+    radial-gradient(circle at 24% 18%, rgba(154, 25, 23, 0.16) 0 2px, transparent 3px),
+    radial-gradient(circle at 72% 34%, rgba(191, 165, 147, 0.2) 0 2px, transparent 3px),
+    radial-gradient(circle at 48% 76%, rgba(44, 47, 77, 0.12) 0 2px, transparent 3px);
+  opacity: 0;
+  transform: translate3d(-2%, 2%, 0) rotate(0deg) scale(0.96);
+  transition: opacity 280ms var(--ease), transform 850ms var(--ease);
+  mix-blend-mode: soft-light;
+}
+
+html body .gm-high-conversion-motion :where(.gm-hotel-tile, .gm-room-card, .gm-offer-card, .gm-fs-offer-card, .gm-editorial-card, .gm-experience-card, .gm-service-card, .gm-destination-feature, .gm-seminar-type, .gm-values__grid article, .gm-contact-hotels__grid article, .gm-experience-index__grid article):hover {
+  box-shadow: 0 34px 95px rgba(29, 29, 27, 0.18) !important;
+  border-color: rgba(154, 25, 23, 0.2) !important;
+}
+
+html body .gm-high-conversion-motion :where(.gm-hotel-tile, .gm-room-card, .gm-offer-card, .gm-fs-offer-card, .gm-editorial-card, .gm-experience-card, .gm-service-card, .gm-destination-feature, .gm-seminar-type, .gm-values__grid article, .gm-contact-hotels__grid article, .gm-experience-index__grid article):hover::after {
+  opacity: 1;
+  transform: translate3d(2%, -2%, 0) rotate(8deg) scale(1.02);
+}
+
+html body .gm-high-conversion-motion :where(.gm-hotel-tile img, .gm-room-card img, .gm-offer-card img, .gm-fs-offer-card img, .gm-editorial-card img, .gm-experience-card img, .gm-service-card img, .gm-destination-feature img, .gm-seminar-type img) {
+  transform-origin: center;
+  transition: transform 900ms var(--ease), filter 500ms var(--ease);
+}
+
+html body .gm-high-conversion-motion :where(.gm-hotel-tile, .gm-room-card, .gm-offer-card, .gm-fs-offer-card, .gm-editorial-card, .gm-experience-card, .gm-service-card, .gm-destination-feature, .gm-seminar-type):hover img {
+  transform: scale(1.075) translate3d(var(--magnet-x, 0), var(--magnet-y, 0), 34px);
+  filter: saturate(1.08) contrast(1.04);
+}
+
+html body .gm-high-conversion-motion :where(.gm-button, .gm-radical-book-link, .gm-final a, .gm-fs-offer-card a, .gm-hotel-tile a, .gm-room-card a) {
+  transition: transform 220ms var(--ease), box-shadow 220ms var(--ease), background 220ms var(--ease);
+}
+
+html body .gm-high-conversion-motion :where(.gm-button, .gm-radical-book-link, .gm-final a, .gm-fs-offer-card a, .gm-hotel-tile a, .gm-room-card a):hover {
+  transform: translateY(-2px) scale(1.015);
+  box-shadow: 0 18px 48px rgba(154, 25, 23, 0.18);
+}
+
+html body.gm-route-transition::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at var(--lux-x, 50%) var(--lux-y, 42%), rgba(154, 25, 23, 0.18), transparent 18rem),
+    radial-gradient(circle at 50% 48%, rgba(255, 253, 249, 0.58), transparent 28rem),
+    linear-gradient(110deg, rgba(44, 47, 77, 0.14), transparent 42%, rgba(154, 25, 23, 0.12));
+  animation: gm-space-transition 620ms var(--ease) both;
+  backdrop-filter: blur(7px) saturate(1.05);
+}
+
+html body.gm-route-transition::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 18% 24%, rgba(255, 255, 255, 0.85) 0 1px, transparent 2px),
+    radial-gradient(circle at 68% 35%, rgba(154, 25, 23, 0.42) 0 1px, transparent 2px),
+    radial-gradient(circle at 42% 72%, rgba(191, 165, 147, 0.52) 0 1px, transparent 2px),
+    radial-gradient(circle at 82% 70%, rgba(44, 47, 77, 0.38) 0 1px, transparent 2px);
+  background-size: 180px 180px, 220px 220px, 260px 260px, 210px 210px;
+  animation: gm-particle-warp 620ms var(--ease) both;
+  mix-blend-mode: multiply;
+}
+
+@keyframes gm-space-transition {
+  0% { opacity: 0; clip-path: circle(0% at var(--lux-x, 50%) var(--lux-y, 42%)); transform: scale(1.03); }
+  42% { opacity: 1; clip-path: circle(78% at var(--lux-x, 50%) var(--lux-y, 42%)); }
+  100% { opacity: 0; clip-path: circle(120% at 50% 50%); transform: scale(1); }
+}
+
+@keyframes gm-particle-warp {
+  0% { opacity: 0; transform: translate3d(0, 14px, 0) scale(0.94) rotate(-1deg); }
+  45% { opacity: 0.8; }
+  100% { opacity: 0; transform: translate3d(0, -18px, 0) scale(1.08) rotate(2deg); }
+}
+
+html body .gm-high-conversion-motion :where(.gm-destination-filterbar button, .gm-destination-menu button, .gm-room-tabs button, .gm-room-showcase__controls button, .gm-fs-gallery__arrow, .booking-bar button, .booking-bar__next) {
+  position: relative;
+  overflow: hidden;
+  transform: translate3d(var(--magnet-x, 0), var(--magnet-y, 0), 0) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+  transition: transform 220ms var(--ease), box-shadow 220ms var(--ease), border-color 220ms var(--ease), background 220ms var(--ease), color 220ms var(--ease);
+}
+
+html body .gm-high-conversion-motion :where(.gm-destination-filterbar button, .gm-destination-menu button, .gm-room-tabs button, .gm-room-showcase__controls button, .gm-fs-gallery__arrow, .booking-bar button, .booking-bar__next)::after {
+  content: "";
+  position: absolute;
+  inset: -60% -20%;
+  pointer-events: none;
+  background: radial-gradient(circle at var(--spot-x, 50%) var(--spot-y, 50%), rgba(255, 255, 255, 0.55), transparent 7rem);
+  opacity: 0;
+  transform: scale(0.84);
+  transition: opacity 220ms var(--ease), transform 420ms var(--ease);
+}
+
+html body .gm-high-conversion-motion :where(.gm-destination-filterbar button, .gm-destination-menu button, .gm-room-tabs button, .gm-room-showcase__controls button, .gm-fs-gallery__arrow, .booking-bar button, .booking-bar__next):hover::after,
+html body .gm-high-conversion-motion :where(.gm-destination-filterbar button, .gm-destination-menu button, .gm-room-tabs button, .gm-room-showcase__controls button, .gm-fs-gallery__arrow, .booking-bar button, .booking-bar__next):focus-visible::after {
+  opacity: 1;
+  transform: scale(1.04);
+}
+
+html body .gm-high-conversion-motion .booking-bar {
+  position: relative;
+  overflow: hidden;
+}
+
+html body .gm-high-conversion-motion .booking-bar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(100deg, transparent 0%, rgba(154, 25, 23, 0.08) 44%, rgba(255, 255, 255, 0.42) 50%, rgba(44, 47, 77, 0.08) 56%, transparent 100%);
+  opacity: 0;
+  transform: translateX(-70%);
+}
+
+html body .gm-high-conversion-motion .booking-bar > * {
+  position: relative;
+  z-index: 1;
+}
+
+html body .gm-high-conversion-motion .booking-bar--pending::before {
+  opacity: 1;
+  animation: gm-booking-scan 720ms var(--ease) both;
+}
+
+html body .gm-high-conversion-motion .booking-bar--ready {
+  box-shadow: 0 24px 80px rgba(154, 25, 23, 0.16), 0 0 0 1px rgba(154, 25, 23, 0.16);
+}
+
+html body .gm-high-conversion-motion .booking-bar--ready .booking-bar__next {
+  animation: gm-ready-pulse 1.5s var(--ease) infinite;
+}
+
+@keyframes gm-booking-scan {
+  0% { transform: translateX(-72%); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translateX(72%); opacity: 0; }
+}
+
+@keyframes gm-ready-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(154, 25, 23, 0.24); }
+  50% { box-shadow: 0 0 0 10px rgba(154, 25, 23, 0); }
+}
+
+html body .gm-high-conversion-motion .gm-fs-gallery__slide--active {
+  transform-style: preserve-3d;
+  transition: transform 500ms var(--ease), box-shadow 500ms var(--ease);
+}
+
+html body .gm-high-conversion-motion .gm-fs-gallery:hover .gm-fs-gallery__slide--active {
+  transform: translateZ(28px) scale(1.012);
+  box-shadow: 0 34px 110px rgba(29, 29, 27, 0.22);
+}
+
+/* Owned reference redesign layer: structural, not a simple override. */
+html body .gm-owned-header {
+  position: fixed;
+  top: max(0.8rem, env(safe-area-inset-top));
+  left: clamp(0.85rem, 2vw, 1.6rem);
+  right: clamp(0.85rem, 2vw, 1.6rem);
+  width: auto;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  background: rgba(17, 12, 10, 0.18);
+  color: white;
+  box-shadow: 0 20px 70px rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(18px) saturate(1.18);
+  transition: transform 320ms var(--ease), background 320ms var(--ease), border-color 320ms var(--ease), box-shadow 320ms var(--ease);
+}
+
+html body.gm-header-compact .gm-owned-header,
+html body .gm-owned-header--open {
+  border-color: rgba(154, 25, 23, 0.18);
+  background: rgba(255, 252, 247, 0.92);
+  color: var(--ink);
+  box-shadow: 0 22px 80px rgba(30, 20, 16, 0.16);
+}
+
+html body.gm-header-compact .gm-owned-header .site-logo img,
+html body .gm-owned-header--open .site-logo img {
+  filter: invert(1) saturate(0.2) brightness(0.35) sepia(1) hue-rotate(315deg) saturate(5);
+}
+
+html body .gm-owned-header .site-logo img {
+  transition: filter 260ms var(--ease), transform 260ms var(--ease);
+}
+
+html body .gm-owned-header .site-logo:hover img {
+  transform: scale(1.035);
+}
+
+html body .gm-owned-menu {
+  display: grid;
+}
+
+html body .gm-owned-menu__visual,
+html body .gm-owned-menu__links,
+html body .gm-owned-menu__footer {
+  display: none;
+}
+
+@media (min-width: 981px) {
+  html body .gm-owned-header .site-nav:not(.site-nav--open) {
+    display: none;
+  }
+
+  html body .gm-owned-header .menu-toggle {
+    display: inline-flex;
+  }
+}
+
+html body .gm-owned-menu.site-nav--open {
+  position: fixed;
+  inset: 0;
+  z-index: 9990;
+  display: grid;
+  grid-template-columns: minmax(320px, 0.82fr) minmax(0, 1.18fr);
+  gap: clamp(1rem, 4vw, 4rem);
+  align-items: stretch;
+  padding: clamp(5.5rem, 9vw, 8rem) clamp(1rem, 4vw, 4.5rem) clamp(1rem, 4vw, 3rem);
+  border-radius: 0;
+  background:
+    radial-gradient(circle at var(--lux-x, 52%) var(--lux-y, 28%), rgba(154, 25, 23, 0.18), transparent 24rem),
+    linear-gradient(110deg, rgba(14, 10, 8, 0.98), rgba(32, 18, 15, 0.96) 48%, rgba(9, 15, 29, 0.96));
+  color: white;
+  overflow: auto;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__visual,
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__links,
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__footer {
+  display: grid;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__visual {
+  position: sticky;
+  top: 1rem;
+  min-height: min(72vh, 760px);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: #180f0c;
+}
+
+html body .gm-owned-menu__visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.88;
+  transform: scale(1.04);
+  transition: opacity 420ms var(--ease), transform 900ms var(--ease), filter 420ms var(--ease);
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__visual:hover img {
+  opacity: 1;
+  transform: scale(1.1);
+  filter: saturate(1.08) contrast(1.08);
+}
+
+html body .gm-owned-menu__visual span {
+  position: absolute;
+  left: 1.2rem;
+  bottom: 1rem;
+  color: rgba(255, 255, 255, 0.78);
+  font-family: var(--display-font);
+  font-size: clamp(3rem, 8vw, 8rem);
+  line-height: 0.78;
+  letter-spacing: -0.08em;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__links {
+  align-content: center;
+  gap: clamp(1rem, 2.2vw, 2rem);
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__quick a {
+  display: flex;
+  align-items: baseline;
+  gap: clamp(0.8rem, 2vw, 1.4rem);
+  padding: clamp(0.45rem, 1vw, 0.9rem) 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  color: white;
+  font-family: var(--display-font);
+  font-size: clamp(2.2rem, 5.8vw, 6rem);
+  font-weight: 400;
+  line-height: 0.92;
+  letter-spacing: -0.07em;
+  text-decoration: none;
+  text-transform: none;
+  transition: color 220ms var(--ease), transform 220ms var(--ease), padding-left 220ms var(--ease);
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__quick a span {
+  min-width: 2.6rem;
+  color: rgba(191, 165, 147, 0.72);
+  font-family: var(--body-font);
+  font-size: 0.75rem;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__quick a:hover {
+  padding-left: 0.65rem;
+  color: #f5d7c7;
+  transform: translateX(4px);
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__quick {
+  display: grid;
+  gap: 0;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__groups {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.045);
+  backdrop-filter: blur(18px);
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__group {
+  position: relative;
+  display: grid;
+  min-height: 280px;
+  align-content: end;
+  gap: 0.7rem;
+  overflow: hidden;
+  padding: clamp(1rem, 1.8vw, 1.45rem);
+  border-right: 1px solid rgba(255, 255, 255, 0.14);
+  isolation: isolate;
+  transform: perspective(1000px) rotateX(var(--card-rx, 0deg)) rotateY(var(--card-ry, 0deg)) translate3d(var(--card-tx, 0), var(--card-ty, 0), 0);
+  transition: transform 320ms var(--ease), background 320ms var(--ease), border-color 320ms var(--ease);
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__group:last-child {
+  border-right: 0;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__group::before,
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__group::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 320ms var(--ease), transform 320ms var(--ease);
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__group::before {
+  background: radial-gradient(circle at var(--card-x, 50%) var(--card-y, 50%), rgba(255, 255, 255, 0.22), transparent 16rem);
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__group::after {
+  background: linear-gradient(160deg, rgba(154, 25, 23, 0.86), rgba(191, 165, 147, 0.18));
+  transform: translateY(14%);
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__group:hover {
+  background: rgba(255, 255, 255, 0.065);
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__group:hover::before,
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__group:hover::after {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__group > span {
+  position: absolute;
+  top: 0.85rem;
+  right: 0.95rem;
+  color: rgba(255, 255, 255, 0.14);
+  font-family: var(--display-font);
+  font-size: clamp(2.8rem, 4.2vw, 5.4rem);
+  line-height: 1;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__group h3 {
+  color: white;
+  font-family: var(--display-font);
+  font-size: clamp(1.5rem, 2.2vw, 2.9rem);
+  font-weight: 400;
+  line-height: 0.94;
+  letter-spacing: -0.05em;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__group p {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.93rem;
+  line-height: 1.55;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__group div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 0.2rem;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__group a {
+  display: inline-flex;
+  min-height: 34px;
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  padding: 0.45rem 0.66rem;
+  color: white;
+  background: rgba(255, 255, 255, 0.08);
+  font-family: var(--body-font);
+  font-size: 0.66rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  line-height: 1;
+  text-transform: uppercase;
+  transition: background 220ms var(--ease), color 220ms var(--ease), border-color 220ms var(--ease), transform 220ms var(--ease);
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__group a:hover {
+  color: var(--red);
+  background: white;
+  border-color: white;
+  transform: translateY(-2px);
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__footer {
+  grid-column: 2;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.2rem;
+  color: rgba(255, 255, 255, 0.66);
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__footer a {
+  width: max-content;
+  padding: 0.9rem 1.2rem;
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  border-radius: 999px;
+  font-family: var(--body-font);
+  font-size: 0.76rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+html body.gm-booking-takeover-open {
+  overflow: hidden;
+}
+
+html body .gm-booking-takeover {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 360ms var(--ease), visibility 360ms var(--ease);
+}
+
+html body .gm-booking-takeover--open {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+html body .gm-booking-takeover__backdrop {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at var(--lux-x, 58%) var(--lux-y, 24%), rgba(191, 165, 147, 0.22), transparent 28rem),
+    rgba(8, 8, 12, 0.78);
+  backdrop-filter: blur(22px) saturate(1.12);
+}
+
+html body .gm-booking-takeover__panel {
+  position: absolute;
+  inset: clamp(0.7rem, 2vw, 1.6rem);
+  display: grid;
+  grid-template-columns: minmax(320px, 0.74fr) minmax(0, 1.26fr);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background:
+    linear-gradient(135deg, rgba(255, 253, 249, 0.97), rgba(246, 235, 226, 0.94)),
+    var(--paper);
+  box-shadow: 0 42px 140px rgba(0, 0, 0, 0.36);
+  transform: translateY(28px) scale(0.985);
+  transition: transform 520ms var(--ease);
+}
+
+html body .gm-booking-takeover--open .gm-booking-takeover__panel {
+  transform: translateY(0) scale(1);
+}
+
+html body .gm-booking-takeover__close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 4;
+  min-height: 44px;
+  border: 1px solid rgba(255, 255, 255, 0.34);
+  border-radius: 999px;
+  padding: 0.65rem 0.9rem;
+  color: white;
+  background: rgba(18, 12, 10, 0.48);
+  cursor: pointer;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  backdrop-filter: blur(14px);
+}
+
+html body .gm-booking-takeover__media {
+  position: relative;
+  min-height: 100%;
+  overflow: hidden;
+  margin: 0;
+  background: #140e0b;
+  clip-path: inset(0 16% 0 0);
+  transition: clip-path 620ms var(--ease);
+}
+
+html body .gm-booking-takeover--open .gm-booking-takeover__media {
+  clip-path: inset(0 0 0 0);
+}
+
+html body .gm-booking-takeover__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 62% 36%, transparent, rgba(9, 8, 9, 0.18) 34%, rgba(9, 8, 9, 0.78)),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.54));
+}
+
+html body .gm-booking-takeover__media img {
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  opacity: 0.92;
+  transform: scale(1.12);
+  transition: transform 1100ms var(--ease), filter 700ms var(--ease);
+}
+
+html body .gm-booking-takeover--open .gm-booking-takeover__media img {
+  transform: scale(1.04);
+}
+
+html body .gm-booking-takeover__media span {
+  position: absolute;
+  left: clamp(1.2rem, 3vw, 2.4rem);
+  bottom: clamp(1.2rem, 3vw, 2.4rem);
+  z-index: 2;
+  color: rgba(255, 255, 255, 0.82);
+  font-family: var(--display-font);
+  font-size: clamp(3rem, 7.4vw, 8rem);
+  line-height: 0.78;
+  letter-spacing: -0.08em;
+}
+
+html body .gm-booking-takeover__body {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: clamp(1rem, 2vw, 1.4rem);
+  overflow: auto;
+  padding: clamp(4rem, 6vw, 6rem) clamp(1rem, 4vw, 4rem) clamp(1rem, 4vw, 3rem);
+}
+
+html body .gm-booking-takeover__body::before {
+  content: "";
+  position: absolute;
+  right: clamp(1rem, 4vw, 3rem);
+  top: clamp(4rem, 7vw, 6rem);
+  width: clamp(90px, 12vw, 160px);
+  aspect-ratio: 1;
+  border: 1px solid rgba(154, 25, 23, 0.16);
+  background: url('/assets/brand/mogador-mark.svg') center / 58% auto no-repeat;
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+html body .gm-booking-takeover__body h2 {
+  max-width: 12ch;
+  color: var(--ink);
+  font-family: var(--display-font);
+  font-size: clamp(2.8rem, 6vw, 6.8rem);
+  font-weight: 400;
+  line-height: 0.9;
+  letter-spacing: -0.06em;
+}
+
+html body .gm-booking-takeover__body p {
+  max-width: 62ch;
+  color: rgba(29, 29, 27, 0.72);
+}
+
+html body .gm-booking-takeover__proof {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+html body .gm-booking-takeover__proof strong {
+  display: inline-flex;
+  min-height: 38px;
+  align-items: center;
+  border: 1px solid rgba(154, 25, 23, 0.14);
+  border-radius: 999px;
+  padding: 0.5rem 0.8rem;
+  color: var(--red);
+  background: rgba(255, 255, 255, 0.76);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+html body .gm-booking-takeover__intents {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border: 1px solid rgba(154, 25, 23, 0.14);
+  background: rgba(255, 255, 255, 0.62);
+}
+
+html body .gm-booking-takeover__intents a {
+  position: relative;
+  display: grid;
+  min-height: 190px;
+  align-content: end;
+  gap: 0.52rem;
+  overflow: hidden;
+  padding: clamp(0.9rem, 1.7vw, 1.3rem);
+  border-right: 1px solid rgba(154, 25, 23, 0.14);
+  color: var(--ink);
+  transform: perspective(900px) rotateX(var(--card-rx, 0deg)) rotateY(var(--card-ry, 0deg)) translate3d(var(--card-tx, 0), var(--card-ty, 0), 0);
+  transition: transform 300ms var(--ease), background 300ms var(--ease), color 300ms var(--ease);
+}
+
+html body .gm-booking-takeover__intents a:last-child {
+  border-right: 0;
+}
+
+html body .gm-booking-takeover__intents a::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at var(--card-x, 50%) var(--card-y, 50%), rgba(255, 255, 255, 0.44), transparent 13rem),
+    linear-gradient(160deg, rgba(154, 25, 23, 0.96), rgba(191, 165, 147, 0.5));
+  opacity: 0;
+  transform: translateY(16%);
+  transition: opacity 320ms var(--ease), transform 320ms var(--ease);
+}
+
+html body .gm-booking-takeover__intents a:hover {
+  color: white;
+}
+
+html body .gm-booking-takeover__intents a:hover::before {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+html body .gm-booking-takeover__intents span,
+html body .gm-booking-takeover__intents strong,
+html body .gm-booking-takeover__intents small {
+  position: relative;
+  z-index: 1;
+}
+
+html body .gm-booking-takeover__intents span {
+  position: absolute;
+  top: 0.72rem;
+  right: 0.85rem;
+  color: rgba(154, 25, 23, 0.2);
+  font-family: var(--display-font);
+  font-size: clamp(2.2rem, 4vw, 4.2rem);
+  line-height: 1;
+}
+
+html body .gm-booking-takeover__intents a:hover span {
+  color: rgba(255, 255, 255, 0.22);
+}
+
+html body .gm-booking-takeover__intents strong {
+  font-family: var(--title-font);
+  font-size: 1rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+html body .gm-booking-takeover__intents small {
+  color: rgba(29, 29, 27, 0.66);
+  font-size: 0.86rem;
+  font-weight: 500;
+  line-height: 1.45;
+}
+
+html body .gm-booking-takeover__intents a:hover small {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+html body .gm-booking-takeover .booking-bar {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  box-shadow: 0 20px 70px rgba(154, 25, 23, 0.12);
+}
+
+html body .gm-booking-takeover .booking-bar__seal,
+html body .gm-booking-takeover .booking-bar label,
+html body .gm-booking-takeover .booking-bar button {
+  min-width: 0;
+}
+
+html body .gm-booking-takeover .booking-bar__rate-proof {
+  grid-column: span 3;
+}
+
+html body .gm-booking-takeover .booking-bar button {
+  min-width: 0;
+}
+
+html body .gm-booking-takeover .booking-bar p,
+html body .gm-booking-takeover .booking-bar__next {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 1180px) {
+  html body .gm-booking-takeover__intents {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  html body .gm-booking-takeover__intents a:nth-child(2n) {
+    border-right: 0;
+  }
+
+  html body .gm-booking-takeover__intents a:nth-child(n + 3) {
+    border-top: 1px solid rgba(154, 25, 23, 0.14);
+  }
+}
+
+html body .gm-owned-hero {
+  min-height: 100svh;
+  overflow: hidden;
+  isolation: isolate;
+  background: #110c0a;
+}
+
+html body .gm-owned-hero .gm-page-hero__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at var(--lux-x, 50%) var(--lux-y, 34%), rgba(154, 25, 23, 0.22), transparent 24rem),
+    linear-gradient(90deg, rgba(8, 5, 4, 0.82), rgba(8, 5, 4, 0.28) 50%, rgba(8, 5, 4, 0.16)),
+    linear-gradient(0deg, rgba(8, 5, 4, 0.72), transparent 48%);
+}
+
+html body .gm-owned-hero__portal {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.62;
+}
+
+html body .gm-owned-hero__portal span {
+  position: absolute;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  transform: translate(-50%, -50%);
+  animation: gm-portal-orbit 9s linear infinite;
+}
+
+html body .gm-owned-hero__portal span:nth-child(1) { left: 72%; top: 38%; width: 34vw; height: 34vw; }
+html body .gm-owned-hero__portal span:nth-child(2) { left: 72%; top: 38%; width: 48vw; height: 48vw; animation-direction: reverse; opacity: 0.6; }
+html body .gm-owned-hero__portal span:nth-child(3) { left: 72%; top: 38%; width: 62vw; height: 62vw; opacity: 0.34; }
+
+@keyframes gm-portal-orbit {
+  0% { transform: translate(-50%, -50%) rotate(0deg) scale(0.98); }
+  50% { transform: translate(-50%, -50%) rotate(180deg) scale(1.02); }
+  100% { transform: translate(-50%, -50%) rotate(360deg) scale(0.98); }
+}
+
+html body .gm-owned-hero__rail {
+  position: absolute;
+  top: 50%;
+  right: clamp(1rem, 3vw, 3rem);
+  z-index: 2;
+  display: grid;
+  gap: 0.75rem;
+  transform: translateY(-50%);
+  color: rgba(255, 255, 255, 0.72);
+}
+
+html body .gm-owned-hero__rail span {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+html body .gm-owned-hero .gm-page-hero__content {
+  z-index: 3;
+  width: min(980px, calc(100% - 2rem));
+  padding-top: clamp(7rem, 12vw, 11rem);
+}
+
+html body .gm-owned-hero .gm-page-hero__content h1 {
+  max-width: 11ch;
+  color: white;
+  font-size: clamp(3.6rem, 10vw, 10rem);
+  line-height: 0.86;
+  letter-spacing: -0.085em;
+  text-transform: none;
+  text-wrap: balance;
+}
+
+html body .gm-owned-hero .gm-page-hero__content p {
+  max-width: 690px;
+  color: rgba(255, 255, 255, 0.84);
+  font-size: clamp(1.05rem, 1.55vw, 1.38rem);
+}
+
+html body .gm-owned-hero .gm-page-hero__proof,
+html body .gm-owned-hero .gm-page-hero__conversion {
+  backdrop-filter: blur(18px) saturate(1.15);
+}
+
+html body .gm-owned-hero__signature {
+  position: absolute;
+  left: clamp(1rem, 4vw, 4.5rem);
+  bottom: clamp(1rem, 3vw, 2rem);
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+html body .gm-owned-hero__signature i {
+  width: 4rem;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.36);
+}
+
+html body .gm-owned-hero__scroll {
+  position: absolute;
+  right: clamp(1rem, 4vw, 4.5rem);
+  bottom: clamp(1rem, 3vw, 2rem);
+  z-index: 3;
+  display: inline-grid;
+  justify-items: center;
+  gap: 0.55rem;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+html body .gm-owned-hero__scroll span {
+  width: 1px;
+  height: 3.2rem;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.22);
+}
+
+html body .gm-owned-hero__scroll span::after {
+  content: "";
+  display: block;
+  width: 1px;
+  height: 1.3rem;
+  background: white;
+  animation: gm-scroll-cue 1.4s var(--ease) infinite;
+}
+
+@keyframes gm-scroll-cue {
+  0% { transform: translateY(-120%); opacity: 0; }
+  35% { opacity: 1; }
+  100% { transform: translateY(240%); opacity: 0; }
+}
+
+html body .gm-owned-prefooter {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(300px, 0.7fr);
+  gap: clamp(1.5rem, 5vw, 5rem);
+  align-items: end;
+  padding: clamp(4rem, 8vw, 8rem) clamp(1rem, 4vw, 4.5rem);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  background:
+    radial-gradient(circle at 78% 20%, rgba(154, 25, 23, 0.28), transparent 28rem),
+    linear-gradient(135deg, #120b09, #26110f 48%, #0f1730);
+  color: white;
+}
+
+html body .gm-owned-prefooter span {
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 0.75rem;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+html body .gm-owned-prefooter h2 {
+  max-width: 860px;
+  margin-top: 0.8rem;
+  font-family: var(--display-font);
+  font-size: clamp(2.6rem, 6.2vw, 7rem);
+  font-weight: 400;
+  line-height: 0.88;
+  letter-spacing: -0.08em;
+}
+
+html body .gm-owned-prefooter p {
+  max-width: 680px;
+  margin-top: 1rem;
+  color: rgba(255, 255, 255, 0.74);
+  font-size: clamp(1rem, 1.35vw, 1.2rem);
+  line-height: 1.68;
+}
+
+html body .gm-owned-prefooter form {
+  display: grid;
+  gap: 0.8rem;
+  padding: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(18px) saturate(1.2);
+}
+
+html body .gm-owned-prefooter label {
+  display: grid;
+  gap: 0.45rem;
+}
+
+html body .gm-owned-prefooter input {
+  min-height: 3.4rem;
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  border-radius: 0;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--ink);
+  padding: 0 1rem;
+}
+
+html body .gm-owned-prefooter button {
+  min-height: 3.4rem;
+  border: 0;
+  background: var(--red);
+  color: white;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform 220ms var(--ease), box-shadow 220ms var(--ease);
+}
+
+html body .gm-owned-prefooter button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 48px rgba(154, 25, 23, 0.34);
+}
+
+html body .gm-signature-experience {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(340px, 1.05fr);
+  gap: clamp(1.4rem, 5vw, 5.5rem);
+  align-items: center;
+  padding: clamp(4rem, 8vw, 8rem) clamp(1rem, 4vw, 4.5rem);
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 16% 22%, rgba(154, 25, 23, 0.09), transparent 28rem),
+    radial-gradient(circle at 86% 76%, rgba(44, 47, 77, 0.1), transparent 28rem),
+    #fffaf4;
+  color: var(--ink);
+  isolation: isolate;
+}
+
+html body .gm-signature-experience:nth-of-type(even) {
+  background:
+    radial-gradient(circle at 76% 22%, rgba(154, 25, 23, 0.12), transparent 28rem),
+    linear-gradient(135deg, #fbf2e8, #fffaf4 52%, #f3e6dc);
+}
+
+html body .gm-signature-experience::before {
+  content: "";
+  position: absolute;
+  inset: clamp(1rem, 3vw, 2.5rem);
+  z-index: -1;
+  border: 1px solid rgba(154, 25, 23, 0.12);
+  clip-path: polygon(0 0, 82% 0, 100% 18%, 100% 100%, 18% 100%, 0 82%);
+}
+
+html body .gm-signature-experience__media {
+  position: relative;
+  min-height: clamp(460px, 58vw, 760px);
+  overflow: hidden;
+  background: #160d0a;
+  box-shadow: 0 34px 100px rgba(29, 29, 27, 0.16);
+  transform-style: preserve-3d;
+}
+
+html body .gm-signature-experience__media::before {
+  content: "";
+  position: absolute;
+  inset: 1rem;
+  z-index: 2;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 360ms var(--ease), transform 500ms var(--ease);
+}
+
+html body .gm-signature-experience__media img {
+  width: 100%;
+  height: 100%;
+  min-height: inherit;
+  object-fit: cover;
+  transform: scale(1.06);
+  filter: saturate(0.92) contrast(1.02);
+  transition: transform 900ms var(--ease), filter 520ms var(--ease);
+}
+
+html body .gm-signature-experience__media figcaption {
+  position: absolute;
+  left: 1.2rem;
+  bottom: 1rem;
+  z-index: 3;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+html body .gm-signature-experience__media:hover::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+html body .gm-signature-experience__media:hover img {
+  transform: scale(1.12) translate3d(var(--magnet-x, 0), var(--magnet-y, 0), 0);
+  filter: saturate(1.08) contrast(1.08);
+}
+
+html body .gm-signature-experience__body {
+  position: relative;
+  display: grid;
+  align-content: center;
+}
+
+html body .gm-signature-experience__body h2 {
+  max-width: 920px;
+  margin-top: 0.65rem;
+  font-family: var(--display-font);
+  font-size: clamp(2.65rem, 6.6vw, 7.4rem);
+  font-weight: 400;
+  line-height: 0.88;
+  letter-spacing: -0.082em;
+  text-wrap: balance;
+}
+
+html body .gm-signature-experience__body > p {
+  max-width: 720px;
+  margin-top: 1.2rem;
+  color: var(--muted);
+  font-size: clamp(1.02rem, 1.35vw, 1.24rem);
+  line-height: 1.75;
+}
+
+html body .gm-signature-experience__cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  margin-top: clamp(1.4rem, 3vw, 2.4rem);
+  background: rgba(154, 25, 23, 0.16);
+  perspective: 1200px;
+}
+
+html body .gm-signature-experience__cards article {
+  display: grid;
+  align-content: start;
+  gap: 0.55rem;
+  min-height: 190px;
+  padding: clamp(1rem, 2vw, 1.3rem);
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+  transform: translate3d(var(--magnet-x, 0), var(--magnet-y, 0), 0) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+  transition: transform 260ms var(--ease), background 260ms var(--ease), box-shadow 260ms var(--ease);
+}
+
+html body .gm-signature-experience__cards article:hover {
+  background: white;
+  box-shadow: 0 18px 52px rgba(154, 25, 23, 0.12);
+}
+
+html body .gm-signature-experience__cards span {
+  color: var(--red);
+  font-family: var(--display-font);
+  font-size: clamp(2rem, 3.4vw, 3.6rem);
+  line-height: 0.9;
+}
+
+html body .gm-signature-experience__cards strong {
+  color: var(--ink);
+  font-size: 0.8rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+html body .gm-signature-experience__cards p {
+  color: var(--muted);
+  font-size: 0.94rem;
+  line-height: 1.55;
+}
+
+html body .gm-signature-experience .gm-actions {
+  margin-top: clamp(1.4rem, 3vw, 2.4rem);
+}
+
+html body .gm-high-conversion-motion :where(.gm-signature-experience__media, .gm-signature-experience__cards article) {
+  will-change: transform;
+}
+
+html body .gm-button,
+html body .gm-radical-button,
+html body .reserve-link {
+  position: relative;
+  overflow: hidden;
+}
+
+html body .gm-button::after,
+html body .gm-radical-button::after,
+html body .reserve-link::after {
+  content: "";
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: 0.6rem;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 260ms var(--ease);
+}
+
+html body .gm-button:hover::after,
+html body .gm-radical-button:hover::after,
+html body .reserve-link:hover::after {
+  transform: scaleX(1);
+}
+
+@media (min-width: 1100px) {
+  html body .conversion-dock {
+    left: auto !important;
+    right: max(0.85rem, env(safe-area-inset-right)) !important;
+    bottom: 50% !important;
+    width: 74px !important;
+    grid-template-columns: 1fr !important;
+    border-color: rgba(255, 255, 255, 0.22);
+    background: rgba(15, 10, 8, 0.54);
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.2);
+    transform: translateY(50%) translateX(0) !important;
+    backdrop-filter: blur(18px) saturate(1.18);
+  }
+
+  html body:not(.show-conversion-dock) .conversion-dock {
+    transform: translateY(50%) translateX(calc(100% + 2rem)) !important;
+  }
+
+  html body.show-conversion-dock .conversion-dock {
+    transform: translateY(50%) translateX(0) !important;
+  }
+
+  html body .conversion-dock__proof {
+    min-height: 190px;
+    padding: 0.9rem 0.55rem;
+    justify-items: center;
+    background: var(--red);
+  }
+
+  html body .conversion-dock__proof span,
+  html body .conversion-dock__proof strong {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    text-align: center;
+  }
+
+  html body .conversion-dock__proof strong {
+    font-size: 0.84rem;
+  }
+
+  html body .conversion-dock__actions {
+    display: grid;
+  }
+
+  html body .conversion-dock__actions a {
+    min-height: 82px;
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
+    border-left: 0;
+    padding: 0.65rem 0.45rem;
+    color: white;
+    background: rgba(255, 255, 255, 0.08);
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+  }
+
+  html body .conversion-dock__actions a:first-child {
+    background: rgba(255, 255, 255, 0.96);
+    color: var(--red);
+    font-size: 0.72rem;
+  }
+}
+
+@media (max-width: 980px) {
+  html body .gm-owned-menu.site-nav--open {
+    grid-template-columns: 1fr;
+    padding-top: 6rem;
+  }
+
+  html body .gm-owned-menu.site-nav--open .gm-owned-menu__visual {
+    min-height: 240px;
+    position: relative;
+  }
+
+  html body .gm-owned-menu.site-nav--open .gm-owned-menu__groups {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  html body .gm-owned-menu.site-nav--open .gm-owned-menu__group:nth-child(2n) {
+    border-right: 0;
+  }
+
+  html body .gm-owned-menu.site-nav--open .gm-owned-menu__group:nth-child(n + 3) {
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+  }
+
+  html body .gm-owned-menu.site-nav--open .gm-owned-menu__footer {
+    grid-column: auto;
+    grid-template-columns: 1fr;
+  }
+
+  html body .gm-booking-takeover__panel {
+    grid-template-columns: 1fr;
+    overflow: auto;
+  }
+
+  html body .gm-booking-takeover__media {
+    min-height: 300px;
+  }
+
+  html body .gm-booking-takeover__body {
+    overflow: visible;
+    padding-top: clamp(2rem, 6vw, 3rem);
+  }
+
+  html body .gm-booking-takeover__intents {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  html body .gm-booking-takeover__intents a:nth-child(2n) {
+    border-right: 0;
+  }
+
+  html body .gm-booking-takeover__intents a:nth-child(n + 3) {
+    border-top: 1px solid rgba(154, 25, 23, 0.14);
+  }
+
+  html body .gm-owned-hero__rail,
+  html body .gm-owned-hero__signature {
+    display: none;
+  }
+
+  html body .gm-owned-hero__portal span:nth-child(1) { width: 76vw; height: 76vw; }
+  html body .gm-owned-hero__portal span:nth-child(2) { width: 106vw; height: 106vw; }
+  html body .gm-owned-hero__portal span:nth-child(3) { width: 136vw; height: 136vw; }
+
+  html body .gm-owned-prefooter {
+    grid-template-columns: 1fr;
+  }
+
+  html body .gm-signature-experience {
+    grid-template-columns: 1fr;
+  }
+
+  html body .gm-signature-experience__cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  html body .gm-owned-header {
+    left: 0.65rem;
+    right: 0.65rem;
+    top: 0.65rem;
+  }
+
+  html body .gm-owned-menu.site-nav--open .gm-owned-menu__quick a {
+    font-size: clamp(2rem, 13vw, 4.6rem);
+  }
+
+  html body .gm-owned-menu.site-nav--open .gm-owned-menu__groups {
+    grid-template-columns: 1fr;
+  }
+
+  html body .gm-booking-takeover__panel {
+    inset: 0;
+  }
+
+  html body .gm-booking-takeover__close {
+    color: var(--ink);
+    background: rgba(255, 255, 255, 0.82);
+  }
+
+  html body .gm-booking-takeover__media {
+    min-height: 220px;
+  }
+
+  html body .gm-booking-takeover__media span {
+    font-size: clamp(2.7rem, 16vw, 5rem);
+  }
+
+  html body .gm-booking-takeover__body h2 {
+    font-size: clamp(2.4rem, 13vw, 4.7rem);
+  }
+
+  html body .gm-booking-takeover__intents {
+    grid-template-columns: 1fr;
+  }
+
+  html body .gm-booking-takeover__intents a,
+  html body .gm-booking-takeover__intents a:nth-child(2n) {
+    min-height: 158px;
+    border-right: 0;
+    border-top: 1px solid rgba(154, 25, 23, 0.14);
+  }
+
+  html body .gm-booking-takeover__intents a:first-child {
+    border-top: 0;
+  }
+
+  html body .gm-owned-menu.site-nav--open .gm-owned-menu__group,
+  html body .gm-owned-menu.site-nav--open .gm-owned-menu__group:nth-child(2n) {
+    min-height: 240px;
+    border-right: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+  }
+
+  html body .gm-owned-menu.site-nav--open .gm-owned-menu__group:first-child {
+    border-top: 0;
+  }
+
+  html body .gm-owned-hero .gm-page-hero__content h1 {
+    font-size: clamp(3.2rem, 17vw, 5.2rem);
+  }
+
+  html body .gm-owned-hero__scroll {
+    display: none;
+  }
+}
+
+/* Final navigation overlay: accessible full-screen menu inspired by editorial hotel menus. */
+html body.gm-menu-open {
+  overflow: hidden !important;
+}
+
+html body .gm-owned-header--open {
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+}
+
+html body .gm-owned-menu__close,
+html body .gm-owned-menu__utilities {
+  display: none;
+}
+
+html body .gm-owned-menu.site-nav--open {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 9990 !important;
+  display: grid !important;
+  grid-template-columns: minmax(74px, 0.18fr) minmax(300px, 0.72fr) minmax(280px, 0.58fr) !important;
+  grid-template-areas:
+    "close links visual"
+    "close footer visual" !important;
+  gap: clamp(1rem, 2.6vw, 3rem) !important;
+  min-width: 100vw !important;
+  min-height: 100dvh !important;
+  max-height: 100dvh !important;
+  margin: 0 !important;
+  padding: clamp(3rem, 5vw, 5.4rem) clamp(1rem, 3vw, 4rem) clamp(1.6rem, 4vw, 4rem) !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  color: var(--ink) !important;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.98), rgba(255, 253, 249, 0.95) 52%, rgba(255, 255, 255, 0.9)),
+    var(--paper) !important;
+  box-shadow: none !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  overscroll-behavior: contain !important;
+}
+
+html body .gm-owned-menu.site-nav--open::before {
+  content: "MOGADOR";
+  position: fixed;
+  inset: auto -1vw -4vw auto;
+  z-index: -1;
+  color: rgba(154, 25, 23, 0.035);
+  font-family: var(--display-font);
+  font-size: clamp(9rem, 22vw, 26rem);
+  line-height: 0.8;
+  letter-spacing: -0.08em;
+  pointer-events: none;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__close {
+  grid-area: close;
+  display: block;
+  position: sticky;
+  top: clamp(1rem, 3vw, 2rem);
+  align-self: start;
+  width: 74px;
+  height: 74px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__close span,
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__close::before {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 35px;
+  width: 58px;
+  height: 2px;
+  background: rgba(99, 99, 98, 0.82);
+  transform: rotate(45deg);
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__close::before {
+  transform: rotate(-45deg);
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__links {
+  grid-area: links;
+  display: grid !important;
+  align-content: start !important;
+  gap: clamp(1.7rem, 3vw, 3rem) !important;
+  min-width: 0;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__quick {
+  display: grid !important;
+  gap: clamp(0.65rem, 1.2vw, 1.05rem) !important;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__quick a {
+  display: grid !important;
+  grid-template-columns: 3.2rem minmax(0, 1fr) !important;
+  gap: clamp(0.8rem, 1.6vw, 1.4rem) !important;
+  align-items: baseline !important;
+  padding: 0 !important;
+  border: 0 !important;
+  color: rgba(82, 82, 80, 0.92) !important;
+  font-family: var(--title-font) !important;
+  font-size: clamp(1.45rem, 2.65vw, 3.15rem) !important;
+  font-weight: 600 !important;
+  line-height: 1.08 !important;
+  letter-spacing: -0.035em !important;
+  text-transform: uppercase !important;
+  transform: none !important;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__quick a:first-child {
+  color: #b18a5d !important;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__quick a span {
+  min-width: 0 !important;
+  color: rgba(154, 25, 23, 0.54) !important;
+  font-family: var(--body-font) !important;
+  font-size: 0.72rem !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.18em !important;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__quick a:hover {
+  color: var(--red) !important;
+  padding-left: 0 !important;
+  transform: translateX(10px) !important;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__utilities {
+  display: grid;
+  gap: clamp(0.8rem, 1.4vw, 1.1rem);
+  border-top: 2px solid rgba(99, 99, 98, 0.42);
+  padding-top: clamp(1rem, 2vw, 1.4rem);
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__utilities a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: rgba(82, 82, 80, 0.86);
+  font-family: var(--title-font);
+  font-size: clamp(1.05rem, 1.7vw, 1.45rem);
+  text-decoration: none;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__utilities a::before {
+  content: "";
+  width: 0.52rem;
+  height: 0.52rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  opacity: 0.72;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__groups {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: clamp(0.7rem, 1.3vw, 1rem) !important;
+  border: 0 !important;
+  background: transparent !important;
+  backdrop-filter: none !important;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__group {
+  min-height: 0 !important;
+  align-content: start !important;
+  gap: 0.55rem !important;
+  padding: 0 0 clamp(0.9rem, 1.8vw, 1.3rem) !important;
+  border-right: 0 !important;
+  border-bottom: 1px solid rgba(99, 99, 98, 0.14) !important;
+  color: var(--ink) !important;
+  background: transparent !important;
+  transform: none !important;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__group::before,
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__group::after {
+  display: none !important;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__group > span {
+  position: static !important;
+  color: rgba(154, 25, 23, 0.7) !important;
+  font-family: var(--body-font) !important;
+  font-size: 0.7rem !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.18em !important;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__group h3 {
+  color: var(--ink) !important;
+  font-family: var(--title-font) !important;
+  font-size: clamp(1.25rem, 2.2vw, 2.4rem) !important;
+  font-weight: 600 !important;
+  line-height: 1.05 !important;
+  letter-spacing: -0.02em !important;
+  text-transform: uppercase !important;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__group p {
+  max-width: 42ch !important;
+  color: rgba(82, 82, 80, 0.7) !important;
+  font-size: 0.92rem !important;
+  line-height: 1.55 !important;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__group div {
+  gap: 0.45rem !important;
+  margin-top: 0.15rem !important;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__group a {
+  min-height: 32px !important;
+  border: 1px solid rgba(154, 25, 23, 0.16) !important;
+  border-radius: 999px !important;
+  color: var(--red) !important;
+  background: rgba(154, 25, 23, 0.04) !important;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__group a:hover {
+  color: var(--white) !important;
+  background: var(--red) !important;
+  border-color: var(--red) !important;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__visual {
+  grid-area: visual;
+  display: grid !important;
+  position: sticky !important;
+  top: clamp(2rem, 5vw, 4rem) !important;
+  min-height: min(72dvh, 720px) !important;
+  max-height: 78dvh !important;
+  align-self: start;
+  border: 0 !important;
+  background: transparent !important;
+  overflow: visible !important;
+}
+
+/* Final annotated menu compacting: keep every entry visible without oversized link blocks. */
+html body .gm-owned-menu.site-nav--open {
+  grid-template-columns: 58px minmax(300px, 0.78fr) minmax(240px, 0.52fr) !important;
+  gap: clamp(0.8rem, 2vw, 2.2rem) !important;
+  padding: clamp(2rem, 3.6vw, 3.8rem) clamp(1rem, 2.6vw, 3.2rem) clamp(1.2rem, 2.6vw, 2.6rem) !important;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__close {
+  width: 58px !important;
+  height: 58px !important;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__close span,
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__close::before {
+  left: 5px !important;
+  top: 28px !important;
+  width: 48px !important;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__links {
+  gap: clamp(1rem, 2vw, 1.8rem) !important;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__quick {
+  gap: clamp(0.42rem, 0.9vw, 0.75rem) !important;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__quick a {
+  grid-template-columns: 2.2rem minmax(0, 1fr) !important;
+  gap: clamp(0.55rem, 1vw, 1rem) !important;
+  font-size: clamp(1.18rem, 2.1vw, 2.25rem) !important;
+  line-height: 1 !important;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__quick a span {
+  font-size: 0.62rem !important;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__groups {
+  gap: clamp(0.45rem, 0.8vw, 0.72rem) !important;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__group {
+  gap: 0.35rem !important;
+  padding-bottom: clamp(0.55rem, 1vw, 0.8rem) !important;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__group h3 {
+  font-size: clamp(1rem, 1.55vw, 1.55rem) !important;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__group p {
+  font-size: 0.82rem !important;
+  line-height: 1.35 !important;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__group a {
+  min-height: 28px !important;
+  padding: 0.45rem 0.7rem !important;
+  font-size: 0.68rem !important;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__visual {
+  min-height: min(58dvh, 560px) !important;
+  max-height: 66dvh !important;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__quick a {
+  display: block !important;
+  grid-template-columns: none !important;
+  width: max-content !important;
+  max-width: 100% !important;
+  white-space: nowrap !important;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__groups {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  column-gap: clamp(1rem, 2vw, 1.8rem) !important;
+  row-gap: clamp(0.75rem, 1.4vw, 1.15rem) !important;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__group {
+  display: block !important;
+  padding-bottom: 0.75rem !important;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__group h3,
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__group p {
+  margin: 0 0 0.45rem !important;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__group p {
+  max-width: 34ch !important;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__utilities {
+  display: none !important;
+}
+
+/* Final annotation repair: readable header on light sections, no invisible logo/menu. */
+html body .gm-owned-header {
+  border-color: rgba(154, 25, 23, 0.16) !important;
+  background: rgba(255, 252, 247, 0.96) !important;
+  color: var(--ink) !important;
+  box-shadow: 0 18px 56px rgba(30, 20, 16, 0.12) !important;
+}
+
+html body .gm-owned-header .site-logo img {
+  opacity: 1 !important;
+  filter: invert(16%) sepia(82%) saturate(1731%) hue-rotate(343deg) brightness(88%) contrast(96%) !important;
+}
+
+html body .gm-owned-header .menu-toggle {
+  border-color: rgba(154, 25, 23, 0.28) !important;
+  background: rgba(255, 255, 255, 0.72) !important;
+}
+
+html body .gm-owned-header .menu-toggle span {
+  display: block !important;
+  height: 2px !important;
+  opacity: 1 !important;
+  background: var(--red) !important;
+  transform: none !important;
+}
+
+/* Final annotation sizing pass: reduce oversized titles and center active hero copy. */
+html body .gm-radical-home .gm-radical-hero__content {
+  left: auto !important;
+  right: auto !important;
+  width: min(1180px, calc(100vw - clamp(3rem, 12vw, 14rem))) !important;
+  max-width: 1180px !important;
+  margin-inline: auto !important;
+  justify-self: center !important;
+  align-self: center !important;
+  text-align: center !important;
+  transform: translateY(clamp(5rem, 13vh, 9rem)) !important;
+}
+
+html body .gm-radical-home .gm-radical-hero__content .gm-radical-eyebrow,
+html body .gm-radical-home .gm-radical-hero__content h1,
+html body .gm-radical-home .gm-radical-hero__content p {
+  width: 100% !important;
+  text-align: center !important;
+  text-align-last: center !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+html body .gm-radical-home .gm-radical-hero__content h1 {
+  max-width: none !important;
+  white-space: nowrap !important;
+  text-wrap: nowrap !important;
+  font-size: clamp(2.35rem, 4.1vw, 4.75rem) !important;
+  line-height: 0.98 !important;
+  letter-spacing: 0.005em !important;
+}
+
+html body .gm-radical-home .gm-radical-hero__content p {
+  max-width: 780px !important;
+  color: rgba(255, 255, 255, 0.84) !important;
+  font-size: clamp(0.98rem, 1.12vw, 1.18rem) !important;
+  line-height: 1.5 !important;
+  text-align: center !important;
+  text-align-last: center !important;
+  text-justify: auto !important;
+}
+
+html body .gm-radical-home .gm-radical-map__copy h2 {
+  max-width: 13ch !important;
+  font-size: clamp(1.95rem, 2.65vw, 3.15rem) !important;
+  line-height: 1.05 !important;
+  letter-spacing: -0.025em !important;
+}
+
+html body .gm-radical-home .gm-radical-destinations {
+  align-items: start !important;
+  min-height: 0 !important;
+  padding-top: clamp(4rem, 6vw, 6.5rem) !important;
+  padding-bottom: clamp(4rem, 6vw, 6.5rem) !important;
+}
+
+html body .gm-radical-home .gm-radical-destinations__visual {
+  min-height: 0 !important;
+  height: clamp(500px, 38vw, 650px) !important;
+  align-self: start !important;
+}
+
+html body .gm-radical-home .gm-radical-destinations__visual img {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  object-fit: cover !important;
+}
+
+html body .gm-radical-home .gm-radical-usage__carousel .gm-radical-use div {
+  max-width: 620px !important;
+  padding: clamp(1.7rem, 3vw, 3rem) clamp(2.2rem, 4.2vw, 4.2rem) clamp(1.7rem, 3vw, 3rem) clamp(4.8rem, 7.8vw, 7rem) !important;
+}
+
+html body .gm-radical-home .gm-radical-usage__carousel .gm-radical-use h3,
+html body .gm-radical-home .gm-radical-usage__carousel .gm-radical-use h4,
+html body .gm-radical-home .gm-radical-usage__carousel .gm-radical-use p {
+  text-align: left !important;
+  text-align-last: left !important;
+  text-justify: auto !important;
+}
+
+html body .conversion-dock,
+html body:not(.show-conversion-dock) .conversion-dock,
+html body.show-conversion-dock .conversion-dock {
+  position: relative !important;
+  inset: auto !important;
+  top: auto !important;
+  display: grid !important;
+  grid-template-columns: minmax(260px, 0.26fr) minmax(0, 1fr) !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+html body .conversion-dock__proof {
+  min-height: 56px !important;
+  padding: 0.5rem clamp(1.35rem, 2.4vw, 2.4rem) 0.5rem clamp(2rem, 4vw, 4.5rem) !important;
+  writing-mode: horizontal-tb !important;
+  text-orientation: mixed !important;
+  justify-content: start !important;
+  align-content: center !important;
+  gap: 0.16rem !important;
+  overflow: visible !important;
+}
+
+html body .conversion-dock__proof span,
+html body .conversion-dock__proof strong {
+  white-space: normal !important;
+  writing-mode: horizontal-tb !important;
+  line-height: 1.04 !important;
+}
+
+html body .conversion-dock__actions a {
+  min-height: 56px !important;
+  padding: 0.48rem 0.8rem !important;
+  color: var(--red) !important;
+  background: var(--white) !important;
+}
+
+html body .conversion-dock__actions a:first-child {
+  color: var(--white) !important;
+  background: var(--red) !important;
+}
+
+html body .conversion-dock__actions a:hover,
+html body .conversion-dock__actions a:focus-visible,
+html body .conversion-dock__actions a:first-child:hover,
+html body .conversion-dock__actions a:first-child:focus-visible {
+  color: var(--white) !important;
+  background: var(--grand-blue) !important;
+  border-color: var(--grand-blue) !important;
+}
+
+@media (max-width: 1180px) {
+  html body .gm-radical-home .gm-radical-hero__content {
+    transform: translateY(3.25rem) !important;
+  }
+
+  html body .gm-radical-home .gm-radical-hero__content h1 {
+    white-space: normal !important;
+    text-wrap: balance !important;
+  }
+}
+
+@media (max-width: 820px) {
+  html body .gm-radical-home .gm-radical-destinations__visual {
+    height: 460px !important;
+  }
+
+  html body .conversion-dock,
+  html body:not(.show-conversion-dock) .conversion-dock,
+  html body.show-conversion-dock .conversion-dock {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 700px) {
+  html body .gm-radical-home .gm-radical-hero__content h1 {
+    font-size: clamp(2.25rem, 12vw, 4.2rem) !important;
+  }
+
+  html body .gm-radical-home .gm-radical-usage__carousel .gm-radical-use div {
+    padding: 2rem !important;
+  }
+}
+
+/* Final annotation lock: remove dock proof cell, resize footer band, and align hero panel. */
+html body .gm-radical-home .gm-radical-compare {
+  right: clamp(4rem, 7.7vw, 8.25rem) !important;
+}
+
+html body .conversion-dock,
+html body:not(.show-conversion-dock) .conversion-dock,
+html body.show-conversion-dock .conversion-dock {
+  position: relative !important;
+  inset: auto !important;
+  top: auto !important;
+  display: grid !important;
+  grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+  width: 100% !important;
+  height: 56px !important;
+  min-height: 56px !important;
+  max-height: 56px !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  transform: none !important;
+  background: var(--white) !important;
+  box-shadow: none !important;
+}
+
+html body .conversion-dock__proof {
+  display: none !important;
+}
+
+html body .conversion-dock__actions {
+  display: contents !important;
+}
+
+html body .conversion-dock__actions a {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
+  height: 56px !important;
+  min-height: 56px !important;
+  max-height: 56px !important;
+  padding: 0.5rem 0.8rem !important;
+  border-left: 1px solid rgba(191, 165, 147, 0.32) !important;
+  border-bottom: 0 !important;
+  color: var(--red) !important;
+  background: var(--white) !important;
+  font-size: 0.72rem !important;
+  line-height: 1 !important;
+  letter-spacing: 0.14em !important;
+  text-align: center !important;
+  white-space: nowrap !important;
+  writing-mode: horizontal-tb !important;
+  text-orientation: mixed !important;
+  transform: none !important;
+}
+
+html body .conversion-dock__actions a:first-child {
+  color: var(--white) !important;
+  background: var(--red) !important;
+}
+
+html body .conversion-dock__actions a:hover,
+html body .conversion-dock__actions a:focus-visible,
+html body .conversion-dock__actions a:first-child:hover,
+html body .conversion-dock__actions a:first-child:focus-visible {
+  color: var(--white) !important;
+  background: var(--grand-blue) !important;
+  border-color: var(--grand-blue) !important;
+}
+
+@media (max-width: 980px) {
+  html body .conversion-dock,
+  html body:not(.show-conversion-dock) .conversion-dock,
+  html body.show-conversion-dock .conversion-dock {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    height: auto !important;
+    max-height: none !important;
+  }
+
+  html body .conversion-dock__actions a {
+    height: 56px !important;
+    min-height: 56px !important;
+    max-height: 56px !important;
+  }
+}
+
+/* Absolute final lock for the post-footer booking band. */
+html body .conversion-dock,
+html body:not(.show-conversion-dock) .conversion-dock,
+html body.show-conversion-dock .conversion-dock {
+  position: relative !important;
+  inset: auto !important;
+  top: auto !important;
+  z-index: 1 !important;
+  display: grid !important;
+  grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+  width: 100% !important;
+  height: 56px !important;
+  min-height: 56px !important;
+  max-height: 56px !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  transform: none !important;
+  border-top: 1px solid rgba(191, 165, 147, 0.32) !important;
+  background: var(--white) !important;
+  box-shadow: none !important;
+}
+
+html body .conversion-dock__proof {
+  display: flex !important;
+  min-width: 0 !important;
+  min-height: 56px !important;
+  height: 56px !important;
+  padding: 0 1.2rem 0 clamp(2.25rem, 4vw, 4.75rem) !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 0.55rem !important;
+  overflow: hidden !important;
+  writing-mode: horizontal-tb !important;
+  text-orientation: mixed !important;
+  color: var(--white) !important;
+  background: var(--red) !important;
+}
+
+html body .conversion-dock__proof span,
+html body .conversion-dock__proof strong {
+  display: block !important;
+  min-width: 0 !important;
+  overflow: hidden !important;
+  white-space: nowrap !important;
+  text-overflow: ellipsis !important;
+  writing-mode: horizontal-tb !important;
+  text-orientation: mixed !important;
+  line-height: 1 !important;
+}
+
+html body .conversion-dock__proof span {
+  color: rgba(255, 255, 255, 0.82) !important;
+  font-size: 0.68rem !important;
+  letter-spacing: 0.08em !important;
+}
+
+html body .conversion-dock__proof strong {
+  color: var(--white) !important;
+  font-size: 0.72rem !important;
+  letter-spacing: 0.12em !important;
+}
+
+html body .conversion-dock__actions {
+  display: contents !important;
+}
+
+html body .conversion-dock__actions a {
+  display: flex !important;
+  min-height: 56px !important;
+  height: 56px !important;
+  padding: 0 0.7rem !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-left: 1px solid rgba(191, 165, 147, 0.32) !important;
+  border-bottom: 0 !important;
+  color: var(--red) !important;
+  background: var(--white) !important;
+  font-size: 0.72rem !important;
+  line-height: 1 !important;
+  letter-spacing: 0.14em !important;
+  text-align: center !important;
+  white-space: nowrap !important;
+  writing-mode: horizontal-tb !important;
+  text-orientation: mixed !important;
+  transform: none !important;
+}
+
+html body .conversion-dock__actions a:first-child {
+  color: var(--white) !important;
+  background: var(--red) !important;
+}
+
+html body .conversion-dock__actions a:hover,
+html body .conversion-dock__actions a:focus-visible,
+html body .conversion-dock__actions a:first-child:hover,
+html body .conversion-dock__actions a:first-child:focus-visible {
+  color: var(--white) !important;
+  background: var(--grand-blue) !important;
+  border-color: var(--grand-blue) !important;
+}
+
+@media (max-width: 980px) {
+  html body .conversion-dock,
+  html body:not(.show-conversion-dock) .conversion-dock,
+  html body.show-conversion-dock .conversion-dock {
+    grid-template-columns: 1fr 1fr !important;
+    height: auto !important;
+    max-height: none !important;
+  }
+
+  html body .conversion-dock__proof,
+  html body .conversion-dock__actions a {
+    min-height: 50px !important;
+    height: 50px !important;
+  }
+}
+
+/* Annotation adjustment: align the hero proof panel with the booking bar's right edge. */
+html body .gm-radical-home .gm-radical-compare {
+  right: clamp(4rem, 7.7vw, 8.25rem) !important;
+}
+
+/* True final annotation lock: overrides every earlier annotation pass. */
+html body .gm-radical-home .gm-radical-hero {
+  justify-items: center !important;
+  text-align: center !important;
+}
+
+html body .gm-radical-home .gm-radical-hero__content {
+  left: auto !important;
+  right: auto !important;
+  width: min(1180px, calc(100vw - clamp(3rem, 12vw, 14rem))) !important;
+  max-width: 1180px !important;
+  margin-inline: auto !important;
+  justify-self: center !important;
+  align-self: center !important;
+  text-align: center !important;
+  transform: translateY(clamp(5rem, 13vh, 9rem)) !important;
+}
+
+html body .gm-radical-home .gm-radical-hero__content .gm-radical-eyebrow,
+html body .gm-radical-home .gm-radical-hero__content h1,
+html body .gm-radical-home .gm-radical-hero__content p {
+  width: 100% !important;
+  text-align: center !important;
+  text-align-last: center !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+html body .gm-radical-home .gm-radical-hero__content h1 {
+  font-size: clamp(2.35rem, 4.1vw, 4.75rem) !important;
+  line-height: 0.98 !important;
+  letter-spacing: 0.005em !important;
+}
+
+html body .gm-radical-home .gm-radical-destinations {
+  align-items: start !important;
+  min-height: 0 !important;
+  padding-top: clamp(4rem, 6vw, 6.5rem) !important;
+  padding-bottom: clamp(4rem, 6vw, 6.5rem) !important;
+}
+
+html body .gm-radical-home .gm-radical-destinations__visual {
+  min-height: 0 !important;
+  height: clamp(500px, 38vw, 650px) !important;
+  align-self: start !important;
+}
+
+html body .gm-radical-home .gm-radical-destinations__visual img {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  object-fit: cover !important;
+}
+
+html body .conversion-dock,
+html body:not(.show-conversion-dock) .conversion-dock,
+html body.show-conversion-dock .conversion-dock {
+  position: relative !important;
+  inset: auto !important;
+  top: auto !important;
+  display: grid !important;
+  grid-template-columns: minmax(260px, 0.26fr) minmax(0, 1fr) !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+html body .conversion-dock__proof {
+  min-height: 56px !important;
+  padding: 0.5rem clamp(1.35rem, 2.4vw, 2.4rem) 0.5rem clamp(2rem, 4vw, 4.5rem) !important;
+  writing-mode: horizontal-tb !important;
+  text-orientation: mixed !important;
+  justify-content: start !important;
+  align-content: center !important;
+  gap: 0.16rem !important;
+  overflow: visible !important;
+}
+
+html body .conversion-dock__proof span,
+html body .conversion-dock__proof strong {
+  white-space: normal !important;
+  writing-mode: horizontal-tb !important;
+  line-height: 1.04 !important;
+}
+
+html body .conversion-dock__actions a {
+  min-height: 56px !important;
+  padding: 0.48rem 0.8rem !important;
+  color: var(--red) !important;
+  background: var(--white) !important;
+}
+
+html body .conversion-dock__actions a:first-child {
+  color: var(--white) !important;
+  background: var(--red) !important;
+}
+
+html body .conversion-dock__actions a:hover,
+html body .conversion-dock__actions a:focus-visible,
+html body .conversion-dock__actions a:first-child:hover,
+html body .conversion-dock__actions a:first-child:focus-visible {
+  color: var(--white) !important;
+  background: var(--grand-blue) !important;
+  border-color: var(--grand-blue) !important;
+}
+
+@media (max-width: 1180px) {
+  html body .gm-radical-home .gm-radical-hero__content {
+    transform: translateY(3.25rem) !important;
+  }
+}
+
+@media (max-width: 820px) {
+  html body .gm-radical-home .gm-radical-destinations__visual {
+    height: 460px !important;
+  }
+
+  html body .conversion-dock,
+  html body:not(.show-conversion-dock) .conversion-dock,
+  html body.show-conversion-dock .conversion-dock {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* True final annotation lock: overrides every earlier annotation pass. */
+html body .gm-radical-home .gm-radical-hero {
+  justify-items: center !important;
+  text-align: center !important;
+}
+
+html body .gm-radical-home .gm-radical-hero__content {
+  left: auto !important;
+  right: auto !important;
+  width: min(1180px, calc(100vw - clamp(3rem, 12vw, 14rem))) !important;
+  max-width: 1180px !important;
+  margin-inline: auto !important;
+  justify-self: center !important;
+  align-self: center !important;
+  text-align: center !important;
+  transform: translateY(clamp(5rem, 13vh, 9rem)) !important;
+}
+
+html body .gm-radical-home .gm-radical-hero__content .gm-radical-eyebrow,
+html body .gm-radical-home .gm-radical-hero__content h1,
+html body .gm-radical-home .gm-radical-hero__content p {
+  width: 100% !important;
+  text-align: center !important;
+  text-align-last: center !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+html body .gm-radical-home .gm-radical-hero__content h1 {
+  font-size: clamp(2.35rem, 4.1vw, 4.75rem) !important;
+  line-height: 0.98 !important;
+  letter-spacing: 0.005em !important;
+}
+
+html body .gm-radical-home .gm-radical-destinations {
+  align-items: start !important;
+  min-height: 0 !important;
+  padding-top: clamp(4rem, 6vw, 6.5rem) !important;
+  padding-bottom: clamp(4rem, 6vw, 6.5rem) !important;
+}
+
+html body .gm-radical-home .gm-radical-destinations__visual {
+  min-height: 0 !important;
+  height: clamp(500px, 38vw, 650px) !important;
+  align-self: start !important;
+}
+
+html body .gm-radical-home .gm-radical-destinations__visual img {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  object-fit: cover !important;
+}
+
+html body .conversion-dock,
+html body:not(.show-conversion-dock) .conversion-dock,
+html body.show-conversion-dock .conversion-dock {
+  position: relative !important;
+  inset: auto !important;
+  top: auto !important;
+  display: grid !important;
+  grid-template-columns: minmax(260px, 0.26fr) minmax(0, 1fr) !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+html body .conversion-dock__proof {
+  min-height: 56px !important;
+  padding: 0.5rem clamp(1.35rem, 2.4vw, 2.4rem) 0.5rem clamp(2rem, 4vw, 4.5rem) !important;
+  writing-mode: horizontal-tb !important;
+  text-orientation: mixed !important;
+  justify-content: start !important;
+  align-content: center !important;
+  gap: 0.16rem !important;
+  overflow: visible !important;
+}
+
+html body .conversion-dock__proof span,
+html body .conversion-dock__proof strong {
+  white-space: normal !important;
+  writing-mode: horizontal-tb !important;
+  line-height: 1.04 !important;
+}
+
+html body .conversion-dock__actions a {
+  min-height: 56px !important;
+  padding: 0.48rem 0.8rem !important;
+  color: var(--red) !important;
+  background: var(--white) !important;
+}
+
+html body .conversion-dock__actions a:first-child {
+  color: var(--white) !important;
+  background: var(--red) !important;
+}
+
+html body .conversion-dock__actions a:hover,
+html body .conversion-dock__actions a:focus-visible,
+html body .conversion-dock__actions a:first-child:hover,
+html body .conversion-dock__actions a:first-child:focus-visible {
+  color: var(--white) !important;
+  background: var(--grand-blue) !important;
+  border-color: var(--grand-blue) !important;
+}
+
+@media (max-width: 1180px) {
+  html body .gm-radical-home .gm-radical-hero__content {
+    transform: translateY(3.25rem) !important;
+  }
+}
+
+@media (max-width: 820px) {
+  html body .gm-radical-home .gm-radical-destinations__visual {
+    height: 460px !important;
+  }
+
+  html body .conversion-dock,
+  html body:not(.show-conversion-dock) .conversion-dock,
+  html body.show-conversion-dock .conversion-dock {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Annotation lock: final priority fixes for hero alignment, destinations image and footer band. */
+html body .gm-radical-home .gm-radical-hero {
+  justify-items: center !important;
+  text-align: center !important;
+}
+
+html body .gm-radical-home .gm-radical-hero__content {
+  left: 50% !important;
+  right: auto !important;
+  width: min(1180px, calc(100vw - clamp(3rem, 12vw, 14rem))) !important;
+  max-width: 1180px !important;
+  margin-inline: auto !important;
+  justify-self: center !important;
+  align-self: center !important;
+  text-align: center !important;
+  transform: translate(-50%, clamp(5rem, 13vh, 9rem)) !important;
+}
+
+html body .gm-radical-home .gm-radical-hero__content .gm-radical-eyebrow,
+html body .gm-radical-home .gm-radical-hero__content h1,
+html body .gm-radical-home .gm-radical-hero__content p {
+  width: 100% !important;
+  text-align: center !important;
+  text-align-last: center !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+html body .gm-radical-home .gm-radical-hero__content h1 {
+  font-size: clamp(2.35rem, 4.1vw, 4.75rem) !important;
+  line-height: 0.98 !important;
+  letter-spacing: 0.005em !important;
+}
+
+html body .gm-radical-home .gm-radical-destinations {
+  align-items: start !important;
+}
+
+html body .gm-radical-home .gm-radical-destinations__visual {
+  min-height: 0 !important;
+  height: clamp(520px, 42vw, 690px) !important;
+  align-self: start !important;
+}
+
+html body .gm-radical-home .gm-radical-destinations__visual img {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  object-fit: cover !important;
+}
+
+html body .conversion-dock,
+html body:not(.show-conversion-dock) .conversion-dock,
+html body.show-conversion-dock .conversion-dock {
+  position: relative !important;
+  inset: auto !important;
+  top: auto !important;
+  display: grid !important;
+  grid-template-columns: minmax(260px, 0.26fr) minmax(0, 1fr) !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+html body .conversion-dock__proof {
+  min-height: 56px !important;
+  padding: 0.5rem clamp(1.35rem, 2.4vw, 2.4rem) 0.5rem clamp(2rem, 4vw, 4.5rem) !important;
+  writing-mode: horizontal-tb !important;
+  text-orientation: mixed !important;
+  justify-content: start !important;
+  align-content: center !important;
+  gap: 0.16rem !important;
+  overflow: visible !important;
+}
+
+html body .conversion-dock__proof span,
+html body .conversion-dock__proof strong {
+  white-space: normal !important;
+  writing-mode: horizontal-tb !important;
+  line-height: 1.04 !important;
+}
+
+html body .conversion-dock__actions a {
+  min-height: 56px !important;
+  padding: 0.48rem 0.8rem !important;
+  color: var(--red) !important;
+  background: var(--white) !important;
+}
+
+html body .conversion-dock__actions a:first-child {
+  color: var(--white) !important;
+  background: var(--red) !important;
+}
+
+html body .conversion-dock__actions a:hover,
+html body .conversion-dock__actions a:focus-visible,
+html body .conversion-dock__actions a:first-child:hover,
+html body .conversion-dock__actions a:first-child:focus-visible {
+  color: var(--white) !important;
+  background: var(--grand-blue) !important;
+  border-color: var(--grand-blue) !important;
+}
+
+@media (max-width: 1180px) {
+  html body .gm-radical-home .gm-radical-hero__content {
+    left: auto !important;
+    transform: translateY(3.25rem) !important;
+  }
+}
+
+@media (max-width: 820px) {
+  html body .gm-radical-home .gm-radical-destinations__visual {
+    height: 460px !important;
+  }
+
+  html body .conversion-dock,
+  html body:not(.show-conversion-dock) .conversion-dock,
+  html body.show-conversion-dock .conversion-dock {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Hero centering guard: the hero content is a grid item, not an absolutely positioned layer. */
+html body .gm-radical-home .gm-radical-hero__content {
+  left: auto !important;
+  right: auto !important;
+  justify-self: center !important;
+  margin-inline: auto !important;
+  transform: translateY(clamp(5rem, 13vh, 9rem)) !important;
+}
+
+/* Final annotation pass: slimmer official band, blue hover states, lower calmer hero. */
+html body .gm-radical-home .gm-radical-hero__content {
+  transform: translateY(clamp(5rem, 13vh, 9rem)) !important;
+}
+
+html body .gm-radical-home .gm-radical-hero__content h1 {
+  font-size: clamp(2.35rem, 4.2vw, 4.85rem) !important;
+  line-height: 0.98 !important;
+  letter-spacing: 0.005em !important;
+}
+
+html body .gm-radical-home .gm-radical-hero__content p {
+  margin-top: clamp(1rem, 2vw, 1.75rem) !important;
+}
+
+html body .gm-radical-home .gm-radical-final {
+  padding-top: clamp(4rem, 7vw, 7rem) !important;
+  padding-bottom: clamp(4rem, 7vw, 7rem) !important;
+}
+
+html body .gm-radical-home .gm-radical-final h2 {
+  max-width: min(1180px, calc(100vw - clamp(2rem, 8vw, 9rem))) !important;
+  width: 100% !important;
+  white-space: normal !important;
+  text-wrap: balance !important;
+  font-size: clamp(1.6rem, 2.85vw, 3.15rem) !important;
+  line-height: 1 !important;
+  letter-spacing: -0.025em !important;
+}
+
+html body .conversion-dock,
+html body:not(.show-conversion-dock) .conversion-dock,
+html body.show-conversion-dock .conversion-dock {
+  position: relative !important;
+  inset: auto !important;
+  top: auto !important;
+  display: grid !important;
+  grid-template-columns: minmax(220px, 0.24fr) minmax(0, 1fr) !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+}
+
+html body .conversion-dock__proof {
+  min-height: 68px !important;
+  padding: 0.72rem clamp(1rem, 2.2vw, 2rem) !important;
+  writing-mode: horizontal-tb !important;
+  text-orientation: mixed !important;
+  justify-content: start !important;
+  align-content: center !important;
+  gap: 0.2rem !important;
+}
+
+html body .conversion-dock__proof span,
+html body .conversion-dock__proof strong {
+  white-space: normal !important;
+  writing-mode: horizontal-tb !important;
+  line-height: 1.05 !important;
+}
+
+html body .conversion-dock__actions a {
+  min-height: 68px !important;
+  padding: 0.72rem 0.85rem !important;
+  color: var(--red) !important;
+  background: var(--white) !important;
+}
+
+html body .conversion-dock__actions a:hover,
+html body .conversion-dock__actions a:focus-visible,
+html body .conversion-dock__actions a:first-child:hover,
+html body .conversion-dock__actions a:first-child:focus-visible {
+  color: var(--white) !important;
+  background: #0D438D !important;
+  border-color: #0D438D !important;
+}
+
+@media (max-width: 1180px) {
+  html body .gm-radical-home .gm-radical-final h2 {
+    white-space: normal !important;
+    text-wrap: balance !important;
+  }
+}
+
+@media (max-width: 820px) {
+  html body .gm-radical-home .gm-radical-hero__content {
+    transform: translateY(3rem) !important;
+  }
+
+  html body .conversion-dock,
+  html body:not(.show-conversion-dock) .conversion-dock,
+  html body.show-conversion-dock .conversion-dock {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Final hero/map annotation pass. */
+html body .gm-radical-home .gm-radical-hero {
+  align-items: center !important;
+  place-items: center !important;
+}
+
+html body .gm-radical-home .gm-radical-hero__content {
+  align-self: center !important;
+  transform: translateY(clamp(2.5rem, 8vh, 5.5rem)) !important;
+  padding-top: clamp(7rem, 10vw, 9rem) !important;
+  padding-bottom: clamp(6rem, 9vw, 8rem) !important;
+}
+
+html body .gm-radical-home .gm-radical-map__list > .gm-radical-map__pin--active,
+html body .gm-radical-home .gm-radical-map__list > .gm-radical-map__pin--active:hover,
+html body .gm-radical-home .gm-radical-map__list > .gm-radical-map__pin--active:focus-visible {
+  color: var(--white) !important;
+  background: var(--red) !important;
+}
+
+html body .gm-radical-home .gm-radical-map__list > .gm-radical-map__pin--active strong,
+html body .gm-radical-home .gm-radical-map__list > .gm-radical-map__pin--active small,
+html body .gm-radical-home .gm-radical-map__list > .gm-radical-map__pin--active span {
+  color: var(--white) !important;
+  opacity: 1 !important;
+}
+
+html body .gm-radical-home .gm-radical-map__list > .gm-radical-map__pin--active img {
+  border-color: rgba(255, 255, 255, 0.88) !important;
+}
+
+@media (max-width: 820px) {
+  html body .gm-radical-home .gm-radical-hero__content {
+    transform: translateY(2rem) !important;
+  }
+}
+
+/* Final annotation layout pass: centered booking, footer conversion bar, calmer section titles. */
+html,
+body,
+#root {
+  max-width: 100% !important;
+  overflow-x: clip !important;
+}
+
+html body .gm-radical-home .gm-radical-booking#reservation {
+  justify-self: center !important;
+  align-self: end !important;
+  box-sizing: border-box !important;
+  width: min(1480px, calc(100vw - clamp(2rem, 8vw, 9rem))) !important;
+  max-width: calc(100vw - clamp(2rem, 8vw, 9rem)) !important;
+  margin: 0 auto clamp(0.75rem, 1.6vw, 1.35rem) !important;
+  padding: clamp(0.42rem, 0.9vw, 0.62rem) !important;
+  overflow: hidden !important;
+}
+
+html body .gm-radical-home .gm-radical-booking#reservation .booking-bar {
+  box-sizing: border-box !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin-inline: auto !important;
+}
+
+html body .site-footer {
+  padding-bottom: 0 !important;
+}
+
+html body .conversion-dock,
+html body:not(.show-conversion-dock) .conversion-dock,
+html body.show-conversion-dock .conversion-dock {
+  position: relative !important;
+  inset: auto !important;
+  z-index: 1 !important;
+  display: grid !important;
+  grid-template-columns: minmax(280px, 0.32fr) minmax(0, 1fr) !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  transform: none !important;
+  border-width: 1px 0 0 !important;
+  border-color: rgba(191, 165, 147, 0.42) !important;
+  background: rgba(255, 253, 249, 0.98) !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}
+
+html body .conversion-dock__proof {
+  min-height: 92px !important;
+  padding: 1rem clamp(1.25rem, 3vw, 3rem) !important;
+  align-content: center !important;
+  justify-content: start !important;
+  gap: 0.3rem !important;
+  writing-mode: horizontal-tb !important;
+  text-orientation: mixed !important;
+  color: var(--white) !important;
+  background: var(--red) !important;
+}
+
+html body .conversion-dock__proof span,
+html body .conversion-dock__proof strong {
+  display: block !important;
+  white-space: normal !important;
+  writing-mode: horizontal-tb !important;
+  text-orientation: mixed !important;
+  line-height: 1.1 !important;
+}
+
+html body .conversion-dock__proof span {
+  color: rgba(255, 255, 255, 0.78) !important;
+  font-size: 0.72rem !important;
+}
+
+html body .conversion-dock__proof strong {
+  color: var(--white) !important;
+  font-size: clamp(0.95rem, 1.2vw, 1.15rem) !important;
+}
+
+html body .conversion-dock__actions {
+  display: grid !important;
+  grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+}
+
+html body .conversion-dock__actions a {
+  min-height: 92px !important;
+  border-left: 1px solid rgba(191, 165, 147, 0.3) !important;
+  border-bottom: 0 !important;
+  padding: 1rem !important;
+  color: var(--red) !important;
+  background: var(--white) !important;
+  writing-mode: horizontal-tb !important;
+  text-orientation: mixed !important;
+  transform: none !important;
+}
+
+html body .conversion-dock__actions a:first-child {
+  color: var(--white) !important;
+  background: var(--red) !important;
+}
+
+html body .gm-radical-home .gm-radical-destinations {
+  align-items: stretch !important;
+}
+
+html body .gm-radical-home .gm-radical-destinations__visual {
+  min-height: clamp(760px, 54vw, 900px) !important;
+  height: 100% !important;
+}
+
+html body .gm-radical-home .gm-radical-destinations__visual img {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: inherit !important;
+  object-fit: cover !important;
+}
+
+html body .gm-radical-home .gm-radical-section-head h2,
+html body .gm-radical-home .gm-radical-usage .gm-radical-section-head h2,
+html body .gm-radical-home .gm-radical-constellation .gm-radical-section-head h2,
+html body .gm-radical-home .gm-radical-signatures .gm-radical-section-head h2,
+html body .gm-radical-home .gm-radical-final h2 {
+  font-size: clamp(1.85rem, 3vw, 3.35rem) !important;
+  line-height: 1.05 !important;
+  letter-spacing: -0.025em !important;
+}
+
+html body .gm-radical-home .gm-radical-final h2 {
+  max-width: calc(100vw - clamp(2rem, 7vw, 7.5rem)) !important;
+  width: fit-content !important;
+  margin-right: auto !important;
+  margin-left: auto !important;
+  overflow: visible !important;
+  font-size: clamp(1.45rem, 2.35vw, 2.62rem) !important;
+  line-height: 1.05 !important;
+  letter-spacing: -0.035em !important;
+  text-align: center !important;
+  white-space: nowrap !important;
+  text-wrap: nowrap !important;
+}
+
+html body .gm-radical-home .gm-radical-final {
+  display: grid !important;
+  justify-items: center !important;
+  align-content: center !important;
+  width: 100% !important;
+  text-align: center !important;
+  transform: none !important;
+}
+
+html body .gm-radical-home .gm-radical-final > * {
+  margin-right: auto !important;
+  margin-left: auto !important;
+  text-align: center !important;
+  transform: none !important;
+}
+
+html body .gm-radical-home .gm-radical-final > h2 {
+  width: fit-content !important;
+  margin-right: auto !important;
+  margin-left: auto !important;
+  text-align: center !important;
+  white-space: nowrap !important;
+  text-wrap: nowrap !important;
+}
+
+html body .gm-radical-home .gm-radical-final p {
+  max-width: min(720px, calc(100vw - 2rem)) !important;
+}
+
+html body .gm-radical-home .gm-radical-final__actions {
+  justify-content: center !important;
+}
+
+@media (max-width: 980px) {
+  html body .gm-radical-home .gm-radical-booking#reservation {
+    width: calc(100vw - 1.5rem) !important;
+    max-width: calc(100vw - 1.5rem) !important;
+  }
+
+  html body .conversion-dock,
+  html body:not(.show-conversion-dock) .conversion-dock,
+  html body.show-conversion-dock .conversion-dock {
+    grid-template-columns: 1fr !important;
+  }
+
+  html body .conversion-dock__actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  html body .conversion-dock__actions a {
+    min-height: 64px !important;
+    border-top: 1px solid rgba(191, 165, 147, 0.3) !important;
+  }
+
+  html body .gm-radical-home .gm-radical-destinations__visual {
+    min-height: 520px !important;
+  }
+}
+
+/* Annotation repair: home hero, official panels and active destination contrast. */
+html body .gm-radical-home .gm-radical-hero__content {
+  width: min(1380px, calc(100vw - clamp(3rem, 9vw, 12rem))) !important;
+  max-width: 1380px !important;
+  text-align: center !important;
+}
+
+html body .gm-radical-home .gm-radical-hero__content h1 {
+  max-width: none !important;
+  white-space: nowrap !important;
+  text-align: center !important;
+  text-align-last: center !important;
+  text-wrap: nowrap !important;
+  font-size: clamp(3.1rem, 6.25vw, 7.25rem) !important;
+  letter-spacing: 0.015em !important;
+}
+
+html body .gm-radical-home .gm-radical-compare {
+  bottom: clamp(12.5rem, 16vw, 15.75rem) !important;
+}
+
+html body .conversion-dock {
+  top: max(120px, 16vh) !important;
+  height: min(72vh, 780px) !important;
+  transform: none !important;
+}
+
+html body .conversion-dock__proof {
+  min-height: 260px !important;
+  padding: 1rem 0.62rem !important;
+  writing-mode: vertical-rl !important;
+  text-orientation: mixed !important;
+  justify-content: center !important;
+  gap: 0.55rem !important;
+  overflow: visible !important;
+}
+
+html body .conversion-dock__proof span,
+html body .conversion-dock__proof strong {
+  display: block !important;
+  white-space: nowrap !important;
+  line-height: 1 !important;
+}
+
+html body .conversion-dock__proof span {
+  font-size: 0.76rem !important;
+  letter-spacing: 0.14em !important;
+}
+
+html body .conversion-dock__proof strong {
+  font-size: 0.68rem !important;
+  letter-spacing: 0.08em !important;
+}
+
+html body .gm-radical-home .gm-radical-map__pin--active,
+html body .gm-radical-home .gm-radical-map__pin--active:hover,
+html body .gm-radical-home .gm-radical-map__pin--active span,
+html body .gm-radical-home .gm-radical-map__pin--active strong,
+html body .gm-radical-home .gm-radical-map__pin--active small {
+  color: var(--white) !important;
+}
+
+@media (max-width: 1180px) {
+  html body .gm-radical-home .gm-radical-hero__content h1 {
+    white-space: normal !important;
+    text-wrap: balance !important;
+  }
+}
+
+@media (max-width: 980px) {
+  html body .conversion-dock {
+    display: none !important;
+  }
+
+  html body .gm-radical-home .gm-radical-compare {
+    bottom: clamp(14rem, 24vw, 18rem) !important;
+  }
+}
+
+/* Final annotation repair: larger header controls and a clear burger icon. */
+html body .gm-owned-header {
+  min-height: 92px !important;
+  padding: 0.55rem clamp(1.15rem, 2.6vw, 2rem) !important;
+  align-items: center !important;
+}
+
+html body .gm-owned-header .site-logo {
+  width: clamp(132px, 10vw, 172px) !important;
+  min-width: clamp(132px, 10vw, 172px) !important;
+  height: 74px !important;
+}
+
+html body .gm-owned-header .site-logo img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+}
+
+html body .gm-owned-header .header-actions {
+  gap: clamp(0.8rem, 1.4vw, 1.25rem) !important;
+}
+
+html body .gm-owned-header .language-switcher {
+  min-height: 54px !important;
+  padding: 0.28rem !important;
+  border-radius: 999px !important;
+}
+
+html body .gm-owned-header .language-switcher button {
+  min-width: 54px !important;
+  min-height: 48px !important;
+  padding: 0 0.95rem !important;
+  font-size: 0.92rem !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.08em !important;
+}
+
+html body .gm-owned-header .reserve-link {
+  min-height: 58px !important;
+  padding: 0 1.65rem !important;
+  font-size: 0.92rem !important;
+  letter-spacing: 0.16em !important;
+}
+
+html body .gm-owned-header .menu-toggle {
+  position: relative !important;
+  display: inline-flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 7px !important;
+  width: 58px !important;
+  height: 58px !important;
+  min-width: 58px !important;
+  min-height: 58px !important;
+  padding: 0 !important;
+  border-width: 1.5px !important;
+  border-radius: 999px !important;
+}
+
+html body .gm-owned-header .menu-toggle span {
+  position: static !important;
+  display: block !important;
+  width: 27px !important;
+  height: 2px !important;
+  min-height: 2px !important;
+  margin: 0 !important;
+  border-radius: 999px !important;
+  background: var(--red) !important;
+  opacity: 1 !important;
+  transform: none !important;
+  transition: width 180ms var(--ease), transform 180ms var(--ease), background 180ms var(--ease) !important;
+}
+
+html body .gm-owned-header .menu-toggle span:nth-child(2) {
+  width: 20px !important;
+}
+
+html body .gm-owned-header .menu-toggle:hover span:nth-child(2) {
+  width: 27px !important;
+}
+
+@media (max-width: 700px) {
+  html body .gm-owned-header {
+    min-height: 78px !important;
+    padding: 0.45rem 0.7rem !important;
+  }
+
+  html body .gm-owned-header .site-logo {
+    width: 108px !important;
+    min-width: 108px !important;
+    height: 60px !important;
+  }
+
+  html body .gm-owned-header .language-switcher button {
+    min-width: 42px !important;
+    min-height: 42px !important;
+    font-size: 0.78rem !important;
+  }
+
+  html body .gm-owned-header .reserve-link {
+    min-height: 48px !important;
+    padding: 0 1rem !important;
+    font-size: 0.78rem !important;
+  }
+
+  html body .gm-owned-header .menu-toggle {
+    width: 50px !important;
+    height: 50px !important;
+    min-width: 50px !important;
+    min-height: 50px !important;
+  }
+}
+
+/* Final annotation repair: hero copy centered, header actions pushed to far right. */
+html body .gm-owned-header.site-header {
+  left: clamp(0.75rem, 1.5vw, 1.5rem) !important;
+  right: clamp(0.75rem, 1.5vw, 1.5rem) !important;
+  display: flex !important;
+  width: auto !important;
+  max-width: none !important;
+}
+
+html body .gm-owned-header .header-actions {
+  margin-left: auto !important;
+  justify-content: flex-end !important;
+}
+
+html body .gm-radical-home .gm-radical-hero {
+  min-height: 100svh !important;
+  display: grid !important;
+  place-items: center !important;
+  padding-inline: clamp(1.25rem, 4vw, 5rem) !important;
+}
+
+html body .gm-radical-home .gm-radical-hero__content {
+  justify-self: center !important;
+  align-self: center !important;
+  width: min(980px, calc(100vw - clamp(2rem, 10vw, 12rem))) !important;
+  max-width: 980px !important;
+  margin: 0 auto !important;
+  padding: clamp(8rem, 12vw, 11rem) 0 clamp(7rem, 12vw, 10rem) !important;
+  text-align: center !important;
+}
+
+html body .gm-radical-home .gm-radical-hero__content .gm-radical-eyebrow,
+html body .gm-radical-home .gm-radical-hero__content h1,
+html body .gm-radical-home .gm-radical-hero__content p {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+html body .gm-radical-home .gm-radical-hero__content h1 {
+  max-width: 18ch !important;
+  font-size: clamp(3rem, 5.8vw, 6.8rem) !important;
+  line-height: 0.98 !important;
+  letter-spacing: 0.02em !important;
+}
+
+html body .gm-radical-home .gm-radical-hero__content p {
+  max-width: 860px !important;
+  font-size: clamp(1.05rem, 1.35vw, 1.38rem) !important;
+}
+
+@media (max-width: 700px) {
+  html body .gm-owned-header.site-header {
+    left: 0.5rem !important;
+    right: 0.5rem !important;
+  }
+
+  html body .gm-radical-home .gm-radical-hero__content {
+    width: min(100%, 560px) !important;
+    padding-top: 8rem !important;
+    text-align: center !important;
+  }
+}
+
+html body .gm-owned-header .menu-toggle:hover {
+  border-color: var(--red) !important;
+  background: rgba(154, 25, 23, 0.06) !important;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__visual img {
+  width: min(100%, 460px) !important;
+  height: min(38dvh, 300px) !important;
+  align-self: center;
+  justify-self: center;
+  object-fit: cover !important;
+  opacity: 1 !important;
+  transform: none !important;
+  box-shadow: 0 28px 80px rgba(29, 29, 27, 0.14);
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__visual::after {
+  content: "";
+  width: min(100%, 460px);
+  height: min(38dvh, 300px);
+  justify-self: center;
+  margin-top: clamp(1.1rem, 2.4vw, 2rem);
+  background: url('/assets/official/dest-marrakech-official.jpg') center / cover no-repeat;
+  box-shadow: 0 28px 80px rgba(29, 29, 27, 0.12);
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__visual span {
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  bottom: auto !important;
+  transform: translate(-50%, -50%) rotate(-90deg);
+  color: rgba(154, 25, 23, 0.08) !important;
+  font-family: var(--display-font) !important;
+  font-size: clamp(5rem, 12vw, 13rem) !important;
+  line-height: 0.78 !important;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__footer {
+  grid-area: footer;
+  display: grid !important;
+  grid-template-columns: 1fr auto !important;
+  align-items: center !important;
+  gap: 1rem !important;
+  margin-top: 0 !important;
+  color: rgba(82, 82, 80, 0.64) !important;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__footer a {
+  border-color: var(--red) !important;
+  color: var(--white) !important;
+  background: var(--red) !important;
+}
+
+@media (max-width: 980px) {
+  html body .gm-owned-menu.site-nav--open {
+    grid-template-columns: 78px minmax(0, 1fr) !important;
+    grid-template-areas:
+      "close links"
+      "visual visual"
+      "footer footer" !important;
+    gap: clamp(1.2rem, 4vw, 2.4rem) !important;
+    padding: clamp(1.2rem, 4vw, 2rem) !important;
+  }
+
+  html body .gm-owned-menu.site-nav--open .gm-owned-menu__visual {
+    position: relative !important;
+    top: auto !important;
+    min-height: auto !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  html body .gm-owned-menu.site-nav--open .gm-owned-menu__visual img,
+  html body .gm-owned-menu.site-nav--open .gm-owned-menu__visual::after {
+    width: 100% !important;
+    height: 220px !important;
+    margin: 0 !important;
+  }
+}
+
+@media (max-width: 700px) {
+  html body .gm-owned-menu.site-nav--open {
+    grid-template-columns: 1fr !important;
+    grid-template-areas:
+      "close"
+      "links"
+      "visual"
+      "footer" !important;
+    padding: 1rem !important;
+  }
+
+  html body .gm-owned-menu.site-nav--open .gm-owned-menu__close {
+    position: relative !important;
+    top: auto !important;
+    width: 58px !important;
+    height: 58px !important;
+  }
+
+  html body .gm-owned-menu.site-nav--open .gm-owned-menu__quick a {
+    grid-template-columns: 2.4rem minmax(0, 1fr) !important;
+    font-size: clamp(1.55rem, 9vw, 3.4rem) !important;
+  }
+
+  html body .gm-owned-menu.site-nav--open .gm-owned-menu__visual {
+    grid-template-columns: 1fr;
+  }
+
+  html body .gm-owned-menu.site-nav--open .gm-owned-menu__footer {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Final home destinations redesign: remove the fake map treatment. */
+html body .gm-radical-home .gm-radical-map {
+  grid-template-columns: minmax(300px, 0.62fr) minmax(0, 1.38fr) !important;
+  align-items: center !important;
+  gap: clamp(2rem, 4.5vw, 5.25rem) !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
+  max-width: 100vw !important;
+  min-height: auto !important;
+  padding-block: clamp(5rem, 9vw, 8rem) !important;
+  padding-inline: clamp(1.25rem, 5vw, 6rem) !important;
+  background:
+    radial-gradient(circle at 12% 26%, rgba(191, 165, 147, 0.24), transparent 22rem),
+    radial-gradient(circle at 90% 15%, rgba(154, 25, 23, 0.08), transparent 24rem),
+    linear-gradient(135deg, #fffaf6 0%, #f4e8df 48%, #ede0d8 100%) !important;
+  overflow: hidden !important;
+}
+
+html body .gm-radical-home .gm-radical-map__copy {
+  position: relative;
+  z-index: 2;
+  max-width: 520px !important;
+  min-width: 0 !important;
+  padding-left: clamp(0rem, 2vw, 1.4rem);
+}
+
+html body .gm-radical-home .gm-radical-map__copy h2 {
+  max-width: 10ch !important;
+  font-size: clamp(2.7rem, 3.8vw, 4.65rem) !important;
+  line-height: 1.02 !important;
+  letter-spacing: -0.045em !important;
+}
+
+html body .gm-radical-home .gm-radical-map__copy p {
+  max-width: 46ch !important;
+  color: rgba(44, 47, 77, 0.76) !important;
+  font-size: clamp(1rem, 1.2vw, 1.12rem) !important;
+  line-height: 1.7 !important;
+}
+
+html body .gm-radical-home .gm-radical-map__stage {
+  position: relative !important;
+  z-index: 3 !important;
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 0.82fr) !important;
+  align-items: stretch !important;
+  gap: clamp(1rem, 2vw, 1.5rem) !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  max-width: none !important;
+  padding: clamp(0.75rem, 1.4vw, 1rem) !important;
+  border: 1px solid rgba(154, 25, 23, 0.1) !important;
+  border-radius: clamp(1.6rem, 3vw, 3rem) !important;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.3)),
+    rgba(255, 255, 255, 0.45) !important;
+  box-shadow: 0 36px 90px rgba(29, 29, 27, 0.12) !important;
+  overflow: hidden !important;
+}
+
+html body .gm-radical-home .gm-radical-map__stage::before,
+html body .gm-radical-home .gm-radical-map__stage::after,
+html body .gm-radical-home .gm-radical-map__orb,
+html body .gm-radical-home .gm-radical-map__mast,
+html body .gm-radical-home .gm-radical-map__trace,
+html body .gm-radical-home .gm-radical-map__plate {
+  display: none !important;
+}
+
+html body .gm-radical-home .gm-radical-map__hero {
+  position: relative;
+  min-height: clamp(430px, 43vw, 620px);
+  overflow: hidden;
+  border-radius: clamp(1.2rem, 2.4vw, 2.25rem);
+  background: var(--grand-blue);
+}
+
+html body .gm-radical-home .gm-radical-map__hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(8, 8, 10, 0.08), rgba(8, 8, 10, 0.52)),
+    linear-gradient(90deg, rgba(154, 25, 23, 0.24), transparent 52%);
+  pointer-events: none;
+}
+
+html body .gm-radical-home .gm-radical-map__hero > img {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  border-radius: inherit !important;
+  object-fit: cover !important;
+  filter: saturate(1.02) contrast(1.05) brightness(0.92) !important;
+  transform: scale(1.03) !important;
+  transition: opacity 0.35s ease, transform 0.6s ease !important;
+}
+
+html body .gm-radical-home .gm-radical-map__hero > div {
+  position: absolute;
+  left: clamp(1.25rem, 3vw, 2.5rem);
+  right: clamp(1.25rem, 3vw, 2.5rem);
+  bottom: clamp(1.25rem, 3vw, 2.5rem);
+  z-index: 2;
+  display: grid;
+  gap: 0.45rem;
+  color: var(--white);
+}
+
+html body .gm-radical-home .gm-radical-map__hero span,
+html body .gm-radical-home .gm-radical-map__pin span {
+  color: rgba(255, 255, 255, 0.72) !important;
+  font-size: 0.72rem !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.18em !important;
+  text-transform: uppercase !important;
+}
+
+html body .gm-radical-home .gm-radical-map__hero strong {
+  max-width: 13ch;
+  font-family: var(--title-font);
+  font-size: clamp(1.65rem, 2.7vw, 3.05rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.045em;
+}
+
+html body .gm-radical-home .gm-radical-map__list {
+  display: grid;
+  align-content: stretch;
+  gap: 0.72rem;
+  min-width: 0;
+}
+
+html body .gm-radical-home .gm-radical-map__pin,
+html body .gm-radical-home .gm-radical-map__pin:hover {
+  position: relative !important;
+  left: auto !important;
+  top: auto !important;
+  display: grid !important;
+  grid-template-columns: 76px 42px minmax(0, 1fr) auto !important;
+  align-items: center !important;
+  justify-content: stretch !important;
+  gap: clamp(0.8rem, 1.4vw, 1.15rem) !important;
+  width: 100% !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  min-height: 92px !important;
+  padding: 0.58rem clamp(0.9rem, 1.3vw, 1rem) 0.58rem 0.58rem !important;
+  border: 1px solid rgba(154, 25, 23, 0.1) !important;
+  border-radius: 1.25rem !important;
+  color: var(--ink) !important;
+  background: rgba(255, 255, 255, 0.68) !important;
+  box-shadow: none !important;
+  text-decoration: none !important;
+  transform: none !important;
+  transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease, transform 0.25s ease !important;
+  backdrop-filter: blur(18px);
+}
+
+html body .gm-radical-home .gm-radical-map__stage .gm-radical-map__list .gm-radical-map__pin:nth-of-type(n),
+html body .gm-radical-home .gm-radical-map__stage .gm-radical-map__list .gm-radical-map__pin:nth-of-type(n):hover {
+  left: auto !important;
+  top: auto !important;
+  transform: none !important;
+}
+
+html body .gm-radical-home .gm-radical-map__stage .gm-radical-map__list .gm-radical-map__pin:nth-of-type(n):hover {
+  transform: translateX(-6px) !important;
+}
+
+html body .gm-radical-home .gm-radical-map__pin:hover {
+  border-color: rgba(154, 25, 23, 0.28) !important;
+  background: rgba(255, 255, 255, 0.92) !important;
+  transform: translateX(-6px) !important;
+}
+
+html body .gm-radical-home .gm-radical-map__pin--active,
+html body .gm-radical-home .gm-radical-map__pin--active:hover,
+html body .gm-radical-home .gm-radical-map__stage .gm-radical-map__list .gm-radical-map__pin--active:nth-of-type(n),
+html body .gm-radical-home .gm-radical-map__stage .gm-radical-map__list .gm-radical-map__pin--active:nth-of-type(n):hover {
+  border-color: rgba(154, 25, 23, 0.92) !important;
+  color: var(--white) !important;
+  background: linear-gradient(135deg, var(--red), #7f1513) !important;
+  transform: translateX(-6px) !important;
+  box-shadow: 0 20px 45px rgba(154, 25, 23, 0.22) !important;
+}
+
+html body .gm-radical-home .gm-radical-map__pin::after {
+  display: none !important;
+}
+
+html body .gm-radical-home .gm-radical-map__pin img {
+  position: relative !important;
+  inset: auto !important;
+  width: 76px !important;
+  height: 76px !important;
+  min-height: 0 !important;
+  border-radius: 0.9rem !important;
+  object-fit: cover !important;
+  filter: saturate(1.02) contrast(1.02) brightness(0.98) !important;
+  transform: none !important;
+}
+
+html body .gm-radical-home .gm-radical-map__pin span {
+  width: auto !important;
+  color: var(--red) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+html body .gm-radical-home .gm-radical-map__pin--active span,
+html body .gm-radical-home .gm-radical-map__pin--active strong,
+html body .gm-radical-home .gm-radical-map__pin--active small {
+  color: var(--white) !important;
+}
+
+html body .gm-radical-home .gm-radical-map__pin--active img {
+  outline: 2px solid rgba(255, 255, 255, 0.82) !important;
+  outline-offset: -2px !important;
+}
+
+html body .gm-radical-home .gm-radical-map__pin strong {
+  min-width: 0;
+  color: var(--ink) !important;
+  font-family: var(--title-font);
+  font-size: clamp(1.12rem, 1.35vw, 1.42rem);
+  font-weight: 600;
+  line-height: 1;
+  text-transform: none;
+}
+
+html body .gm-radical-home .gm-radical-map__pin small {
+  justify-self: end;
+  color: rgba(44, 47, 77, 0.62) !important;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.13em;
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+
+@media (max-width: 1100px) {
+  html body .gm-radical-home .gm-radical-map,
+  html body .gm-radical-home .gm-radical-map__stage {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 700px) {
+  html body .gm-radical-home .gm-radical-map__copy h2 {
+    max-width: 12ch !important;
+    font-size: clamp(2.35rem, 12vw, 3.7rem) !important;
+  }
+
+  html body .gm-radical-home .gm-radical-map__hero {
+    min-height: 360px;
+  }
+
+  html body .gm-radical-home .gm-radical-map__pin,
+  html body .gm-radical-home .gm-radical-map__pin:hover {
+    grid-template-columns: 64px minmax(0, 1fr) !important;
+    gap: 0.8rem !important;
+  }
+
+  html body .gm-radical-home .gm-radical-map__pin img {
+    grid-row: span 3;
+    width: 64px !important;
+    height: 74px !important;
+  }
+
+  html body .gm-radical-home .gm-radical-map__pin small {
+    justify-self: start;
+  }
+}
+
+/* Final offers-gallery sizing: keep the slider premium without swallowing the page. */
+html body .gm-fs-gallery {
+  position: relative !important;
+  width: min(100%, 1240px) !important;
+  margin-inline: auto !important;
+  padding-inline: clamp(1rem, 4vw, 4.5rem) !important;
+}
+
+html body .gm-fs-gallery__stage {
+  min-height: clamp(380px, 42vw, 560px) !important;
+}
+
+html body .gm-fs-gallery__slide--active {
+  width: min(72vw, 920px) !important;
+  min-height: clamp(350px, 38vw, 520px) !important;
+}
+
+html body .gm-fs-gallery__slide--previous,
+html body .gm-fs-gallery__slide--next {
+  width: min(24vw, 320px) !important;
+  height: clamp(280px, 34vw, 440px) !important;
+}
+
+html body .gm-fs-gallery__arrow {
+  position: absolute !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+}
+
+html body .gm-fs-gallery__arrow--prev {
+  left: clamp(0.75rem, 2vw, 1.5rem) !important;
+  right: auto !important;
+}
+
+html body .gm-fs-gallery__arrow--next {
+  right: clamp(0.75rem, 2vw, 1.5rem) !important;
+  left: auto !important;
+}
+
+html body .gm-offers-page .gm-offer-gallery {
+  padding-block: clamp(3.75rem, 6vw, 6rem) !important;
+}
+
+html body .gm-offers-page .gm-offer-gallery .gm-fs-gallery {
+  position: relative !important;
+  width: min(100%, 1180px) !important;
+  margin-inline: auto !important;
+  padding-inline: clamp(1rem, 3vw, 3rem) !important;
+}
+
+html body .gm-offers-page .gm-offer-gallery .gm-fs-gallery__arrow {
+  position: absolute !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+}
+
+html body .gm-offers-page .gm-offer-gallery .gm-fs-gallery__arrow--prev {
+  left: clamp(0.75rem, 2vw, 1.5rem) !important;
+  right: auto !important;
+}
+
+html body .gm-offers-page .gm-offer-gallery .gm-fs-gallery__arrow--next {
+  right: clamp(0.75rem, 2vw, 1.5rem) !important;
+  left: auto !important;
+}
+
+html body .gm-offers-page .gm-offer-gallery .gm-fs-gallery__stage {
+  min-height: clamp(360px, 38vw, 520px) !important;
+}
+
+html body .gm-offers-page .gm-offer-gallery .gm-fs-gallery__slide--active {
+  width: min(72vw, 860px) !important;
+  min-height: clamp(330px, 35vw, 480px) !important;
+}
+
+html body .gm-offers-page .gm-offer-gallery .gm-fs-gallery__slide--previous,
+html body .gm-offers-page .gm-offer-gallery .gm-fs-gallery__slide--next {
+  width: min(24vw, 300px) !important;
+  height: clamp(260px, 31vw, 410px) !important;
+}
+
+@media (max-width: 760px) {
+  html body .gm-offers-page .gm-offer-gallery .gm-fs-gallery__stage {
+    min-height: 360px !important;
+  }
+
+  html body .gm-offers-page .gm-offer-gallery .gm-fs-gallery__slide--active {
+    width: 100% !important;
+    min-height: 330px !important;
+  }
+
+  html body .gm-fs-gallery__stage {
+    min-height: 360px !important;
+  }
+
+  html body .gm-fs-gallery__slide--active {
+    width: 100% !important;
+    min-height: 330px !important;
+  }
+
+  html body .gm-fs-gallery__slide--previous,
+  html body .gm-fs-gallery__slide--next {
+    display: none !important;
+  }
+}
+
+/* Final CTA normalization: rectangular, one Mogador red style across pages. */
+html body :where(
+  .gm-button,
+  .reserve-link,
+  .booking-bar button,
+  .booking-bar__next,
+  .gm-radical-button,
+  .gm-radical-book-link,
+  .gm-radical-text-link,
+  .gm-radical-use strong,
+  .gm-hotel-tile__details,
+  .gm-contact-form button,
+  .site-footer form button,
+  .gm-hotel-compass__actions a,
+  .gm-business-row a,
+  .gm-mice-hotels a,
+  .gm-experience-card a,
+  .gm-fs-featured-offer a,
+  .gm-fs-offer-card a,
+  .gm-room-actions a,
+  .gm-scroll-overlays__copy a
+) {
+  position: relative !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 48px !important;
+  padding: 0.88rem 1.35rem !important;
+  border: 1px solid var(--red) !important;
+  border-radius: 0 !important;
+  color: var(--white) !important;
+  background: var(--red) !important;
+  box-shadow: none !important;
+  font-size: 0.76rem !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.14em !important;
+  line-height: 1 !important;
+  text-align: center !important;
+  text-decoration: none !important;
+  text-transform: uppercase !important;
+  transform: none !important;
+  transition:
+    background-color 0.22s ease,
+    border-color 0.22s ease,
+    color 0.22s ease,
+    transform 0.22s ease,
+    box-shadow 0.22s ease !important;
+}
+
+html body :where(
+  .gm-button,
+  .reserve-link,
+  .booking-bar button,
+  .booking-bar__next,
+  .gm-radical-button,
+  .gm-radical-book-link,
+  .gm-radical-text-link,
+  .gm-radical-use strong,
+  .gm-hotel-tile__details,
+  .gm-contact-form button,
+  .site-footer form button,
+  .gm-hotel-compass__actions a,
+  .gm-business-row a,
+  .gm-mice-hotels a,
+  .gm-experience-card a,
+  .gm-fs-featured-offer a,
+  .gm-fs-offer-card a,
+  .gm-room-actions a,
+  .gm-scroll-overlays__copy a
+)::before,
+html body :where(
+  .gm-button,
+  .reserve-link,
+  .booking-bar button,
+  .booking-bar__next,
+  .gm-radical-button,
+  .gm-radical-book-link,
+  .gm-radical-text-link,
+  .gm-radical-use strong,
+  .gm-hotel-tile__details,
+  .gm-contact-form button,
+  .site-footer form button,
+  .gm-hotel-compass__actions a,
+  .gm-business-row a,
+  .gm-mice-hotels a,
+  .gm-experience-card a,
+  .gm-fs-featured-offer a,
+  .gm-fs-offer-card a,
+  .gm-room-actions a,
+  .gm-scroll-overlays__copy a
+)::after {
+  display: none !important;
+}
+
+html body :where(
+  .gm-button,
+  .reserve-link,
+  .booking-bar button,
+  .booking-bar__next,
+  .gm-radical-button,
+  .gm-radical-book-link,
+  .gm-radical-text-link,
+  .gm-radical-use strong,
+  .gm-hotel-tile__details,
+  .gm-contact-form button,
+  .site-footer form button,
+  .gm-hotel-compass__actions a,
+  .gm-business-row a,
+  .gm-mice-hotels a,
+  .gm-experience-card a,
+  .gm-fs-featured-offer a,
+  .gm-fs-offer-card a,
+  .gm-room-actions a,
+  .gm-scroll-overlays__copy a
+):hover {
+  border-color: #6f100f !important;
+  color: var(--white) !important;
+  background: #6f100f !important;
+  box-shadow: 0 18px 38px rgba(154, 25, 23, 0.24) !important;
+  transform: translateY(-2px) !important;
+}
+
+html body :where(
+  .gm-button,
+  .reserve-link,
+  .booking-bar button,
+  .booking-bar__next,
+  .gm-radical-button,
+  .gm-radical-book-link,
+  .gm-radical-text-link,
+  .gm-radical-use strong,
+  .gm-hotel-tile__details,
+  .gm-contact-form button,
+  .site-footer form button,
+  .gm-hotel-compass__actions a,
+  .gm-business-row a,
+  .gm-mice-hotels a,
+  .gm-experience-card a,
+  .gm-fs-featured-offer a,
+  .gm-fs-offer-card a,
+  .gm-room-actions a,
+  .gm-scroll-overlays__copy a
+):active {
+  transform: translateY(0) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html body .gm-high-conversion-motion *,
+  html body .gm-high-conversion-motion *::before,
+  html body .gm-high-conversion-motion *::after {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
+/* Final annotated polish: visibility, compact menu, numbering cleanup and home carousel. */
+html body .gm-owned-header {
+  border-color: rgba(154, 25, 23, 0.16) !important;
+  background: rgba(255, 252, 247, 0.94) !important;
+  color: var(--ink) !important;
+}
+
+html body .gm-owned-header .site-logo img {
+  filter: none !important;
+}
+
+html body .gm-owned-header .language-switcher {
+  background: rgba(154, 25, 23, 0.06) !important;
+}
+
+html body .gm-owned-header .language-switcher button {
+  color: rgba(29, 29, 27, 0.72) !important;
+}
+
+html body .gm-owned-header .language-switcher button.is-active,
+html body .gm-owned-header .language-switcher button:hover {
+  color: var(--red) !important;
+  background: rgba(154, 25, 23, 0.08) !important;
+}
+
+html body .gm-owned-header .menu-toggle {
+  border-color: rgba(154, 25, 23, 0.18) !important;
+  background: rgba(255, 255, 255, 0.68) !important;
+}
+
+html body .gm-owned-header .menu-toggle span {
+  background: var(--ink) !important;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__quick a {
+  font-size: clamp(1.45rem, 3.45vw, 3.65rem) !important;
+  line-height: 0.98 !important;
+  letter-spacing: -0.045em !important;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__quick a span,
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__group > span,
+html body .gm-radical-intro__number,
+html body .gm-radical-chapter__number,
+html body .gm-radical-scene > span {
+  display: none !important;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__group {
+  min-height: 220px !important;
+  gap: 0.55rem !important;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__group h3 {
+  font-size: clamp(1.25rem, 1.8vw, 2.1rem) !important;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__group p {
+  font-size: 0.82rem !important;
+  line-height: 1.42 !important;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__group a {
+  min-height: 30px !important;
+  padding: 0.38rem 0.56rem !important;
+  font-size: 0.58rem !important;
+}
+
+html body .gm-radical-home .gm-radical-intro {
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.55fr) !important;
+}
+
+html body .gm-radical-map__pin {
+  padding-left: 0.95rem !important;
+}
+
+html body .gm-radical-map__pin--active,
+html body .gm-radical-map__pin--active strong,
+html body .gm-radical-map__pin--active small {
+  color: var(--white) !important;
+}
+
+html body .gm-radical-map__pin--active small {
+  opacity: 0.9 !important;
+}
+
+html body .gm-radical-map__hero::after,
+html body .gm-radical-use::after,
+html body .gm-radical-scene::before {
+  background:
+    linear-gradient(0deg, rgba(10, 7, 6, 0.82), rgba(10, 7, 6, 0.32) 54%, rgba(10, 7, 6, 0.2)) !important;
+}
+
+html body .gm-radical-map__hero strong {
+  max-width: none !important;
+  font-size: clamp(1.35rem, 2vw, 2.2rem) !important;
+  line-height: 1.04 !important;
+  letter-spacing: -0.035em !important;
+  text-wrap: nowrap !important;
+}
+
+html body .gm-radical-usage {
+  overflow: hidden !important;
+}
+
+html body .gm-radical-usage__carousel {
+  position: relative;
+  width: min(100%, 1420px);
+  min-height: clamp(500px, 54vw, 680px);
+  margin-inline: auto;
+  overflow: visible;
+}
+
+html body .gm-radical-usage__track {
+  position: relative;
+  min-height: inherit;
+}
+
+html body .gm-radical-usage__carousel .gm-radical-use {
+  position: absolute !important;
+  top: 0;
+  left: 50%;
+  width: min(78vw, 980px) !important;
+  min-height: clamp(500px, 54vw, 680px) !important;
+  grid-column: auto !important;
+  border-radius: 0 !important;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%) scale(0.86);
+  transition: opacity 420ms var(--ease), transform 520ms var(--ease), filter 420ms var(--ease);
+}
+
+html body .gm-radical-usage__carousel .gm-radical-use--active {
+  z-index: 3;
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) scale(1);
+}
+
+html body .gm-radical-usage__carousel .gm-radical-use--previous,
+html body .gm-radical-usage__carousel .gm-radical-use--next {
+  z-index: 2;
+  opacity: 0.62;
+  pointer-events: auto;
+  filter: saturate(0.86) brightness(0.78);
+}
+
+html body .gm-radical-usage__carousel .gm-radical-use--previous {
+  transform: translateX(calc(-50% - min(38vw, 520px))) scale(0.82);
+}
+
+html body .gm-radical-usage__carousel .gm-radical-use--next {
+  transform: translateX(calc(-50% + min(38vw, 520px))) scale(0.82);
+}
+
+html body .gm-radical-usage__carousel .gm-radical-use--hidden {
+  transform: translateX(-50%) scale(0.72);
+}
+
+html body .gm-radical-usage__carousel .gm-radical-use img {
+  width: 100% !important;
+  filter: brightness(0.78) saturate(1.02) !important;
+}
+
+html body .gm-radical-usage__carousel .gm-radical-use div {
+  max-width: 620px;
+  padding: clamp(1.6rem, 4vw, 3.2rem) !important;
+}
+
+html body .gm-radical-usage__carousel .gm-radical-use h3 {
+  max-width: 14ch !important;
+  font-size: clamp(2.05rem, 4vw, 4.4rem) !important;
+}
+
+html body .gm-radical-usage__arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 5;
+  width: 54px;
+  height: 54px;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: 0;
+  color: var(--white);
+  background: var(--red);
+  cursor: pointer;
+  font-size: 2.25rem;
+  line-height: 1;
+  transform: translateY(-50%);
+}
+
+html body .gm-radical-usage__arrow--prev {
+  left: clamp(0.5rem, 4vw, 2.4rem);
+}
+
+html body .gm-radical-usage__arrow--next {
+  right: clamp(0.5rem, 4vw, 2.4rem);
+}
+
+html body .gm-radical-destinations__visual {
+  min-height: clamp(520px, 48vw, 760px) !important;
+}
+
+html body .gm-radical-destinations__visual img {
+  height: 100% !important;
+  object-fit: cover !important;
+}
+
+html body .gm-owned-prefooter h2 {
+  max-width: 760px !important;
+  font-size: clamp(2.2rem, 4.6vw, 5.15rem) !important;
+  line-height: 0.94 !important;
+  letter-spacing: -0.065em !important;
+}
+
+@media (max-width: 820px) {
+  html body .gm-radical-home .gm-radical-intro {
+    grid-template-columns: 1fr !important;
+  }
+
+  html body .gm-radical-usage__carousel .gm-radical-use {
+    width: min(86vw, 720px) !important;
+  }
+
+  html body .gm-radical-usage__carousel .gm-radical-use--previous {
+    transform: translateX(calc(-50% - 62vw)) scale(0.78);
+  }
+
+  html body .gm-radical-usage__carousel .gm-radical-use--next {
+    transform: translateX(calc(-50% + 62vw)) scale(0.78);
+  }
+}
+
+/* Final annotation repair: stable stay-prep split carousel, no off-screen stage. */
+html body .gm-radical-home .gm-radical-usage {
+  display: grid !important;
+  grid-template-columns: minmax(300px, 0.72fr) minmax(0, 1.28fr) !important;
+  align-items: center !important;
+  gap: clamp(2rem, 4vw, 5rem) !important;
+  min-height: auto !important;
+  padding: clamp(5rem, 8vw, 7.5rem) clamp(1.25rem, 5vw, 6rem) !important;
+  background:
+    radial-gradient(circle at 12% 34%, rgba(191, 165, 147, 0.28), transparent 22rem),
+    linear-gradient(135deg, #fff9f4 0%, #f4e8df 100%) !important;
+  overflow: hidden !important;
+}
+
+html body .gm-radical-home .gm-radical-usage .gm-radical-section-head {
+  max-width: 620px !important;
+  margin: 0 !important;
+  text-align: left !important;
+}
+
+html body .gm-radical-home .gm-radical-usage .gm-radical-section-head h2 {
+  max-width: 15ch !important;
+  font-size: clamp(2.4rem, 3.6vw, 4.35rem) !important;
+  line-height: 1.04 !important;
+}
+
+html body .gm-radical-home .gm-radical-usage .gm-radical-section-head p {
+  max-width: 48ch !important;
+}
+
+html body .gm-radical-home .gm-radical-usage__carousel {
+  width: 100% !important;
+  max-width: 980px !important;
+  min-width: 0 !important;
+  min-height: clamp(480px, 40vw, 620px) !important;
+  margin: 0 !important;
+  isolation: isolate;
+  overflow: visible !important;
+}
+
+html body .gm-radical-home .gm-radical-usage__track {
+  position: relative !important;
+  min-height: inherit !important;
+  width: 100% !important;
+}
+
+html body .gm-radical-home .gm-radical-usage__carousel .gm-radical-use {
+  position: absolute !important;
+  inset: 0 !important;
+  left: auto !important;
+  top: auto !important;
+  width: 100% !important;
+  min-height: 100% !important;
+  border-radius: 0 !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transform: none !important;
+}
+
+html body .gm-radical-home .gm-radical-usage__carousel .gm-radical-use--active {
+  z-index: 4 !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  transform: none !important;
+  box-shadow: 0 28px 90px rgba(29, 29, 27, 0.18) !important;
+}
+
+html body .gm-radical-home .gm-radical-usage__carousel .gm-radical-use--previous,
+html body .gm-radical-home .gm-radical-usage__carousel .gm-radical-use--next {
+  z-index: 2 !important;
+  width: 30% !important;
+  opacity: 0.34 !important;
+  filter: saturate(0.78) brightness(0.72) !important;
+  pointer-events: none !important;
+}
+
+html body .gm-radical-home .gm-radical-usage__carousel .gm-radical-use--previous {
+  right: auto !important;
+  left: -7% !important;
+  transform: scale(0.9) !important;
+}
+
+html body .gm-radical-home .gm-radical-usage__carousel .gm-radical-use--next {
+  left: auto !important;
+  right: -7% !important;
+  transform: scale(0.9) !important;
+}
+
+html body .gm-radical-home .gm-radical-usage__carousel .gm-radical-use--hidden {
+  opacity: 0 !important;
+  transform: none !important;
+}
+
+html body .gm-radical-home .gm-radical-usage__carousel .gm-radical-use img {
+  height: 100% !important;
+  min-height: inherit !important;
+  object-fit: cover !important;
+}
+
+html body .gm-radical-home .gm-radical-usage__carousel .gm-radical-use::before {
+  background: linear-gradient(90deg, rgba(8, 10, 18, 0.82), rgba(8, 10, 18, 0.42) 58%, rgba(8, 10, 18, 0.18)) !important;
+}
+
+html body .gm-radical-home .gm-radical-usage__carousel .gm-radical-use div {
+  max-width: 560px !important;
+  padding: clamp(1.6rem, 3.4vw, 3rem) !important;
+}
+
+html body .gm-radical-home .gm-radical-usage__carousel .gm-radical-use h3 {
+  max-width: 13ch !important;
+  font-size: clamp(2rem, 3.4vw, 4rem) !important;
+}
+
+html body .gm-radical-home .gm-radical-usage__arrow {
+  top: 50% !important;
+  z-index: 7 !important;
+  border-color: rgba(255, 255, 255, 0.72) !important;
+  color: var(--white) !important;
+  background: var(--red) !important;
+  box-shadow: 0 18px 38px rgba(29, 29, 27, 0.22) !important;
+}
+
+html body .gm-radical-home .gm-radical-usage__arrow--prev {
+  left: clamp(0.8rem, 2vw, 1.5rem) !important;
+}
+
+html body .gm-radical-home .gm-radical-usage__arrow--next {
+  right: clamp(0.8rem, 2vw, 1.5rem) !important;
+}
+
+@media (max-width: 980px) {
+  html body .gm-radical-home .gm-radical-usage {
+    grid-template-columns: 1fr !important;
+  }
+
+  html body .gm-radical-home .gm-radical-usage .gm-radical-section-head {
+    max-width: 760px !important;
+  }
+}
+
+@media (max-width: 700px) {
+  html body .gm-radical-home .gm-radical-usage__carousel {
+    min-height: 460px !important;
+  }
+
+  html body .gm-radical-home .gm-radical-usage__carousel .gm-radical-use--previous,
+  html body .gm-radical-home .gm-radical-usage__carousel .gm-radical-use--next {
+    display: none !important;
+  }
+}
+
+/* Final-final header contrast: overrides older annotated polish that reset the logo filter. */
+html body .gm-owned-header {
+  border-color: rgba(154, 25, 23, 0.16) !important;
+  background: rgba(255, 252, 247, 0.96) !important;
+  color: var(--ink) !important;
+  box-shadow: 0 18px 56px rgba(30, 20, 16, 0.12) !important;
+}
+
+html body .gm-owned-header .site-logo img {
+  opacity: 1 !important;
+  filter: invert(16%) sepia(82%) saturate(1731%) hue-rotate(343deg) brightness(88%) contrast(96%) !important;
+}
+
+html body .gm-owned-header .menu-toggle {
+  border-color: rgba(154, 25, 23, 0.28) !important;
+  background: rgba(255, 255, 255, 0.72) !important;
+}
+
+html body .gm-owned-header .menu-toggle span {
+  display: block !important;
+  height: 2px !important;
+  opacity: 1 !important;
+  background: var(--red) !important;
+  transform: none !important;
+}
+
+/* Final annotation sizing pass: reduce oversized titles and center active hero copy. */
+html body .gm-radical-home .gm-radical-hero__content {
+  left: auto !important;
+  right: auto !important;
+  width: min(1180px, calc(100vw - clamp(3rem, 12vw, 14rem))) !important;
+  max-width: 1180px !important;
+  margin-inline: auto !important;
+  justify-self: center !important;
+  align-self: center !important;
+  text-align: center !important;
+  transform: translateY(clamp(5rem, 13vh, 9rem)) !important;
+}
+
+html body .gm-radical-home .gm-radical-hero__content .gm-radical-eyebrow,
+html body .gm-radical-home .gm-radical-hero__content h1,
+html body .gm-radical-home .gm-radical-hero__content p {
+  width: 100% !important;
+  text-align: center !important;
+  text-align-last: center !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+html body .gm-radical-home .gm-radical-hero__content h1 {
+  max-width: none !important;
+  white-space: nowrap !important;
+  text-wrap: nowrap !important;
+  font-size: clamp(2.35rem, 4.1vw, 4.75rem) !important;
+  line-height: 0.98 !important;
+  letter-spacing: 0.005em !important;
+}
+
+html body .gm-radical-home .gm-radical-hero__content p {
+  max-width: 780px !important;
+  color: rgba(255, 255, 255, 0.84) !important;
+  font-size: clamp(0.98rem, 1.12vw, 1.18rem) !important;
+  line-height: 1.5 !important;
+  text-align: center !important;
+  text-align-last: center !important;
+  text-justify: auto !important;
+}
+
+html body .gm-radical-home .gm-radical-map__copy h2 {
+  max-width: 13ch !important;
+  font-size: clamp(1.95rem, 2.65vw, 3.15rem) !important;
+  line-height: 1.05 !important;
+  letter-spacing: -0.025em !important;
+}
+
+html body .gm-radical-home .gm-radical-destinations {
+  align-items: start !important;
+  min-height: 0 !important;
+  padding-top: clamp(4rem, 6vw, 6.5rem) !important;
+  padding-bottom: clamp(4rem, 6vw, 6.5rem) !important;
+}
+
+html body .gm-radical-home .gm-radical-destinations__visual {
+  min-height: 0 !important;
+  height: clamp(500px, 38vw, 650px) !important;
+  align-self: start !important;
+}
+
+html body .gm-radical-home .gm-radical-destinations__visual img {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  object-fit: cover !important;
+}
+
+html body .gm-radical-home .gm-radical-usage__carousel .gm-radical-use div {
+  max-width: 620px !important;
+  padding: clamp(1.7rem, 3vw, 3rem) clamp(2.2rem, 4.2vw, 4.2rem) clamp(1.7rem, 3vw, 3rem) clamp(4.8rem, 7.8vw, 7rem) !important;
+}
+
+html body .gm-radical-home .gm-radical-usage__carousel .gm-radical-use h3,
+html body .gm-radical-home .gm-radical-usage__carousel .gm-radical-use h4,
+html body .gm-radical-home .gm-radical-usage__carousel .gm-radical-use p {
+  text-align: left !important;
+  text-align-last: left !important;
+  text-justify: auto !important;
+}
+
+@media (max-width: 1180px) {
+  html body .gm-radical-home .gm-radical-hero__content {
+    transform: translateY(3.25rem) !important;
+  }
+
+  html body .gm-radical-home .gm-radical-hero__content h1 {
+    white-space: normal !important;
+    text-wrap: balance !important;
+  }
+}
+
+@media (max-width: 820px) {
+  html body .gm-radical-home .gm-radical-destinations__visual {
+    height: 460px !important;
+  }
+}
+
+@media (max-width: 700px) {
+  html body .gm-radical-home .gm-radical-hero__content h1 {
+    font-size: clamp(2.25rem, 12vw, 4.2rem) !important;
+  }
+
+  html body .gm-radical-home .gm-radical-usage__carousel .gm-radical-use div {
+    padding: 2rem !important;
+  }
 }

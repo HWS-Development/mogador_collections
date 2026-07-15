@@ -1,5 +1,6 @@
 import PageHero from '../components/PageHero'
 import GallerySlider from '../components/GallerySlider'
+import SignatureExperience from '../components/SignatureExperience'
 import Link from '../router/Link'
 import { hotels, mice } from '../data/siteData'
 import { businessContent } from '../data/officialContent'
@@ -28,7 +29,6 @@ const seminarTypes = [
 const businessRows = [
   {
     title: 'Un réseau pour travailler, recevoir et rassembler',
-    label: '01',
     image: '/assets/official/business-space-official.jpg',
     paragraphs: [
       'Au-delà de l’accès à des destinations attractives comme Marrakech, Casablanca, Tanger, Agadir et Essaouira, Mogador réunit salles équipées, espaces modulables, hébergement, restauration et accompagnement dédié.',
@@ -37,7 +37,6 @@ const businessRows = [
   },
   {
     title: 'Des événements sur mesure, de 10 à 6000 invités',
-    label: '02',
     image: '/assets/official/mice-official.jpg',
     paragraphs: [
       'Du comité de direction au symposium, du dîner de gala au team building, chaque demande est pensée comme une composition: capacité, timing, technique, pauses, restauration et expérience.',
@@ -46,7 +45,6 @@ const businessRows = [
   },
   {
     title: 'Le Grand Palais des Congrès Agdal',
-    label: '03',
     image: 'https://u.profitroom.pl/2020-mogadorhotels-com/thumb/0x900/uploads/Agdal/37.jpg',
     paragraphs: [
       'Avec une capacité d’accueil majeure à Marrakech, le Grand Palais des Congrès Agdal s’impose comme une adresse incontournable pour les événements nationaux et internationaux.',
@@ -81,6 +79,8 @@ export default function MicePage({ t, lang }) {
   return (
     <div className="gm-page gm-mice-page gm-mice-page--seminar">
       <PageHero eyebrow="Mogador for business" title={title} text={text} image="/assets/official/mice-official.jpg" primary={{ to: '/contact', label: t.common.quoteMice }} secondary={{ to: '/hotels', label: t.common.seeHotels }} t={t} />
+
+      <SignatureExperience variant="mice" cta="/contact" />
 
       <section className="gm-seminar-finder gm-page-section" aria-label="Trouver le lieu idéal pour votre événement">
         <div className="gm-seminar-finder__intro gm-reveal">
@@ -123,7 +123,6 @@ export default function MicePage({ t, lang }) {
       <section className="gm-seminar-types gm-page-section" aria-label="Typologies d’hôtels séminaires Mogador">
         {seminarTypes.map((type, index) => (
           <article className="gm-reveal" style={{ '--delay': `${index * 80}ms` }} key={type.title}>
-            <span>{String(index + 1).padStart(2, '0')}</span>
             <h3>{type.title}</h3>
             <p>{type.text}</p>
           </article>
@@ -138,7 +137,6 @@ export default function MicePage({ t, lang }) {
         <div className="gm-seminar-offer__grid">
           {seminarOffer.map(([item, body], index) => (
             <article className="gm-reveal" style={{ '--delay': `${index * 55}ms` }} key={item}>
-              <span>{String(index + 1).padStart(2, '0')}</span>
               <h3>{item}</h3>
               <p>{body}</p>
             </article>
@@ -151,7 +149,6 @@ export default function MicePage({ t, lang }) {
           <article className={`gm-business-row ${index % 2 ? 'gm-business-row--reverse' : ''} gm-reveal`} key={section.title}>
             <figure><img src={section.image} alt={section.title} loading="lazy" /></figure>
             <div>
-              <span className="gm-label">{section.label}</span>
               <h2>{section.title}</h2>
               {section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
             </div>

@@ -1,5 +1,6 @@
 import PageHero from '../components/PageHero'
 import GallerySlider from '../components/GallerySlider'
+import SignatureExperience from '../components/SignatureExperience'
 import Icon from '../components/Icon'
 import Link from '../router/Link'
 import { brandMoments, experiences } from '../data/siteData'
@@ -50,6 +51,8 @@ export default function ExperiencesPage({ t, lang }) {
   return (
     <div className="gm-page gm-experiences-page">
       <PageHero eyebrow="Expériences" title={title} text={text} image="/assets/official/spa-official.jpg" primary={{ to: '/#reservation', label: t.common.bookDirect }} secondary={{ to: '/destinations', label: t.nav.destinations }} t={t} />
+
+      <SignatureExperience variant="experiences" cta="/#reservation" />
 
       <section className="gm-brand-moments" aria-label="Expériences officielles Mogador">
         {brandMoments.map((moment, index) => (

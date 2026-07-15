@@ -1,4 +1,5 @@
 import PageHero from '../components/PageHero'
+import SignatureExperience from '../components/SignatureExperience'
 import Link from '../router/Link'
 import { aboutStory } from '../data/officialContent'
 import { brand, stats, values } from '../data/siteData'
@@ -23,6 +24,8 @@ export default function AboutPage({ t, lang }) {
         t={t}
       />
 
+      <SignatureExperience variant="brand" cta="/hotels" />
+
       <section className="gm-page-intro gm-page-section">
         <div>
           <span className="gm-label">Positionnement</span>
@@ -41,7 +44,6 @@ export default function AboutPage({ t, lang }) {
               <img src={section.image} alt={section.title} loading="lazy" />
             </figure>
             <div>
-              <span className="gm-label">{String(index + 1).padStart(2, '0')}</span>
               <h2>{section.title}</h2>
               {section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
             </div>
@@ -55,9 +57,8 @@ export default function AboutPage({ t, lang }) {
           <h2>Une culture de service lisible, humaine et entièrement orientée client.</h2>
         </div>
         <div className="gm-values__grid">
-          {values.map((value, index) => (
+          {values.map((value) => (
             <article className="gm-reveal" key={value.title}>
-              <span>{String(index + 1).padStart(2, '0')}</span>
               <h3>{value.title}</h3>
               <p>{value.text}</p>
             </article>

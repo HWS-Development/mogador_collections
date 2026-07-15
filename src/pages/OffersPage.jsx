@@ -1,6 +1,7 @@
 import PageHero from '../components/PageHero'
 import BookingBar from '../components/BookingBar'
 import GallerySlider from '../components/GallerySlider'
+import SignatureExperience from '../components/SignatureExperience'
 import Link from '../router/Link'
 import { offers } from '../data/siteData'
 import { directBookingBenefits } from '../data/officialContent'
@@ -35,6 +36,8 @@ export default function OffersPage({ t, lang }) {
     <div className="gm-page gm-offers-page">
       <PageHero eyebrow="Trouvez nos offres" title={title} text={text} image="/assets/legacy/agadir-pool.jpg" primary={{ to: '/#reservation', label: t.common.bookDirect }} secondary={{ to: '/programme-fidelite', label: t.nav.loyalty }} t={t} />
 
+      <SignatureExperience variant="offers" cta="/#reservation" />
+
       <section className="gm-fs-offer-intro gm-page-section" aria-label="Introduction offres Mogador">
         <Link to="/destinations">Mogador</Link>
         <h2>{title}</h2>
@@ -56,8 +59,8 @@ export default function OffersPage({ t, lang }) {
       <section className="gm-offer-engine gm-page-section" id="reservation-offres">
         <div>
           <span className="gm-label">Site officiel</span>
-          <h2>Choisir l’hôtel, les dates, puis déclencher la demande directe.</h2>
-          <p>Comparez les avantages directs, choisissez votre intention de séjour et lancez votre demande depuis le canal officiel Mogador.</p>
+          <h2>Choisissez votre hôtel, vos dates et votre offre.</h2>
+          <p>Consultez les avantages disponibles et réservez votre séjour depuis le site officiel Mogador.</p>
         </div>
         <BookingBar t={t} />
       </section>
@@ -65,7 +68,7 @@ export default function OffersPage({ t, lang }) {
       <section className="gm-fs-offers-grid gm-page-section" aria-label="Toutes les offres Mogador">
         <div className="gm-section-head gm-reveal">
           <span className="gm-label">Toutes les offres</span>
-          <h2>Des offres claires pour réserver directement selon votre envie de séjour.</h2>
+          <h2>Des offres officielles pour réserver votre séjour Mogador.</h2>
           <Link to="/#reservation">Meilleur tarif garanti</Link>
         </div>
         <div className="gm-fs-offers-grid__cards">
@@ -89,7 +92,7 @@ export default function OffersPage({ t, lang }) {
       <section className="gm-offer-gallery gm-page-section" aria-label="Galerie commerciale offres Mogador">
         <div className="gm-section-head gm-reveal">
           <span className="gm-label">Galerie</span>
-          <h2>Les moments Mogador à composer autour de votre offre.</h2>
+          <h2>Découvrez les expériences Mogador associées à nos offres.</h2>
         </div>
         <GallerySlider items={offerGallery} label="Galerie offres Mogador" />
       </section>

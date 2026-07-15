@@ -42,12 +42,14 @@ export function useScrollEffects() {
         const max = document.documentElement.scrollHeight - window.innerHeight
         const progress = max > 0 ? window.scrollY / max : 0
         const showDock = window.scrollY > Math.min(window.innerHeight * 0.7, 760)
+        const compactHeader = window.scrollY > 42
         if (!reduceMotion) {
           document.documentElement.style.setProperty('--parallax-y', `${window.scrollY * 0.08}px`)
           document.documentElement.style.setProperty('--cinema-y', `${window.scrollY * -0.025}px`)
           document.documentElement.style.setProperty('--scroll-progress', `${progress}`)
         }
         document.body.classList.toggle('show-conversion-dock', showDock)
+        document.body.classList.toggle('gm-header-compact', compactHeader)
       })
     }
 
@@ -57,6 +59,7 @@ export function useScrollEffects() {
       window.cancelAnimationFrame(frame)
       window.removeEventListener('scroll', onScroll)
       document.body.classList.remove('show-conversion-dock')
+      document.body.classList.remove('gm-header-compact')
     }
   }, [])
 }
@@ -226,17 +229,21 @@ export function useLuxuryMotion(path) {
     if (!root) return undefined
     const isHome = root.classList.contains('gm-home')
 
-    root.classList.add('gm-luxury-motion')
+    root.classList.add('gm-luxury-motion', 'gm-high-conversion-motion')
+    document.body.classList.add('gm-route-transition')
+    const routeTimer = window.setTimeout(() => document.body.classList.remove('gm-route-transition'), 620)
 
     if (reduceMotion) {
       root.classList.add('gm-motion-reduced')
-      root.querySelectorAll('.gm-reveal, .reveal, .gm-radical-reveal, .gm-radical-use, .gm-radical-chapter, .gm-radical-hotel, .gm-radical-moment').forEach((element) => {
+      root.querySelectorAll('.gm-reveal, .reveal, .gm-radical-reveal, .gm-radical-intent, .gm-radical-use, .gm-radical-scene, .gm-radical-chapter, .gm-radical-hotel, .gm-radical-moment').forEach((element) => {
         element.style.opacity = '1'
         element.style.transform = 'none'
         element.style.filter = 'none'
       })
       return () => {
-        root.classList.remove('gm-luxury-motion', 'gm-motion-reduced')
+        window.clearTimeout(routeTimer)
+        document.body.classList.remove('gm-route-transition')
+        root.classList.remove('gm-luxury-motion', 'gm-high-conversion-motion', 'gm-motion-reduced')
       }
     }
 
@@ -255,12 +262,17 @@ export function useLuxuryMotion(path) {
 
     window.addEventListener('pointermove', onPointerMove, { passive: true })
 
-    const magneticSelector = isHome ? [
+    const magneticSelector = [
       '.gm-radical-use',
+      '.gm-radical-intent',
+      '.gm-booking-takeover__intents a',
+      '.gm-owned-menu__group',
+      '.gm-radical-scene',
       '.gm-radical-chapter',
       '.gm-radical-hotel',
       '.gm-radical-moment',
       '.gm-radical-destination-list a',
+      '.gm-radical-map__pin',
       '.gm-path',
       '.gm-immersion-card',
       '.gm-hotel-lead',
@@ -281,7 +293,20 @@ export function useLuxuryMotion(path) {
       '.gm-direct-proof article',
       '.gm-contact-hotels__grid article',
       '.gm-experience-index__grid article',
-    ].join(', ') : ''
+      '.gm-fs-offer-card',
+      '.gm-seminar-type',
+      '.gm-seminar-offer__grid article',
+      '.gm-seminar-venues__grid article',
+      '.gm-signature-experience__media',
+      '.gm-signature-experience__cards article',
+      '.gm-destination-filterbar button',
+      '.gm-destination-menu button',
+      '.gm-room-tabs button',
+      '.gm-room-showcase__controls button',
+      '.gm-fs-gallery__arrow',
+      '.booking-bar button',
+      '.booking-bar__next',
+    ].join(', ')
 
     if (magneticSelector) root.querySelectorAll(magneticSelector).forEach((element) => {
       element.classList.add('gm-magnetic')
@@ -297,12 +322,22 @@ export function useLuxuryMotion(path) {
         element.style.setProperty('--magnet-y', `${((y - 0.5) * 10).toFixed(2)}px`)
         element.style.setProperty('--tilt-x', `${((0.5 - y) * 5).toFixed(2)}deg`)
         element.style.setProperty('--tilt-y', `${((x - 0.5) * 5).toFixed(2)}deg`)
+        element.style.setProperty('--card-x', `${(x * 100).toFixed(2)}%`)
+        element.style.setProperty('--card-y', `${(y * 100).toFixed(2)}%`)
+        element.style.setProperty('--card-rx', `${((0.5 - y) * 7).toFixed(2)}deg`)
+        element.style.setProperty('--card-ry', `${((x - 0.5) * 7).toFixed(2)}deg`)
+        element.style.setProperty('--card-tx', `${((x - 0.5) * 8).toFixed(2)}px`)
+        element.style.setProperty('--card-ty', `${((y - 0.5) * 8).toFixed(2)}px`)
       }
       const onLeave = () => {
         element.style.setProperty('--magnet-x', '0px')
         element.style.setProperty('--magnet-y', '0px')
         element.style.setProperty('--tilt-x', '0deg')
         element.style.setProperty('--tilt-y', '0deg')
+        element.style.setProperty('--card-rx', '0deg')
+        element.style.setProperty('--card-ry', '0deg')
+        element.style.setProperty('--card-tx', '0px')
+        element.style.setProperty('--card-ty', '0px')
       }
 
       element.addEventListener('pointermove', onMove, { passive: true })
@@ -334,13 +369,14 @@ export function useLuxuryMotion(path) {
         }
 
         runDirectionalScrollMotion(root)
+        runHighConversionMotion(root)
 
         if (!isHome) {
           runInteriorLuxuryMotion(root)
           return
         }
 
-        gsap.utils.toArray('.gm-radical-section-head, .gm-radical-intro__copy, .gm-radical-services, .gm-section-head, .gm-page-intro > div, .gm-offer-engine > div:first-child, .gm-mice-command > div:first-child, .gm-reservation-takeover__copy, .gm-hotel-sales-panel__copy, .gm-hotel-booking-panel > div:first-child').forEach((element) => {
+        gsap.utils.toArray('.gm-radical-section-head, .gm-radical-map__copy, .gm-radical-intro__copy, .gm-radical-services, .gm-section-head, .gm-page-intro > div, .gm-offer-engine > div:first-child, .gm-mice-command > div:first-child, .gm-reservation-takeover__copy, .gm-hotel-sales-panel__copy, .gm-hotel-booking-panel > div:first-child').forEach((element) => {
           gsap.from(element, {
             x: -56,
             y: 22,
@@ -354,7 +390,7 @@ export function useLuxuryMotion(path) {
           })
         })
 
-        gsap.utils.toArray('.gm-radical-usage__grid, .gm-radical-signatures__grid, .gm-radical-moments, .gm-radical-numbers, .gm-radical-destination-list, .gm-room-catalog__grid, .gm-hotel-directory__grid, .gm-values__grid, .gm-contact-hotels__grid, .gm-experience-index__grid, .gm-charter-list, .gm-offer-showcase__grid, .gm-offer-gallery, .gm-hotel-slider__track, .gm-service-matrix__grid, .gm-hotel-gallery__grid, .gm-facilities, .gm-direct-proof, .gm-mice-command__stats, .gm-feature-list').forEach((grid) => {
+        gsap.utils.toArray('.gm-radical-intents__grid, .gm-radical-usage__carousel, .gm-radical-constellation__grid, .gm-radical-signatures__grid, .gm-radical-moments, .gm-radical-numbers, .gm-radical-destination-list, .gm-room-catalog__grid, .gm-hotel-directory__grid, .gm-values__grid, .gm-contact-hotels__grid, .gm-experience-index__grid, .gm-charter-list, .gm-offer-showcase__grid, .gm-offer-gallery, .gm-hotel-slider__track, .gm-service-matrix__grid, .gm-hotel-gallery__grid, .gm-facilities, .gm-direct-proof, .gm-mice-command__stats, .gm-feature-list').forEach((grid) => {
           const children = Array.from(grid.children)
           if (!children.length) return
 
@@ -367,12 +403,12 @@ export function useLuxuryMotion(path) {
             transformPerspective: 1100,
             transformOrigin: 'left center',
             filter: 'blur(10px)',
-            stagger: { each: 0.09, from: 'start' },
-            duration: 0.86,
+            stagger: { each: 0.035, from: 'start' },
+            duration: 0.38,
             ease: 'power4.out',
             clearProps: 'transform,filter,opacity,visibility',
             immediateRender: false,
-            scrollTrigger: { trigger: grid, start: 'top 82%', toggleActions: 'play none none reverse' },
+            scrollTrigger: { trigger: grid, start: 'top 96%', toggleActions: 'play none none none' },
           })
         })
 
@@ -421,22 +457,22 @@ export function useLuxuryMotion(path) {
           }
         })
 
-        gsap.utils.toArray('.gm-radical-use img, .gm-radical-chapter__media img, .gm-radical-hotel img, .gm-radical-moment img, .gm-radical-destinations__visual img, .gm-story-row img, .gm-business-row img, .gm-destination-guide img, .gm-hotel-section img, .gm-page-hero__media img').forEach((image) => {
+        gsap.utils.toArray('.gm-radical-use img, .gm-radical-scene img, .gm-signature-experience__media img, .gm-radical-chapter__media img, .gm-radical-hotel img, .gm-radical-moment img, .gm-radical-destinations__visual img, .gm-story-row img, .gm-business-row img, .gm-destination-guide img, .gm-hotel-section img, .gm-page-hero__media img').forEach((image) => {
           gsap.fromTo(image, { scale: 1.16, xPercent: -3, filter: 'contrast(0.86) saturate(0.72)' }, {
             scale: 1.03,
             xPercent: 0,
             filter: 'contrast(1) saturate(1)',
-            duration: 1.15,
+            duration: 0.42,
             ease: 'power3.out',
             clearProps: 'transform,filter',
-            scrollTrigger: { trigger: image, start: 'top 88%', toggleActions: 'play none none reverse' },
+            scrollTrigger: { trigger: image, start: 'top 96%', toggleActions: 'play none none none' },
           })
         })
 
         gsap.utils.toArray('.gm-section-head, .gm-page-intro > div, .gm-reservation-takeover__copy, .gm-hotel-sales-panel__copy, .gm-hotel-booking-panel > div:first-child').forEach((element) => {
           gsap.from(element, {
             y: 42,
-            duration: 0.82,
+            duration: 0.36,
             clearProps: 'transform,filter,opacity,visibility',
             ease: 'power3.out',
             immediateRender: false,
@@ -444,7 +480,7 @@ export function useLuxuryMotion(path) {
           })
         })
 
-        gsap.utils.toArray('.gm-radical-use, .gm-radical-hotel, .gm-radical-moment, .gm-charter-row, .gm-attraction-grid section, .gm-facilities article, .gm-hotel-gallery figure, .gm-final, .gm-path, .gm-immersion-card, .gm-hotel-lead, .gm-experience, .gm-booking-intent, .gm-collection, .gm-destination, .gm-hotel-tile, .gm-room-card, .gm-offer-card, .gm-editorial-card, .gm-loyalty-visual, .gm-service-card, .gm-hotel-slide, .gm-magazine-gallery__item, .gm-offer-gallery__item').forEach((card, index) => {
+        gsap.utils.toArray('.gm-radical-use, .gm-radical-scene, .gm-signature-experience__media, .gm-signature-experience__cards article, .gm-radical-hotel, .gm-radical-moment, .gm-charter-row, .gm-attraction-grid section, .gm-facilities article, .gm-hotel-gallery figure, .gm-final, .gm-path, .gm-immersion-card, .gm-hotel-lead, .gm-experience, .gm-booking-intent, .gm-collection, .gm-destination, .gm-hotel-tile, .gm-room-card, .gm-offer-card, .gm-editorial-card, .gm-loyalty-visual, .gm-service-card, .gm-hotel-slide, .gm-magazine-gallery__item, .gm-offer-gallery__item').forEach((card, index) => {
           gsap.from(card, {
             x: index % 2 ? 48 : -48,
             y: 32,
@@ -457,7 +493,7 @@ export function useLuxuryMotion(path) {
             clearProps: 'transform,filter,opacity,visibility',
             ease: 'power4.out',
             immediateRender: false,
-            scrollTrigger: { trigger: card, start: 'top 88%', toggleActions: 'play none none reverse' },
+            scrollTrigger: { trigger: card, start: 'top 96%', toggleActions: 'play none none none' },
           })
         })
 
@@ -490,12 +526,57 @@ export function useLuxuryMotion(path) {
     return () => {
       window.cancelAnimationFrame(frame)
       window.cancelAnimationFrame(pointerFrame)
+      window.clearTimeout(routeTimer)
       window.removeEventListener('pointermove', onPointerMove)
       magneticCleanups.forEach((cleanup) => cleanup())
-      root.classList.remove('gm-luxury-motion')
+      document.body.classList.remove('gm-route-transition')
+      root.classList.remove('gm-luxury-motion', 'gm-high-conversion-motion')
       ctx?.revert()
     }
   }, [path])
+}
+
+function runHighConversionMotion(root) {
+  gsap.utils.toArray('.gm-page-section, .gm-radical-direct, .gm-radical-usage, .gm-radical-story, .gm-radical-signatures, .gm-radical-destinations, .gm-radical-moments, .gm-radical-numbers').forEach((section) => {
+    gsap.from(section, {
+      y: 36,
+      scale: 0.985,
+      autoAlpha: 0,
+      clipPath: 'inset(8% 4% 8% 4% round 34px)',
+      filter: 'blur(10px) saturate(0.9)',
+      duration: 0.9,
+      ease: 'power4.out',
+      clearProps: 'transform,filter,opacity,visibility,clipPath',
+      immediateRender: false,
+      scrollTrigger: { trigger: section, start: 'top 88%', toggleActions: 'play none none none' },
+    })
+  })
+
+  gsap.utils.toArray('.gm-section-head').forEach((head) => {
+    const mark = head
+    gsap.fromTo(mark, { '--portal-rotate': '-10deg', '--portal-scale': 0.86 }, {
+      '--portal-rotate': '0deg',
+      '--portal-scale': 1,
+      duration: 0.9,
+      ease: 'back.out(1.35)',
+      scrollTrigger: { trigger: head, start: 'top 86%', toggleActions: 'play none none none' },
+    })
+  })
+
+  gsap.utils.toArray('.gm-hotel-tile, .gm-room-card, .gm-offer-card, .gm-fs-offer-card, .gm-editorial-card, .gm-experience-card, .gm-service-card, .gm-destination-feature, .gm-seminar-type').forEach((card) => {
+    const image = card.querySelector('img')
+    if (!image) return
+    gsap.from(image, {
+      scale: 1.18,
+      rotate: 1.2,
+      filter: 'blur(8px) saturate(0.72)',
+      duration: 0.92,
+      ease: 'power3.out',
+      clearProps: 'transform,filter',
+      immediateRender: false,
+      scrollTrigger: { trigger: card, start: 'top 88%', toggleActions: 'play none none none' },
+    })
+  })
 }
 
 function runInteriorLuxuryMotion(root) {
@@ -631,7 +712,6 @@ function runDirectionalScrollMotion(root) {
     '.gm-radical-use > div',
     '.gm-radical-hotel > div',
     '.gm-radical-moment > div',
-    '.gm-radical-final',
   ].join(', '))
 
   textBlocks.forEach((element) => {

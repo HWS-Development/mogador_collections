@@ -1,4 +1,5 @@
 import PageHero from '../components/PageHero'
+import SignatureExperience from '../components/SignatureExperience'
 import { brand, destinations } from '../data/siteData'
 import { directBookingBenefits, hotelContacts } from '../data/officialContent'
 import { useSeo } from '../hooks/usePageEffects'
@@ -11,14 +12,15 @@ export default function ContactPage({ t, lang }) {
     <div className="gm-page gm-contact-page">
       <PageHero eyebrow="Contact" title={title} text={text} image="/assets/legacy/menara-salon.jpg" primary={{ to: '/#reservation', label: t.common.bookDirect }} t={t} />
 
+      <SignatureExperience variant="brand" title="Contactez directement les équipes Mogador." text="Séjour individuel, groupe, événement, voyage d’affaires ou famille: nos équipes vous orientent vers l’adresse et le service adaptés." cta="/#reservation" />
+
       <section className="gm-contact-command gm-page-section">
         <div>
           <span className="gm-label">Siège Mogador</span>
           <h2>Avenue Hassan II, Marrakech - Maroc</h2>
           <div className="gm-contact-links">
-            <a href="tel:+212524425200">+212 (0) 524 42 52 00</a>
-            <a href="mailto:contact@mogadorhotels.com">contact@mogadorhotels.com</a>
             <a href={`tel:${brand.phone}`}>{brand.phone}</a>
+            <a href="mailto:contact@mogadorhotels.com">contact@mogadorhotels.com</a>
             <a href={`mailto:${brand.email}`}>{brand.email}</a>
           </div>
         </div>

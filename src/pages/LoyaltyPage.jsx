@@ -1,5 +1,6 @@
 import PageHero from '../components/PageHero'
 import GallerySlider from '../components/GallerySlider'
+import SignatureExperience from '../components/SignatureExperience'
 import Link from '../router/Link'
 import { loyaltyBenefits } from '../data/siteData'
 import { directBookingBenefits } from '../data/officialContent'
@@ -22,10 +23,12 @@ export default function LoyaltyPage({ t, lang }) {
     <div className="gm-page gm-loyalty-page">
       <PageHero eyebrow="Fidélité" title={title} text={text} image="/assets/legacy/sea-suite.jpg" primary={{ to: '/#reservation', label: t.common.bookDirect }} secondary={{ to: '/contact', label: t.nav.contact }} t={t} />
 
+      <SignatureExperience variant="offers" title="Un lien direct avec Mogador pour vos prochains séjours." text="Réserver en direct facilite le suivi de vos demandes, vos préférences de séjour et vos échanges avec les équipes Mogador." cta="/contact" />
+
       <section className="gm-page-intro gm-page-section">
         <div>
           <span className="gm-label">Relation client</span>
-          <h2>Un programme sobre, utile, orienté récurrence et réservation directe.</h2>
+          <h2>Des avantages et attentions pour les clients directs.</h2>
         </div>
         <div className="gm-rich-copy">
           <p>Un espace relationnel pensé pour reconnaître les clients directs, personnaliser l’accueil et encourager les prochains séjours Mogador.</p>

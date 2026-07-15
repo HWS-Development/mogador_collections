@@ -30,7 +30,7 @@ export default function BookingBar({ t }) {
   const statusText = bookingState === 'pending' ? t.booking.pending : bookingState === 'ready' ? t.booking.ready : t.booking.idle
 
   return (
-    <form className="booking-bar reveal" id="reservation" aria-label="Moteur de réservation Mogador" onSubmit={handleSubmit}>
+    <form className={`booking-bar booking-bar--${bookingState} reveal`} aria-label="Moteur de réservation Mogador" onSubmit={handleSubmit}>
       <div className="booking-bar__seal" aria-hidden="true">
         <span>{t.common.official}</span>
         <strong>{t.common.bestRate}</strong>

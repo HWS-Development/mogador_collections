@@ -5,6 +5,17 @@ import Link from '../router/Link'
 export default function Footer({ t }) {
   return (
     <footer className="site-footer" id="footer">
+      <section className="gm-owned-prefooter" aria-label="Réservation officielle Mogador">
+        <div>
+          <span>Site officiel Mogador</span>
+          <h2>Recevoir les actualités et offres Mogador.</h2>
+          <p>Inscrivez-vous pour recevoir les offres officielles, nouveautés hôtelières et informations utiles sur les destinations Mogador.</p>
+        </div>
+        <form onSubmit={(event) => event.preventDefault()}>
+          <label><span>Email</span><input type="email" placeholder="votre@email.com" required /></label>
+          <button type="submit">S’inscrire</button>
+        </form>
+      </section>
       <div className="site-footer__brand">
         <img src={images.brand.logoWhite} alt="Mogador Hotels & Resorts" />
         <p>{brand.positioning}</p>

@@ -1,5 +1,6 @@
 import PageHero from '../components/PageHero'
 import GallerySlider from '../components/GallerySlider'
+import SignatureExperience from '../components/SignatureExperience'
 import Link from '../router/Link'
 import { magazineArticles } from '../data/siteData'
 import { useSeo } from '../hooks/usePageEffects'
@@ -9,13 +10,13 @@ const articleVisuals = {
     image: '/assets/legacy/agadir-pool.jpg',
     kicker: 'Famille',
     read: '4 min',
-    body: 'Piscines, chambres adaptées, distances, restauration et rythme de séjour: les bons critères transforment les vacances en expérience fluide pour les parents comme pour les enfants.',
+    body: 'Piscines, chambres adaptées, distances, restauration et rythme de séjour: les bons critères facilitent les vacances des parents comme des enfants.',
   },
   'hotel-luxe-maroc-experience': {
     image: '/assets/legacy/sea-suite.jpg',
     kicker: 'Luxe marocain',
     read: '5 min',
-    body: 'Le luxe se ressent dans la précision du service, la douceur de la lumière, la qualité du repos et la capacité d’un lieu à créer un souvenir durable.',
+    body: 'Service attentif, qualité du repos, équipements et hospitalité marocaine font partie des critères d’un séjour haut de gamme.',
   },
   'mice-marrakech-palais-congres': {
     image: '/assets/official/mice-official.jpg',
@@ -27,7 +28,7 @@ const articleVisuals = {
     image: '/assets/official/restaurant-official.jpg',
     kicker: 'Expériences',
     read: '4 min',
-    body: 'Gastronomie, bien-être, médinas, océan et hospitalité marocaine donnent de la profondeur à un séjour et déclenchent l’envie de réserver.',
+    body: 'Gastronomie, bien-être, médinas, océan et hospitalité marocaine accompagnent votre séjour dans les destinations Mogador.',
   },
 }
 
@@ -49,6 +50,8 @@ export default function MagazinePage({ t, lang }) {
     <div className="gm-page gm-magazine-page">
       <PageHero eyebrow="Magazine" title={title} text={text} image="/assets/official/dest-essaouira-official.jpg" primary={{ to: '/#reservation', label: t.common.bookDirect }} secondary={{ to: '/destinations', label: t.nav.destinations }} t={t} />
 
+      <SignatureExperience variant="destinations" title="Guides et inspirations pour préparer votre séjour Mogador." text="Retrouvez des idées de destinations, de séjours famille, de bien-être, d’événements et d’escapades au Maroc." cta="/destinations" />
+
       <section className="gm-magazine-feature gm-page-section" aria-label="Article à la une Mogador">
         <figure>
           <img src={featuredVisual.image} alt={featured.title} loading="lazy" />
@@ -68,7 +71,7 @@ export default function MagazinePage({ t, lang }) {
       <section className="gm-editorial-grid gm-page-section" aria-label="Articles magazine Mogador">
         <div className="gm-section-head gm-reveal">
           <span className="gm-label">Guides & inspirations</span>
-          <h2>Des contenus qui donnent envie, rassurent et ramènent vers la réservation.</h2>
+          <h2>Des guides pour choisir votre destination et votre hôtel.</h2>
         </div>
         <div className="gm-editorial-grid__cards">
           {articles.map((article, index) => {
@@ -92,7 +95,7 @@ export default function MagazinePage({ t, lang }) {
       <section className="gm-magazine-gallery gm-page-section" aria-label="Galerie inspiration Mogador">
         <div className="gm-section-head gm-reveal">
           <span className="gm-label">Carnet visuel</span>
-          <h2>Le Maroc Mogador en images, par envies de séjour.</h2>
+          <h2>Le Maroc Mogador en images.</h2>
         </div>
         <GallerySlider items={magazineGallery} label="Galerie inspiration Mogador" />
       </section>
