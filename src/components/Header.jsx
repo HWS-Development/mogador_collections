@@ -73,11 +73,44 @@ export default function Header({ t, lang, setLang }) {
   const [open, setOpen] = useState(false)
   const [preview, setPreview] = useState(navRoutes[0][2])
   const menuRef = useRef(null)
+  const closeRef = useRef(null)
+  const toggleRef = useRef(null)
 
   useEffect(() => {
     document.body.classList.toggle('gm-menu-open', open)
-    if (open) menuRef.current?.scrollTo({ top: 0, left: 0 })
+    if (open) {
+      menuRef.current?.scrollTo({ top: 0, left: 0 })
+      window.requestAnimationFrame(() => closeRef.current?.focus())
+    }
     return () => document.body.classList.remove('gm-menu-open')
+  }, [open])
+
+  useEffect(() => {
+    if (!open) return undefined
+
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        setOpen(false)
+        window.requestAnimationFrame(() => toggleRef.current?.focus())
+        return
+      }
+      if (event.key !== 'Tab') return
+
+      const focusable = Array.from(menuRef.current?.querySelectorAll('a[href], button:not([disabled])') || [])
+      if (!focusable.length) return
+      const first = focusable[0]
+      const last = focusable[focusable.length - 1]
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault()
+        last.focus()
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault()
+        first.focus()
+      }
+    }
+
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
   }, [open])
 
   return (
@@ -86,7 +119,7 @@ export default function Header({ t, lang, setLang }) {
         <img src={images.brand.logoWhite} alt="Mogador Hotels & Resorts" />
       </Link>
       <nav id="menu" ref={menuRef} className={`site-nav gm-owned-menu ${open ? 'site-nav--open' : ''}`} aria-label="Navigation principale">
-        <button className="gm-owned-menu__close" type="button" onClick={() => setOpen(false)} aria-label="Fermer le menu"><span /></button>
+        <button ref={closeRef} className="gm-owned-menu__close" type="button" onClick={() => setOpen(false)} aria-label="Fermer le menu"><span /></button>
         <div className="gm-owned-menu__visual" aria-hidden="true">
           <img src={preview} alt="" />
           <span>Choisir<br />Mogador</span>
@@ -94,14 +127,14 @@ export default function Header({ t, lang, setLang }) {
         <div className="gm-owned-menu__links">
           <div className="gm-owned-menu__quick" aria-label="Accès rapides">
             {navRoutes.slice(0, 6).map(([key, to, image], index) => (
-              <Link to={to} key={key} onClick={() => setOpen(false)} onMouseEnter={() => setPreview(image)}>
+              <Link to={to} key={key} onClick={() => setOpen(false)} onMouseEnter={() => setPreview(image)} onFocus={() => setPreview(image)} aria-current={window.location.pathname === to ? 'page' : undefined}>
                 {t.nav[key]}
               </Link>
             ))}
           </div>
           <div className="gm-owned-menu__groups" aria-label="Parcours Mogador">
             {menuGroups.map((group, index) => (
-              <article className="gm-owned-menu__group" key={group.title} onMouseEnter={() => setPreview(group.image)}>
+              <article className="gm-owned-menu__group" key={group.title} onMouseEnter={() => setPreview(group.image)} onFocus={() => setPreview(group.image)}>
                 <h3>{group.title}</h3>
                 <p>{group.promise}</p>
                 <div>
@@ -130,7 +163,7 @@ export default function Header({ t, lang, setLang }) {
           ))}
         </div>
         <Link to="/#reservation" className="reserve-link" data-track="header_booking">{t.common.book}</Link>
-        <button className="menu-toggle" type="button" aria-expanded={open} aria-controls="menu" onClick={() => setOpen((value) => !value)} aria-label={open ? 'Fermer le menu' : 'Ouvrir le menu'}>
+        <button ref={toggleRef} className="menu-toggle" type="button" aria-expanded={open} aria-controls="menu" onClick={() => setOpen((value) => !value)} aria-label={open ? 'Fermer le menu' : 'Ouvrir le menu'}>
           <span />
           <span />
           <span />

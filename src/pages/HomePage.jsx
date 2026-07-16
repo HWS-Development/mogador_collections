@@ -1,14 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import BookingBar from '../components/BookingBar'
 import Icon from '../components/Icon'
 import Link from '../router/Link'
 import { images } from '../data/images'
 import { brand, brandMoments, destinations, hotels, mice, stats } from '../data/siteData'
 import { useSeo } from '../hooks/usePageEffects'
-
-gsap.registerPlugin(ScrollTrigger)
 
 const serviceNames = ['Piscines', 'Restaurants', 'Bars', 'Spa', 'Fitness', 'Kids & loisirs', 'Business', 'Congrès']
 
@@ -102,42 +98,11 @@ export default function HomePage({ t, lang }) {
   const rootRef = useRef(null)
   const [activeDestinationIndex, setActiveDestinationIndex] = useState(0)
   const [activeUseIndex, setActiveUseIndex] = useState(0)
+  const [activeConstellationIndex, setActiveConstellationIndex] = useState(0)
   useSeo({ title: t.home.seoTitle, description: t.home.seoDescription, lang })
 
   const signatureHotels = signatureSlugs.map((slug) => hotels.find((hotel) => hotel.slug === slug)).filter(Boolean)
   const activeDestination = destinations[activeDestinationIndex] || destinations[0]
-
-  useEffect(() => {
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    const ctx = gsap.context(() => {
-      gsap.set('.gm-radical-reveal', { autoAlpha: 1 })
-      if (reduceMotion) return
-
-      gsap.from('.gm-radical-hero__photo img', {
-        scale: 1.04,
-        duration: 1.1,
-        ease: 'power2.out',
-        clearProps: 'transform',
-      })
-
-      gsap.utils.toArray('.gm-radical-reveal').forEach((element) => {
-        gsap.from(element, {
-          y: 28,
-          autoAlpha: 0,
-          duration: 0.75,
-          ease: 'power3.out',
-          clearProps: 'transform,opacity,visibility',
-          scrollTrigger: {
-            trigger: element,
-            start: 'top 86%',
-            toggleActions: 'play none none none',
-          },
-        })
-      })
-    }, rootRef)
-
-    return () => ctx.revert()
-  }, [])
 
   useEffect(() => {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -161,8 +126,20 @@ export default function HomePage({ t, lang }) {
     return () => window.clearInterval(timer)
   }, [])
 
+  useEffect(() => {
+    if (constellation.length < 2) return undefined
+
+    const timer = window.setInterval(() => {
+      setActiveConstellationIndex((current) => (current + 1) % constellation.length)
+    }, 3000)
+
+    return () => window.clearInterval(timer)
+  }, [])
+
   const showPreviousUse = () => setActiveUseIndex((current) => (current - 1 + usageCards.length) % usageCards.length)
   const showNextUse = () => setActiveUseIndex((current) => (current + 1) % usageCards.length)
+  const showPreviousConstellation = () => setActiveConstellationIndex((current) => (current - 1 + constellation.length) % constellation.length)
+  const showNextConstellation = () => setActiveConstellationIndex((current) => (current + 1) % constellation.length)
 
   const getUseState = (index) => {
     if (index === activeUseIndex) return 'active'
@@ -305,17 +282,40 @@ export default function HomePage({ t, lang }) {
           <h2>Quatre destinations pour préparer votre prochain séjour.</h2>
           <p>Découvrez les villes Mogador, leurs ambiances, leurs hôtels et les expériences à vivre sur place.</p>
         </div>
-        <div className="gm-radical-constellation__grid">
+        <div className="gm-radical-constellation__grid gm-radical-reveal" aria-live="polite">
+          <button className="gm-radical-constellation__arrow gm-radical-constellation__arrow--prev" type="button" onClick={showPreviousConstellation} aria-label="Destination précédente">‹</button>
           {constellation.map(([name, text, image, to], index) => (
-            <Link className="gm-radical-scene gm-radical-reveal" to={to} key={name} style={{ '--scene-delay': `${index * 80}ms` }}>
+            <Link
+              className={`gm-radical-scene${index === activeConstellationIndex ? ' gm-radical-scene--active' : ''}`}
+              to={to}
+              key={name}
+              aria-hidden={index === activeConstellationIndex ? undefined : 'true'}
+              tabIndex={index === activeConstellationIndex ? undefined : -1}
+              style={{ '--scene-delay': `${index * 80}ms` }}
+              data-track={`home_constellation_${name.toLowerCase()}`}
+            >
               <img src={image} alt={name} loading="lazy" decoding="async" />
               <div>
+                <span>{String(index + 1).padStart(2, '0')} / {String(constellation.length).padStart(2, '0')}</span>
                 <h3>{name}</h3>
                 <p>{text}</p>
                 <strong>Entrer dans la destination</strong>
               </div>
             </Link>
           ))}
+          <button className="gm-radical-constellation__arrow gm-radical-constellation__arrow--next" type="button" onClick={showNextConstellation} aria-label="Destination suivante">›</button>
+          <div className="gm-radical-constellation__dots" aria-label="Choisir une destination">
+            {constellation.map(([name], index) => (
+              <button
+                className={index === activeConstellationIndex ? 'is-active' : undefined}
+                type="button"
+                key={name}
+                onClick={() => setActiveConstellationIndex(index)}
+                aria-label={`Afficher ${name}`}
+                aria-current={index === activeConstellationIndex ? 'true' : undefined}
+              />
+            ))}
+          </div>
         </div>
       </section>
 

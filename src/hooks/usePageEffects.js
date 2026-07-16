@@ -86,6 +86,7 @@ export function useGmPageMotion(path) {
       }
     }
 
+    const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches
     let pointerFrame = 0
     const magneticCleanups = []
 
@@ -101,9 +102,9 @@ export function useGmPageMotion(path) {
       })
     }
 
-    window.addEventListener('pointermove', onPointerMove, { passive: true })
+    if (finePointer) window.addEventListener('pointermove', onPointerMove, { passive: true })
 
-    root.querySelectorAll('.gm-hotel-tile, .gm-room-card, .gm-values__grid article, .gm-loyalty-ledger article, .gm-experience-index__grid article, .gm-contact-hotels__grid article, .gm-attraction-grid section').forEach((element) => {
+    if (finePointer) root.querySelectorAll('.gm-hotel-tile, .gm-room-card, .gm-values__grid article, .gm-loyalty-ledger article, .gm-experience-index__grid article, .gm-contact-hotels__grid article, .gm-attraction-grid section').forEach((element) => {
       const onCardMove = (event) => {
         const rect = element.getBoundingClientRect()
         const x = (event.clientX - rect.left) / rect.width
@@ -140,7 +141,6 @@ export function useGmPageMotion(path) {
 
           gsap.timeline({ defaults: { ease: 'power3.out' } })
             .from('.gm-page-hero__media img', heroProfile.image, 0)
-            .from('.gm-page-hero__logo', { y: 12, duration: 0.45 }, '-=0.6')
             .from('.gm-page-hero .eyebrow', heroProfile.eyebrow, '-=0.42')
             .from('.gm-page-hero h1', heroProfile.title, '-=0.34')
             .from('.gm-page-hero p', heroProfile.copy, '-=0.42')
@@ -213,7 +213,7 @@ export function useGmPageMotion(path) {
     return () => {
       window.cancelAnimationFrame(frame)
       window.cancelAnimationFrame(pointerFrame)
-      window.removeEventListener('pointermove', onPointerMove)
+      if (finePointer) window.removeEventListener('pointermove', onPointerMove)
       magneticCleanups.forEach((cleanup) => cleanup())
       root.classList.remove('gm-cinema-ready')
       root.removeAttribute('data-cinema')
@@ -225,9 +225,9 @@ export function useGmPageMotion(path) {
 export function useLuxuryMotion(path) {
   useEffect(() => {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    const root = document.querySelector('.gm-home, .gm-page')
+    const root = document.querySelector('.gm-home')
     if (!root) return undefined
-    const isHome = root.classList.contains('gm-home')
+    const isHome = true
 
     root.classList.add('gm-luxury-motion', 'gm-high-conversion-motion')
     document.body.classList.add('gm-route-transition')
@@ -247,6 +247,7 @@ export function useLuxuryMotion(path) {
       }
     }
 
+    const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches
     let ctx
     let frame = 0
     let pointerFrame = 0
@@ -260,7 +261,7 @@ export function useLuxuryMotion(path) {
       })
     }
 
-    window.addEventListener('pointermove', onPointerMove, { passive: true })
+    if (finePointer) window.addEventListener('pointermove', onPointerMove, { passive: true })
 
     const magneticSelector = [
       '.gm-radical-use',
@@ -308,7 +309,7 @@ export function useLuxuryMotion(path) {
       '.booking-bar__next',
     ].join(', ')
 
-    if (magneticSelector) root.querySelectorAll(magneticSelector).forEach((element) => {
+    if (finePointer && magneticSelector) root.querySelectorAll(magneticSelector).forEach((element) => {
       element.classList.add('gm-magnetic')
 
       const onMove = (event) => {

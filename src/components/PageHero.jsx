@@ -20,7 +20,6 @@ export default function PageHero({ eyebrow, title, text, scene = 'hero', image, 
         {journey.map((item, index) => <span key={`${item}-${index}`}>{item}</span>)}
       </aside>
       <div className="gm-page-hero__content reveal">
-        <img className="gm-page-hero__logo" src={images.brand.logoWhite} alt="" aria-hidden="true" />
         {eyebrow ? <span className="eyebrow">{eyebrow}</span> : null}
         <h1>{title}</h1>
         {text ? <p>{text}</p> : null}

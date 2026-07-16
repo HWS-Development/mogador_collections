@@ -93,6 +93,38 @@ export default function ConversionDock({ t }) {
           background: var(--grand-blue) !important;
           border-color: var(--grand-blue) !important;
         }
+
+        @media (max-width: 820px) {
+          html body .conversion-dock.conversion-dock--actions-only,
+          html body:not(.show-conversion-dock) .conversion-dock.conversion-dock--actions-only,
+          html body.show-conversion-dock .conversion-dock.conversion-dock--actions-only {
+            height: auto !important;
+            min-height: 0 !important;
+            max-height: none !important;
+            overflow: visible !important;
+          }
+
+          html body .conversion-dock.conversion-dock--actions-only .conversion-dock__actions {
+            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+            height: auto !important;
+          }
+
+          html body .conversion-dock.conversion-dock--actions-only .conversion-dock__actions a {
+            height: auto !important;
+            min-height: 56px !important;
+            max-height: none !important;
+            padding: 0.75rem 0.65rem !important;
+            overflow: visible !important;
+            font-size: 0.68rem !important;
+            line-height: 1.25 !important;
+            white-space: normal !important;
+            text-wrap: balance !important;
+          }
+
+          html body .conversion-dock.conversion-dock--actions-only .conversion-dock__actions a:last-child {
+            grid-column: 1 / -1 !important;
+          }
+        }
       `}</style>
       <aside className="conversion-dock conversion-dock--actions-only" aria-label="Actions de réservation Mogador">
         <div className="conversion-dock__actions">
