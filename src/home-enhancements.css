@@ -1,0 +1,44 @@
+/* Shared navigation polish. Homepage depth effects were removed in favor of one cinematic motion system. */
+.gm-owned-menu__languages {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.gm-owned-menu__languages button {
+  min-width: 38px;
+  min-height: 34px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  color: rgba(255, 255, 255, 0.65);
+  background: transparent;
+  font-size: 0.62rem;
+  cursor: pointer;
+}
+
+.gm-owned-menu__languages button.is-active {
+  color: #1e2138;
+  background: #bfa593;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__quick {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  column-gap: 1.5rem !important;
+}
+
+html body .gm-owned-menu.site-nav--open .gm-owned-menu__quick a {
+  font-size: clamp(1.1rem, 2.25vw, 2.35rem) !important;
+}
+
+html body .site-footer {
+  background: #1e2138 !important;
+}
+
+html body .site-footer__grid {
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+@media (max-width: 900px) {
+  html body .gm-owned-menu.site-nav--open .gm-owned-menu__quick {
+    grid-template-columns: 1fr !important;
+  }
+}

@@ -1,50 +1,33 @@
-import BookingBar from './BookingBar'
 import Link from '../router/Link'
 import { images } from '../data/images'
 
-export default function PageHero({ eyebrow, title, text, scene = 'hero', image, primary, secondary, booking = false, compact = false, t }) {
+export default function PageHero({ eyebrow, title, text, scene = 'hero', image, primary, secondary, compact = false, t }) {
   const heroImage = image || images.media[scene] || images.legacy.agdalPalace
-  const journey = [
-    eyebrow || 'Mogador',
-    'Réserver en direct',
-    'Vivre le Maroc',
-  ]
+  const chrome = t?.common || {}
 
   return (
-    <section className={`gm-page-hero gm-owned-hero gm-page-hero--${scene} ${booking ? 'gm-page-hero--booking' : ''} ${compact ? 'gm-page-hero--compact' : ''}`}>
+    <section className={`gm-page-hero gm-owned-hero gm-page-hero--${scene} ${compact ? 'gm-page-hero--compact' : ''}`}>
       <figure className="gm-page-hero__media" aria-hidden="true">
-        <img src={heroImage} alt="" />
+        <img src={heroImage} alt="" fetchPriority="high" decoding="async" />
+        <span className="gm-page-hero__veil" />
       </figure>
-      <div className="gm-owned-hero__portal" aria-hidden="true"><span /><span /><span /></div>
-      <aside className="gm-owned-hero__rail" aria-label="Parcours Mogador">
-        {journey.map((item, index) => <span key={`${item}-${index}`}>{item}</span>)}
-      </aside>
-      <div className="gm-page-hero__content reveal">
-        {eyebrow ? <span className="eyebrow">{eyebrow}</span> : null}
-        <h1>{title}</h1>
+      <div className="gm-page-hero__content">
+        {eyebrow ? <span className="eyebrow"><i aria-hidden="true" />{eyebrow}</span> : null}
+        <h1><span>{title}</span></h1>
         {text ? <p>{text}</p> : null}
-        <div className="gm-page-hero__proof" aria-label="Preuves Mogador">
-          <span>12 hôtels</span>
-          <span>5 destinations</span>
-          <span>3000 chambres</span>
-        </div>
-        <div className="gm-page-hero__conversion" aria-label="Avantages réservation directe">
-          <strong>{t?.common?.directBooking || 'Réservation directe'}</strong>
-          <span>{t?.common?.bestRate || 'Meilleur avantage direct'}</span>
-          <span>{t?.common?.limited || 'Offres limitées selon disponibilité'}</span>
-        </div>
         <div className="gm-actions">
-          {primary ? <Link to={primary.to} className="gm-button gm-button--light" data-track={primary.track}>{primary.label}</Link> : null}
-          {secondary ? <Link to={secondary.to} className="gm-button gm-button--outline-light" data-track={secondary.track}>{secondary.label}</Link> : null}
+          {primary ? <Link to={primary.to} className="gm-button gm-button--light" data-track={primary.track} data-hotel={primary.hotel} data-destination={primary.destination} data-offer={primary.offer}>{primary.label}</Link> : null}
+          {secondary ? <Link to={secondary.to} className="gm-button gm-button--outline-light" data-track={secondary.track} data-hotel={secondary.hotel} data-destination={secondary.destination} data-offer={secondary.offer}>{secondary.label}</Link> : null}
         </div>
       </div>
-      <div className="gm-owned-hero__signature" aria-hidden="true">
-        <span>Mogador Hotels & Resorts</span>
-        <i />
-        <span>Official booking</span>
+      <div className="gm-page-hero__meta" aria-hidden="true">
+        <span>{chrome.collection || 'Collection Mogador'}</span>
+        <span>{chrome.countrySince || 'Maroc · depuis 1999'}</span>
       </div>
-      <a className="gm-owned-hero__scroll" href="#content" aria-label="Descendre dans la page"><span />Explorer</a>
-      {booking ? <div className="gm-page-hero__booking"><BookingBar t={t} /></div> : null}
+      <div className="gm-page-hero__scroll" aria-hidden="true">
+        <span />
+        <small>{chrome.continue || 'Découvrir la suite'}</small>
+      </div>
     </section>
   )
 }

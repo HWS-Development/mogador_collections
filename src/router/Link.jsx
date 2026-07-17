@@ -1,3 +1,6 @@
+let leaveTimer
+let enterTimer
+
 export default function Link({ to, children, className, onClick, ...props }) {
   const handleClick = (event) => {
     onClick?.(event)
@@ -7,26 +10,31 @@ export default function Link({ to, children, className, onClick, ...props }) {
     const url = new URL(to, window.location.origin)
     if (url.origin !== window.location.origin) return
     event.preventDefault()
-    const hash = url.hash
     const nextPath = `${url.pathname}${url.search}${url.hash}`
     const currentPath = `${window.location.pathname}${window.location.search}${window.location.hash}`
+    const sameDocument = url.pathname === window.location.pathname && url.search === window.location.search
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-    if (nextPath !== currentPath) window.history.pushState({}, '', nextPath)
-    window.dispatchEvent(new PopStateEvent('popstate'))
-
-    if (hash) {
-      window.setTimeout(() => document.querySelector(hash)?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 80)
-    } else {
-      window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
-      window.requestAnimationFrame(() => window.scrollTo({ top: 0, left: 0, behavior: 'auto' }))
-      window.setTimeout(() => {
-        const heading = document.querySelector('main#content h1')
-        if (!heading) return
-        heading.setAttribute('tabindex', '-1')
-        heading.focus({ preventScroll: true })
-        heading.addEventListener('blur', () => heading.removeAttribute('tabindex'), { once: true })
-      }, 80)
+    const navigate = () => {
+      if (nextPath !== currentPath) window.history.pushState({}, '', nextPath)
+      window.dispatchEvent(new PopStateEvent('popstate'))
     }
+
+    if (sameDocument || reduceMotion) {
+      navigate()
+      return
+    }
+
+    window.clearTimeout(leaveTimer)
+    window.clearTimeout(enterTimer)
+    document.body.classList.remove('gm-route-entering')
+    document.body.classList.add('gm-route-leaving')
+    leaveTimer = window.setTimeout(() => {
+      navigate()
+      document.body.classList.remove('gm-route-leaving')
+      document.body.classList.add('gm-route-entering')
+      enterTimer = window.setTimeout(() => document.body.classList.remove('gm-route-entering'), 760)
+    }, 460)
   }
 
   return (

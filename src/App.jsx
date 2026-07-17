@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useLayoutEffect, useMemo, useState } from 'react'
 import Layout from './components/Layout'
 import { oldSiteRoutes } from './data/officialContent'
 import { translations, supportedLanguages } from './i18n/translations'
@@ -17,6 +17,10 @@ import ContactPage from './pages/ContactPage'
 import NotFoundPage from './pages/NotFoundPage'
 
 function getInitialLang() {
+  const routeLanguage = window.location.pathname === '/en' || /^\/(about-us|our-|find-offers|mogador-for-business|help)/.test(window.location.pathname)
+    ? 'en'
+    : window.location.pathname === '/fr' || window.location.pathname.startsWith('/fr/') ? 'fr' : ''
+  if (routeLanguage) return routeLanguage
   const stored = window.localStorage.getItem('mogador-lang')
   return supportedLanguages.includes(stored) ? stored : 'fr'
 }
@@ -24,6 +28,48 @@ function getInitialLang() {
 function getRoute() {
   const path = window.location.pathname.replace(/\/$/, '') || '/'
   return oldSiteRoutes[path] || path
+}
+
+function getLocation() {
+  return `${window.location.pathname}${window.location.search}${window.location.hash}`
+}
+
+function forceRouteScroll(location, focus = false) {
+  const hash = new URL(location, window.location.origin).hash
+  const targetId = hash ? decodeURIComponent(hash.slice(1)) : ''
+  const target = targetId ? document.getElementById(targetId) : null
+  const root = document.documentElement
+  const body = document.body
+  const rootBehavior = root.style.getPropertyValue('scroll-behavior')
+  const rootPriority = root.style.getPropertyPriority('scroll-behavior')
+  const bodyBehavior = body.style.getPropertyValue('scroll-behavior')
+  const bodyPriority = body.style.getPropertyPriority('scroll-behavior')
+  const scroll = () => {
+    if (target) target.scrollIntoView({ block: 'start', inline: 'nearest', behavior: 'auto' })
+    else window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+  }
+
+  root.style.setProperty('scroll-behavior', 'auto', 'important')
+  body.style.setProperty('scroll-behavior', 'auto', 'important')
+  scroll()
+
+  if (focus && hash !== '#reservation') {
+    const focusTarget = target?.matches('a, button, input, select, textarea, [tabindex]')
+      ? target
+      : target?.querySelector('h1, h2, h3, a, button') || document.querySelector('main#content')
+    if (focusTarget) {
+      const hadTabIndex = focusTarget.hasAttribute('tabindex')
+      if (!hadTabIndex && !focusTarget.matches('a, button, input, select, textarea')) focusTarget.setAttribute('tabindex', '-1')
+      focusTarget.focus({ preventScroll: true })
+      if (!hadTabIndex) focusTarget.addEventListener('blur', () => focusTarget.removeAttribute('tabindex'), { once: true })
+      scroll()
+    }
+  }
+
+  if (rootBehavior) root.style.setProperty('scroll-behavior', rootBehavior, rootPriority)
+  else root.style.removeProperty('scroll-behavior')
+  if (bodyBehavior) body.style.setProperty('scroll-behavior', bodyBehavior, bodyPriority)
+  else body.style.removeProperty('scroll-behavior')
 }
 
 function renderPage(path, props) {
@@ -42,26 +88,47 @@ function renderPage(path, props) {
 }
 
 export default function App() {
-  const [path, setPath] = useState(getRoute)
+  const [route, setRoute] = useState(() => ({ path: getRoute(), location: getLocation(), navigationId: 0 }))
   const [lang, setLangState] = useState(getInitialLang)
+  const path = route.path
 
-  useReveal()
+  useReveal(path)
   useScrollEffects()
   useGmPageMotion(path)
   useLuxuryMotion(path)
 
   useEffect(() => {
-    const onPopState = () => setPath(getRoute())
-    window.addEventListener('popstate', onPopState)
-    return () => window.removeEventListener('popstate', onPopState)
+    const onNavigation = () => setRoute((current) => ({ path: getRoute(), location: getLocation(), navigationId: current.navigationId + 1 }))
+    const previousRestoration = window.history.scrollRestoration
+    window.history.scrollRestoration = 'manual'
+    window.addEventListener('popstate', onNavigation)
+    window.addEventListener('hashchange', onNavigation)
+    return () => {
+      window.history.scrollRestoration = previousRestoration
+      window.removeEventListener('popstate', onNavigation)
+      window.removeEventListener('hashchange', onNavigation)
+    }
   }, [])
 
-  useEffect(() => {
-    if (!window.location.hash) return
-    const target = document.querySelector(window.location.hash)
-    if (!target) return
-    window.setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 80)
+  useLayoutEffect(() => {
+    document.body.classList.toggle('gm-interior-route', path !== '/')
+    return () => document.body.classList.remove('gm-interior-route')
   }, [path])
+
+  useLayoutEffect(() => {
+    let secondFrame = 0
+    const firstFrame = window.requestAnimationFrame(() => {
+      forceRouteScroll(route.location)
+      secondFrame = window.requestAnimationFrame(() => forceRouteScroll(route.location))
+    })
+    const settleTimer = window.setTimeout(() => forceRouteScroll(route.location, true), 120)
+    forceRouteScroll(route.location)
+    return () => {
+      window.cancelAnimationFrame(firstFrame)
+      window.cancelAnimationFrame(secondFrame)
+      window.clearTimeout(settleTimer)
+    }
+  }, [route.location, route.navigationId])
 
   useEffect(() => {
     const onClick = (event) => {
@@ -81,11 +148,11 @@ export default function App() {
   }
 
   const t = useMemo(() => translations[lang] || translations.fr, [lang])
-  const page = renderPage(path, { t, lang })
+  const page = renderPage(path, { t, lang, routeLocation: route.location })
 
   return (
     <>
-      <Layout t={t} lang={lang} setLang={setLang}>
+      <Layout t={t} lang={lang} setLang={setLang} path={path}>
         {page}
       </Layout>
     </>

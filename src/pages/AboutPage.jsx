@@ -1,82 +1,81 @@
 import PageHero from '../components/PageHero'
-import SignatureExperience from '../components/SignatureExperience'
 import Link from '../router/Link'
 import { aboutStory } from '../data/officialContent'
-import { brand, stats, values } from '../data/siteData'
+import { stats } from '../data/siteData'
 import { useSeo } from '../hooks/usePageEffects'
+import { getInteriorCopy } from '../i18n/interiorCopy'
 
 export default function AboutPage({ t, lang }) {
+  const copy = getInteriorCopy(lang).about
   useSeo({
-    title: 'Qui sommes-nous | Mogador Hotels & Resorts',
-    description: aboutStory[0].paragraphs[0],
+    title: `${copy.eyebrow} | Mogador Hotels & Resorts`,
+    description: copy.heroText,
     lang,
   })
 
   return (
     <div className="gm-page gm-about-page">
       <PageHero
-        eyebrow="Qui sommes-nous"
-        title="Une marque marocaine, un art de vivre, une exigence de service."
-        text={aboutStory[0].paragraphs[0]}
+        eyebrow={copy.eyebrow}
+        title={copy.heroTitle}
+        text={copy.heroText}
         image="/assets/legacy/sea-reception.jpg"
-        primary={{ to: '/hotels', label: 'Découvrir les hôtels' }}
-        secondary={{ to: '/contact', label: t.nav.contact }}
+        primary={{ to: '#histoire', label: copy.storyCta }}
+        secondary={{ to: '/hotels', label: copy.hotelsCta }}
         t={t}
       />
 
-      <SignatureExperience variant="brand" cta="/hotels" />
-
       <section className="gm-page-intro gm-page-section">
         <div>
-          <span className="gm-label">Positionnement</span>
-          <h2>{brand.positioning}</h2>
+          <span className="gm-label">{copy.positioningLabel}</span>
+          <h2>{copy.positioning}</h2>
         </div>
         <div className="gm-rich-copy">
-          <p>{brand.mission}</p>
-          <p>{brand.vision}</p>
+          <p>{copy.mission}</p>
+          <p>{copy.vision}</p>
         </div>
       </section>
 
-      <section className="gm-story-stack" aria-label="Histoire officielle Mogador">
-        {aboutStory.map((section, index) => (
-          <article className={`gm-story-row ${index % 2 ? 'gm-story-row--reverse' : ''} gm-reveal`} key={section.title}>
+      <section id="histoire" className="gm-story-stack" aria-label={copy.historyAria}>
+        {copy.story.map(([title, ...paragraphs], index) => (
+          <article className={`gm-story-row ${index % 2 ? 'gm-story-row--reverse' : ''} gm-reveal`} key={title}>
             <figure>
-              <img src={section.image} alt={section.title} loading="lazy" />
+              <img src={aboutStory[index].image} alt={title} loading="lazy" />
             </figure>
             <div>
-              <h2>{section.title}</h2>
-              {section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+              <h2>{title}</h2>
+              {paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
             </div>
           </article>
         ))}
       </section>
 
-      <section className="gm-values gm-page-section" aria-label="Valeurs Mogador">
+      <section className="gm-values gm-page-section" aria-label={copy.valuesLabel}>
         <div className="gm-section-head gm-reveal">
-          <span className="gm-label">Valeurs</span>
-          <h2>Une culture de service lisible, humaine et entièrement orientée client.</h2>
+          <span className="gm-label">{copy.valuesLabel}</span>
+          <h2>{copy.valuesTitle}</h2>
         </div>
         <div className="gm-values__grid">
-          {values.map((value) => (
-            <article className="gm-reveal" key={value.title}>
-              <h3>{value.title}</h3>
-              <p>{value.text}</p>
+          {copy.values.map(([title, text]) => (
+            <article className="gm-reveal" key={title}>
+              <h3>{title}</h3>
+              <p>{text}</p>
             </article>
           ))}
         </div>
       </section>
 
-      <section className="gm-numbers gm-numbers--page" aria-label="Mogador en chiffres">
-        {stats.map((stat) => <article className="gm-reveal" key={stat.label}><strong>{stat.value}</strong><span>{stat.label}</span></article>)}
+      <section id="chiffres" className="gm-numbers gm-numbers--page" aria-label={copy.statsLabels.join(', ')}>
+        {stats.map((stat, index) => <article className="gm-reveal" key={stat.label}><strong>{stat.value}</strong><span>{copy.statsLabels[index] || stat.label}</span></article>)}
       </section>
 
-      <section className="gm-final gm-final--compact" aria-label="Continuer vers Mogador">
-        <span className="gm-label">Site officiel</span>
-        <h2>Passer de l’histoire à la réservation.</h2>
-        <p>Découvrez les destinations, choisissez l’adresse adaptée à votre séjour et réservez directement auprès de Mogador Hotels & Resorts.</p>
+      <section className="gm-final gm-final--compact" aria-label={copy.finalTitle}>
+        <span className="gm-label">{copy.finalLabel}</span>
+        <h2>{copy.finalTitle}</h2>
+        <p>{copy.finalText}</p>
         <div className="gm-actions">
-          <Link className="gm-button gm-button--primary" to="/hotels">Voir les hôtels</Link>
-          <Link className="gm-button gm-button--secondary-dark" to="/#reservation">Réserver</Link>
+          <Link className="gm-button gm-button--primary" to="/hotels">{copy.finalHotels}</Link>
+          <Link className="gm-button gm-button--secondary-dark" to="/#reservation">{copy.finalBook}</Link>
         </div>
       </section>
     </div>

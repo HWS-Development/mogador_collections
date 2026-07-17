@@ -94,28 +94,28 @@ export const officialHotelDetails = {
     sections: [
       {
         title: 'Hébergement',
-        image: 'https://u.profitroom.pl/2020-mogadorhotels-com/thumb/0x900/uploads/Tanger/SalonSuite.jpeg',
+        image: '/assets/legacy/sea-suite.jpg',
         text: 'Les 81 chambres et suites du Grand Mogador Sea View Tanger offrent toutes une vue soit sur la mer soit sur la montagne. Elles sont aménagées de manière à assurer confort et bien-être.',
         items: ['21 Chambres Deluxe vue montagne', '24 Chambres Deluxe vue mer', '15 Suites Junior vue montagne', '10 Suites Junior vue mer', '10 Suites Senior vue mer', '1 Chambre Deluxe vue montagne pour personne à mobilité réduite'],
       },
       {
         title: 'Services',
-        image: 'https://u.profitroom.pl/2020-mogadorhotels-com/thumb/0x900/uploads/Tanger/Chambre3.jpeg',
+        image: '/assets/legacy/sea-room.jpg',
         items: ['Réception 24/24', "Service d'étage 24/24", 'Wi-Fi dans les espaces publics', 'Parking privé', 'Équipe de sécurité 24/24', 'Blanchisserie', 'Médecin sur demande', 'Business center', 'Salles de conférence', 'Transfert client à la demande'],
       },
       {
         title: 'Restauration',
-        image: 'https://u.profitroom.pl/2020-mogadorhotels-com/thumb/0x900/uploads/stock/food-02.jpg',
+        image: '/assets/official/restaurant-official.jpg',
         items: ['JOUHARA - Cuisine Internationale', 'KHAYMA - Cuisine Marocaine', 'SNACK BAR - Healthy bar', 'ROOM SERVICE 24/7'],
       },
       {
         title: 'Loisirs',
-        image: 'https://u.profitroom.pl/2020-mogadorhotels-com/thumb/0x900/uploads/Tanger/Piscinecouverte2.jpg',
+        image: '/assets/legacy/sea-pool.jpg',
         items: ['Piscine extérieure', 'Piscine couverte', 'Salles de massage', 'Hammam', 'Salon de coiffure', 'Barber shop', 'Salle fitness en libre accès'],
       },
       {
         title: 'Conférences & séminaires',
-        image: 'https://u.profitroom.pl/2020-mogadorhotels-com/thumb/0x900/uploads/stock/business-02.jpg',
+        image: '/assets/official/business-space-official.jpg',
         text: 'Une salle de réunion peut accueillir jusqu’à 120 personnes en style théâtre ainsi que deux salles de sous-commission. Les salles sont pensées pour séminaires, conférences, cocktails et réceptions privées.',
         items: ['Cocktails dînatoires', 'Dîners assis', 'Banquets aménagés selon les besoins', 'Équipe technique professionnelle disponible 24/24'],
       },
@@ -131,28 +131,28 @@ export const officialHotelDetails = {
     sections: [
       {
         title: 'Hébergement',
-        image: 'https://u.profitroom.pl/2020-mogadorhotels-com/thumb/0x900/uploads/GM_Menara/IMG_0297.JPG',
+        image: '/assets/legacy/menara-room.jpg',
         text: 'Les 244 chambres et suites du Grand Mogador Menara Marrakech marient élégamment tradition et modernité, espace et confort.',
         items: ['1 Suite ambassadeur', '5 Suites juniors', '3 Suites seniors', '21 Chambres avec un grand lit', '214 Chambres avec 2 lits'],
       },
       {
         title: 'Services',
-        image: 'https://u.profitroom.pl/2020-mogadorhotels-com/thumb/0x900/uploads/GM_Menara/RMMenaraSalonMarocain0008.JPG',
+        image: '/assets/legacy/menara-salon.jpg',
         items: ['Réception 24/24', "Service d'étage 24/24", 'Wi-Fi dans les espaces publics', 'Parking privé', 'Équipe de sécurité 24/24', 'Blanchisserie', 'Boutique souvenir', 'Médecin sur demande', 'Business Center', 'Salles de conférences', 'Transfert client à la demande'],
       },
       {
         title: 'Restauration',
-        image: 'https://u.profitroom.pl/2020-mogadorhotels-com/thumb/0x900/uploads/stock/food-01.jpg',
+        image: '/assets/official/restaurant-official.jpg',
         items: ['BADII - Cuisine Internationale', 'DAR DMANA - Cuisine Marocaine', 'ELBAHIA - Cuisine Méditerranéenne', 'KOUTOUBIA - Snack bar', 'MAJORELLE - Salon de thé', 'ROOM SERVICE 24/24'],
       },
       {
         title: 'Loisirs',
-        image: 'https://u.profitroom.pl/2020-mogadorhotels-com/thumb/0x900/uploads/GM_Menara/Piscinecouverte.jpg',
+        image: '/assets/legacy/menara-pool.jpg',
         items: ['Piscine extérieure', 'Piscine couverte', 'Salles de massage', 'Hammam', 'Salon de coiffure', 'Barber-shop', 'Salle fitness en libre accès'],
       },
       {
         title: 'Conférences & séminaires',
-        image: 'https://u.profitroom.pl/2020-mogadorhotels-com/thumb/0x900/uploads/stock/business.jpg',
+        image: '/assets/official/business-space-official.jpg',
         text: 'Une salle de réunion peut accueillir jusqu’à 250 personnes en style théâtre ainsi que cinq salles de sous-commission.',
         items: ['Séminaires', 'Conférences', 'Cocktails', 'Réceptions privées', 'Équipe technique disponible 24/24'],
       },
@@ -174,29 +174,29 @@ export const officialHotelDetails = {
     sections: [
       {
         title: 'Services',
-        image: 'https://u.profitroom.pl/2020-mogadorhotels-com/thumb/0x900/uploads/Agdal/45.jpg',
+        image: '/assets/official/agdal-services-official.jpg',
         items: ['Réception 24/24', "Service d'étage 24/24", 'Wi-Fi dans les espaces publics', 'Parking privé', 'Équipe de sécurité 24/24', 'Blanchisserie', 'Boutique de souvenirs', 'Médecin sur demande', 'Business Center', 'Salles de conférences', 'Transfert client à la demande'],
       },
       {
         title: 'Hébergement',
-        image: 'https://u.profitroom.pl/2020-mogadorhotels-com/thumb/0x900/uploads/Agdal/pic-12.jpg',
+        image: '/assets/official/agdal-room-official.jpg',
         text: 'Les 610 chambres et suites du Grand Mogador Agdal marient élégamment tradition et modernité, espace et confort.',
         items: ['435 Chambres avec 2 lits doubles', '140 Chambres avec 1 grand lit', '35 Suites'],
       },
       {
         title: 'Restauration',
-        image: 'https://u.profitroom.pl/2020-mogadorhotels-com/thumb/0x900/uploads/Agdal/39.jpg',
+        image: '/assets/official/agdal-dining-official.jpg',
         items: ['AL BADII - Cuisine Internationale', "LES JARDINS DE L'AGDAL - Snack Bar", 'BAHIA - Salon de thé', 'ROOM SERVICE 24/24'],
       },
       {
         title: 'Espace',
-        image: 'https://u.profitroom.pl/2020-mogadorhotels-com/thumb/0x900/uploads/Agdal/37.jpg',
+        image: '/assets/official/agdal-space-official.jpg',
         text: "Avec une capacité d'accueil de 5000 personnes, le plus grand palais des congrès en Afrique du Nord est une étape incontournable pour les événements nationaux et internationaux.",
         items: ['Situation à dix minutes du centre-ville', 'À dix minutes de l’aéroport', 'À proximité de Jamaa El Fna', 'Infrastructures de pointe', 'Technologies conformes aux exigences internationales'],
       },
       {
         title: 'Loisirs',
-        image: 'https://u.profitroom.pl/2020-mogadorhotels-com/thumb/0x900/uploads/Agdal/pic-29.jpg',
+        image: '/assets/official/agdal-leisure-official.jpg',
         items: ['2 piscines extérieures', '2 piscines couvertes', 'Salles de massage', '2 hammams', '2 salons de coiffure', 'Barber-shop', '2 salles fitness en libre accès', 'Espace de jeux pour enfants'],
       },
     ],
@@ -211,28 +211,28 @@ export const officialHotelDetails = {
     sections: [
       {
         title: 'Hébergement',
-        image: 'https://u.profitroom.pl/2020-mogadorhotels-com/thumb/0x900/uploads/Opera/Suite2.jpg',
+        image: '/assets/legacy/opera-suite.jpg',
         text: 'Les 111 chambres et suites du Mogador marient élégamment tradition, modernité et confort.',
         items: ['1 Suite présidentielle', '4 Suites ambassadeurs', '5 Suites juniors', '76 Chambres twins', '36 Chambres singles ou doubles'],
       },
       {
         title: 'Services',
-        image: 'https://u.profitroom.pl/2020-mogadorhotels-com/thumb/0x900/uploads/Opera/Salledesport.jpg',
+        image: '/assets/legacy/opera-lounge.jpg',
         items: ['Réception 24h/24h', 'Bureau de change 24h/24h', 'Conciergerie & bagagerie', 'Cabines téléphoniques', 'Business center', 'Piscine à débordement en plein air & douche', 'Service de blanchisserie', 'Baby sitting', 'Infirmerie', 'SPA'],
       },
       {
         title: 'Restaurants',
-        image: 'https://u.profitroom.pl/2020-mogadorhotels-com/thumb/0x900/uploads/Opera/Restaurant.jpg',
+        image: '/assets/legacy/opera-restaurant.jpg',
         items: ['Restaurant buffet', 'Snack piscine', 'Salon de thé', 'Room service'],
       },
       {
         title: 'Loisirs',
-        image: 'https://u.profitroom.pl/2020-mogadorhotels-com/thumb/0x900/uploads/Opera/CabineSpa.jpg',
+        image: '/assets/legacy/opera-spa.jpg',
         items: ['Salles de massage', 'Salles de soin', 'Hammam', 'Sauna', 'Salon de coiffure', 'Salle de fitness en libre accès', 'Piscine extérieure'],
       },
       {
         title: 'Conférences & séminaires',
-        image: 'https://u.profitroom.pl/2020-mogadorhotels-com/thumb/0x900/uploads/Opera/Salledereunion.jpg',
+        image: '/assets/official/business-space-official.jpg',
         text: 'Une salle de réunion peut accueillir jusqu’à 100 personnes en style théâtre ainsi qu’une salle de sous-commission.',
         items: ['Salle I - 71 m²', 'Salle II - 150 m²', 'Capacité théâtre jusqu’à 100 personnes', 'Réception jusqu’à 80 personnes', 'Équipe technique disponible 24/24'],
       },
@@ -248,28 +248,28 @@ export const officialHotelDetails = {
     sections: [
       {
         title: 'Hébergement',
-        image: 'https://u.profitroom.pl/2020-mogadorhotels-com/thumb/0x900/uploads/Agadir/agadir34.jpg',
+        image: '/assets/legacy/agadir-room.jpg',
         text: 'Les 206 chambres du Mogador Al Madina marient élégamment tradition, modernité et confort.',
         items: ['15 Suites Ambassadeurs', '11 Suites Juniors', '143 Chambres avec 2 lits', '37 Chambres avec 1 grand lit'],
       },
       {
         title: 'Services',
-        image: 'https://u.profitroom.pl/2020-mogadorhotels-com/thumb/0x900/uploads/Agadir/agadir25.jpg',
+        image: '/assets/legacy/agadir-hotel.jpg',
         items: ['Conciergerie 24h/24', 'Service Réception 24h/24', 'Blanchisserie', 'Parking', 'Centre commercial', 'Baby-sitter sur demande', 'Mini club de 3 à 7 ans', 'Banque / change à proximité'],
       },
       {
         title: 'Restauration',
-        image: 'https://u.profitroom.pl/2020-mogadorhotels-com/thumb/0x900/uploads/Agadir/Mogadorrestauration.jpg',
+        image: '/assets/legacy/agadir-restaurant.jpg',
         items: ['GOLDEN CRUISE - Cuisine internationale', 'JOHARA - Cuisine marocaine', 'PIZZERIA AL MADINA - Cuisine Italienne', 'GRILL PANORAMIQUE - Snack', 'Buvette piscine', 'DAWLIZ - Salon de thé'],
       },
       {
         title: 'Loisirs',
-        image: 'https://u.profitroom.pl/2020-mogadorhotels-com/thumb/0x900/uploads/Agadir/agadir27.jpg',
+        image: '/assets/legacy/agadir-pool.jpg',
         items: ['Piscine extérieure', 'Piscine pour enfants', 'Salle de fitness en libre accès', 'Salles de massage', 'Salles de soins', 'Hammam', 'Sauna', 'Salon de coiffure'],
       },
       {
         title: 'Conférences & séminaires',
-        image: 'https://u.profitroom.pl/2020-mogadorhotels-com/thumb/0x900/uploads/Agadir/agadir7.jpg',
+        image: '/assets/official/business-space-official.jpg',
         text: 'Une salle de réunion peut accueillir jusqu’à 280 personnes en style théâtre ainsi qu’une autre salle de sous-commission. Les salles sont à la lumière du jour.',
         items: ['Salle polyvalente 242,5 m²', '280 personnes en théâtre', '180 personnes en style école', '150 personnes en U', '130 personnes en cabaret'],
       },
@@ -285,28 +285,28 @@ export const officialHotelDetails = {
     sections: [
       {
         title: 'Hébergement',
-        image: 'https://u.profitroom.pl/2020-mogadorhotels-com/thumb/0x900/uploads/Menzah/Salonappartement2.jpg',
+        image: '/assets/legacy/menzah-apartment.jpg',
         text: 'Les 196 appartements du Mogador Menzah sont composés de plusieurs formats adaptés aux séjours libres.',
         items: ['27 studios', '146 appartements comprenant 1 chambre + 1 salon', '18 appartements comprenant 2 chambres + 1 salon', '5 suites'],
       },
       {
         title: 'Services',
-        image: 'https://u.profitroom.pl/2020-mogadorhotels-com/thumb/0x900/uploads/Menzah/ReceptionSpa.jpg',
+        image: '/assets/legacy/menzah-hammam.jpg',
         items: ['Réception 24h/24h', 'Bureau de change 24h/24h', 'Business center', 'Mini market', 'Jardin et parcs de jeux pour les enfants', 'Location de voiture'],
       },
       {
         title: 'Restaurant',
-        image: 'https://u.profitroom.pl/2020-mogadorhotels-com/thumb/0x900/uploads/Menzah/Entree.jpg',
+        image: '/assets/legacy/menzah-room.jpg',
         items: ['Menzah snack'],
       },
       {
         title: 'Loisirs',
-        image: 'https://u.profitroom.pl/2020-mogadorhotels-com/thumb/0x900/uploads/Menzah/Hammam.jpg',
+        image: '/assets/legacy/menzah-hammam.jpg',
         items: ['Piscine extérieure', 'Piscine pour les enfants', 'Salles de massage', 'Hammam', 'Salon de coiffure'],
       },
       {
         title: 'Conférences & séminaires',
-        image: 'https://u.profitroom.pl/2020-mogadorhotels-com/thumb/0x900/uploads/Menzah/SalonMarocain.jpg',
+        image: '/assets/legacy/menara-salon.jpg',
         text: 'Une salle de réunion peut accueillir jusqu’à 100 personnes en style théâtre ainsi qu’une salle de sous-commission.',
         items: ['Mogador I - 110 m²', 'Menzah - 84 m²', 'Capacité théâtre jusqu’à 100 personnes', 'Capacité école jusqu’à 48 personnes', 'Équipe technique disponible 24/24'],
       },
@@ -395,11 +395,11 @@ export const destinationGuides = {
       'Avec deux mille cinq cents ans d’existence, elle compte parmi les plus anciennes villes d’Afrique du Nord et dispose d’infrastructures hôtelières, touristiques et balnéaires variées.',
     ],
     attractions: [
-      ['La Médina de Tanger', 'La meilleure manière de découvrir Tanger, avec ses marchés, ses cafés mythiques, la Kasbah, la Légation américaine, la synagogue Nahon et les cafés du Petit Socco.', 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Street_Scene_-_Medina_Old_City_-_Tangier_-_Morocco.jpg/1280px-Street_Scene_-_Medina_Old_City_-_Tangier_-_Morocco.jpg'],
-      ['Les Grottes d’Hercule', 'Site mythologique situé à cinq kilomètres de la ville vers la côte atlantique, habité depuis plus de 7000 ans et célèbre pour sa sortie vers la mer.', 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Entrance_to_the_Caves_of_Hercules%2C_Morocco.jpg/1280px-Entrance_to_the_Caves_of_Hercules%2C_Morocco.jpg'],
-      ['La Médina', 'Médina ayant conservé son charme malgré l’influence européenne, avec murailles, tours circulaires d’origine portugaise et architecture singulière.', 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Asilah_%2836750513531%29.jpg/1280px-Asilah_%2836750513531%29.jpg'],
-      ['Le Grand Socco', 'Ancien marché rural devenu place du 9 Avril, entouré de souks et monuments majeurs comme la mosquée Sidi Bou Abid et le palais du Mendoub.', 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Grand_Socco_Tangier.jpg/1280px-Grand_Socco_Tangier.jpg'],
-      ['Le Petit Socco', 'Petite place de cafés et d’auberges anciennes, lieu de rencontre historique des artistes de l’époque internationale de Tanger.', 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Morocco_Tangier_PetitSocco.jpg/1280px-Morocco_Tangier_PetitSocco.jpg'],
+      ['La Médina de Tanger', 'La meilleure manière de découvrir Tanger, avec ses marchés, ses cafés mythiques, la Kasbah, la Légation américaine, la synagogue Nahon et les cafés du Petit Socco.', '/assets/official/dest-tanger-official.jpg'],
+      ['Les Grottes d’Hercule', 'Site mythologique situé à cinq kilomètres de la ville vers la côte atlantique, habité depuis plus de 7000 ans et célèbre pour sa sortie vers la mer.', '/assets/legacy/sea-pool.jpg'],
+      ['La Médina', 'Médina ayant conservé son charme malgré l’influence européenne, avec murailles, tours circulaires d’origine portugaise et architecture singulière.', '/assets/official/universe-official.jpg'],
+      ['Le Grand Socco', 'Ancien marché rural devenu place du 9 Avril, entouré de souks et monuments majeurs comme la mosquée Sidi Bou Abid et le palais du Mendoub.', '/assets/legacy/sea-reception.jpg'],
+      ['Le Petit Socco', 'Petite place de cafés et d’auberges anciennes, lieu de rencontre historique des artistes de l’époque internationale de Tanger.', '/assets/legacy/sea-suite.jpg'],
     ],
   },
 }

@@ -1,0 +1,3596 @@
+/* Interior routes: the Mogador Gallery editorial system. */
+:root {
+  --ig-canvas: #f3f1ec;
+  --ig-paper: #fffefb;
+  --ig-ink: #202238;
+  --ig-text: #33343b;
+  --ig-muted: #6d6b67;
+  --ig-red: #991a1d;
+  --ig-red-dark: #741214;
+  --ig-mineral: #b69a82;
+  --ig-line: rgba(32, 34, 56, 0.14);
+  --ig-line-strong: rgba(32, 34, 56, 0.28);
+  --ig-gutter: clamp(1rem, 4vw, 4.75rem);
+  --ig-width: 1480px;
+  --ig-section: clamp(5rem, 9vw, 9rem);
+  --ig-ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.site-logo__inverse {
+  display: none !important;
+}
+
+/* Keyboard access and the restrained page transition. */
+.gm-skip-link {
+  position: fixed;
+  inset-block-start: 0.75rem;
+  inset-inline-start: 0.75rem;
+  z-index: 1200;
+  padding: 0.8rem 1rem;
+  color: var(--ig-paper);
+  background: var(--ig-ink);
+  font-family: var(--title-font);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transform: translateY(-160%);
+  transition: transform 180ms ease;
+}
+
+.gm-skip-link:focus {
+  transform: translateY(0);
+}
+
+.gm-route-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  visibility: hidden;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.gm-route-transition__plane {
+  position: absolute;
+}
+
+.gm-route-transition__plane--paper {
+  inset: 0;
+  background: var(--ig-canvas);
+  transform: translateY(-101%);
+  transition: transform 460ms cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.gm-route-transition__plane--line {
+  inset-block-start: 50%;
+  inset-inline: 0;
+  z-index: 2;
+  height: 3px;
+  background: var(--ig-red);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 360ms var(--ig-ease) 80ms;
+}
+
+.gm-route-transition__signature {
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
+  z-index: 3;
+  display: grid;
+  justify-items: center;
+  gap: 0.8rem;
+  color: var(--ig-ink);
+  opacity: 0;
+  transform: translate(-50%, -46%);
+  transition: opacity 180ms ease 170ms, transform 380ms var(--ig-ease) 80ms;
+}
+
+.gm-route-transition__signature img {
+  width: clamp(58px, 6vw, 82px);
+}
+
+.gm-route-transition__signature span {
+  font-family: var(--title-font);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.19em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+body.gm-route-leaving .gm-route-transition,
+body.gm-route-entering .gm-route-transition {
+  visibility: visible;
+}
+
+body.gm-route-leaving .gm-route-transition__plane--paper {
+  transform: translateY(0);
+}
+
+body.gm-route-leaving .gm-route-transition__plane--line {
+  transform: scaleX(1);
+}
+
+body.gm-route-leaving .gm-route-transition__signature {
+  opacity: 1;
+  transform: translate(-50%, -50%);
+}
+
+body.gm-route-entering .gm-route-transition__plane--paper {
+  transform: translateY(101%);
+  transition-duration: 720ms;
+}
+
+body.gm-route-entering .gm-route-transition__plane--line {
+  transform: scaleX(0);
+  transform-origin: right;
+}
+
+body.gm-route-entering .gm-route-transition__signature {
+  opacity: 0;
+  transform: translate(-50%, -54%);
+  transition-delay: 0ms;
+}
+
+/* Interior shell and header. */
+html body.gm-interior-route {
+  color: var(--ig-text);
+  background: var(--ig-canvas);
+}
+
+html body.gm-interior-route main#content {
+  overflow-x: clip !important;
+  overflow-y: visible !important;
+  background: var(--ig-canvas) !important;
+}
+
+html body.gm-interior-route .gm-owned-header.gm-interior-header,
+html body.gm-interior-route:not(.gm-header-compact):not(.gm-menu-open) .gm-owned-header.gm-interior-header,
+html body.gm-interior-route.gm-header-compact .gm-owned-header.gm-interior-header {
+  min-height: 78px !important;
+  padding-inline: var(--ig-gutter) !important;
+  border-bottom: 1px solid var(--ig-line) !important;
+  color: var(--ig-ink) !important;
+  background: rgba(255, 254, 251, 0.97) !important;
+  box-shadow: none !important;
+  backdrop-filter: blur(16px) saturate(1.08) !important;
+}
+
+html body.gm-interior-route .gm-owned-header.gm-interior-header::after {
+  height: 2px !important;
+  background: var(--ig-red) !important;
+}
+
+html body.gm-interior-route.gm-header-compact .gm-owned-header.gm-interior-header {
+  box-shadow: 0 10px 35px rgba(32, 34, 56, 0.08) !important;
+}
+
+html body.gm-interior-route .gm-owned-header .site-logo__standard {
+  display: block !important;
+  opacity: 1 !important;
+}
+
+html body.gm-interior-route .gm-owned-header .site-logo__inverse {
+  display: none !important;
+}
+
+html body.gm-interior-route .gm-owned-header .gm-header-primary a {
+  color: rgba(32, 34, 56, 0.7) !important;
+}
+
+html body.gm-interior-route .gm-owned-header .gm-header-primary a:is(:hover, :focus-visible, [aria-current="page"]) {
+  color: var(--ig-red) !important;
+}
+
+html body.gm-interior-route .gm-owned-header .menu-toggle span {
+  background: var(--ig-red) !important;
+}
+
+html body.gm-interior-route .gm-page {
+  min-width: 0;
+  min-height: 100dvh;
+  overflow-x: clip;
+  overflow-y: visible;
+  color: var(--ig-text) !important;
+  background: var(--ig-canvas) !important;
+}
+
+html body.gm-interior-route .gm-page,
+html body.gm-interior-route .gm-page * {
+  min-width: 0;
+}
+
+html body.gm-interior-route .gm-page figure {
+  margin: 0 !important;
+}
+
+html body.gm-interior-route .gm-page :is(h1, h2, h3, h4) {
+  margin: 0 !important;
+  color: var(--ig-ink) !important;
+  font-family: var(--display-font) !important;
+  font-weight: 400 !important;
+  letter-spacing: -0.035em !important;
+  line-height: 1 !important;
+  text-align: start !important;
+  text-align-last: start !important;
+  text-transform: none !important;
+  text-wrap: balance;
+}
+
+html body.gm-interior-route .gm-page p {
+  max-width: 62ch;
+  color: var(--ig-muted) !important;
+  font-size: clamp(1rem, 1vw, 1.1rem) !important;
+  line-height: 1.7 !important;
+  text-align: start !important;
+  text-align-last: start !important;
+}
+
+html body.gm-interior-route .gm-page img,
+html body.gm-interior-route .gm-page video {
+  display: block;
+  max-width: 100%;
+}
+
+html body.gm-interior-route .gm-page :is(section, article, div, form, button)[id] {
+  scroll-margin-top: 94px;
+}
+
+/* One photograph, one hierarchy, one horizon. */
+html body.gm-interior-route .gm-page .gm-page-hero {
+  position: relative !important;
+  isolation: isolate;
+  display: grid !important;
+  grid-template: 1fr / 1fr !important;
+  width: 100% !important;
+  min-height: calc(100svh - 78px) !important;
+  margin: 78px 0 0 !important;
+  padding: clamp(0.9rem, 2vw, 1.75rem) var(--ig-gutter) 0 !important;
+  overflow: hidden !important;
+  color: var(--ig-paper) !important;
+  background: var(--ig-canvas) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-page-hero::before,
+html body.gm-interior-route .gm-page .gm-page-hero::after {
+  content: none !important;
+  display: none !important;
+}
+
+html body.gm-interior-route .gm-page .gm-page-hero__media {
+  position: relative !important;
+  z-index: 0 !important;
+  grid-area: 1 / 1 !important;
+  width: 100% !important;
+  min-height: max(650px, calc(100svh - 108px)) !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+  background: var(--ig-ink) !important;
+  clip-path: inset(0);
+  transform: none !important;
+}
+
+html body.gm-interior-route .gm-page .gm-page-hero__media img {
+  position: absolute !important;
+  inset: -3% 0 !important;
+  width: 100% !important;
+  max-width: none !important;
+  height: 106% !important;
+  margin: 0 !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  filter: saturate(0.94) contrast(1.03) !important;
+  transform: scale(1.02);
+}
+
+html body.gm-interior-route .gm-about-page .gm-page-hero__media img,
+html body.gm-interior-route .gm-hotels-page .gm-page-hero__media img,
+html body.gm-interior-route .gm-contact-page .gm-page-hero__media img {
+  object-position: center 42% !important;
+}
+
+html body.gm-interior-route .gm-page .gm-page-hero__veil {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(15, 17, 31, 0.78) 0%, rgba(15, 17, 31, 0.48) 43%, rgba(15, 17, 31, 0.06) 78%),
+    linear-gradient(0deg, rgba(15, 17, 31, 0.66) 0%, transparent 52%);
+}
+
+html body.gm-interior-route .gm-page .gm-page-hero__content {
+  position: relative !important;
+  z-index: 2 !important;
+  grid-area: 1 / 1 !important;
+  align-self: end !important;
+  justify-self: stretch !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  width: min(900px, 72%) !important;
+  max-width: 900px !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: clamp(2rem, 5vw, 5.5rem) !important;
+  color: var(--ig-paper) !important;
+  text-align: start !important;
+  transform: none;
+}
+
+html body.gm-interior-route .gm-page .gm-page-hero .eyebrow {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.75rem !important;
+  margin: 0 0 1rem !important;
+  color: rgba(255, 254, 251, 0.78) !important;
+  font-family: var(--title-font) !important;
+  font-size: 0.65rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.18em !important;
+  line-height: 1.3 !important;
+  text-transform: uppercase !important;
+}
+
+html body.gm-interior-route .gm-page .gm-page-hero .eyebrow i {
+  display: block;
+  width: clamp(38px, 5vw, 68px);
+  height: 3px;
+  background: var(--ig-red);
+}
+
+html body.gm-interior-route .gm-page .gm-page-hero h1 {
+  max-width: 13ch !important;
+  overflow: visible !important;
+  color: var(--ig-paper) !important;
+  font-size: clamp(3.25rem, 5.7vw, 6.7rem) !important;
+  line-height: 0.94 !important;
+  letter-spacing: -0.055em !important;
+  text-shadow: 0 4px 36px rgba(10, 12, 24, 0.22);
+}
+
+html body.gm-interior-route .gm-page .gm-page-hero h1 span {
+  display: block;
+}
+
+html body.gm-interior-route .gm-page .gm-page-hero__content > p {
+  max-width: 54ch !important;
+  margin-top: 1.35rem !important;
+  color: rgba(255, 254, 251, 0.82) !important;
+  font-size: clamp(1rem, 1.12vw, 1.16rem) !important;
+  line-height: 1.62 !important;
+}
+
+html body.gm-interior-route .gm-page .gm-page-hero .gm-actions {
+  margin-top: 1.7rem !important;
+}
+
+html body.gm-interior-route .gm-page .gm-page-hero .gm-button {
+  min-height: 50px !important;
+  padding: 0.85rem 1.25rem !important;
+  border-radius: 0 !important;
+  font-size: 0.65rem !important;
+}
+
+html body.gm-interior-route .gm-page .gm-page-hero .gm-button--light {
+  border-color: var(--ig-red) !important;
+  color: var(--ig-paper) !important;
+  background: var(--ig-red) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-page-hero .gm-button--outline-light {
+  border-color: rgba(255, 254, 251, 0.64) !important;
+  color: var(--ig-paper) !important;
+  background: rgba(15, 17, 31, 0.12) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-page-hero .gm-button:is(:hover, :focus-visible) {
+  border-color: var(--ig-paper) !important;
+  color: var(--ig-ink) !important;
+  background: var(--ig-paper) !important;
+  transform: translateY(-2px) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-page-hero__meta {
+  position: relative;
+  z-index: 2;
+  grid-area: 1 / 1;
+  align-self: start;
+  justify-self: end;
+  display: flex;
+  gap: 0.8rem;
+  margin: clamp(1.5rem, 3vw, 3rem);
+  color: rgba(255, 254, 251, 0.72);
+}
+
+html body.gm-interior-route .gm-page .gm-page-hero__meta span {
+  padding-inline-start: 0.8rem;
+  border-inline-start: 1px solid rgba(255, 254, 251, 0.34);
+  font-size: 0.56rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+html body.gm-interior-route .gm-page .gm-page-hero__scroll {
+  position: relative;
+  z-index: 3;
+  grid-area: 1 / 1;
+  align-self: end;
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin: clamp(1.5rem, 3vw, 3rem);
+  color: rgba(255, 254, 251, 0.66);
+}
+
+html body.gm-interior-route .gm-page .gm-page-hero__scroll > span {
+  width: 48px;
+  height: 1px;
+  background: var(--ig-red);
+}
+
+html body.gm-interior-route .gm-page .gm-page-hero__scroll small {
+  font-size: 0.56rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+html body.gm-interior-route .gm-page .gm-page-hero--compact,
+html body.gm-interior-route .gm-page .gm-page-hero--compact .gm-page-hero__media {
+  min-height: max(590px, 76svh) !important;
+}
+
+/* Shared editorial rhythm. */
+html body.gm-interior-route .gm-page .gm-page-section {
+  position: relative;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: var(--ig-section) var(--ig-gutter) !important;
+  border: 0 !important;
+}
+
+html body.gm-interior-route .gm-page .gm-label,
+html body.gm-interior-route .gm-page .gm-section-head > span,
+html body.gm-interior-route .gm-page .gm-page-intro > div > span {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.65rem !important;
+  color: var(--ig-red) !important;
+  font-family: var(--title-font) !important;
+  font-size: 0.63rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.17em !important;
+  line-height: 1.3 !important;
+  text-transform: uppercase !important;
+}
+
+html body.gm-interior-route .gm-page .gm-label::before,
+html body.gm-interior-route .gm-page .gm-section-head > span::before {
+  content: "";
+  display: block;
+  width: 34px;
+  height: 2px;
+  background: currentColor;
+}
+
+html body.gm-interior-route .gm-page .gm-section-head {
+  display: grid !important;
+  grid-template-columns: minmax(130px, 0.24fr) minmax(0, 1fr) minmax(240px, 0.34fr) !important;
+  align-items: end !important;
+  gap: 1.5rem clamp(1.5rem, 4vw, 4.5rem) !important;
+  width: min(100%, var(--ig-width)) !important;
+  margin: 0 auto clamp(2.8rem, 5vw, 5rem) !important;
+  text-align: start !important;
+}
+
+html body.gm-interior-route .gm-page .gm-section-head > span {
+  grid-column: 1 !important;
+  align-self: start;
+  padding-top: 0.5rem;
+}
+
+html body.gm-interior-route .gm-page .gm-section-head h2 {
+  grid-column: 2 !important;
+  max-width: 15ch !important;
+  color: var(--ig-ink) !important;
+  font-size: clamp(2.45rem, 4vw, 4.75rem) !important;
+  line-height: 0.98 !important;
+  letter-spacing: -0.05em !important;
+}
+
+html body.gm-interior-route .gm-page .gm-section-head > :is(p, a) {
+  grid-column: 3 !important;
+  grid-row: auto !important;
+}
+
+html body.gm-interior-route .gm-page .gm-section-head > a {
+  align-self: end;
+  justify-self: start;
+  min-height: 44px;
+  padding-top: 0.8rem;
+  border-bottom: 1px solid var(--ig-red);
+  color: var(--ig-red);
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+html body.gm-interior-route .gm-page .gm-page-intro {
+  display: grid !important;
+  grid-template-columns: repeat(12, minmax(0, 1fr)) !important;
+  align-items: start !important;
+  gap: clamp(2rem, 5vw, 6rem) !important;
+  width: min(100%, var(--ig-width)) !important;
+  margin-inline: auto !important;
+  background: transparent !important;
+}
+
+html body.gm-interior-route .gm-page .gm-page-intro::before,
+html body.gm-interior-route .gm-page .gm-page-intro::after {
+  content: none !important;
+  display: none !important;
+}
+
+html body.gm-interior-route .gm-page .gm-page-intro > div:first-child {
+  grid-column: 1 / 7;
+  padding-inline-end: clamp(1rem, 4vw, 4rem);
+  border-inline-end: 1px solid var(--ig-line);
+}
+
+html body.gm-interior-route .gm-page .gm-page-intro .gm-rich-copy {
+  grid-column: 7 / 13;
+}
+
+html body.gm-interior-route .gm-page .gm-page-intro h2 {
+  max-width: 15ch !important;
+  margin-top: 1rem !important;
+  color: var(--ig-ink) !important;
+  font-size: clamp(2.45rem, 4vw, 4.75rem) !important;
+  line-height: 0.98 !important;
+  letter-spacing: -0.05em !important;
+}
+
+html body.gm-interior-route .gm-page .gm-rich-copy {
+  display: grid !important;
+  gap: 1.15rem !important;
+  padding: 0 !important;
+}
+
+html body.gm-interior-route .gm-page .gm-rich-copy > p:first-child {
+  color: var(--ig-ink) !important;
+  font-family: var(--display-font);
+  font-size: clamp(1.2rem, 1.6vw, 1.7rem) !important;
+  line-height: 1.45 !important;
+}
+
+html body.gm-interior-route .gm-page .gm-actions {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  gap: 0.7rem !important;
+}
+
+html body.gm-interior-route .gm-page .gm-button {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 48px !important;
+  padding: 0.82rem 1.15rem !important;
+  border: 1px solid var(--ig-red) !important;
+  border-radius: 0 !important;
+  color: var(--ig-paper) !important;
+  background: var(--ig-red) !important;
+  font-family: var(--title-font) !important;
+  font-size: 0.64rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  transition: color 220ms ease, background 220ms ease, border-color 220ms ease, transform 220ms var(--ig-ease) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-button--secondary-dark {
+  border-color: var(--ig-line-strong) !important;
+  color: var(--ig-ink) !important;
+  background: transparent !important;
+}
+
+html body.gm-interior-route .gm-page .gm-button:is(:hover, :focus-visible) {
+  border-color: var(--ig-ink) !important;
+  color: var(--ig-paper) !important;
+  background: var(--ig-ink) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* Alternating image-led chapters. */
+html body.gm-interior-route .gm-page :is(.gm-story-stack, .gm-brand-moments, .gm-business-sections, .gm-hotel-sections) {
+  display: grid !important;
+  gap: 0 !important;
+  background: var(--ig-paper) !important;
+}
+
+html body.gm-interior-route .gm-page :is(.gm-story-row, .gm-business-row, .gm-hotel-section) {
+  position: relative;
+  display: grid !important;
+  grid-template-columns: repeat(12, minmax(0, 1fr)) !important;
+  width: min(100%, 1680px) !important;
+  max-width: 1680px !important;
+  min-height: clamp(600px, 72svh, 820px) !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  color: var(--ig-text) !important;
+  background: var(--ig-paper) !important;
+  transform: none !important;
+}
+
+html body.gm-interior-route .gm-page :is(.gm-story-row, .gm-business-row, .gm-hotel-section) + :is(.gm-story-row, .gm-business-row, .gm-hotel-section) {
+  border-top: 1px solid var(--ig-line) !important;
+}
+
+html body.gm-interior-route .gm-page :is(.gm-story-row, .gm-business-row, .gm-hotel-section) figure {
+  position: relative;
+  grid-column: 1 / 8 !important;
+  grid-row: 1 !important;
+  min-height: 100% !important;
+  overflow: hidden !important;
+  background: var(--ig-ink) !important;
+}
+
+html body.gm-interior-route .gm-page :is(.gm-story-row, .gm-business-row, .gm-hotel-section) figure img {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: inherit !important;
+  object-fit: cover !important;
+  filter: saturate(0.94) !important;
+  transform: scale(1.035);
+}
+
+html body.gm-interior-route .gm-page :is(.gm-story-row, .gm-business-row, .gm-hotel-section) > div {
+  position: relative;
+  z-index: 2;
+  grid-column: 8 / 13 !important;
+  grid-row: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  gap: 1.15rem !important;
+  padding: clamp(3rem, 6vw, 7rem) !important;
+  color: var(--ig-text) !important;
+  background: var(--ig-paper) !important;
+}
+
+html body.gm-interior-route .gm-page :is(.gm-story-row, .gm-business-row, .gm-hotel-section) > div::before {
+  content: "";
+  width: 58px;
+  height: 3px;
+  margin-bottom: 0.35rem;
+  background: var(--ig-red);
+}
+
+html body.gm-interior-route .gm-page :is(.gm-story-row--reverse, .gm-business-row--reverse, .gm-hotel-section--reverse) figure {
+  grid-column: 6 / 13 !important;
+}
+
+html body.gm-interior-route .gm-page :is(.gm-story-row--reverse, .gm-business-row--reverse, .gm-hotel-section--reverse) > div {
+  grid-column: 1 / 6 !important;
+}
+
+html body.gm-interior-route .gm-page :is(.gm-story-row, .gm-business-row, .gm-hotel-section) h2 {
+  max-width: 12ch !important;
+  color: var(--ig-ink) !important;
+  font-size: clamp(2.45rem, 3.8vw, 4.65rem) !important;
+  line-height: 0.98 !important;
+  letter-spacing: -0.05em !important;
+}
+
+html body.gm-interior-route .gm-page .gm-feature-list {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 0 !important;
+  width: 100%;
+  margin-top: 0.6rem;
+  border-top: 1px solid var(--ig-line) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-feature-list span {
+  min-height: 48px;
+  padding: 0.9rem 0.7rem 0.9rem 0 !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--ig-line) !important;
+  color: var(--ig-text) !important;
+  background: transparent !important;
+  font-size: 0.72rem !important;
+}
+
+/* Image gallery with one dominant frame and two quiet previews. */
+html body.gm-interior-route .gm-page .gm-fs-gallery {
+  position: relative !important;
+  display: block !important;
+  width: min(100%, var(--ig-width)) !important;
+  min-height: clamp(570px, 66svh, 760px) !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  border-block: 1px solid var(--ig-line) !important;
+  color: var(--ig-paper) !important;
+  background: var(--ig-canvas) !important;
+  outline: none;
+}
+
+html body.gm-interior-route .gm-page .gm-fs-gallery__stage {
+  position: absolute !important;
+  inset: 0 !important;
+  display: grid !important;
+  place-items: center !important;
+  min-height: 0 !important;
+}
+
+html body.gm-interior-route .gm-page .gm-fs-gallery__slide {
+  position: absolute !important;
+  inset-block-start: 50% !important;
+  inset-inline-start: 50% !important;
+  width: min(70vw, 1080px) !important;
+  height: min(47vw, 650px) !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  clip-path: none !important;
+  transform: translate(-50%, -50%) !important;
+  transition: transform 650ms var(--ig-ease), opacity 450ms ease, filter 450ms ease !important;
+}
+
+html body.gm-interior-route .gm-page .gm-fs-gallery__slide img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  transform: none !important;
+}
+
+html body.gm-interior-route .gm-page .gm-fs-gallery__slide--previous {
+  opacity: 0.42 !important;
+  filter: saturate(0.55) !important;
+  transform: translate(calc(-50% - min(46vw, 700px)), -50%) scale(0.82) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-fs-gallery__slide--next {
+  opacity: 0.42 !important;
+  filter: saturate(0.55) !important;
+  transform: translate(calc(-50% + min(46vw, 700px)), -50%) scale(0.82) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-fs-gallery__slide--active figcaption {
+  position: absolute !important;
+  inset-inline: 0 !important;
+  inset-block-end: 0 !important;
+  display: grid !important;
+  gap: 0.35rem !important;
+  padding: clamp(1.3rem, 2.7vw, 2.5rem) !important;
+  color: var(--ig-paper) !important;
+  background: linear-gradient(0deg, rgba(15, 17, 31, 0.9), transparent) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-fs-gallery__slide--active figcaption strong {
+  color: var(--ig-paper) !important;
+  font-family: var(--display-font) !important;
+  font-size: clamp(1.4rem, 2.2vw, 2.6rem) !important;
+  font-weight: 400 !important;
+}
+
+html body.gm-interior-route .gm-page .gm-fs-gallery__slide--active figcaption span {
+  color: rgba(255, 254, 251, 0.72) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-fs-gallery__arrow {
+  position: absolute !important;
+  inset-block-start: 50% !important;
+  z-index: 7 !important;
+  display: grid !important;
+  place-items: center !important;
+  width: 52px !important;
+  height: 52px !important;
+  padding: 0 !important;
+  border: 1px solid var(--ig-paper) !important;
+  border-radius: 0 !important;
+  color: var(--ig-paper) !important;
+  background: var(--ig-red) !important;
+  font-size: 1.7rem !important;
+  cursor: pointer;
+  transform: translateY(-50%) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-fs-gallery__arrow--prev {
+  inset-inline-start: clamp(0.75rem, 3vw, 2.5rem) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-fs-gallery__arrow--next {
+  inset-inline-end: clamp(0.75rem, 3vw, 2.5rem) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-fs-gallery__pause {
+  position: absolute !important;
+  inset-block-start: 1rem !important;
+  inset-inline-end: 1rem !important;
+  z-index: 7 !important;
+  min-height: 42px !important;
+  padding: 0.6rem 0.8rem !important;
+  border: 1px solid var(--ig-line-strong) !important;
+  border-radius: 0 !important;
+  color: var(--ig-ink) !important;
+  background: rgba(255, 254, 251, 0.92) !important;
+  font-size: 0.57rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  cursor: pointer;
+}
+
+html body.gm-interior-route .gm-page .gm-fs-gallery__counter {
+  position: absolute !important;
+  inset-inline-end: 1rem !important;
+  inset-block-end: 1rem !important;
+  z-index: 7 !important;
+  max-width: 46ch;
+  color: var(--ig-muted) !important;
+  font-size: 0.57rem !important;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* Conversion sections stay direct and quiet. */
+html body.gm-interior-route .gm-page :is(.gm-hotel-sales-panel, .gm-hotel-booking-panel, .gm-offer-engine) {
+  width: 100% !important;
+  max-width: none !important;
+  padding: var(--ig-section) var(--ig-gutter) !important;
+  border-block: 1px solid var(--ig-line) !important;
+  color: var(--ig-text) !important;
+  background: var(--ig-paper) !important;
+}
+
+html body.gm-interior-route .gm-page :is(.gm-hotel-sales-panel, .gm-hotel-booking-panel, .gm-offer-engine) > div:first-child {
+  width: min(100%, var(--ig-width));
+  margin-inline: auto;
+}
+
+html body.gm-interior-route .gm-page :is(.gm-hotel-sales-panel, .gm-hotel-booking-panel, .gm-offer-engine) h2 {
+  max-width: 15ch !important;
+  margin-top: 0.9rem !important;
+  color: var(--ig-ink) !important;
+  font-size: clamp(2.4rem, 4vw, 4.65rem) !important;
+  line-height: 0.98 !important;
+  letter-spacing: -0.05em !important;
+}
+
+html body.gm-interior-route .gm-page :is(.gm-hotel-sales-panel, .gm-hotel-booking-panel, .gm-offer-engine) p {
+  margin-top: 1rem !important;
+  color: var(--ig-muted) !important;
+}
+
+html body.gm-interior-route .gm-page :is(.gm-hotel-sales-panel, .gm-hotel-booking-panel, .gm-offer-engine) .booking-bar,
+html body.gm-interior-route .gm-offers-page .gm-offer-engine .booking-bar {
+  display: grid !important;
+  grid-template-columns: 150px minmax(150px, 1.1fr) repeat(3, minmax(125px, 0.9fr)) minmax(120px, 0.72fr) minmax(155px, 0.85fr) !important;
+  gap: 0 !important;
+  width: min(100%, var(--ig-width)) !important;
+  margin: clamp(2rem, 4vw, 3.5rem) auto 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  border: 1px solid var(--ig-line) !important;
+  border-radius: 0 !important;
+  color: var(--ig-text) !important;
+  background: var(--ig-paper) !important;
+  box-shadow: 0 18px 50px rgba(32, 34, 56, 0.08) !important;
+}
+
+html body.gm-interior-route .gm-page .booking-bar :is(.booking-bar__seal, label, button) {
+  min-width: 0 !important;
+  min-height: 76px !important;
+  margin: 0 !important;
+  border: 0 !important;
+  border-inline-end: 1px solid var(--ig-line) !important;
+  border-radius: 0 !important;
+}
+
+html body.gm-interior-route .gm-page .booking-bar__seal {
+  display: grid !important;
+  align-content: center !important;
+  gap: 0.25rem !important;
+  padding: 0.8rem 1rem !important;
+  color: var(--ig-paper) !important;
+  background: var(--ig-ink) !important;
+}
+
+html body.gm-interior-route .gm-page .booking-bar__seal span {
+  color: var(--ig-mineral) !important;
+  font-size: 0.58rem !important;
+}
+
+html body.gm-interior-route .gm-page .booking-bar__seal strong {
+  color: var(--ig-paper) !important;
+  font-size: 0.9rem !important;
+}
+
+html body.gm-interior-route .gm-page .booking-bar label {
+  display: grid !important;
+  align-content: center !important;
+  gap: 0.3rem !important;
+  padding: 0.75rem 0.9rem !important;
+  background: transparent !important;
+}
+
+html body.gm-interior-route .gm-page .booking-bar label span {
+  color: var(--ig-muted) !important;
+  font-size: 0.58rem !important;
+  letter-spacing: 0.12em !important;
+}
+
+html body.gm-interior-route .gm-page .booking-bar :is(input, select) {
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 32px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  color: var(--ig-ink) !important;
+  background: transparent !important;
+  font-size: 0.85rem !important;
+  font-weight: 700 !important;
+  color-scheme: light !important;
+}
+
+html body.gm-interior-route .gm-page .booking-bar button {
+  width: 100% !important;
+  padding: 0.8rem 1rem !important;
+  border-color: var(--ig-red) !important;
+  color: var(--ig-paper) !important;
+  background: var(--ig-red) !important;
+  font-size: 0.64rem !important;
+}
+
+html body.gm-interior-route .gm-page .booking-bar button:is(:hover, :focus-visible) {
+  background: var(--ig-ink) !important;
+  transform: none !important;
+}
+
+html body.gm-interior-route .gm-page .booking-bar > p {
+  grid-column: 1 / -1 !important;
+  margin: 0 !important;
+  padding: 0.6rem 0.9rem !important;
+  border-top: 1px solid var(--ig-line) !important;
+  color: var(--ig-muted) !important;
+  background: var(--ig-canvas) !important;
+  font-size: 0.72rem !important;
+  line-height: 1.35 !important;
+}
+
+/* About, loyalty and shared proof systems use rules instead of cards. */
+html body.gm-interior-route .gm-page .gm-values {
+  width: 100% !important;
+  max-width: none !important;
+  padding: var(--ig-section) var(--ig-gutter) !important;
+  color: var(--ig-text) !important;
+  background: var(--ig-paper) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-values__grid {
+  display: grid !important;
+  grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+  gap: 0 !important;
+  width: min(100%, var(--ig-width)) !important;
+  margin-inline: auto !important;
+  border-block: 1px solid var(--ig-line) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-values__grid article {
+  display: grid !important;
+  align-content: start !important;
+  min-height: 300px !important;
+  padding: 2rem 1.35rem !important;
+  border: 0 !important;
+  border-inline-end: 1px solid var(--ig-line) !important;
+  background: transparent !important;
+  transform: none !important;
+}
+
+html body.gm-interior-route .gm-page .gm-values__grid article::before {
+  content: "";
+  width: 42px;
+  height: 3px;
+  margin-bottom: auto;
+  background: var(--ig-red);
+}
+
+html body.gm-interior-route .gm-page .gm-values__grid h3 {
+  color: var(--ig-ink) !important;
+  font-size: clamp(1.25rem, 1.7vw, 1.8rem) !important;
+  line-height: 1.08 !important;
+}
+
+html body.gm-interior-route .gm-page .gm-values__grid p {
+  margin-top: 1rem !important;
+  font-size: 0.9rem !important;
+  line-height: 1.58 !important;
+}
+
+html body.gm-interior-route .gm-page :is(.gm-numbers--page, .gm-direct-proof) {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)) !important;
+  gap: 0 !important;
+  width: 100% !important;
+  max-width: none !important;
+  padding: 0 var(--ig-gutter) !important;
+  color: var(--ig-text) !important;
+  background: var(--ig-canvas) !important;
+}
+
+html body.gm-interior-route .gm-page :is(.gm-numbers--page, .gm-direct-proof) article {
+  display: grid !important;
+  align-content: center !important;
+  gap: 0.65rem !important;
+  min-height: 210px !important;
+  padding: 2rem !important;
+  border: 0 !important;
+  border-inline-end: 1px solid var(--ig-line) !important;
+  border-bottom: 1px solid var(--ig-line) !important;
+  background: transparent !important;
+  transform: none !important;
+}
+
+html body.gm-interior-route .gm-page .gm-numbers--page strong {
+  color: var(--ig-red) !important;
+  font-family: var(--display-font) !important;
+  font-size: clamp(2.7rem, 4.4vw, 5rem) !important;
+  font-weight: 400 !important;
+  letter-spacing: -0.05em;
+  line-height: 0.92;
+}
+
+html body.gm-interior-route .gm-page .gm-numbers--page span {
+  color: var(--ig-muted) !important;
+  font-size: 0.63rem !important;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+html body.gm-interior-route .gm-page .gm-direct-proof strong {
+  color: var(--ig-ink) !important;
+  font-family: var(--display-font) !important;
+  font-size: clamp(1.2rem, 1.65vw, 1.75rem) !important;
+  font-weight: 400 !important;
+  line-height: 1.1;
+}
+
+html body.gm-interior-route .gm-page .gm-direct-proof span {
+  color: var(--ig-muted) !important;
+  font-size: 0.88rem !important;
+  line-height: 1.58;
+}
+
+/* Destination, hotel, page-specific systems follow below. */
+
+/* Destination atlas. */
+html body.gm-interior-route .gm-destinations-page .gm-destination-lounge,
+html body.gm-interior-route .gm-destinations-page--calm .gm-destination-lounge {
+  display: block !important;
+  width: 100% !important;
+  max-width: none !important;
+  padding: var(--ig-section) var(--ig-gutter) !important;
+  overflow: visible !important;
+  background: var(--ig-paper) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-destination-lounge__intro {
+  display: grid !important;
+  grid-template-columns: minmax(130px, 0.24fr) minmax(0, 1fr) minmax(240px, 0.34fr) !important;
+  align-items: end !important;
+  justify-items: stretch !important;
+  gap: 1.5rem clamp(1.5rem, 4vw, 4.5rem) !important;
+  width: min(100%, var(--ig-width)) !important;
+  max-width: var(--ig-width) !important;
+  margin: 0 auto !important;
+  text-align: start !important;
+}
+
+html body.gm-interior-route .gm-page .gm-destination-lounge__intro .gm-label {
+  grid-column: 1 !important;
+  align-self: start;
+  padding-top: 0.5rem;
+}
+
+html body.gm-interior-route .gm-page .gm-destination-lounge__intro h2 {
+  grid-column: 2 !important;
+  max-width: 13ch !important;
+  color: var(--ig-ink) !important;
+  font-size: clamp(2.6rem, 4.5vw, 5.2rem) !important;
+  line-height: 0.96 !important;
+  letter-spacing: -0.052em !important;
+  text-align: start !important;
+  text-transform: none !important;
+}
+
+html body.gm-interior-route .gm-page .gm-destination-lounge__intro p {
+  grid-column: 3 !important;
+  max-width: 44ch !important;
+  text-align: start !important;
+}
+
+html body.gm-interior-route .gm-page :is(.gm-destination-filterbar, .gm-hotel-compass__filters) {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  justify-content: flex-start !important;
+  gap: 0 !important;
+  width: min(100%, var(--ig-width));
+  margin: clamp(2.3rem, 4vw, 3.5rem) auto 0 !important;
+  border-block: 1px solid var(--ig-line) !important;
+}
+
+html body.gm-interior-route .gm-page :is(.gm-destination-filterbar, .gm-hotel-compass__filters) button {
+  position: relative;
+  min-height: 54px !important;
+  padding: 0.8rem 1.25rem !important;
+  border: 0 !important;
+  border-inline-end: 1px solid var(--ig-line) !important;
+  border-radius: 0 !important;
+  color: var(--ig-muted) !important;
+  background: transparent !important;
+  font-family: var(--title-font) !important;
+  font-size: 0.62rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.11em !important;
+  text-transform: uppercase !important;
+  cursor: pointer;
+}
+
+html body.gm-interior-route .gm-page :is(.gm-destination-filterbar, .gm-hotel-compass__filters) button::after {
+  content: "";
+  position: absolute;
+  inset-inline: 1.1rem;
+  inset-block-end: -1px;
+  height: 3px;
+  background: var(--ig-red);
+  transform: scaleX(0);
+  transition: transform 220ms var(--ig-ease);
+}
+
+html body.gm-interior-route .gm-page :is(.gm-destination-filterbar, .gm-hotel-compass__filters) button:is(.is-active, :hover, :focus-visible) {
+  color: var(--ig-red) !important;
+}
+
+html body.gm-interior-route .gm-page :is(.gm-destination-filterbar, .gm-hotel-compass__filters) button.is-active::after {
+  transform: scaleX(1);
+}
+
+html body.gm-interior-route .gm-page .gm-destination-lounge__grid {
+  display: grid !important;
+  grid-template-columns: minmax(200px, 0.2fr) minmax(0, 1fr) !important;
+  gap: 0 !important;
+  width: min(100%, var(--ig-width)) !important;
+  min-height: 700px !important;
+  margin: clamp(2.8rem, 5vw, 5rem) auto 0 !important;
+  overflow: hidden !important;
+  border: 1px solid var(--ig-line) !important;
+  background: var(--ig-canvas) !important;
+  box-shadow: none !important;
+}
+
+html body.gm-interior-route .gm-page .gm-destination-menu {
+  display: grid !important;
+  align-content: stretch !important;
+  gap: 0 !important;
+  border: 0 !important;
+  border-inline-end: 1px solid var(--ig-line) !important;
+  background: var(--ig-canvas) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-destination-menu button {
+  display: grid !important;
+  align-content: center !important;
+  justify-items: start !important;
+  gap: 0.35rem !important;
+  min-height: 102px !important;
+  padding: 1.25rem 1.35rem !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--ig-line) !important;
+  border-radius: 0 !important;
+  color: var(--ig-ink) !important;
+  background: transparent !important;
+  text-align: start !important;
+  transform: none !important;
+  cursor: pointer;
+  transition: color 200ms ease, background 200ms ease, padding 240ms var(--ig-ease) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-destination-menu button span {
+  color: var(--ig-red) !important;
+  font-size: 0.57rem !important;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+html body.gm-interior-route .gm-page .gm-destination-menu button strong {
+  font-family: var(--display-font) !important;
+  font-size: clamp(1.15rem, 1.45vw, 1.6rem) !important;
+  font-weight: 400 !important;
+}
+
+html body.gm-interior-route .gm-page .gm-destination-menu button:is(.is-active, :hover, :focus-visible) {
+  padding-inline-start: 1.7rem !important;
+  color: var(--ig-paper) !important;
+  background: var(--ig-red) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-destination-menu button:is(.is-active, :hover, :focus-visible) span {
+  color: rgba(255, 254, 251, 0.74) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-destination-feature {
+  position: relative;
+  display: grid !important;
+  grid-template-columns: minmax(0, 1.32fr) minmax(340px, 0.68fr) !important;
+  min-width: 0;
+  min-height: 700px !important;
+  overflow: hidden !important;
+  border: 0 !important;
+  color: var(--ig-text) !important;
+  background: var(--ig-paper) !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+html body.gm-interior-route .gm-page .gm-destination-feature figure {
+  min-height: 700px !important;
+  overflow: hidden !important;
+  background: var(--ig-ink) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-destination-feature figure img {
+  width: 100% !important;
+  max-width: none !important;
+  height: 100% !important;
+  margin: 0 !important;
+  object-fit: cover !important;
+  filter: saturate(0.94) !important;
+  transform: scale(1.035);
+}
+
+html body.gm-interior-route .gm-page .gm-destination-feature > div {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  gap: 0.95rem !important;
+  padding: clamp(2.4rem, 4.5vw, 5rem) !important;
+  color: var(--ig-text) !important;
+  background: var(--ig-paper) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-destination-feature h2 {
+  color: var(--ig-ink) !important;
+  font-size: clamp(2.8rem, 4.6vw, 5.2rem) !important;
+  line-height: 0.94 !important;
+  letter-spacing: -0.055em !important;
+}
+
+html body.gm-interior-route .gm-page .gm-destination-feature h3 {
+  color: var(--ig-ink) !important;
+  font-size: clamp(1.2rem, 1.55vw, 1.6rem) !important;
+  line-height: 1.18 !important;
+}
+
+html body.gm-interior-route .gm-page .gm-destination-feature p {
+  color: var(--ig-muted) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-keyword-line {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 0.35rem !important;
+}
+
+html body.gm-interior-route .gm-page .gm-keyword-line :is(span, small) {
+  padding: 0.42rem 0.55rem !important;
+  border: 1px solid var(--ig-line) !important;
+  color: var(--ig-muted) !important;
+  background: transparent !important;
+  font-size: 0.58rem !important;
+  letter-spacing: 0.07em;
+}
+
+html body.gm-interior-route .gm-page .gm-destination-hotels,
+html body.gm-interior-route .gm-page .gm-destination-attractions {
+  display: block !important;
+  overflow: visible !important;
+  background: var(--ig-canvas) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-destination-hotels__rail {
+  display: grid !important;
+  grid-auto-columns: minmax(310px, 32vw) !important;
+  grid-auto-flow: column !important;
+  gap: 1rem !important;
+  width: min(100%, var(--ig-width)) !important;
+  margin-inline: auto !important;
+  padding: 0 0 1rem !important;
+  overflow-x: auto !important;
+  scroll-snap-type: inline mandatory;
+  scrollbar-color: var(--ig-red) var(--ig-line);
+}
+
+html body.gm-interior-route .gm-page .gm-destination-hotel-card {
+  position: relative;
+  display: grid !important;
+  grid-template-rows: minmax(330px, 34vw) auto !important;
+  min-height: 520px !important;
+  overflow: hidden !important;
+  border: 1px solid var(--ig-line) !important;
+  color: var(--ig-text) !important;
+  background: var(--ig-paper) !important;
+  scroll-snap-align: start;
+}
+
+html body.gm-interior-route .gm-page .gm-destination-hotel-card::after {
+  content: none !important;
+  display: none !important;
+}
+
+html body.gm-interior-route .gm-page .gm-destination-hotel-card img {
+  position: static !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  filter: saturate(0.92) !important;
+  transform: scale(1.01) !important;
+  transition: transform 600ms var(--ig-ease), filter 300ms ease !important;
+}
+
+html body.gm-interior-route .gm-page .gm-destination-hotel-card:is(:hover, :focus-visible) img {
+  filter: saturate(1.03) !important;
+  transform: scale(1.045) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-destination-hotel-card > div {
+  position: static !important;
+  display: grid !important;
+  gap: 0.5rem !important;
+  padding: 1.35rem !important;
+  color: var(--ig-text) !important;
+  background: var(--ig-paper) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-destination-hotel-card > div span {
+  color: var(--ig-red) !important;
+  font-size: 0.58rem !important;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+html body.gm-interior-route .gm-page .gm-destination-hotel-card strong {
+  color: var(--ig-ink) !important;
+  font-family: var(--display-font) !important;
+  font-size: clamp(1.4rem, 2vw, 2.2rem) !important;
+  font-weight: 400 !important;
+}
+
+html body.gm-interior-route .gm-page .gm-destination-hotel-card p {
+  color: var(--ig-muted) !important;
+  font-size: 0.88rem !important;
+}
+
+html body.gm-interior-route .gm-page .gm-destination-attractions__grid {
+  display: grid !important;
+  grid-template-columns: repeat(12, minmax(0, 1fr)) !important;
+  gap: 1rem !important;
+  width: min(100%, var(--ig-width)) !important;
+  margin-inline: auto !important;
+}
+
+html body.gm-interior-route .gm-page .gm-destination-attractions__grid article {
+  position: relative;
+  grid-column: span 5 !important;
+  display: grid !important;
+  grid-template-rows: minmax(340px, 38vw) auto !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+  border: 1px solid var(--ig-line) !important;
+  background: var(--ig-paper) !important;
+  transform: none !important;
+}
+
+html body.gm-interior-route .gm-page .gm-destination-attractions__grid article:nth-child(4n + 1),
+html body.gm-interior-route .gm-page .gm-destination-attractions__grid article:nth-child(4n + 4) {
+  grid-column: span 7 !important;
+}
+
+html body.gm-interior-route .gm-page .gm-destination-attractions__grid article::after {
+  content: none !important;
+  display: none !important;
+}
+
+html body.gm-interior-route .gm-page .gm-destination-attractions__grid img {
+  position: static !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  clip-path: none !important;
+  filter: saturate(0.92) !important;
+  transform: scale(1.01) !important;
+  transition: transform 600ms var(--ig-ease) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-destination-attractions__grid article:hover img {
+  transform: scale(1.045) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-destination-attractions__grid article > div {
+  position: static !important;
+  display: grid !important;
+  gap: 0.6rem !important;
+  padding: 1.5rem !important;
+  background: var(--ig-paper) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-destination-attractions__grid h3 {
+  color: var(--ig-ink) !important;
+  font-size: clamp(1.35rem, 1.9vw, 2.1rem) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-destination-attractions__grid p {
+  color: var(--ig-muted) !important;
+}
+
+html body.gm-interior-route .gm-destinations-page--calm .gm-destination-index,
+html body.gm-interior-route .gm-page .gm-destination-index {
+  display: grid !important;
+  grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+  gap: 1px !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 1px !important;
+  overflow: hidden !important;
+  background: var(--ig-paper) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-destination-index button {
+  position: relative;
+  display: block !important;
+  min-height: 390px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  color: var(--ig-paper) !important;
+  background: var(--ig-ink) !important;
+  text-align: start !important;
+  cursor: pointer;
+}
+
+html body.gm-interior-route .gm-page .gm-destination-index button::after {
+  content: "" !important;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: block !important;
+  background: linear-gradient(0deg, rgba(15, 17, 31, 0.88), transparent 66%) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-destination-index button img {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  filter: saturate(0.62) !important;
+  transform: scale(1.02) !important;
+  transition: transform 600ms var(--ig-ease), filter 300ms ease !important;
+}
+
+html body.gm-interior-route .gm-page .gm-destination-index button:is(:hover, :focus-visible, .is-active) img {
+  filter: saturate(1) !important;
+  transform: scale(1.07) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-destination-index button :is(span, strong) {
+  position: absolute !important;
+  inset-inline: 1.25rem !important;
+  z-index: 2 !important;
+}
+
+html body.gm-interior-route .gm-page .gm-destination-index button span {
+  inset-block-end: 4rem !important;
+  color: rgba(255, 254, 251, 0.72) !important;
+  font-size: 0.57rem !important;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+html body.gm-interior-route .gm-page .gm-destination-index button strong {
+  inset-block-end: 1.25rem !important;
+  color: var(--ig-paper) !important;
+  font-family: var(--display-font) !important;
+  font-size: clamp(1.35rem, 2vw, 2.2rem) !important;
+  font-weight: 400 !important;
+}
+
+/* Hotel collection. */
+html body.gm-interior-route .gm-page .gm-hotel-directory {
+  width: 100% !important;
+  max-width: none !important;
+  padding: var(--ig-section) 0 !important;
+  overflow: hidden !important;
+  background: var(--ig-canvas) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-hotel-directory > .gm-section-head,
+html body.gm-interior-route .gm-page .gm-hotel-compass {
+  width: min(calc(100% - (2 * var(--ig-gutter))), var(--ig-width)) !important;
+  margin-inline: auto !important;
+}
+
+html body.gm-interior-route .gm-page .gm-hotel-compass {
+  margin-bottom: clamp(2.5rem, 5vw, 4.5rem) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-hotel-compass__filters {
+  width: 100% !important;
+}
+
+html body.gm-interior-route .gm-page .gm-hotel-compass__active {
+  display: grid !important;
+  grid-template-columns: 120px minmax(0, 1fr) minmax(220px, 0.38fr) minmax(150px, 0.2fr) !important;
+  align-items: stretch !important;
+  min-height: 230px !important;
+  margin-top: 1.4rem !important;
+  overflow: hidden !important;
+  border: 1px solid var(--ig-line) !important;
+  background: var(--ig-paper) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-hotel-compass__active > span {
+  display: grid !important;
+  place-items: center !important;
+  color: var(--ig-red) !important;
+  background: var(--ig-canvas) !important;
+  font-family: var(--display-font) !important;
+  font-size: clamp(2.2rem, 3.4vw, 3.8rem) !important;
+  letter-spacing: -0.05em !important;
+}
+
+html body.gm-interior-route .gm-page .gm-hotel-compass__active > div {
+  display: grid !important;
+  align-content: center !important;
+  gap: 0.7rem !important;
+  padding: 1.65rem !important;
+  border-inline-end: 1px solid var(--ig-line) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-hotel-compass__active > div > strong {
+  color: var(--ig-ink) !important;
+  font-family: var(--display-font) !important;
+  font-size: clamp(1.35rem, 2vw, 2.3rem) !important;
+  font-weight: 400 !important;
+  line-height: 1 !important;
+}
+
+html body.gm-interior-route .gm-page .gm-hotel-compass__proofs {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-content: center !important;
+  gap: 0.35rem !important;
+}
+
+html body.gm-interior-route .gm-page .gm-hotel-compass__proofs small {
+  padding: 0.42rem 0.52rem;
+  border: 1px solid var(--ig-line);
+  color: var(--ig-muted);
+  font-size: 0.56rem;
+  letter-spacing: 0.07em;
+}
+
+html body.gm-interior-route .gm-page .gm-hotel-compass__active nav {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+}
+
+html body.gm-interior-route .gm-page .gm-hotel-compass__active nav a {
+  display: grid !important;
+  place-items: center !important;
+  min-height: 54px !important;
+  padding: 0.7rem !important;
+  border-bottom: 1px solid var(--ig-line) !important;
+  color: var(--ig-ink) !important;
+  background: transparent !important;
+  font-size: 0.58rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.1em !important;
+  text-align: center;
+  text-transform: uppercase !important;
+}
+
+html body.gm-interior-route .gm-page .gm-hotel-compass__active nav a:is(:hover, :focus-visible, :nth-child(2)) {
+  color: var(--ig-paper) !important;
+  background: var(--ig-red) !important;
+}
+
+html body.gm-interior-route .gm-hotels-page .gm-hotel-carousel {
+  --hotel-card-width: clamp(320px, 34vw, 520px);
+  --hotel-card-gap: clamp(1rem, 2vw, 2rem);
+  --hotel-card-step: calc(var(--hotel-card-width) + var(--hotel-card-gap));
+  position: relative !important;
+  width: 100% !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+  transform: none !important;
+}
+
+html body.gm-interior-route .gm-hotels-page .gm-hotel-carousel__viewport {
+  width: 100% !important;
+  overflow: visible !important;
+}
+
+html body.gm-interior-route .gm-hotels-page .gm-hotel-carousel__track {
+  position: relative !important;
+  left: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: var(--hotel-card-gap) !important;
+  width: max-content !important;
+  padding: 1rem 0 2.5rem !important;
+  transform: translateX(calc((var(--active-hotel) * var(--hotel-card-step) * -1) - (var(--hotel-card-width) / 2))) !important;
+  transition: transform 700ms var(--ig-ease) !important;
+}
+
+html body.gm-interior-route .gm-hotels-page .gm-hotel-carousel .gm-hotel-tile,
+html body.gm-interior-route .gm-hotels-page .gm-hotel-carousel .gm-hotel-tile:nth-child(n) {
+  flex: 0 0 var(--hotel-card-width) !important;
+  display: grid !important;
+  grid-template-rows: minmax(360px, 48svh) auto !important;
+  width: var(--hotel-card-width) !important;
+  min-width: var(--hotel-card-width) !important;
+  max-width: var(--hotel-card-width) !important;
+  min-height: 640px !important;
+  overflow: hidden !important;
+  border: 1px solid var(--ig-line) !important;
+  border-radius: 0 !important;
+  background: var(--ig-paper) !important;
+  box-shadow: none !important;
+  opacity: 0.48 !important;
+  transform: translateY(22px) scale(0.94) !important;
+  transition: opacity 500ms ease, transform 650ms var(--ig-ease) !important;
+}
+
+html body.gm-interior-route .gm-hotels-page .gm-hotel-carousel .gm-hotel-tile.is-active {
+  opacity: 1 !important;
+  transform: translateY(0) scale(1) !important;
+}
+
+html body.gm-interior-route .gm-hotels-page .gm-hotel-tile__media {
+  display: block !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+}
+
+html body.gm-interior-route .gm-hotels-page .gm-hotel-tile__media img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  filter: saturate(0.92) !important;
+  transform: scale(1.01) !important;
+  transition: transform 650ms var(--ig-ease) !important;
+}
+
+html body.gm-interior-route .gm-hotels-page .gm-hotel-tile:hover .gm-hotel-tile__media img {
+  transform: scale(1.045) !important;
+}
+
+html body.gm-interior-route .gm-hotels-page .gm-hotel-tile__body {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-items: start !important;
+  gap: 0.7rem !important;
+  padding: 1.6rem !important;
+  color: var(--ig-text) !important;
+  background: var(--ig-paper) !important;
+  text-align: start !important;
+}
+
+html body.gm-interior-route .gm-hotels-page .gm-hotel-tile__topline {
+  color: var(--ig-red) !important;
+  font-size: 0.58rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+}
+
+html body.gm-interior-route .gm-hotels-page .gm-hotel-tile h3 {
+  max-width: 15ch !important;
+  color: var(--ig-ink) !important;
+  font-size: clamp(1.55rem, 2.15vw, 2.45rem) !important;
+  line-height: 1 !important;
+  text-align: start !important;
+}
+
+html body.gm-interior-route .gm-hotels-page .gm-hotel-tile__body > i {
+  width: 42px;
+  height: 2px;
+  background: var(--ig-red);
+}
+
+html body.gm-interior-route .gm-hotels-page .gm-hotel-tile p {
+  text-align: start !important;
+}
+
+html body.gm-interior-route .gm-hotels-page .gm-hotel-tile__badges {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  justify-content: flex-start !important;
+  gap: 0.35rem !important;
+}
+
+html body.gm-interior-route .gm-hotels-page .gm-hotel-tile__badges small {
+  padding: 0.38rem 0.48rem;
+  border: 1px solid var(--ig-line);
+  color: var(--ig-muted);
+  font-size: 0.56rem;
+}
+
+html body.gm-interior-route .gm-hotels-page .gm-hotel-tile__actions {
+  margin-top: auto !important;
+}
+
+html body.gm-interior-route .gm-hotels-page .gm-hotel-tile__details {
+  display: inline-flex !important;
+  min-height: 42px !important;
+  align-items: center !important;
+  padding-bottom: 0.35rem !important;
+  border-bottom: 1px solid var(--ig-red) !important;
+  color: var(--ig-red) !important;
+  font-size: 0.62rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.11em !important;
+  text-transform: uppercase !important;
+}
+
+html body.gm-interior-route .gm-hotels-page .gm-hotel-carousel__controls {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0 !important;
+  margin-top: 0.5rem !important;
+}
+
+html body.gm-interior-route .gm-hotels-page .gm-hotel-carousel__controls button {
+  display: grid !important;
+  place-items: center !important;
+  width: 48px !important;
+  height: 48px !important;
+  border: 1px solid var(--ig-line-strong) !important;
+  border-radius: 0 !important;
+  color: var(--ig-red) !important;
+  background: var(--ig-paper) !important;
+  font-size: 1.5rem !important;
+  cursor: pointer;
+}
+
+html body.gm-interior-route .gm-hotels-page .gm-hotel-carousel__controls strong {
+  display: grid !important;
+  place-items: center !important;
+  min-width: 130px !important;
+  min-height: 48px !important;
+  border-block: 1px solid var(--ig-line-strong) !important;
+  color: var(--ig-ink) !important;
+  font-size: 0.6rem !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+}
+
+html body.gm-interior-route .gm-hotels-page .gm-hotel-carousel__progress {
+  display: flex !important;
+  gap: 4px !important;
+  width: min(calc(100% - (2 * var(--ig-gutter))), var(--ig-width)) !important;
+  margin: 1.5rem auto 0 !important;
+  overflow-x: auto !important;
+}
+
+html body.gm-interior-route .gm-hotels-page .gm-hotel-carousel__progress button {
+  flex: 1 0 68px !important;
+  min-height: 44px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  border: 0 !important;
+  border-top: 2px solid var(--ig-line) !important;
+  border-radius: 0 !important;
+  color: transparent !important;
+  background: transparent !important;
+  cursor: pointer;
+}
+
+html body.gm-interior-route .gm-hotels-page .gm-hotel-carousel__progress button.is-active {
+  border-color: var(--ig-red) !important;
+}
+
+html body.gm-interior-route .gm-hotels-page .gm-hotel-carousel__progress button span {
+  display: block !important;
+  color: var(--ig-muted) !important;
+  font-size: 0.5rem !important;
+  line-height: 1.15 !important;
+  text-align: start !important;
+}
+
+/* Hotel detail. */
+html body.gm-interior-route .gm-page .gm-fact-line {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 0 !important;
+  margin-top: 1rem !important;
+  border-top: 1px solid var(--ig-line) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-fact-line span {
+  min-height: 48px;
+  padding: 0.9rem 0.7rem 0.9rem 0 !important;
+  border-inline-end: 1px solid var(--ig-line) !important;
+  border-bottom: 1px solid var(--ig-line) !important;
+  color: var(--ig-ink) !important;
+  font-size: 0.61rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+}
+
+html body.gm-interior-route .gm-page .gm-hotel-slider,
+html body.gm-interior-route .gm-page .gm-hotel-gallery {
+  display: block !important;
+  width: 100% !important;
+  max-width: none !important;
+  overflow: visible !important;
+  color: var(--ig-text) !important;
+  background: var(--ig-paper) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-facilities {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 0 !important;
+  width: min(100%, var(--ig-width)) !important;
+  margin-inline: auto !important;
+  padding-block: 0 !important;
+  border-top: 1px solid var(--ig-line) !important;
+  background: var(--ig-canvas) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-facilities article {
+  display: grid !important;
+  grid-template-columns: minmax(120px, 0.28fr) 1fr !important;
+  gap: 1.5rem !important;
+  padding: 1.5rem 0 !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--ig-line) !important;
+  background: transparent !important;
+}
+
+html body.gm-interior-route .gm-page .gm-facilities article span {
+  color: var(--ig-red) !important;
+  font-size: 0.61rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.11em !important;
+  text-transform: uppercase !important;
+}
+
+html body.gm-interior-route .gm-page .gm-room-showcase--cinema {
+  position: relative;
+  overflow: hidden !important;
+  color: var(--ig-text) !important;
+  background: var(--ig-canvas) !important;
+  transform: none !important;
+}
+
+html body.gm-interior-route .gm-page .gm-room-showcase__intro,
+html body.gm-interior-route .gm-page .gm-room-cinematic {
+  width: min(100%, var(--ig-width)) !important;
+  margin-inline: auto !important;
+}
+
+html body.gm-interior-route .gm-page .gm-room-showcase__intro h2 {
+  margin-top: 0.9rem !important;
+  color: var(--ig-ink) !important;
+  font-size: clamp(2.45rem, 4vw, 4.65rem) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-room-cinematic {
+  margin-top: clamp(2.2rem, 4vw, 3.8rem) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-room-tabs {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  justify-content: flex-start !important;
+  gap: 0 !important;
+  margin: 0 0 1.5rem !important;
+  border-block: 1px solid var(--ig-line) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-room-tabs button {
+  min-height: 50px !important;
+  padding: 0.75rem 1rem !important;
+  border: 0 !important;
+  border-inline-end: 1px solid var(--ig-line) !important;
+  border-radius: 0 !important;
+  color: var(--ig-muted) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  font-family: var(--title-font) !important;
+  font-size: 0.58rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+}
+
+html body.gm-interior-route .gm-page .gm-room-tabs button:is(.is-active, :hover, :focus-visible) {
+  color: var(--ig-paper) !important;
+  background: var(--ig-red) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-room-cinematic__detail {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1.28fr) minmax(340px, 0.72fr) !important;
+  gap: clamp(1rem, 2.5vw, 2.5rem) !important;
+  align-items: stretch !important;
+  border: 0 !important;
+}
+
+html body.gm-interior-route .gm-page .gm-room-cinema-frame {
+  position: relative;
+  min-height: clamp(500px, 52vw, 650px) !important;
+  overflow: hidden !important;
+  border: 1px solid var(--ig-line) !important;
+  background: var(--ig-ink) !important;
+  box-shadow: none !important;
+}
+
+html body.gm-interior-route .gm-page .gm-room-cinema-frame__border,
+html body.gm-interior-route .gm-page .gm-room-corner,
+html body.gm-interior-route .gm-page .gm-room-marquee {
+  display: none !important;
+}
+
+html body.gm-interior-route .gm-page .gm-room-cinema-frame__shade {
+  background: linear-gradient(0deg, rgba(15, 17, 31, 0.78), transparent 58%) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-room-cinema-frame__label {
+  inset-block-start: 1.3rem !important;
+  inset-inline-start: 1.3rem !important;
+  color: var(--ig-paper) !important;
+  font-family: var(--title-font) !important;
+  font-size: 0.57rem !important;
+  letter-spacing: 0.14em !important;
+}
+
+html body.gm-interior-route .gm-page .gm-room-cinema-frame__label i {
+  background: var(--ig-red) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-room-cinema-frame__title {
+  inset-inline: 1.3rem !important;
+  inset-block-end: 5.4rem !important;
+}
+
+html body.gm-interior-route .gm-page .gm-room-cinema-frame__title h3 {
+  color: var(--ig-paper) !important;
+  font-family: var(--display-font) !important;
+  font-size: clamp(1.8rem, 3vw, 3.4rem) !important;
+  font-weight: 400 !important;
+  letter-spacing: -0.04em !important;
+  line-height: 1 !important;
+  text-transform: none !important;
+}
+
+html body.gm-interior-route .gm-page .gm-room-cinema-frame__title span,
+html body.gm-interior-route .gm-page .gm-room-photo-progress span {
+  color: rgba(255, 254, 251, 0.72) !important;
+  font-family: var(--title-font) !important;
+  font-size: 0.55rem !important;
+  letter-spacing: 0.12em !important;
+}
+
+html body.gm-interior-route .gm-page .gm-room-cinema-frame > button {
+  width: 46px !important;
+  height: 46px !important;
+  border-color: rgba(255, 254, 251, 0.54) !important;
+  border-radius: 0 !important;
+  background: rgba(15, 17, 31, 0.28) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-room-photo-progress {
+  inset-inline: 1.3rem !important;
+  inset-block-end: 1.3rem !important;
+}
+
+html body.gm-interior-route .gm-page .gm-room-photo-progress i::after {
+  background: var(--ig-red) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-room-thumbs {
+  gap: 0.5rem !important;
+  margin-top: 0.7rem !important;
+}
+
+html body.gm-interior-route .gm-page .gm-room-thumbs button {
+  border-radius: 0 !important;
+  background: var(--ig-ink) !important;
+  box-shadow: none !important;
+}
+
+html body.gm-interior-route .gm-page .gm-room-thumbs button.is-active {
+  box-shadow: inset 0 -3px var(--ig-red) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-room-info-card {
+  position: relative;
+  display: flex !important;
+  min-height: 100% !important;
+  flex-direction: column !important;
+  padding: clamp(2rem, 3.5vw, 3rem) !important;
+  border: 1px solid var(--ig-line) !important;
+  color: var(--ig-text) !important;
+  background: var(--ig-paper) !important;
+  box-shadow: none !important;
+  animation: none !important;
+}
+
+html body.gm-interior-route .gm-page .gm-room-info-card h3 {
+  margin-top: 1rem !important;
+  color: var(--ig-ink) !important;
+  font-family: var(--display-font) !important;
+  font-size: clamp(1.7rem, 2.5vw, 2.8rem) !important;
+  font-weight: 400 !important;
+  letter-spacing: -0.04em !important;
+  line-height: 1 !important;
+  text-transform: none !important;
+}
+
+html body.gm-interior-route .gm-page .gm-room-info-card > i {
+  width: 48px !important;
+  height: 3px !important;
+  margin-top: 1.1rem !important;
+  background: var(--ig-red) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-room-info-card p {
+  margin-top: 1.35rem !important;
+  color: var(--ig-muted) !important;
+  font-size: 0.96rem !important;
+  line-height: 1.68 !important;
+}
+
+html body.gm-interior-route .gm-page .gm-room-info-card strong {
+  color: var(--ig-red) !important;
+  font-size: 0.62rem !important;
+  letter-spacing: 0.12em !important;
+}
+
+html body.gm-interior-route .gm-page .gm-room-info-card li {
+  color: var(--ig-text) !important;
+  font-size: 0.86rem !important;
+}
+
+html body.gm-interior-route .gm-page .gm-room-info-card li::before {
+  background: var(--ig-red) !important;
+  box-shadow: none !important;
+}
+
+html body.gm-interior-route .gm-page .gm-room-info-card footer > a {
+  color: var(--ig-paper) !important;
+  background: var(--ig-red) !important;
+  font-size: 0.64rem !important;
+}
+
+html body.gm-interior-route .gm-page .gm-room-info-card footer button {
+  border-color: var(--ig-line-strong) !important;
+  border-radius: 0 !important;
+  color: var(--ig-red) !important;
+  background: transparent !important;
+}
+
+html body.gm-interior-route .gm-page .gm-scroll-overlays {
+  display: grid !important;
+  grid-template-columns: minmax(260px, 0.34fr) minmax(0, 0.66fr) !important;
+  gap: clamp(2rem, 6vw, 7rem) !important;
+  width: 100% !important;
+  overflow: visible !important;
+  background: var(--ig-paper) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-scroll-overlays__copy {
+  position: sticky !important;
+  top: 110px !important;
+  align-self: start !important;
+}
+
+html body.gm-interior-route .gm-page .gm-scroll-overlays__copy h2 {
+  max-width: 11ch !important;
+  margin: 1rem 0 1.2rem !important;
+  color: var(--ig-ink) !important;
+  font-size: clamp(2.4rem, 3.8vw, 4.4rem) !important;
+  line-height: 0.98 !important;
+}
+
+html body.gm-interior-route .gm-page .gm-scroll-overlays__media {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 1rem !important;
+}
+
+html body.gm-interior-route .gm-page .gm-scroll-overlay-card {
+  position: relative;
+  min-height: 460px !important;
+  overflow: hidden !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+html body.gm-interior-route .gm-page .gm-scroll-overlay-card::after {
+  content: none !important;
+  display: none !important;
+}
+
+html body.gm-interior-route .gm-page .gm-scroll-overlay-card:nth-child(even) {
+  margin-top: 4rem !important;
+}
+
+html body.gm-interior-route .gm-page .gm-scroll-overlay-card img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
+
+html body.gm-interior-route .gm-page .gm-scroll-overlay-card figcaption {
+  position: absolute !important;
+  inset-inline-end: 0 !important;
+  inset-block-end: 0 !important;
+  padding: 0.85rem 1rem !important;
+  color: var(--ig-ink) !important;
+  background: var(--ig-paper) !important;
+  font-size: 0.58rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+}
+
+/* Shared image-led card mosaics. */
+html body.gm-interior-route .gm-page :is(.gm-service-matrix__grid, .gm-experience-index__grid, .gm-fs-offers-grid__cards, .gm-editorial-grid__cards, .gm-seminar-venues__grid) {
+  display: grid !important;
+  grid-template-columns: repeat(12, minmax(0, 1fr)) !important;
+  gap: 1rem !important;
+  width: min(100%, var(--ig-width)) !important;
+  margin-inline: auto !important;
+}
+
+html body.gm-interior-route .gm-page :is(.gm-service-card, .gm-experience-card, .gm-fs-offer-card, .gm-editorial-card, .gm-seminar-venues__grid > article) {
+  grid-column: span 5 !important;
+  display: grid !important;
+  grid-template-rows: minmax(330px, 33vw) auto !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+  border: 1px solid var(--ig-line) !important;
+  border-radius: 0 !important;
+  background: var(--ig-paper) !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+html body.gm-interior-route .gm-page :is(.gm-service-card, .gm-experience-card, .gm-fs-offer-card, .gm-editorial-card, .gm-seminar-venues__grid > article):nth-child(4n + 1),
+html body.gm-interior-route .gm-page :is(.gm-service-card, .gm-experience-card, .gm-fs-offer-card, .gm-editorial-card, .gm-seminar-venues__grid > article):nth-child(4n + 4) {
+  grid-column: span 7 !important;
+}
+
+html body.gm-interior-route .gm-page :is(.gm-service-card, .gm-experience-card, .gm-fs-offer-card, .gm-editorial-card, .gm-seminar-venues__grid > article) > :is(figure, img) {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 330px !important;
+  overflow: hidden !important;
+  object-fit: cover !important;
+  clip-path: none !important;
+  filter: saturate(0.92) !important;
+  transform: scale(1.01) !important;
+  transition: transform 650ms var(--ig-ease), filter 300ms ease !important;
+}
+
+html body.gm-interior-route .gm-page :is(.gm-service-card, .gm-experience-card, .gm-fs-offer-card, .gm-editorial-card, .gm-seminar-venues__grid > article):hover > :is(figure, img) {
+  filter: saturate(1.02) !important;
+  transform: scale(1.045) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-experience-card > figure img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
+
+html body.gm-interior-route .gm-page :is(.gm-service-card, .gm-experience-card, .gm-fs-offer-card, .gm-editorial-card, .gm-seminar-venues__grid > article) > div {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 0.8rem !important;
+  padding: clamp(1.5rem, 2.5vw, 2.4rem) !important;
+  color: var(--ig-text) !important;
+  background: var(--ig-paper) !important;
+}
+
+html body.gm-interior-route .gm-page :is(.gm-service-card, .gm-experience-card, .gm-fs-offer-card, .gm-editorial-card, .gm-seminar-venues__grid > article) > div > span {
+  color: var(--ig-red) !important;
+  font-size: 0.58rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+}
+
+html body.gm-interior-route .gm-page :is(.gm-service-card, .gm-experience-card, .gm-fs-offer-card, .gm-editorial-card, .gm-seminar-venues__grid > article) h3 {
+  max-width: 15ch !important;
+  color: var(--ig-ink) !important;
+  font-size: clamp(1.55rem, 2.35vw, 2.7rem) !important;
+  line-height: 1 !important;
+  letter-spacing: -0.045em !important;
+}
+
+html body.gm-interior-route .gm-page :is(.gm-service-card, .gm-experience-card, .gm-fs-offer-card, .gm-editorial-card, .gm-seminar-venues__grid > article) a {
+  display: inline-flex !important;
+  width: fit-content !important;
+  min-height: 42px !important;
+  align-items: center !important;
+  margin-top: auto !important;
+  padding: 0 0 0.35rem !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--ig-red) !important;
+  color: var(--ig-red) !important;
+  background: transparent !important;
+  font-size: 0.62rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.11em !important;
+  text-transform: uppercase !important;
+}
+
+html body.gm-interior-route .gm-page .gm-service-card > div > div,
+html body.gm-interior-route .gm-page .gm-seminar-venues__grid ul {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 0.35rem !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+html body.gm-interior-route .gm-page .gm-service-card small,
+html body.gm-interior-route .gm-page .gm-seminar-venues__grid li {
+  padding: 0.4rem 0.5rem !important;
+  border: 1px solid var(--ig-line) !important;
+  color: var(--ig-muted) !important;
+  font-size: 0.57rem !important;
+  list-style: none !important;
+}
+
+/* Featured stories for offers and magazine. */
+html body.gm-interior-route .gm-page :is(.gm-fs-featured-offer, .gm-magazine-feature) {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1.18fr) minmax(360px, 0.82fr) !important;
+  align-items: stretch !important;
+  width: 100% !important;
+  max-width: none !important;
+  padding: 0 !important;
+  border: 0 !important;
+  color: var(--ig-text) !important;
+  background: var(--ig-paper) !important;
+}
+
+html body.gm-interior-route .gm-page :is(.gm-fs-featured-offer, .gm-magazine-feature) figure {
+  min-height: 650px !important;
+  overflow: hidden !important;
+}
+
+html body.gm-interior-route .gm-page :is(.gm-fs-featured-offer, .gm-magazine-feature) figure img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  filter: saturate(0.94) !important;
+}
+
+html body.gm-interior-route .gm-page :is(.gm-fs-featured-offer, .gm-magazine-feature) > :is(article, div) {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: flex-start !important;
+  gap: 1.05rem !important;
+  padding: clamp(3rem, 6vw, 7rem) !important;
+  border: 0 !important;
+  color: var(--ig-text) !important;
+  background: var(--ig-paper) !important;
+}
+
+html body.gm-interior-route .gm-page :is(.gm-fs-featured-offer, .gm-magazine-feature) > :is(article, div)::before {
+  content: "";
+  width: 58px;
+  height: 3px;
+  background: var(--ig-red);
+}
+
+html body.gm-interior-route .gm-page :is(.gm-fs-featured-offer, .gm-magazine-feature) > :is(article, div) > span {
+  color: var(--ig-red) !important;
+  font-size: 0.6rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+}
+
+html body.gm-interior-route .gm-page :is(.gm-fs-featured-offer, .gm-magazine-feature) h2 {
+  max-width: 12ch !important;
+  color: var(--ig-ink) !important;
+  font-size: clamp(2.7rem, 4.5vw, 5.2rem) !important;
+  line-height: 0.96 !important;
+  letter-spacing: -0.052em !important;
+}
+
+html body.gm-interior-route .gm-page :is(.gm-fs-featured-offer, .gm-magazine-feature) p {
+  color: var(--ig-muted) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-fs-featured-offer article > a {
+  display: inline-flex !important;
+  min-height: 44px !important;
+  align-items: center !important;
+  padding-bottom: 0.35rem !important;
+  border-bottom: 1px solid var(--ig-red) !important;
+  color: var(--ig-red) !important;
+  background: transparent !important;
+  font-size: 0.62rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.11em !important;
+  text-transform: uppercase !important;
+}
+
+/* MICE, loyalty, contact, closing and responsive rules follow below. */
+
+/* Meetings and events: practical first, image-led second. */
+html body.gm-interior-route .gm-page .gm-seminar-finder {
+  display: grid !important;
+  grid-template-columns: minmax(320px, 0.42fr) minmax(0, 0.58fr) !important;
+  align-items: end !important;
+  gap: clamp(2rem, 5vw, 6rem) !important;
+  width: 100% !important;
+  max-width: none !important;
+  padding: var(--ig-section) var(--ig-gutter) !important;
+  color: var(--ig-paper) !important;
+  background: var(--ig-ink) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-seminar-finder__intro {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  align-items: end !important;
+  gap: 0.9rem !important;
+  width: 100% !important;
+  margin: 0 !important;
+}
+
+html body.gm-interior-route .gm-page .gm-seminar-finder__intro > :is(.gm-label, h2, p) {
+  grid-column: 1 !important;
+}
+
+html body.gm-interior-route .gm-page .gm-seminar-finder .gm-label {
+  color: var(--ig-mineral) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-seminar-finder h2 {
+  max-width: 13ch !important;
+  margin-top: 1rem !important;
+  color: var(--ig-paper) !important;
+  font-size: clamp(2.6rem, 4.3vw, 5rem) !important;
+  line-height: 0.98 !important;
+  letter-spacing: -0.05em !important;
+}
+
+html body.gm-interior-route .gm-page .gm-seminar-finder p {
+  color: rgba(255, 254, 251, 0.7) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-seminar-search {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(180px, auto) !important;
+  gap: 0 !important;
+  width: 100% !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+  border: 1px solid rgba(255, 254, 251, 0.24) !important;
+  background: rgba(255, 254, 251, 0.05) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-seminar-search label {
+  display: grid !important;
+  gap: 0.45rem !important;
+  padding: 1rem 1.1rem !important;
+  border-inline-end: 1px solid rgba(255, 254, 251, 0.18) !important;
+  background: var(--ig-paper) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-seminar-search label span {
+  color: #806b59 !important;
+  font-size: 0.57rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+}
+
+html body.gm-interior-route .gm-page .gm-seminar-search select {
+  min-height: 40px !important;
+  border: 0 !important;
+  color: var(--ig-ink) !important;
+  background: transparent !important;
+  color-scheme: light !important;
+}
+
+html body.gm-interior-route .gm-page .gm-seminar-search .gm-button {
+  min-width: 180px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+}
+
+html body.gm-interior-route .gm-mice-page--seminar .gm-mice-command,
+html body.gm-interior-route .gm-page .gm-mice-command {
+  display: grid !important;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr) !important;
+  gap: clamp(3rem, 7vw, 8rem) !important;
+  width: 100% !important;
+  max-width: none !important;
+  padding: var(--ig-section) var(--ig-gutter) !important;
+  color: var(--ig-text) !important;
+  background: var(--ig-paper) !important;
+}
+
+html body.gm-interior-route .gm-mice-page--seminar .gm-mice-command h2,
+html body.gm-interior-route .gm-page .gm-mice-command h2 {
+  max-width: 12ch !important;
+  margin: 1rem 0 1.3rem !important;
+  color: var(--ig-ink) !important;
+  font-size: clamp(2.6rem, 4.4vw, 5rem) !important;
+  line-height: 0.97 !important;
+}
+
+html body.gm-interior-route .gm-mice-page--seminar .gm-mice-command p,
+html body.gm-interior-route .gm-page .gm-mice-command p {
+  color: var(--ig-muted) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-mice-command__stats {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  border-top: 1px solid var(--ig-line) !important;
+  border-inline-start: 1px solid var(--ig-line) !important;
+}
+
+html body.gm-interior-route .gm-mice-page--seminar .gm-mice-command__stats article,
+html body.gm-interior-route .gm-page .gm-mice-command__stats article {
+  display: grid !important;
+  align-content: center !important;
+  gap: 0.45rem !important;
+  min-height: 150px !important;
+  padding: 1.5rem !important;
+  border: 0 !important;
+  border-inline-end: 1px solid var(--ig-line) !important;
+  border-bottom: 1px solid var(--ig-line) !important;
+  background: transparent !important;
+}
+
+html body.gm-interior-route .gm-mice-page--seminar .gm-mice-command__stats strong,
+html body.gm-interior-route .gm-page .gm-mice-command__stats strong {
+  color: var(--ig-red) !important;
+  font-family: var(--display-font) !important;
+  font-size: clamp(2rem, 3.2vw, 3.6rem) !important;
+  font-weight: 400 !important;
+}
+
+html body.gm-interior-route .gm-mice-page--seminar .gm-mice-command__stats span,
+html body.gm-interior-route .gm-page .gm-mice-command__stats span {
+  color: var(--ig-muted) !important;
+  font-size: 0.59rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.11em !important;
+  text-transform: uppercase !important;
+}
+
+html body.gm-interior-route .gm-page .gm-seminar-editorial {
+  display: grid !important;
+  grid-template-columns: repeat(12, minmax(0, 1fr)) !important;
+  gap: clamp(2rem, 6vw, 7rem) !important;
+  background: var(--ig-canvas) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-seminar-editorial > div:first-child {
+  grid-column: 1 / 6 !important;
+}
+
+html body.gm-interior-route .gm-page .gm-seminar-editorial > div:last-child {
+  grid-column: 6 / 13 !important;
+  display: grid !important;
+  gap: 1.2rem !important;
+  padding-inline-start: clamp(1rem, 4vw, 4rem) !important;
+  border-inline-start: 1px solid var(--ig-line) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-seminar-editorial h2 {
+  max-width: 13ch !important;
+  margin-top: 1rem !important;
+  font-size: clamp(2.5rem, 4vw, 4.7rem) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-seminar-types {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 0 !important;
+  padding-block: 0 !important;
+  background: var(--ig-paper) !important;
+  counter-reset: seminar-type;
+}
+
+html body.gm-interior-route .gm-page .gm-seminar-types article {
+  display: grid !important;
+  align-content: end !important;
+  min-height: 330px !important;
+  padding: clamp(2rem, 5vw, 5rem) !important;
+  border: 0 !important;
+  border-inline-end: 1px solid var(--ig-line) !important;
+  background: transparent !important;
+  counter-increment: seminar-type;
+}
+
+html body.gm-interior-route .gm-page .gm-seminar-types article::before {
+  content: "0" counter(seminar-type);
+  margin-bottom: auto;
+  color: var(--ig-red);
+  font-family: var(--display-font);
+  font-size: 1.1rem;
+}
+
+html body.gm-interior-route .gm-page .gm-seminar-types h3 {
+  max-width: 14ch !important;
+  color: var(--ig-ink) !important;
+  font-size: clamp(1.7rem, 2.7vw, 3.1rem) !important;
+}
+
+html body.gm-interior-route .gm-mice-page--seminar .gm-seminar-offer .gm-section-head,
+html body.gm-interior-route .gm-mice-page--seminar .gm-seminar-faq .gm-section-head,
+html body.gm-interior-route .gm-mice-page--seminar .gm-mice-gallery .gm-section-head {
+  display: grid !important;
+  grid-template-columns: minmax(130px, 0.24fr) minmax(0, 1fr) minmax(240px, 0.34fr) !important;
+  justify-items: stretch !important;
+  text-align: start !important;
+}
+
+html body.gm-interior-route .gm-mice-page--seminar .gm-seminar-offer .gm-section-head .gm-label,
+html body.gm-interior-route .gm-mice-page--seminar .gm-seminar-faq .gm-section-head .gm-label,
+html body.gm-interior-route .gm-mice-page--seminar .gm-mice-gallery .gm-section-head .gm-label {
+  justify-self: start !important;
+  text-align: start !important;
+}
+
+html body.gm-interior-route .gm-mice-page--seminar .gm-seminar-offer .gm-section-head h2,
+html body.gm-interior-route .gm-mice-page--seminar .gm-seminar-faq .gm-section-head h2,
+html body.gm-interior-route .gm-mice-page--seminar .gm-mice-gallery .gm-section-head h2 {
+  max-width: 15ch !important;
+  margin: 0 !important;
+  text-align: start !important;
+}
+
+html body.gm-interior-route .gm-page .gm-seminar-offer__grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 0 !important;
+  width: min(100%, var(--ig-width)) !important;
+  margin-inline: auto !important;
+  border-top: 1px solid var(--ig-line) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-seminar-offer__grid article {
+  display: grid !important;
+  align-content: start !important;
+  gap: 0.8rem !important;
+  min-height: 230px !important;
+  padding: 1.8rem !important;
+  border: 0 !important;
+  border-inline-end: 1px solid var(--ig-line) !important;
+  border-bottom: 1px solid var(--ig-line) !important;
+  background: transparent !important;
+}
+
+html body.gm-interior-route .gm-page .gm-seminar-offer__grid article::before {
+  content: "";
+  width: 38px;
+  height: 3px;
+  margin-bottom: auto;
+  background: var(--ig-red);
+}
+
+html body.gm-interior-route .gm-page .gm-seminar-offer__grid h3 {
+  color: var(--ig-ink) !important;
+  font-size: clamp(1.25rem, 1.7vw, 1.8rem) !important;
+  line-height: 1.08 !important;
+}
+
+html body.gm-interior-route .gm-page .gm-event-types .gm-feature-list--large {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  width: min(100%, var(--ig-width)) !important;
+  margin-inline: auto !important;
+}
+
+html body.gm-interior-route .gm-page .gm-event-types .gm-feature-list--large span {
+  min-height: 78px !important;
+  padding: 1.25rem !important;
+  border-inline-end: 1px solid var(--ig-line) !important;
+  color: var(--ig-ink) !important;
+  font-family: var(--display-font) !important;
+  font-size: clamp(1rem, 1.4vw, 1.4rem) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-seminar-faq__list {
+  width: min(100%, var(--ig-width)) !important;
+  margin-inline: auto !important;
+  border-top: 1px solid var(--ig-line) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-seminar-faq__list details {
+  border: 0 !important;
+  border-bottom: 1px solid var(--ig-line) !important;
+  background: transparent !important;
+  transform: none !important;
+}
+
+html body.gm-interior-route .gm-page .gm-seminar-faq__list summary {
+  position: relative;
+  min-height: 72px !important;
+  padding: 1.4rem 4rem 1.4rem 0 !important;
+  color: var(--ig-ink) !important;
+  font-family: var(--display-font) !important;
+  font-size: clamp(1.15rem, 1.65vw, 1.7rem) !important;
+  cursor: pointer;
+  list-style: none;
+}
+
+html body.gm-interior-route .gm-page .gm-seminar-faq__list summary::after {
+  content: "+";
+  position: absolute;
+  inset-inline-end: 0;
+  inset-block-start: 50%;
+  color: var(--ig-red);
+  font-family: var(--body-font);
+  font-size: 1.5rem;
+  transform: translateY(-50%);
+}
+
+html body.gm-interior-route .gm-page .gm-seminar-faq__list details[open] summary::after {
+  content: "-";
+}
+
+html body.gm-interior-route .gm-page .gm-seminar-faq__list p {
+  padding: 0 0 1.5rem !important;
+}
+
+html body.gm-interior-route .gm-page .gm-seminar-human {
+  display: grid !important;
+  grid-template-columns: minmax(340px, 0.76fr) minmax(0, 1.24fr) !important;
+  align-items: stretch !important;
+  padding: 0 !important;
+  background: var(--ig-paper) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-seminar-human > div {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  gap: 1rem !important;
+  padding: clamp(3rem, 6vw, 7rem) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-seminar-human h2 {
+  max-width: 13ch !important;
+  font-size: clamp(2.5rem, 4vw, 4.7rem) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-seminar-human figure {
+  min-height: 650px !important;
+  overflow: hidden !important;
+}
+
+html body.gm-interior-route .gm-page .gm-seminar-human figure img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
+
+/* Loyalty ledger. */
+html body.gm-interior-route .gm-page .gm-loyalty-ledger {
+  display: grid !important;
+  grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+  gap: 0 !important;
+  width: 100% !important;
+  max-width: none !important;
+  padding-block: 0 !important;
+  border-block: 1px solid var(--ig-line) !important;
+  background: var(--ig-paper) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-loyalty-ledger article {
+  display: grid !important;
+  align-content: start !important;
+  min-height: 330px !important;
+  padding: 2rem 1.35rem !important;
+  border: 0 !important;
+  border-inline-end: 1px solid var(--ig-line) !important;
+  background: transparent !important;
+}
+
+html body.gm-interior-route .gm-page .gm-loyalty-ledger article > span {
+  margin-bottom: auto;
+  color: var(--ig-red) !important;
+  font-size: 0.58rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+}
+
+html body.gm-interior-route .gm-page .gm-loyalty-ledger h3 {
+  color: var(--ig-ink) !important;
+  font-size: clamp(1.25rem, 1.75vw, 1.9rem) !important;
+  line-height: 1.06 !important;
+}
+
+html body.gm-interior-route .gm-page .gm-loyalty-ledger p {
+  margin-top: 1rem !important;
+  font-size: 0.88rem !important;
+}
+
+/* Contact concierge and directory. */
+html body.gm-interior-route .gm-page .gm-contact-command {
+  display: grid !important;
+  grid-template-columns: minmax(280px, 0.36fr) minmax(0, 0.64fr) !important;
+  gap: clamp(2rem, 7vw, 8rem) !important;
+  width: 100% !important;
+  max-width: none !important;
+  overflow: visible !important;
+  background: var(--ig-paper) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-contact-command > div:first-child {
+  position: sticky !important;
+  top: 110px !important;
+  align-self: start !important;
+}
+
+html body.gm-interior-route .gm-page .gm-contact-command h2 {
+  max-width: 12ch !important;
+  margin: 1rem 0 1.5rem !important;
+  color: var(--ig-ink) !important;
+  font-size: clamp(2.4rem, 3.8vw, 4.4rem) !important;
+  line-height: 0.98 !important;
+}
+
+html body.gm-interior-route .gm-page .gm-contact-links {
+  display: grid !important;
+  border-top: 1px solid var(--ig-line) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-contact-links a {
+  min-height: 48px !important;
+  padding: 0.9rem 0 !important;
+  border-bottom: 1px solid var(--ig-line) !important;
+  color: var(--ig-red) !important;
+  font-size: 0.75rem !important;
+  word-break: break-word;
+}
+
+html body.gm-interior-route .gm-page .gm-contact-form {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 1rem !important;
+  padding: clamp(1.5rem, 3vw, 3rem) !important;
+  border: 1px solid var(--ig-line) !important;
+  background: var(--ig-canvas) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-contact-form label {
+  display: grid !important;
+  gap: 0.45rem !important;
+}
+
+html body.gm-interior-route .gm-page .gm-contact-form label > span {
+  color: var(--ig-ink) !important;
+  font-size: 0.59rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.11em !important;
+  text-transform: uppercase !important;
+}
+
+html body.gm-interior-route .gm-page .gm-contact-form :is(input, select, textarea) {
+  width: 100% !important;
+  min-height: 50px !important;
+  padding: 0.8rem 0.9rem !important;
+  border: 1px solid var(--ig-line) !important;
+  border-radius: 0 !important;
+  color: var(--ig-ink) !important;
+  background: var(--ig-paper) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-contact-form textarea {
+  min-height: 150px !important;
+}
+
+html body.gm-interior-route .gm-page .gm-contact-form__wide,
+html body.gm-interior-route .gm-page .gm-contact-form__summary,
+html body.gm-interior-route .gm-page .gm-contact-form > button,
+html body.gm-interior-route .gm-page .gm-contact-form > p {
+  grid-column: 1 / -1 !important;
+}
+
+html body.gm-interior-route .gm-page .gm-contact-form__summary {
+  display: grid !important;
+  grid-template-columns: auto minmax(0, 1fr) auto !important;
+  align-items: center !important;
+  gap: 0.55rem 1rem !important;
+  min-height: 68px !important;
+  padding: 0.85rem 1rem !important;
+  color: var(--ig-paper) !important;
+  background: var(--ig-ink) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-contact-form__summary span {
+  color: var(--ig-mineral) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-contact-form__summary strong {
+  color: var(--ig-paper) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-contact-form__summary small {
+  color: rgba(255, 254, 251, 0.72) !important;
+  text-align: end !important;
+}
+
+html body.gm-interior-route .gm-page .gm-contact-form > button {
+  justify-self: start !important;
+}
+
+html body.gm-interior-route .gm-page .gm-contact-form > p {
+  margin: 0 !important;
+  font-size: 0.8rem !important;
+}
+
+html body.gm-interior-route .gm-page .gm-contact-hotels__grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 0 !important;
+  width: min(100%, var(--ig-width)) !important;
+  margin-inline: auto !important;
+  border-top: 1px solid var(--ig-line) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-contact-hotels__grid article {
+  display: flex !important;
+  min-height: 250px !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 0.65rem !important;
+  padding: 1.7rem !important;
+  border: 0 !important;
+  border-inline-end: 1px solid var(--ig-line) !important;
+  border-bottom: 1px solid var(--ig-line) !important;
+  background: transparent !important;
+  transform: none !important;
+}
+
+html body.gm-interior-route .gm-page .gm-contact-hotels__grid h3 {
+  color: var(--ig-ink) !important;
+  font-size: clamp(1.3rem, 1.8vw, 2rem) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-contact-hotels__grid a {
+  color: var(--ig-red) !important;
+  font-size: 0.76rem !important;
+  word-break: break-word;
+}
+
+/* Closing panel and interior footer. */
+html body.gm-interior-route .gm-page .gm-final,
+html body.gm-interior-route .gm-page .gm-final--compact {
+  display: grid !important;
+  justify-items: start !important;
+  gap: 1rem !important;
+  width: 100% !important;
+  min-height: 0 !important;
+  padding: var(--ig-section) var(--ig-gutter) !important;
+  border-top: 1px solid var(--ig-line) !important;
+  color: var(--ig-text) !important;
+  background: var(--ig-paper) !important;
+  text-align: start !important;
+}
+
+html body.gm-interior-route .gm-page .gm-final > *,
+html body.gm-interior-route .gm-page .gm-final--compact > * {
+  width: min(100%, var(--ig-width)) !important;
+  margin-inline: auto !important;
+}
+
+html body.gm-interior-route .gm-page .gm-final h2,
+html body.gm-interior-route .gm-page .gm-final--compact h2 {
+  max-width: 14ch !important;
+  color: var(--ig-ink) !important;
+  font-size: clamp(2.6rem, 4.5vw, 5.2rem) !important;
+  line-height: 0.97 !important;
+  text-align: start !important;
+}
+
+html body.gm-interior-route .gm-page .gm-final p,
+html body.gm-interior-route .gm-page .gm-final .gm-actions {
+  margin-inline: auto !important;
+  text-align: start !important;
+}
+
+html body.gm-interior-route .site-footer .gm-owned-prefooter {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) minmax(340px, 0.55fr) !important;
+  gap: clamp(2rem, 6vw, 7rem) !important;
+  width: min(100%, var(--ig-width)) !important;
+  margin: 0 auto !important;
+  padding: 0 0 clamp(3rem, 6vw, 5rem) !important;
+  border-bottom: 1px solid rgba(255, 254, 251, 0.16) !important;
+  color: var(--ig-paper) !important;
+  background: transparent !important;
+}
+
+html body.gm-interior-route .site-footer .gm-owned-prefooter h2 {
+  max-width: 15ch !important;
+  margin-top: 0.8rem !important;
+  color: var(--ig-paper) !important;
+  font-family: var(--display-font) !important;
+  font-size: clamp(2rem, 3.2vw, 3.6rem) !important;
+  font-weight: 400 !important;
+  line-height: 1 !important;
+}
+
+html body.gm-interior-route .site-footer .gm-owned-prefooter p {
+  margin-top: 1rem !important;
+  color: rgba(255, 254, 251, 0.68) !important;
+}
+
+html body.gm-interior-route .site-footer .gm-owned-prefooter > div > span,
+html body.gm-interior-route .site-footer .gm-owned-prefooter label > span {
+  color: var(--ig-mineral) !important;
+  font-size: 0.6rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+}
+
+html body.gm-interior-route .site-footer .gm-owned-prefooter form {
+  display: grid !important;
+  align-content: center !important;
+  gap: 0.7rem !important;
+}
+
+html body.gm-interior-route .site-footer .gm-owned-prefooter label {
+  display: grid !important;
+  gap: 0.45rem !important;
+}
+
+html body.gm-interior-route .site-footer .gm-owned-prefooter input {
+  width: 100% !important;
+  min-height: 52px !important;
+  padding: 0.8rem 0.9rem !important;
+  border: 1px solid rgba(255, 254, 251, 0.24) !important;
+  border-radius: 0 !important;
+  color: var(--ig-paper) !important;
+  background: transparent !important;
+}
+
+html body.gm-interior-route .site-footer .gm-owned-prefooter button {
+  min-height: 48px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  color: var(--ig-paper) !important;
+  background: var(--ig-red) !important;
+  font-size: 0.64rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+}
+
+html body.gm-interior-route .site-footer {
+  background: var(--ig-ink) !important;
+}
+
+html body.gm-interior-route .site-footer__grid h3 {
+  color: var(--ig-mineral) !important;
+}
+
+/* Direction uses logical layout wherever possible. */
+html[dir="rtl"] body.gm-interior-route .gm-page :is(h1, h2, h3, h4, p),
+html[dir="rtl"] body.gm-interior-route .gm-page .gm-destination-menu button,
+html[dir="rtl"] body.gm-interior-route .gm-page .gm-hotel-tile__body {
+  text-align: start !important;
+  text-align-last: start !important;
+}
+
+html[dir="rtl"] body.gm-interior-route .gm-route-transition__signature {
+  transform: translate(50%, -50%);
+}
+
+/* Responsive hierarchy. */
+@media (max-width: 1180px) {
+  html body.gm-interior-route .gm-page .gm-section-head,
+  html body.gm-interior-route .gm-page .gm-destination-lounge__intro,
+  html body.gm-interior-route .gm-mice-page--seminar :is(.gm-seminar-offer, .gm-seminar-faq, .gm-mice-gallery) .gm-section-head {
+    grid-template-columns: minmax(120px, 0.25fr) minmax(0, 0.75fr) !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-section-head > :is(p, a),
+  html body.gm-interior-route .gm-page .gm-destination-lounge__intro p {
+    grid-column: 2 !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-page-hero__content {
+    width: min(820px, 84%) !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-destination-lounge__grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-destination-menu {
+    grid-template-columns: repeat(5, minmax(140px, 1fr)) !important;
+    overflow-x: auto !important;
+    border-inline-end: 0 !important;
+    border-bottom: 1px solid var(--ig-line) !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-destination-menu button {
+    min-height: 90px !important;
+    border-inline-end: 1px solid var(--ig-line) !important;
+    border-bottom: 0 !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-destination-feature {
+    grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr) !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-hotel-compass__active {
+    grid-template-columns: 100px minmax(0, 1fr) minmax(180px, 0.36fr) !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-hotel-compass__active nav {
+    grid-column: 1 / -1 !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    border-top: 1px solid var(--ig-line) !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-room-cinematic__detail {
+    grid-template-columns: 1fr !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-room-info-card {
+    min-height: 460px !important;
+  }
+
+  html body.gm-interior-route .gm-page :is(.gm-hotel-sales-panel, .gm-hotel-booking-panel, .gm-offer-engine) .booking-bar,
+  html body.gm-interior-route .gm-offers-page .gm-offer-engine .booking-bar {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+
+  html body.gm-interior-route .gm-page .booking-bar__seal,
+  html body.gm-interior-route .gm-page .booking-bar button {
+    grid-column: span 1 !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-loyalty-ledger,
+  html body.gm-interior-route .gm-page .gm-values__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-contact-hotels__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 900px) {
+  html body.gm-interior-route .gm-owned-header.gm-interior-header,
+  html body.gm-interior-route:not(.gm-header-compact):not(.gm-menu-open) .gm-owned-header.gm-interior-header,
+  html body.gm-interior-route.gm-header-compact .gm-owned-header.gm-interior-header {
+    min-height: 68px !important;
+    padding-inline: 1rem 0.8rem !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-page-hero {
+    min-height: calc(100svh - 68px) !important;
+    margin-top: 68px !important;
+    padding: 1rem 1rem 0 !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-page-hero__media {
+    min-height: max(600px, calc(100svh - 84px)) !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-page-hero__content {
+    width: min(100%, 720px) !important;
+    padding: clamp(1.5rem, 5vw, 3rem) !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-page-hero h1 {
+    font-size: clamp(2.8rem, 9vw, 5rem) !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-page-hero__meta {
+    display: none !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-section-head,
+  html body.gm-interior-route .gm-page .gm-destination-lounge__intro,
+  html body.gm-interior-route .gm-mice-page--seminar :is(.gm-seminar-offer, .gm-seminar-faq, .gm-mice-gallery) .gm-section-head {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-section-head > span,
+  html body.gm-interior-route .gm-page .gm-section-head h2,
+  html body.gm-interior-route .gm-page .gm-section-head > p,
+  html body.gm-interior-route .gm-page .gm-section-head > a,
+  html body.gm-interior-route .gm-page .gm-destination-lounge__intro > .gm-label,
+  html body.gm-interior-route .gm-page .gm-destination-lounge__intro > h2,
+  html body.gm-interior-route .gm-page .gm-destination-lounge__intro > p {
+    grid-column: 1 !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-page-intro {
+    grid-template-columns: 1fr !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-page-intro > div:first-child,
+  html body.gm-interior-route .gm-page .gm-page-intro .gm-rich-copy {
+    grid-column: 1 !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-page-intro > div:first-child {
+    padding-inline-end: 0 !important;
+    padding-bottom: 2rem !important;
+    border-inline-end: 0 !important;
+    border-bottom: 1px solid var(--ig-line) !important;
+  }
+
+  html body.gm-interior-route .gm-page :is(.gm-story-row, .gm-business-row, .gm-hotel-section) {
+    grid-template-columns: 1fr !important;
+    min-height: 0 !important;
+  }
+
+  html body.gm-interior-route .gm-page :is(.gm-story-row, .gm-business-row, .gm-hotel-section) figure,
+  html body.gm-interior-route .gm-page :is(.gm-story-row--reverse, .gm-business-row--reverse, .gm-hotel-section--reverse) figure {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+    min-height: clamp(380px, 62vw, 560px) !important;
+  }
+
+  html body.gm-interior-route .gm-page :is(.gm-story-row, .gm-business-row, .gm-hotel-section) > div,
+  html body.gm-interior-route .gm-page :is(.gm-story-row--reverse, .gm-business-row--reverse, .gm-hotel-section--reverse) > div {
+    grid-column: 1 !important;
+    grid-row: 2 !important;
+    min-height: 420px !important;
+    padding: clamp(2.5rem, 8vw, 5rem) var(--ig-gutter) !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-destination-feature {
+    grid-template-columns: 1fr !important;
+    min-height: 0 !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-destination-feature figure {
+    min-height: clamp(380px, 70vw, 580px) !important;
+  }
+
+  html body.gm-interior-route .gm-destinations-page--calm .gm-destination-index,
+  html body.gm-interior-route .gm-page .gm-destination-index {
+    grid-template-columns: none !important;
+    grid-auto-columns: minmax(240px, 72vw) !important;
+    grid-auto-flow: column !important;
+    overflow-x: auto !important;
+    scroll-snap-type: inline mandatory;
+  }
+
+  html body.gm-interior-route .gm-page .gm-destination-index button {
+    min-height: 350px !important;
+    scroll-snap-align: start;
+  }
+
+  html body.gm-interior-route .gm-page .gm-destination-attractions__grid article,
+  html body.gm-interior-route .gm-page .gm-destination-attractions__grid article:nth-child(n),
+  html body.gm-interior-route .gm-page :is(.gm-service-card, .gm-experience-card, .gm-fs-offer-card, .gm-editorial-card, .gm-seminar-venues__grid > article),
+  html body.gm-interior-route .gm-page :is(.gm-service-card, .gm-experience-card, .gm-fs-offer-card, .gm-editorial-card, .gm-seminar-venues__grid > article):nth-child(n) {
+    grid-column: span 6 !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-hotel-compass__active {
+    grid-template-columns: 90px minmax(0, 1fr) !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-hotel-compass__active > div:nth-of-type(2) {
+    grid-column: 1 / -1 !important;
+    border-top: 1px solid var(--ig-line) !important;
+  }
+
+  html body.gm-interior-route .gm-hotels-page .gm-hotel-carousel {
+    --hotel-card-width: min(520px, calc(100vw - 2rem));
+  }
+
+  html body.gm-interior-route .gm-page .gm-scroll-overlays,
+  html body.gm-interior-route .gm-page .gm-contact-command {
+    grid-template-columns: 1fr !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-scroll-overlays__copy,
+  html body.gm-interior-route .gm-page .gm-contact-command > div:first-child {
+    position: static !important;
+  }
+
+  html body.gm-interior-route .gm-page :is(.gm-fs-featured-offer, .gm-magazine-feature),
+  html body.gm-interior-route .gm-page .gm-seminar-human {
+    grid-template-columns: 1fr !important;
+  }
+
+  html body.gm-interior-route .gm-page :is(.gm-fs-featured-offer, .gm-magazine-feature) figure,
+  html body.gm-interior-route .gm-page .gm-seminar-human figure {
+    min-height: clamp(400px, 70vw, 560px) !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-seminar-finder__intro,
+  html body.gm-interior-route .gm-page .gm-mice-command,
+  html body.gm-interior-route .gm-mice-page--seminar .gm-mice-command,
+  html body.gm-interior-route .gm-page .gm-seminar-editorial {
+    grid-template-columns: 1fr !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-seminar-finder {
+    grid-template-columns: 1fr !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-seminar-finder__intro > :is(.gm-label, h2, p) {
+    grid-column: 1 !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-seminar-editorial > div:first-child,
+  html body.gm-interior-route .gm-page .gm-seminar-editorial > div:last-child {
+    grid-column: 1 !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-seminar-editorial > div:last-child {
+    padding-inline-start: 0 !important;
+    padding-top: 2rem !important;
+    border-inline-start: 0 !important;
+    border-top: 1px solid var(--ig-line) !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-seminar-search {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-seminar-search .gm-button {
+    grid-column: 1 / -1 !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-seminar-offer__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-loyalty-ledger,
+  html body.gm-interior-route .gm-page .gm-values__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  html body.gm-interior-route .site-footer .gm-owned-prefooter {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 640px) {
+  :root {
+    --ig-gutter: 1rem;
+    --ig-section: 4.25rem;
+  }
+
+  .gm-route-transition__signature span {
+    font-size: 0.54rem;
+  }
+
+  html body.gm-interior-route .gm-page .gm-page-hero {
+    padding: 0 !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-page-hero__media {
+    min-height: max(610px, calc(100svh - 68px)) !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-page-hero__media img {
+    object-position: 58% center !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-page-hero__veil {
+    background:
+      linear-gradient(0deg, rgba(15, 17, 31, 0.84) 0%, rgba(15, 17, 31, 0.4) 58%, rgba(15, 17, 31, 0.08) 100%),
+      linear-gradient(90deg, rgba(15, 17, 31, 0.44), transparent) !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-page-hero__content {
+    width: 100% !important;
+    padding: 1.25rem 1rem 2rem !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-page-hero h1 {
+    max-width: 11ch !important;
+    font-size: clamp(2.6rem, 13vw, 4rem) !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-page-hero__content > p {
+    font-size: 0.96rem !important;
+    line-height: 1.55 !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-page-hero .gm-actions {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    width: 100% !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-page-hero .gm-button {
+    width: 100% !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-page-hero__scroll {
+    display: none !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-section-head h2,
+  html body.gm-interior-route .gm-page .gm-page-intro h2,
+  html body.gm-interior-route .gm-page .gm-destination-lounge__intro h2 {
+    font-size: clamp(2.15rem, 10vw, 3.15rem) !important;
+  }
+
+  html body.gm-interior-route .gm-page :is(.gm-story-row, .gm-business-row, .gm-hotel-section) figure,
+  html body.gm-interior-route .gm-page :is(.gm-story-row--reverse, .gm-business-row--reverse, .gm-hotel-section--reverse) figure {
+    min-height: 340px !important;
+  }
+
+  html body.gm-interior-route .gm-page :is(.gm-story-row, .gm-business-row, .gm-hotel-section) > div,
+  html body.gm-interior-route .gm-page :is(.gm-story-row--reverse, .gm-business-row--reverse, .gm-hotel-section--reverse) > div {
+    min-height: 390px !important;
+    padding: 2.5rem 1rem !important;
+  }
+
+  html body.gm-interior-route .gm-page :is(.gm-story-row, .gm-business-row, .gm-hotel-section) h2 {
+    font-size: clamp(2.15rem, 10vw, 3.2rem) !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-fs-gallery {
+    min-height: 480px !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-fs-gallery__slide {
+    width: calc(100% - 2rem) !important;
+    height: 390px !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-fs-gallery__slide--previous,
+  html body.gm-interior-route .gm-page .gm-fs-gallery__slide--next {
+    display: none !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-fs-gallery__arrow {
+    inset-block-start: auto !important;
+    inset-block-end: 1rem !important;
+    width: 46px !important;
+    height: 46px !important;
+    transform: none !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-fs-gallery__counter {
+    display: none !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-fs-gallery__pause {
+    inset-block-start: 0.75rem !important;
+    inset-inline-end: 0.75rem !important;
+  }
+
+  html body.gm-interior-route .gm-page :is(.gm-hotel-sales-panel, .gm-hotel-booking-panel, .gm-offer-engine) .booking-bar,
+  html body.gm-interior-route .gm-offers-page .gm-offer-engine .booking-bar {
+    grid-template-columns: 1fr !important;
+  }
+
+  html body.gm-interior-route .gm-page .booking-bar > * {
+    grid-column: 1 !important;
+  }
+
+  html body.gm-interior-route .gm-page .booking-bar :is(.booking-bar__seal, label, button) {
+    min-height: 64px !important;
+    border-inline-end: 0 !important;
+    border-bottom: 1px solid var(--ig-line) !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-values__grid,
+  html body.gm-interior-route .gm-page .gm-loyalty-ledger,
+  html body.gm-interior-route .gm-page .gm-direct-proof,
+  html body.gm-interior-route .gm-page .gm-contact-hotels__grid,
+  html body.gm-interior-route .gm-page .gm-seminar-types,
+  html body.gm-interior-route .gm-page .gm-seminar-offer__grid,
+  html body.gm-interior-route .gm-page .gm-event-types .gm-feature-list--large {
+    grid-template-columns: 1fr !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-numbers--page {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-numbers--page article {
+    min-height: 160px !important;
+    padding: 1.25rem !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-values__grid article,
+  html body.gm-interior-route .gm-page .gm-loyalty-ledger article {
+    min-height: 250px !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-destination-menu {
+    grid-template-columns: none !important;
+    grid-auto-columns: minmax(150px, 44vw) !important;
+    grid-auto-flow: column !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-destination-feature > div {
+    padding: 2.5rem 1rem !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-destination-hotels__rail {
+    grid-auto-columns: minmax(270px, 84vw) !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-destination-attractions__grid,
+  html body.gm-interior-route .gm-page :is(.gm-service-matrix__grid, .gm-experience-index__grid, .gm-fs-offers-grid__cards, .gm-editorial-grid__cards, .gm-seminar-venues__grid) {
+    grid-template-columns: 1fr !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-destination-attractions__grid article,
+  html body.gm-interior-route .gm-page .gm-destination-attractions__grid article:nth-child(n),
+  html body.gm-interior-route .gm-page :is(.gm-service-card, .gm-experience-card, .gm-fs-offer-card, .gm-editorial-card, .gm-seminar-venues__grid > article),
+  html body.gm-interior-route .gm-page :is(.gm-service-card, .gm-experience-card, .gm-fs-offer-card, .gm-editorial-card, .gm-seminar-venues__grid > article):nth-child(n) {
+    grid-column: 1 !important;
+    grid-template-rows: minmax(290px, 82vw) auto !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-hotel-compass__active {
+    grid-template-columns: 70px minmax(0, 1fr) !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-hotel-compass__active > span {
+    font-size: 2rem !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-hotel-compass__active nav {
+    grid-template-columns: 1fr !important;
+  }
+
+  html body.gm-interior-route .gm-hotels-page .gm-hotel-carousel .gm-hotel-tile,
+  html body.gm-interior-route .gm-hotels-page .gm-hotel-carousel .gm-hotel-tile:nth-child(n) {
+    grid-template-rows: minmax(330px, 56svh) auto !important;
+    min-height: 610px !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-facilities,
+  html body.gm-interior-route .gm-page .gm-scroll-overlays__media,
+  html body.gm-interior-route .gm-page .gm-contact-form,
+  html body.gm-interior-route .gm-page .gm-mice-command__stats {
+    grid-template-columns: 1fr !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-facilities article {
+    grid-template-columns: 1fr !important;
+    gap: 0.55rem !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-fact-line,
+  html body.gm-interior-route .gm-page .gm-feature-list {
+    grid-template-columns: 1fr !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-room-cinema-frame {
+    min-height: 440px !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-room-cinema-frame__title {
+    display: block !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-room-cinema-frame__title span {
+    display: block !important;
+    margin-top: 0.7rem !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-room-info-card {
+    min-height: 520px !important;
+    padding: 2rem 1rem !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-scroll-overlay-card:nth-child(even) {
+    margin-top: 0 !important;
+  }
+
+  html body.gm-interior-route .gm-page :is(.gm-fs-featured-offer, .gm-magazine-feature) figure,
+  html body.gm-interior-route .gm-page .gm-seminar-human figure {
+    min-height: 340px !important;
+  }
+
+  html body.gm-interior-route .gm-page :is(.gm-fs-featured-offer, .gm-magazine-feature) > :is(article, div),
+  html body.gm-interior-route .gm-page .gm-seminar-human > div {
+    padding: 2.5rem 1rem !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-seminar-search {
+    grid-template-columns: 1fr !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-seminar-search > * {
+    grid-column: 1 !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-contact-form__wide,
+  html body.gm-interior-route .gm-page .gm-contact-form__summary,
+  html body.gm-interior-route .gm-page .gm-contact-form > button,
+  html body.gm-interior-route .gm-page .gm-contact-form > p {
+    grid-column: 1 !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-contact-form__summary {
+    grid-template-columns: 1fr !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-contact-form__summary small {
+    text-align: start !important;
+  }
+
+  html body.gm-interior-route .site-footer .gm-owned-prefooter {
+    grid-template-columns: 1fr !important;
+  }
+
+  html body.gm-interior-route .site-footer__grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  html body.gm-interior-route .site-footer__bottom {
+    display: grid !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gm-route-transition,
+  html body.gm-interior-route .gm-page *,
+  html body.gm-interior-route .gm-owned-header * {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

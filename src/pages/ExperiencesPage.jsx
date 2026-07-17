@@ -1,10 +1,10 @@
 import PageHero from '../components/PageHero'
 import GallerySlider from '../components/GallerySlider'
-import SignatureExperience from '../components/SignatureExperience'
 import Icon from '../components/Icon'
 import Link from '../router/Link'
 import { brandMoments, experiences } from '../data/siteData'
 import { useSeo } from '../hooks/usePageEffects'
+import { getInteriorCopy } from '../i18n/interiorCopy'
 
 const experienceVisuals = {
   'Bien-être': {
@@ -41,62 +41,62 @@ const experienceGallery = [
   ['/assets/official/restaurant-official.jpg', 'Gastronomie', 'Tables marocaines, salons de thé et moments gourmands'],
   ['/assets/legacy/agadir-pool.jpg', 'Loisirs', 'Piscines, Aqua Fun, familles et lumière de vacances'],
   ['/assets/official/dest-marrakech-official.jpg', 'Culture', 'Médinas, patrimoine, palmeraies et destinations vivantes'],
-  ['https://u.profitroom.pl/2020-mogadorhotels-com/thumb/0x900/uploads/Tanger/Piscinecouverte2.jpg', 'Évasion', 'Vue mer, respiration méditerranéenne et parenthèse sensorielle'],
+  ['/assets/legacy/sea-pool.jpg', 'Évasion', 'Vue mer, respiration méditerranéenne et parenthèse sensorielle'],
 ]
 
 export default function ExperiencesPage({ t, lang }) {
   const [title, text] = t.pages.experiences
+  const copy = getInteriorCopy(lang).experiences
+  const localizedGallery = experienceGallery.map(([image], index) => [image, copy.cards[index % copy.cards.length][1], copy.cards[index % copy.cards.length][2]])
   useSeo({ title: `${title} | Mogador Hotels & Resorts`, description: text, lang })
 
   return (
     <div className="gm-page gm-experiences-page">
-      <PageHero eyebrow="Expériences" title={title} text={text} image="/assets/official/spa-official.jpg" primary={{ to: '/#reservation', label: t.common.bookDirect }} secondary={{ to: '/destinations', label: t.nav.destinations }} t={t} />
+      <PageHero eyebrow={copy.eyebrow} title={title} text={text} image="/assets/official/spa-official.jpg" primary={{ to: '/#reservation', label: t.common.bookDirect }} secondary={{ to: '/destinations', label: t.nav.destinations }} t={t} />
 
-      <SignatureExperience variant="experiences" cta="/#reservation" />
-
-      <section className="gm-brand-moments" aria-label="Expériences officielles Mogador">
-        {brandMoments.map((moment, index) => (
-          <article className={`gm-story-row ${index % 2 ? 'gm-story-row--reverse' : ''} gm-reveal`} key={moment.title}>
-            <figure><img src={moment.image} alt={moment.title} loading="lazy" /></figure>
+      <section className="gm-brand-moments" aria-label={copy.officialAria}>
+        {copy.brandMoments.map(([label, title, body], index) => (
+          <article className={`gm-story-row ${index % 2 ? 'gm-story-row--reverse' : ''} gm-reveal`} key={title}>
+            <figure><img src={brandMoments[index].image} alt={title} loading="lazy" /></figure>
             <div>
-              <span className="gm-label">{moment.label}</span>
-              <h2>{moment.title}</h2>
-              <p>{moment.text}</p>
+              <span className="gm-label">{label}</span>
+              <h2>{title}</h2>
+              <p>{body}</p>
             </div>
           </article>
         ))}
       </section>
 
-      <section className="gm-page-section gm-experience-index" aria-label="Catégories d’expériences">
+      <section className="gm-page-section gm-experience-index" aria-label={copy.category}>
         <div className="gm-section-head gm-reveal">
-          <span className="gm-label">Catégories</span>
-          <h2>Des portes d’entrée orientées séjour, pas des cartes interchangeables.</h2>
+          <span className="gm-label">{copy.category}</span>
+          <h2>{copy.categoryTitle}</h2>
         </div>
         <div className="gm-experience-index__grid gm-experience-index__grid--visual">
           {experiences.map((experience, index) => (
-            <article className="gm-experience-card gm-reveal" style={{ '--delay': `${index * 70}ms` }} key={experience.slug}>
+            <article id={experience.slug} className="gm-experience-card gm-reveal gm-depth-object" style={{ '--delay': `${index * 70}ms` }} key={experience.slug}>
               <figure>
                 <img src={(experienceVisuals[experience.title]?.image || fallbackExperienceImages[index])} alt={experience.title} loading="lazy" />
               </figure>
               <div>
                 <Icon name={index === 0 ? 'spa' : index === 1 ? 'dining' : index === 2 ? 'leisure' : 'local'} />
-                <span>{experienceVisuals[experience.title]?.label || 'Moment Mogador'}</span>
-                <h3>{experience.title}</h3>
-                <p>{experienceVisuals[experience.title]?.text || experience.text}</p>
-                <div className="gm-keyword-line">{experience.moments.map((moment) => <span key={moment}>{moment}</span>)}</div>
-                <Link to="/#reservation">Réserver une expérience</Link>
+                <span>{copy.cards[index]?.[0] || experienceVisuals[experience.title]?.label}</span>
+                <h3>{copy.cards[index]?.[1] || experience.title}</h3>
+                <p>{copy.cards[index]?.[2] || experience.text}</p>
+                <div className="gm-keyword-line">{(lang === 'fr' ? experience.moments : copy.cards[index].slice(0, 2)).map((moment) => <span key={moment}>{moment}</span>)}</div>
+                <Link to="/#reservation">{copy.book}</Link>
               </div>
             </article>
           ))}
         </div>
       </section>
 
-      <section className="gm-offer-gallery gm-experience-gallery gm-page-section" aria-label="Galerie expériences Mogador">
+      <section className="gm-offer-gallery gm-experience-gallery gm-page-section" aria-label={copy.galleryLabel}>
         <div className="gm-section-head gm-reveal">
-          <span className="gm-label">Galerie</span>
-          <h2>Bien-être, gastronomie et moments de vie à composer autour du séjour.</h2>
+          <span className="gm-label">{copy.gallery}</span>
+          <h2>{copy.galleryTitle}</h2>
         </div>
-        <GallerySlider items={experienceGallery} label="Galerie expériences Mogador" />
+        <GallerySlider items={localizedGallery} label={copy.galleryLabel} t={t} lang={lang} />
       </section>
     </div>
   )

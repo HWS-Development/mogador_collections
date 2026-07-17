@@ -1,11 +1,16 @@
 import { useEffect, useState } from 'react'
 
-export default function GallerySlider({ items, label = 'Galerie', className = '' }) {
+export default function GallerySlider({ items, label = 'Galerie', className = '', t, lang = 'fr' }) {
   const slides = items.filter(Boolean).map((item) => (Array.isArray(item) ? { image: item[0], title: item[1], text: item[2] } : item))
   const [active, setActive] = useState(0)
-  const [paused, setPaused] = useState(false)
+  const [manualPaused, setManualPaused] = useState(false)
+  const [interactionPaused, setInteractionPaused] = useState(false)
+  const [hiddenPaused, setHiddenPaused] = useState(false)
   const [announcement, setAnnouncement] = useState('')
   const count = slides.length
+  const paused = manualPaused || interactionPaused || hiddenPaused
+  const copy = t?.common || {}
+  const isRtl = lang === 'ar'
 
   useEffect(() => {
     setActive(0)
@@ -22,7 +27,7 @@ export default function GallerySlider({ items, label = 'Galerie', className = ''
   }, [count, paused])
 
   useEffect(() => {
-    const onVisibilityChange = () => setPaused(document.hidden)
+    const onVisibilityChange = () => setHiddenPaused(document.hidden)
     document.addEventListener('visibilitychange', onVisibilityChange)
     return () => document.removeEventListener('visibilitychange', onVisibilityChange)
   }, [])
@@ -35,14 +40,14 @@ export default function GallerySlider({ items, label = 'Galerie', className = ''
   const go = (direction) => {
     setActive((value) => {
       const nextIndex = (value + direction + count) % count
-      setAnnouncement(`Image ${nextIndex + 1} sur ${count}${slides[nextIndex].title ? `: ${slides[nextIndex].title}` : ''}`)
+      setAnnouncement(`${copy.image || 'Image'} ${nextIndex + 1} ${copy.of || 'sur'} ${count}${slides[nextIndex].title ? `: ${slides[nextIndex].title}` : ''}`)
       return nextIndex
     })
   }
 
   const onKeyDown = (event) => {
-    if (event.key === 'ArrowLeft') go(-1)
-    if (event.key === 'ArrowRight') go(1)
+    if (event.key === 'ArrowLeft') go(isRtl ? 1 : -1)
+    if (event.key === 'ArrowRight') go(isRtl ? -1 : 1)
   }
 
   return (
@@ -52,14 +57,14 @@ export default function GallerySlider({ items, label = 'Galerie', className = ''
       aria-label={label}
       tabIndex={0}
       onKeyDown={onKeyDown}
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-      onFocusCapture={() => setPaused(true)}
+      onMouseEnter={() => setInteractionPaused(true)}
+      onMouseLeave={() => setInteractionPaused(false)}
+      onFocusCapture={() => setInteractionPaused(true)}
       onBlurCapture={(event) => {
-        if (!event.currentTarget.contains(event.relatedTarget)) setPaused(false)
+        if (!event.currentTarget.contains(event.relatedTarget)) setInteractionPaused(false)
       }}
     >
-      <button className="gm-fs-gallery__arrow gm-fs-gallery__arrow--prev" type="button" onClick={() => go(-1)} aria-label="Image précédente">‹</button>
+      <button className="gm-fs-gallery__arrow gm-fs-gallery__arrow--prev" type="button" onClick={() => go(-1)} aria-label={copy.previousImage || 'Image précédente'}>‹</button>
       <div className="gm-fs-gallery__stage">
         {count > 1 ? <SlidePreview slide={previous} side="previous" /> : null}
         <figure className="gm-fs-gallery__slide gm-fs-gallery__slide--active" key={`${current.image}-${active}`}>
@@ -73,10 +78,15 @@ export default function GallerySlider({ items, label = 'Galerie', className = ''
         </figure>
         {count > 1 ? <SlidePreview slide={next} side="next" /> : null}
       </div>
-      <button className="gm-fs-gallery__arrow gm-fs-gallery__arrow--next" type="button" onClick={() => go(1)} aria-label="Image suivante">›</button>
+      <button className="gm-fs-gallery__arrow gm-fs-gallery__arrow--next" type="button" onClick={() => go(1)} aria-label={copy.nextImage || 'Image suivante'}>›</button>
       <div className="gm-fs-gallery__counter" aria-live="polite">
-        {announcement || `${label}, ${count} image${count > 1 ? 's' : ''}`}
+        {announcement || `${label}, ${count} ${copy.images || (count > 1 ? 'images' : 'image')}`}
       </div>
+      {count > 1 ? (
+        <button className="gm-fs-gallery__pause" type="button" aria-pressed={manualPaused} onClick={() => setManualPaused((value) => !value)}>
+          {manualPaused ? (copy.resume || 'Reprendre') : (copy.pause || 'Pause')}
+        </button>
+      ) : null}
     </div>
   )
 }

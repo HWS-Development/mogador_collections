@@ -1,0 +1,1372 @@
+/* Active conversion layer. Loaded after the legacy stylesheet on purpose. */
+:root {
+  --mc-red: #9a1917;
+  --mc-red-dark: #741210;
+  --mc-blue: #2c2f4d;
+  --mc-beige: #bfa593;
+  --mc-paper: #f7f2ec;
+  --mc-white: #fffdf9;
+  --mc-ink: #1d1d1b;
+  --mc-muted: rgba(29, 29, 27, 0.66);
+  --mc-line: rgba(44, 47, 77, 0.14);
+  --mc-gutter: clamp(1.25rem, 4vw, 4.5rem);
+  --mc-content: 1440px;
+}
+
+/* Header: expose the routes guests use most instead of hiding everything. */
+html body .gm-owned-header {
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  display: grid !important;
+  grid-template-columns: auto minmax(0, 1fr) auto !important;
+  gap: clamp(1rem, 2.4vw, 2.75rem) !important;
+  width: 100% !important;
+  min-height: 78px !important;
+  padding: 0 var(--mc-gutter) !important;
+  border: 0 !important;
+  border-bottom: 1px solid rgba(154, 25, 23, 0.14) !important;
+  border-radius: 0 !important;
+  color: var(--mc-ink) !important;
+  background: rgba(255, 253, 249, 0.96) !important;
+  box-shadow: 0 12px 42px rgba(29, 29, 27, 0.09) !important;
+  backdrop-filter: blur(18px) saturate(1.08) !important;
+}
+
+html body:not(.gm-header-compact):not(.gm-menu-open) .gm-owned-header,
+html body.gm-header-compact .gm-owned-header,
+html body .gm-owned-header.gm-owned-header--open {
+  left: 0 !important;
+  right: 0 !important;
+  border-color: rgba(154, 25, 23, 0.14) !important;
+  color: var(--mc-ink) !important;
+  background: rgba(255, 253, 249, 0.96) !important;
+  box-shadow: 0 12px 42px rgba(29, 29, 27, 0.09) !important;
+}
+
+html body .gm-owned-header::after {
+  height: 2px !important;
+  background: var(--mc-red) !important;
+}
+
+html body .gm-owned-header .site-logo {
+  width: clamp(104px, 8vw, 128px) !important;
+  min-width: clamp(104px, 8vw, 128px) !important;
+  height: auto !important;
+}
+
+html body .gm-owned-header .site-logo img {
+  width: 100% !important;
+  height: auto !important;
+  opacity: 1 !important;
+  filter: none !important;
+  transform: none !important;
+}
+
+html body:not(.gm-header-compact):not(.gm-menu-open) .gm-owned-header .site-logo img,
+html body.gm-header-compact .gm-owned-header .site-logo img,
+html body .gm-owned-header.gm-owned-header--open .site-logo img {
+  filter: none !important;
+  transform: none !important;
+}
+
+html body .gm-header-primary {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  align-self: stretch;
+  gap: clamp(1rem, 2vw, 2.2rem);
+}
+
+html body .gm-header-primary a {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  color: rgba(29, 29, 27, 0.72);
+  font-family: var(--title-font);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  transition: color 180ms ease;
+}
+
+html body .gm-header-primary a::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background: var(--mc-red);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 240ms var(--ease);
+}
+
+html body .gm-header-primary a:hover,
+html body .gm-header-primary a:focus-visible,
+html body .gm-header-primary a[aria-current="page"] {
+  color: var(--mc-red);
+}
+
+html body .gm-header-primary a:hover::after,
+html body .gm-header-primary a:focus-visible::after,
+html body .gm-header-primary a[aria-current="page"]::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+html body .gm-owned-header .header-actions {
+  gap: 0.55rem !important;
+}
+
+html body .gm-owned-header .language-switcher {
+  min-height: 42px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+
+html body .gm-owned-header .language-switcher button {
+  min-width: 34px !important;
+  min-height: 42px !important;
+  padding: 0.35rem !important;
+  color: rgba(29, 29, 27, 0.58) !important;
+  background: transparent !important;
+  font-size: 0.66rem !important;
+}
+
+html body .gm-owned-header .language-switcher button.is-active {
+  color: var(--mc-red) !important;
+}
+
+html body .gm-owned-header .reserve-link {
+  min-height: 46px !important;
+  padding: 0.85rem 1.3rem !important;
+  border-color: var(--mc-red) !important;
+  border-radius: 0 !important;
+  color: var(--mc-white) !important;
+  background: var(--mc-red) !important;
+  box-shadow: none !important;
+  font-size: 0.7rem !important;
+}
+
+html body .gm-owned-header .reserve-link:hover,
+html body .gm-owned-header .reserve-link:focus-visible {
+  border-color: var(--mc-blue) !important;
+  background: var(--mc-blue) !important;
+}
+
+html body .gm-owned-header .menu-toggle {
+  display: inline-flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 46px !important;
+  height: 46px !important;
+  min-width: 46px !important;
+  min-height: 46px !important;
+  gap: 5px !important;
+  border: 1px solid rgba(154, 25, 23, 0.2) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  cursor: pointer;
+}
+
+html body .gm-owned-header .menu-toggle span,
+html body .gm-owned-header .menu-toggle span:nth-child(2),
+html body .gm-owned-header .menu-toggle:hover span:nth-child(2) {
+  width: 19px !important;
+  height: 1px !important;
+  margin: 0 !important;
+  background: var(--mc-red) !important;
+}
+
+html body:not(.gm-header-compact):not(.gm-menu-open) .gm-owned-header .menu-toggle,
+html body:not(.gm-header-compact):not(.gm-menu-open) .gm-owned-header .reserve-link,
+html body:not(.gm-header-compact):not(.gm-menu-open) .gm-owned-header .language-switcher button {
+  border-color: rgba(154, 25, 23, 0.2) !important;
+}
+
+html body:not(.gm-header-compact):not(.gm-menu-open) .gm-owned-header .menu-toggle {
+  color: var(--mc-red) !important;
+  background: transparent !important;
+}
+
+html body:not(.gm-header-compact):not(.gm-menu-open) .gm-owned-header .menu-toggle span {
+  background: var(--mc-red) !important;
+}
+
+html body:not(.gm-header-compact):not(.gm-menu-open) .gm-owned-header .language-switcher button {
+  color: rgba(29, 29, 27, 0.58) !important;
+  background: transparent !important;
+}
+
+html body:not(.gm-header-compact):not(.gm-menu-open) .gm-owned-header .reserve-link {
+  color: var(--mc-white) !important;
+  background: var(--mc-red) !important;
+}
+
+html body .gm-owned-header--open .gm-header-primary {
+  visibility: hidden;
+}
+
+/* Homepage hero: the image carries emotion; the search rail carries conversion. */
+html body .gm-rebirth {
+  background: var(--mc-paper) !important;
+  color: var(--mc-ink) !important;
+}
+
+html body .gm-rebirth figure {
+  margin: 0 !important;
+}
+
+html body .gm-rebirth-hero {
+  min-height: clamp(660px, 84svh, 790px) !important;
+  display: grid !important;
+  grid-template-rows: 1fr !important;
+  align-items: end !important;
+  padding: clamp(8rem, 13vh, 10rem) var(--mc-gutter) clamp(5.5rem, 10vh, 7.5rem) !important;
+  background: #111116 !important;
+}
+
+html body .gm-rebirth-hero__media img,
+html body .gm-rebirth-hero__media video {
+  object-position: center 45% !important;
+  filter: saturate(0.82) contrast(1.08) brightness(0.77) !important;
+}
+
+html body .gm-rebirth-hero__veil {
+  background:
+    linear-gradient(90deg, rgba(10, 10, 14, 0.88) 0%, rgba(10, 10, 14, 0.62) 42%, rgba(10, 10, 14, 0.12) 76%),
+    linear-gradient(0deg, rgba(10, 10, 14, 0.58), transparent 52%) !important;
+}
+
+html body .gm-rebirth .gm-rebirth-hero__content {
+  width: min(760px, 68vw) !important;
+  max-width: 760px !important;
+  padding: 0 !important;
+}
+
+html body .gm-rebirth .gm-rebirth-hero__content h1 {
+  max-width: 13ch !important;
+  margin-top: 0.8rem !important;
+  color: var(--mc-white) !important;
+  font-size: clamp(3.25rem, 5.4vw, 5.25rem) !important;
+  font-weight: 400 !important;
+  line-height: 0.96 !important;
+  letter-spacing: -0.045em !important;
+  text-wrap: balance !important;
+}
+
+html body .gm-rebirth .gm-rebirth-hero__content p {
+  max-width: 650px !important;
+  margin-top: 1.25rem !important;
+  color: rgba(255, 255, 255, 0.82) !important;
+  font-size: clamp(1rem, 1.2vw, 1.16rem) !important;
+  line-height: 1.58 !important;
+}
+
+html body .gm-rebirth-hero__actions {
+  display: flex !important;
+  width: auto !important;
+  gap: 0.7rem !important;
+  margin-top: 1.6rem !important;
+}
+
+html body .gm-rebirth .gm-rebirth-button {
+  width: auto !important;
+  min-height: 48px !important;
+  flex: 0 0 auto !important;
+  padding: 0.9rem 1.35rem !important;
+  border-radius: 0 !important;
+  font-size: 0.7rem !important;
+  box-shadow: none !important;
+}
+
+html body .gm-rebirth .gm-rebirth-button--primary:hover,
+html body .gm-rebirth .gm-rebirth-button--primary:focus-visible {
+  border-color: var(--mc-white) !important;
+  color: var(--mc-red) !important;
+  background: var(--mc-white) !important;
+}
+
+html body .gm-rebirth-hero__trust {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  margin-top: 1.35rem;
+}
+
+html body .gm-rebirth-hero__trust span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 0 0.8rem;
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+html body .gm-rebirth-hero__trust span:first-child {
+  padding-left: 0;
+  border-left: 0;
+}
+
+html body .gm-rebirth-hero__pause {
+  top: auto !important;
+  right: var(--mc-gutter) !important;
+  bottom: clamp(5.5rem, 10vh, 7.5rem) !important;
+  left: auto !important;
+  min-height: 42px !important;
+  border-radius: 0 !important;
+  color: rgba(255, 255, 255, 0.82) !important;
+  background: rgba(12, 12, 17, 0.3) !important;
+}
+
+html body .gm-rebirth-booking--home {
+  position: relative !important;
+  z-index: 5 !important;
+  display: grid !important;
+  grid-template-columns: minmax(210px, 0.24fr) minmax(0, 1fr) !important;
+  gap: 0 !important;
+  width: min(var(--mc-content), calc(100% - (2 * var(--mc-gutter)))) !important;
+  margin: clamp(-3rem, -5vw, -2rem) auto 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: var(--mc-white) !important;
+  box-shadow: 0 24px 72px rgba(29, 29, 27, 0.18) !important;
+  scroll-margin-top: 96px;
+}
+
+html body .gm-rebirth-booking__heading {
+  display: grid;
+  align-content: center;
+  gap: 0.3rem;
+  min-height: 102px;
+  padding: 1.2rem 1.4rem;
+  color: var(--mc-white);
+  background: var(--mc-blue);
+}
+
+html body .gm-rebirth-booking__heading span {
+  color: var(--mc-beige);
+  font-size: 0.62rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+html body .gm-rebirth-booking__heading strong {
+  color: var(--mc-white);
+  font-family: var(--title-font);
+  font-size: clamp(0.95rem, 1.25vw, 1.2rem);
+  line-height: 1.2;
+}
+
+/* Booking form variants. Specificity and !important isolate these from legacy passes. */
+html body .booking-bar.booking-bar--hero,
+html body .gm-booking-takeover .booking-bar.booking-bar--takeover {
+  position: relative !important;
+  display: grid !important;
+  align-items: stretch !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0.65rem !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: var(--mc-white) !important;
+  box-shadow: none !important;
+}
+
+html body .booking-bar.booking-bar--hero {
+  grid-template-columns: minmax(120px, 0.8fr) repeat(3, minmax(130px, 1fr)) minmax(150px, 0.85fr) !important;
+}
+
+html body .booking-bar.booking-bar--hero .booking-bar__seal {
+  display: none !important;
+}
+
+html body .booking-bar.booking-bar--hero label,
+html body .booking-bar.booking-bar--hero button,
+html body .gm-booking-takeover .booking-bar.booking-bar--takeover label,
+html body .gm-booking-takeover .booking-bar.booking-bar--takeover button,
+html body .gm-booking-takeover .booking-bar.booking-bar--takeover .booking-bar__seal {
+  min-width: 0 !important;
+  min-height: 72px !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+}
+
+html body .booking-bar.booking-bar--hero label,
+html body .gm-booking-takeover .booking-bar.booking-bar--takeover label {
+  display: grid !important;
+  align-content: center !important;
+  gap: 0.25rem !important;
+  padding: 0.65rem 0.9rem !important;
+  border: 0 !important;
+  border-right: 1px solid var(--mc-line) !important;
+  background: transparent !important;
+}
+
+html body .booking-bar.booking-bar--hero label span,
+html body .gm-booking-takeover .booking-bar.booking-bar--takeover label span {
+  color: rgba(44, 47, 77, 0.58) !important;
+  font-size: 0.61rem !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.13em !important;
+  text-transform: uppercase !important;
+}
+
+html body .booking-bar.booking-bar--hero :where(input, select),
+html body .gm-booking-takeover .booking-bar.booking-bar--takeover :where(input, select) {
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 30px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  color: var(--mc-blue) !important;
+  background: transparent !important;
+  font-size: 0.88rem !important;
+  font-weight: 700 !important;
+}
+
+html body .booking-bar.booking-bar--hero button,
+html body .gm-booking-takeover .booking-bar.booking-bar--takeover button {
+  width: 100% !important;
+  padding: 0.8rem 1rem !important;
+  border: 1px solid var(--mc-red) !important;
+  color: var(--mc-white) !important;
+  background: var(--mc-red) !important;
+  font-size: 0.68rem !important;
+}
+
+html body .booking-bar.booking-bar--hero button:hover,
+html body .booking-bar.booking-bar--hero button:focus-visible,
+html body .gm-booking-takeover .booking-bar.booking-bar--takeover button:hover,
+html body .gm-booking-takeover .booking-bar.booking-bar--takeover button:focus-visible {
+  border-color: var(--mc-blue) !important;
+  background: var(--mc-blue) !important;
+  transform: none !important;
+}
+
+html body .booking-bar.booking-bar--hero > p,
+html body .gm-booking-takeover .booking-bar.booking-bar--takeover > p {
+  grid-column: 1 / -1 !important;
+  margin: 0 !important;
+  padding: 0.15rem 0.35rem 0 !important;
+  color: var(--mc-muted) !important;
+  font-size: 0.72rem !important;
+  line-height: 1.35 !important;
+}
+
+/* Keep the first proof band compact and aligned with the booking rail. */
+html body .gm-rebirth-direct {
+  width: min(var(--mc-content), 100%);
+  margin: 0 auto;
+  padding-top: clamp(2.8rem, 5vw, 4.5rem);
+  border-bottom: 0 !important;
+  background: transparent !important;
+}
+
+html body .gm-rebirth-direct article {
+  padding: 1.4rem clamp(1.25rem, 3vw, 2.5rem) !important;
+  border-top: 1px solid var(--mc-line) !important;
+  border-right: 1px solid var(--mc-line) !important;
+  border-bottom: 1px solid var(--mc-line) !important;
+  background: rgba(255, 253, 249, 0.58);
+}
+
+html body .gm-rebirth-direct article:first-child {
+  border-left: 1px solid var(--mc-line) !important;
+}
+
+html body .gm-rebirth-direct span {
+  font-size: 0.73rem !important;
+}
+
+html body .gm-rebirth-direct p {
+  font-size: 0.9rem !important;
+}
+
+/* Shared homepage grid: one disciplined width across every chapter. */
+html body .gm-rebirth :where(
+  .gm-rebirth-manifesto,
+  .gm-rebirth-destinations,
+  .gm-rebirth-hotels,
+  .gm-rebirth-chapters,
+  .gm-rebirth-mice,
+  .gm-rebirth-final
+) {
+  padding: clamp(4.5rem, 7vw, 7rem) var(--mc-gutter) !important;
+}
+
+html body .gm-rebirth :where(.gm-rebirth-section-head, .gm-rebirth-manifesto__copy, .gm-rebirth-destination-stage, .gm-rebirth-hotels__rail, .gm-rebirth-chapter, .gm-rebirth-mice__copy, .gm-rebirth-mice__stats) {
+  max-width: var(--mc-content);
+  margin-right: auto;
+  margin-left: auto;
+}
+
+html body .gm-rebirth .gm-rebirth-section-head {
+  width: 100% !important;
+  margin-bottom: clamp(1.8rem, 3vw, 2.8rem) !important;
+}
+
+html body .gm-rebirth :where(.gm-rebirth-section-head, .gm-rebirth-manifesto, .gm-rebirth-chapter, .gm-rebirth-mice, .gm-rebirth-final) h2 {
+  max-width: 18ch !important;
+  font-size: clamp(2.25rem, 3.5vw, 3.7rem) !important;
+  line-height: 1.02 !important;
+  letter-spacing: -0.04em !important;
+}
+
+html body .gm-rebirth-manifesto {
+  grid-template-columns: minmax(0, 0.78fr) minmax(380px, 1.22fr) !important;
+}
+
+html body .gm-rebirth-manifesto__copy {
+  margin: 0 !important;
+}
+
+html body .gm-rebirth-manifesto__media {
+  min-height: clamp(460px, 44vw, 650px) !important;
+}
+
+html body .gm-rebirth-destinations {
+  background: var(--mc-white) !important;
+}
+
+html body .gm-rebirth-destination-stage {
+  min-height: clamp(500px, 46vw, 650px) !important;
+  grid-template-columns: minmax(0, 1.2fr) minmax(340px, 0.8fr) !important;
+  background: var(--mc-blue) !important;
+  box-shadow: none !important;
+}
+
+html body .gm-rebirth-destination-tabs button {
+  min-height: 44px !important;
+  border-radius: 0 !important;
+}
+
+html body .gm-rebirth-destination-stage h3 {
+  font-size: clamp(2.7rem, 4vw, 4.2rem) !important;
+}
+
+html body .gm-rebirth-hotels {
+  background: var(--mc-paper) !important;
+}
+
+html body .gm-rebirth-hotels__rail {
+  gap: 1rem !important;
+  background: transparent !important;
+}
+
+html body .gm-rebirth-hotel {
+  border: 1px solid var(--mc-line);
+  background: var(--mc-white) !important;
+}
+
+html body .gm-rebirth-hotel__media {
+  height: clamp(300px, 29vw, 430px) !important;
+}
+
+html body .gm-rebirth-hotel h3 {
+  font-size: clamp(1.65rem, 2.3vw, 2.5rem) !important;
+}
+
+html body .gm-rebirth-chapters {
+  gap: clamp(3.5rem, 6vw, 6rem) !important;
+  background: var(--mc-white) !important;
+}
+
+html body .gm-rebirth-chapter {
+  grid-template-columns: minmax(0, 1.18fr) minmax(320px, 0.82fr) !important;
+}
+
+html body .gm-rebirth-chapter figure {
+  min-height: clamp(400px, 42vw, 580px) !important;
+}
+
+html body .gm-rebirth-mice {
+  grid-template-columns: minmax(300px, 0.72fr) minmax(0, 1.28fr) !important;
+  background: var(--mc-blue) !important;
+}
+
+html body .gm-rebirth-mice__copy,
+html body .gm-rebirth-mice__stats {
+  margin: 0;
+}
+
+html body .gm-rebirth-mice__stats {
+  grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+}
+
+html body .gm-rebirth-mice__stats article {
+  min-height: 150px !important;
+}
+
+html body .gm-rebirth-final {
+  justify-items: start !important;
+  text-align: left !important;
+  background: var(--mc-red) !important;
+}
+
+html body .gm-rebirth-final > * {
+  width: min(var(--mc-content), 100%);
+  margin-right: auto !important;
+  margin-left: auto !important;
+  text-align: left !important;
+}
+
+html body .gm-rebirth-final > div {
+  justify-content: flex-start !important;
+}
+
+html body .gm-rebirth-final .gm-rebirth-button--primary {
+  border-color: var(--mc-white) !important;
+  color: var(--mc-red) !important;
+  background: var(--mc-white) !important;
+}
+
+/* Reservation takeover: dates first, optional browsing second. */
+html body .gm-booking-takeover__panel {
+  inset: 50% auto auto 50% !important;
+  grid-template-columns: minmax(300px, 0.62fr) minmax(560px, 1.38fr) !important;
+  width: min(1480px, calc(100% - 3rem)) !important;
+  height: min(860px, calc(100dvh - 3rem)) !important;
+  max-height: calc(100dvh - 3rem) !important;
+  border: 0 !important;
+  background: var(--mc-paper) !important;
+  transform: translate(-50%, calc(-50% + 24px)) !important;
+}
+
+html body .gm-booking-takeover--open .gm-booking-takeover__panel {
+  transform: translate(-50%, -50%) !important;
+}
+
+html body .gm-booking-takeover__close {
+  top: 1rem !important;
+  right: 1rem !important;
+  min-height: 42px !important;
+  border-radius: 0 !important;
+  color: var(--mc-white) !important;
+  background: rgba(18, 18, 24, 0.64) !important;
+}
+
+html body .gm-booking-takeover__media {
+  clip-path: none !important;
+}
+
+html body .gm-booking-takeover__media span {
+  font-size: clamp(3rem, 6vw, 6.5rem) !important;
+  line-height: 0.86 !important;
+}
+
+html body .gm-booking-takeover__body {
+  gap: 1rem !important;
+  padding: clamp(3.5rem, 5vw, 5rem) clamp(1.25rem, 3.5vw, 3.5rem) clamp(1.5rem, 3vw, 2.5rem) !important;
+}
+
+html body .gm-booking-takeover__body::before {
+  opacity: 0.08 !important;
+}
+
+html body .gm-booking-takeover__intro {
+  display: grid;
+  gap: 0.65rem;
+}
+
+html body .gm-booking-takeover__body h2 {
+  max-width: 14ch !important;
+  font-size: clamp(2.4rem, 4vw, 4.5rem) !important;
+  line-height: 0.96 !important;
+}
+
+html body .gm-booking-takeover__body p {
+  font-size: 0.96rem !important;
+  line-height: 1.55 !important;
+}
+
+html body .gm-booking-takeover__proof {
+  display: flex !important;
+  gap: 0 !important;
+  border-top: 1px solid var(--mc-line);
+  border-bottom: 1px solid var(--mc-line);
+}
+
+html body .gm-booking-takeover__proof :where(strong, a) {
+  display: inline-flex !important;
+  align-items: center !important;
+  min-height: 42px !important;
+  padding: 0.45rem 0.85rem !important;
+  border: 0 !important;
+  border-right: 1px solid var(--mc-line) !important;
+  border-radius: 0 !important;
+  color: var(--mc-red) !important;
+  background: transparent !important;
+  font-size: 0.64rem !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.11em !important;
+  text-transform: uppercase !important;
+}
+
+html body .gm-booking-takeover .booking-bar.booking-bar--takeover {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 1px !important;
+  border: 1px solid var(--mc-line) !important;
+}
+
+html body .gm-booking-takeover .booking-bar.booking-bar--takeover .booking-bar__seal {
+  display: grid !important;
+  align-content: center !important;
+  padding: 0.75rem 0.9rem !important;
+  color: var(--mc-white) !important;
+  background: var(--mc-blue) !important;
+}
+
+html body .gm-booking-takeover .booking-bar.booking-bar--takeover .booking-bar__promo,
+html body .gm-booking-takeover .booking-bar.booking-bar--takeover button {
+  grid-column: span 1 !important;
+}
+
+html body .gm-booking-takeover__alternatives {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 0.35rem;
+}
+
+html body .gm-booking-takeover__alternatives span {
+  color: var(--mc-blue);
+  font-family: var(--title-font);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+html body .gm-booking-takeover__alternatives p {
+  color: var(--mc-muted) !important;
+  font-size: 0.82rem !important;
+}
+
+html body .gm-booking-takeover__intents {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 1px !important;
+  border: 0 !important;
+  background: var(--mc-line) !important;
+}
+
+html body .gm-booking-takeover__intents a {
+  min-height: 118px !important;
+  align-content: start !important;
+  padding: 1rem !important;
+  border: 0 !important;
+  color: var(--mc-ink) !important;
+  background: var(--mc-white) !important;
+  transform: none !important;
+}
+
+html body .gm-booking-takeover__intents a:hover,
+html body .gm-booking-takeover__intents a:focus-visible {
+  color: var(--mc-white) !important;
+  background: var(--mc-red) !important;
+}
+
+html body .gm-booking-takeover__intents strong {
+  font-size: 0.72rem !important;
+}
+
+html body .gm-booking-takeover__intents small {
+  font-size: 0.78rem !important;
+  line-height: 1.4 !important;
+}
+
+/* Persistent conversion access after the hero, without covering desktop content. */
+html body .conversion-dock,
+html body:not(.show-conversion-dock) .conversion-dock,
+html body.show-conversion-dock .conversion-dock {
+  position: fixed !important;
+  top: 50% !important;
+  right: 1rem !important;
+  bottom: auto !important;
+  left: auto !important;
+  z-index: 90 !important;
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  width: 178px !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+  border: 1px solid rgba(44, 47, 77, 0.14) !important;
+  background: var(--mc-white) !important;
+  box-shadow: 0 18px 55px rgba(29, 29, 27, 0.14) !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transform: translate(12px, -50%) !important;
+  transition: opacity 240ms ease, transform 240ms var(--ease), visibility 240ms !important;
+}
+
+html body.show-conversion-dock .conversion-dock {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  transform: translate(0, -50%) !important;
+}
+
+html body.gm-booking-takeover-open .conversion-dock,
+html body.gm-menu-open .conversion-dock {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+html body .conversion-dock__proof {
+  display: grid !important;
+  align-content: center !important;
+  gap: 0.2rem !important;
+  min-height: 72px !important;
+  padding: 0.9rem 1rem !important;
+  color: var(--mc-white) !important;
+  background: var(--mc-blue) !important;
+  writing-mode: horizontal-tb !important;
+}
+
+html body .conversion-dock__proof :where(span, strong) {
+  color: var(--mc-white) !important;
+  white-space: normal !important;
+  writing-mode: horizontal-tb !important;
+}
+
+html body .conversion-dock__proof span {
+  color: rgba(255, 255, 255, 0.66) !important;
+  font-size: 0.58rem !important;
+}
+
+html body .conversion-dock__proof strong {
+  font-size: 0.78rem !important;
+  line-height: 1.2 !important;
+}
+
+html body .conversion-dock__actions {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+}
+
+html body .conversion-dock__actions a {
+  min-height: 45px !important;
+  height: auto !important;
+  padding: 0.7rem 0.85rem !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--mc-line) !important;
+  color: var(--mc-red) !important;
+  background: var(--mc-white) !important;
+  font-size: 0.62rem !important;
+  line-height: 1 !important;
+  letter-spacing: 0.11em !important;
+  white-space: normal !important;
+  writing-mode: horizontal-tb !important;
+}
+
+html body .conversion-dock__actions a:first-child {
+  color: var(--mc-white) !important;
+  background: var(--mc-red) !important;
+}
+
+html body .conversion-dock__actions a:hover,
+html body .conversion-dock__actions a:focus-visible {
+  color: var(--mc-white) !important;
+  background: var(--mc-blue) !important;
+}
+
+@media (min-width: 901px) {
+  html body .conversion-dock,
+  html body:not(.show-conversion-dock) .conversion-dock,
+  html body.show-conversion-dock .conversion-dock {
+    display: none !important;
+  }
+}
+
+@media (max-width: 1180px) {
+  html body .gm-header-primary {
+    display: none;
+  }
+
+  html body .booking-bar.booking-bar--hero {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  html body .booking-bar.booking-bar--hero button,
+  html body .booking-bar.booking-bar--hero > p {
+    grid-column: 1 / -1 !important;
+  }
+
+  html body .gm-rebirth-manifesto,
+  html body .gm-rebirth-destination-stage,
+  html body .gm-rebirth-chapter,
+  html body .gm-rebirth-mice {
+    grid-template-columns: 1fr !important;
+  }
+
+  html body .gm-rebirth-chapter--reverse figure {
+    order: 0 !important;
+  }
+
+  html body .gm-rebirth-mice__stats {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+
+  html body .gm-booking-takeover__panel {
+    grid-template-columns: minmax(260px, 0.45fr) minmax(520px, 1.55fr) !important;
+  }
+
+  html body .gm-booking-takeover__body {
+    padding-right: 1.5rem !important;
+    padding-left: 1.5rem !important;
+  }
+}
+
+@media (max-width: 900px) {
+  main#content {
+    padding-bottom: 58px !important;
+  }
+
+  html body .gm-owned-header,
+  html body .gm-owned-header.site-header {
+    top: 0 !important;
+    right: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    min-height: 68px !important;
+    padding: 0 0.8rem 0 1rem !important;
+  }
+
+  html body .gm-owned-header .site-logo {
+    width: 94px !important;
+    min-width: 94px !important;
+  }
+
+  html body .gm-owned-header .language-switcher,
+  html body .gm-owned-header .reserve-link {
+    display: none !important;
+  }
+
+  html body .gm-rebirth-hero {
+    min-height: max(590px, 82svh) !important;
+    padding: 7.25rem 1rem 3.25rem !important;
+  }
+
+  html body .gm-rebirth .gm-rebirth-hero__content {
+    width: min(100%, 620px) !important;
+    max-width: 100% !important;
+  }
+
+  html body .gm-rebirth .gm-rebirth-hero__content h1 {
+    max-width: 12ch !important;
+    font-size: clamp(2.55rem, 10.5vw, 4rem) !important;
+    line-height: 0.98 !important;
+  }
+
+  html body .gm-rebirth .gm-rebirth-hero__content p {
+    font-size: 0.98rem !important;
+  }
+
+  html body .gm-rebirth-hero__pause {
+    top: 5.15rem !important;
+    right: 1rem !important;
+    bottom: auto !important;
+  }
+
+  html body .gm-rebirth-booking--home {
+    grid-template-columns: 1fr !important;
+    width: calc(100% - 2rem) !important;
+    margin: -1.5rem auto 0 !important;
+  }
+
+  html body .gm-rebirth-booking__heading {
+    min-height: 84px;
+  }
+
+  html body .gm-rebirth-destination-tabs {
+    position: static !important;
+    order: -1 !important;
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 0.5rem !important;
+    width: 100% !important;
+    max-width: none !important;
+    padding: 1rem !important;
+    background: var(--mc-blue) !important;
+  }
+
+  html body .gm-rebirth-destination-tabs button {
+    width: 100% !important;
+  }
+
+  html body .gm-rebirth-destination-tabs button:last-child {
+    grid-column: 1 / -1;
+  }
+
+  html body .gm-rebirth-hotels__rail {
+    grid-template-columns: 1fr !important;
+  }
+
+  html body .gm-rebirth-hotel__media {
+    height: clamp(300px, 70vw, 430px) !important;
+  }
+
+  html body .gm-booking-takeover__panel {
+    inset: 0 !important;
+    display: block !important;
+    width: 100% !important;
+    height: 100dvh !important;
+    max-width: none !important;
+    max-height: 100dvh !important;
+    overflow-y: auto !important;
+    transform: translateY(20px) !important;
+  }
+
+  html body .gm-booking-takeover--open .gm-booking-takeover__panel {
+    transform: none !important;
+  }
+
+  html body .gm-booking-takeover__media {
+    display: none !important;
+  }
+
+  html body .gm-booking-takeover__close {
+    position: fixed !important;
+  }
+
+  html body .gm-booking-takeover__body {
+    overflow: visible !important;
+    padding: 4.5rem 1rem 2rem !important;
+  }
+
+  html body .gm-booking-takeover__body h2 {
+    font-size: clamp(2.3rem, 10vw, 3.4rem) !important;
+  }
+
+  html body .gm-booking-takeover .booking-bar.booking-bar--takeover {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  html body .gm-booking-takeover .booking-bar.booking-bar--takeover button,
+  html body .gm-booking-takeover .booking-bar.booking-bar--takeover > p {
+    grid-column: 1 / -1 !important;
+  }
+
+  html body .conversion-dock,
+  html body:not(.show-conversion-dock) .conversion-dock,
+  html body.show-conversion-dock .conversion-dock {
+    position: fixed !important;
+    inset: auto 0 0 !important;
+    display: block !important;
+    width: 100% !important;
+    height: 58px !important;
+    min-height: 58px !important;
+    overflow: hidden !important;
+    border-width: 1px 0 0 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    transform: none !important;
+  }
+
+  html body .conversion-dock__proof {
+    display: none !important;
+  }
+
+  html body .conversion-dock__actions {
+    display: grid !important;
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+  }
+
+  html body .conversion-dock__actions a {
+    min-height: 58px !important;
+    height: 58px !important;
+    padding: 0.5rem 0.2rem !important;
+    border-right: 1px solid var(--mc-line) !important;
+    border-bottom: 0 !important;
+    font-size: clamp(0.52rem, 2.2vw, 0.64rem) !important;
+    text-align: center !important;
+  }
+
+  html body.gm-booking-takeover-open .conversion-dock,
+  html body.gm-menu-open .conversion-dock {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+}
+
+@media (max-width: 620px) {
+  html body .gm-rebirth-hero {
+    min-height: max(620px, 86svh) !important;
+  }
+
+  html body .gm-rebirth-hero__actions {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    width: 100% !important;
+  }
+
+  html body .gm-rebirth .gm-rebirth-button {
+    width: 100% !important;
+  }
+
+  html body .gm-rebirth-hero__trust span:last-child {
+    display: none;
+  }
+
+  html body .booking-bar.booking-bar--hero {
+    grid-template-columns: 1fr !important;
+    padding: 0.75rem !important;
+  }
+
+  html body .booking-bar.booking-bar--hero > * {
+    grid-column: 1 !important;
+  }
+
+  html body .booking-bar.booking-bar--hero label {
+    min-height: 62px !important;
+    border-right: 0 !important;
+    border-bottom: 1px solid var(--mc-line) !important;
+  }
+
+  html body .gm-rebirth-direct {
+    grid-template-columns: 1fr !important;
+    width: calc(100% - 2rem);
+  }
+
+  html body .gm-rebirth-direct article {
+    border-left: 1px solid var(--mc-line) !important;
+    border-top: 0 !important;
+  }
+
+  html body .gm-rebirth-direct article:first-child {
+    border-top: 1px solid var(--mc-line) !important;
+  }
+
+  html body .gm-rebirth :where(
+    .gm-rebirth-manifesto,
+    .gm-rebirth-destinations,
+    .gm-rebirth-hotels,
+    .gm-rebirth-chapters,
+    .gm-rebirth-mice,
+    .gm-rebirth-final
+  ) {
+    padding: 4rem 1rem !important;
+  }
+
+  html body .gm-rebirth :where(.gm-rebirth-section-head, .gm-rebirth-manifesto, .gm-rebirth-chapter, .gm-rebirth-mice, .gm-rebirth-final) h2 {
+    font-size: clamp(2rem, 9vw, 2.75rem) !important;
+  }
+
+  html body .gm-rebirth-destination-stage figure,
+  html body .gm-rebirth-chapter figure,
+  html body .gm-rebirth-manifesto__media {
+    min-height: 340px !important;
+  }
+
+  html body .gm-rebirth-destination-tabs {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  html body .gm-rebirth-destination-tabs button {
+    width: 100%;
+  }
+
+  html body .gm-rebirth-mice__stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  html body .gm-booking-takeover__proof {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+
+  html body .gm-booking-takeover__proof :where(strong, a) {
+    justify-content: center !important;
+    padding: 0.35rem !important;
+    border-right: 1px solid var(--mc-line) !important;
+    border-bottom: 0 !important;
+    font-size: 0.53rem !important;
+    line-height: 1.2 !important;
+    text-align: center !important;
+  }
+
+  html body .gm-booking-takeover .booking-bar.booking-bar--takeover {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  html body .gm-booking-takeover .booking-bar.booking-bar--takeover .booking-bar__seal,
+  html body .gm-booking-takeover .booking-bar.booking-bar--takeover label:nth-of-type(1),
+  html body .gm-booking-takeover .booking-bar.booking-bar--takeover button,
+  html body .gm-booking-takeover .booking-bar.booking-bar--takeover > p {
+    grid-column: 1 / -1 !important;
+  }
+
+  html body .gm-booking-takeover__intents {
+    grid-template-columns: 1fr !important;
+  }
+
+  html body .gm-booking-takeover .booking-bar.booking-bar--takeover label,
+  html body .gm-booking-takeover .booking-bar.booking-bar--takeover .booking-bar__seal {
+    min-height: 62px !important;
+    border-right: 0 !important;
+    border-bottom: 1px solid var(--mc-line) !important;
+  }
+
+  html body .gm-booking-takeover__alternatives {
+    display: grid;
+    gap: 0.35rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html body .gm-rebirth *,
+  html body .gm-owned-header *,
+  html body .gm-booking-takeover * {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Critical interior conversion routes. */
+html body .gm-page :where(.gm-hotel-sales-panel, .gm-hotel-booking-panel, .gm-offer-engine) .booking-bar {
+  grid-template-columns: 170px minmax(190px, 1.2fr) repeat(2, minmax(140px, 0.9fr)) minmax(150px, 0.9fr) minmax(125px, 0.72fr) minmax(190px, 1fr) !important;
+  gap: 0.6rem !important;
+  padding: 0.7rem !important;
+  border-radius: 0 !important;
+}
+
+html body .gm-page :where(.gm-hotel-sales-panel, .gm-hotel-booking-panel, .gm-offer-engine) .booking-bar :where(.booking-bar__seal, label, button) {
+  min-width: 0 !important;
+  min-height: 70px !important;
+  border-radius: 0 !important;
+}
+
+html body .gm-page :where(.gm-hotel-sales-panel, .gm-hotel-booking-panel, .gm-offer-engine) .booking-bar :where(input, select) {
+  min-width: 0 !important;
+  font-size: 0.86rem !important;
+}
+
+html body .gm-page :where(.gm-hotel-sales-panel, .gm-hotel-booking-panel, .gm-offer-engine) .booking-bar button {
+  width: 100% !important;
+  min-width: 0 !important;
+}
+
+html body .gm-page :where(.gm-hotel-sales-panel, .gm-hotel-booking-panel, .gm-offer-engine) .booking-bar > p {
+  grid-column: 2 / -1 !important;
+  margin: 0 !important;
+  padding: 0 0.25rem !important;
+}
+
+html body .gm-offers-page .gm-offer-engine .booking-bar {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+}
+
+html body .gm-offers-page .gm-offer-engine .booking-bar button,
+html body .gm-offers-page .gm-offer-engine .booking-bar > p {
+  grid-column: 1 / -1 !important;
+}
+
+html body .gm-contact-form__summary {
+  grid-column: 1 / -1 !important;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.55rem 1rem;
+  min-height: 68px;
+  padding: 0.85rem 1rem;
+  color: var(--mc-white);
+  background: var(--mc-blue);
+}
+
+html body .gm-contact-form__summary span {
+  color: var(--mc-beige) !important;
+  font-size: 0.62rem !important;
+  font-weight: 900;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+html body .gm-contact-form__summary strong {
+  min-width: 0;
+  color: var(--mc-white);
+  font-family: var(--title-font);
+  font-size: 1rem;
+  line-height: 1.2;
+}
+
+html body .gm-contact-form__summary small {
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 0.74rem;
+  line-height: 1.35;
+  text-align: right;
+}
+
+html body .gm-hotel-page .gm-hotel-slider {
+  color: var(--mc-ink) !important;
+  background: var(--mc-white) !important;
+}
+
+html body .gm-hotel-page .gm-hotel-slider .gm-section-head :where(h2, p) {
+  color: var(--mc-ink) !important;
+}
+
+html body .gm-hotel-page .gm-hotel-slider .gm-section-head .gm-label {
+  color: var(--mc-red) !important;
+}
+
+@media (max-width: 1180px) {
+  html body .gm-page :where(.gm-hotel-sales-panel, .gm-hotel-booking-panel) .booking-bar {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+
+  html body .gm-page :where(.gm-hotel-sales-panel, .gm-hotel-booking-panel) .booking-bar button,
+  html body .gm-page :where(.gm-hotel-sales-panel, .gm-hotel-booking-panel) .booking-bar > p {
+    grid-column: 1 / -1 !important;
+  }
+}
+
+@media (max-width: 760px) {
+  html body .gm-page :where(.gm-hotel-sales-panel, .gm-hotel-booking-panel, .gm-offer-engine) .booking-bar {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  html body .gm-page :where(.gm-hotel-sales-panel, .gm-hotel-booking-panel, .gm-offer-engine) .booking-bar :where(.booking-bar__seal, button, p) {
+    grid-column: 1 / -1 !important;
+  }
+
+  html body .gm-contact-form__summary {
+    grid-template-columns: 1fr;
+  }
+
+  html body .gm-contact-form__summary small {
+    text-align: left;
+  }
+}
+
+@media (max-width: 520px) {
+  html body .gm-page :where(.gm-hotel-sales-panel, .gm-hotel-booking-panel, .gm-offer-engine) .booking-bar {
+    grid-template-columns: 1fr !important;
+  }
+
+  html body .gm-page :where(.gm-hotel-sales-panel, .gm-hotel-booking-panel, .gm-offer-engine) .booking-bar > * {
+    grid-column: 1 !important;
+  }
+}

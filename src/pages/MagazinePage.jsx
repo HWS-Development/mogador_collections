@@ -1,9 +1,9 @@
 import PageHero from '../components/PageHero'
 import GallerySlider from '../components/GallerySlider'
-import SignatureExperience from '../components/SignatureExperience'
 import Link from '../router/Link'
 import { magazineArticles } from '../data/siteData'
 import { useSeo } from '../hooks/usePageEffects'
+import { getInteriorCopy } from '../i18n/interiorCopy'
 
 const articleVisuals = {
   'hotel-marrakech-sejour-famille': {
@@ -42,49 +42,50 @@ const magazineGallery = [
 
 export default function MagazinePage({ t, lang }) {
   const [title, text] = t.pages.magazine
+  const copy = getInteriorCopy(lang).magazine
   const [featured, ...articles] = magazineArticles
   const featuredVisual = articleVisuals[featured.slug]
+  const featuredCopy = copy.articles[0]
   useSeo({ title: `${title} | Mogador Hotels & Resorts`, description: text, lang })
 
   return (
     <div className="gm-page gm-magazine-page">
-      <PageHero eyebrow="Magazine" title={title} text={text} image="/assets/official/dest-essaouira-official.jpg" primary={{ to: '/#reservation', label: t.common.bookDirect }} secondary={{ to: '/destinations', label: t.nav.destinations }} t={t} />
+      <PageHero eyebrow={copy.eyebrow} title={title} text={text} image="/assets/official/dest-essaouira-official.jpg" primary={{ to: '/#reservation', label: t.common.bookDirect }} secondary={{ to: '/destinations', label: t.nav.destinations }} t={t} />
 
-      <SignatureExperience variant="destinations" title="Guides et inspirations pour préparer votre séjour Mogador." text="Retrouvez des idées de destinations, de séjours famille, de bien-être, d’événements et d’escapades au Maroc." cta="/destinations" />
-
-      <section className="gm-magazine-feature gm-page-section" aria-label="Article à la une Mogador">
+      <section className="gm-magazine-feature gm-page-section" aria-label={copy.featured}>
         <figure>
-          <img src={featuredVisual.image} alt={featured.title} loading="lazy" />
+          <img src={featuredVisual.image} alt={featuredCopy[2]} loading="lazy" />
         </figure>
         <div>
-          <span className="gm-label">À la une / {featuredVisual.read}</span>
-          <h2>{featured.title}</h2>
-          <p>{featuredVisual.body}</p>
-          <div className="gm-keyword-line">{featured.keywords.map((keyword) => <span key={keyword}>{keyword}</span>)}</div>
+          <span className="gm-label">{copy.featured} / {featuredCopy[1]}</span>
+          <h2>{featuredCopy[2]}</h2>
+          <p>{featuredCopy[3]}</p>
+          <div className="gm-keyword-line">{(lang === 'fr' ? featured.keywords : [featuredCopy[0], title]).map((keyword) => <span key={keyword}>{keyword}</span>)}</div>
           <div className="gm-actions">
-            <Link className="gm-button gm-button--primary" to="/#reservation" data-track="magazine_feature_booking">Réserver ce séjour</Link>
-            <Link className="gm-button gm-button--secondary-dark" to="/destinations" data-track="magazine_feature_destinations">Explorer les destinations</Link>
+            <Link className="gm-button gm-button--primary" to="/#reservation" data-track="magazine_feature_booking">{copy.book}</Link>
+            <Link className="gm-button gm-button--secondary-dark" to="/destinations" data-track="magazine_feature_destinations">{copy.explore}</Link>
           </div>
         </div>
       </section>
 
-      <section className="gm-editorial-grid gm-page-section" aria-label="Articles magazine Mogador">
+      <section className="gm-editorial-grid gm-page-section" aria-label={copy.guides}>
         <div className="gm-section-head gm-reveal">
-          <span className="gm-label">Guides & inspirations</span>
-          <h2>Des guides pour choisir votre destination et votre hôtel.</h2>
+          <span className="gm-label">{copy.guides}</span>
+          <h2>{copy.guidesTitle}</h2>
         </div>
         <div className="gm-editorial-grid__cards">
           {articles.map((article, index) => {
             const visual = articleVisuals[article.slug]
+            const articleCopy = copy.articles[index + 1]
             return (
               <article className="gm-editorial-card gm-reveal" style={{ '--delay': `${index * 70}ms` }} key={article.slug}>
-                <img src={visual.image} alt={article.title} loading="lazy" />
+                <img src={visual.image} alt={articleCopy[2]} loading="lazy" />
                 <div>
-                  <span>{visual.kicker} / {visual.read}</span>
-                  <h3>{article.title}</h3>
-                  <p>{visual.body}</p>
-                  <div className="gm-keyword-line">{article.keywords.map((keyword) => <small key={keyword}>{keyword}</small>)}</div>
-                  <Link to="/#reservation" data-track={`magazine_article_booking_${article.slug}`}>Préparer ce séjour</Link>
+                  <span>{articleCopy[0]} / {articleCopy[1]}</span>
+                  <h3>{articleCopy[2]}</h3>
+                  <p>{articleCopy[3]}</p>
+                  <div className="gm-keyword-line">{(lang === 'fr' ? article.keywords : [articleCopy[0], title]).map((keyword) => <small key={keyword}>{keyword}</small>)}</div>
+                  <Link to="/#reservation" data-track={`magazine_article_booking_${article.slug}`}>{copy.prepare}</Link>
                 </div>
               </article>
             )
@@ -92,12 +93,12 @@ export default function MagazinePage({ t, lang }) {
         </div>
       </section>
 
-      <section className="gm-magazine-gallery gm-page-section" aria-label="Galerie inspiration Mogador">
+      <section className="gm-magazine-gallery gm-page-section" aria-label={copy.galleryLabel}>
         <div className="gm-section-head gm-reveal">
-          <span className="gm-label">Carnet visuel</span>
-          <h2>Le Maroc Mogador en images.</h2>
+          <span className="gm-label">{copy.gallery}</span>
+          <h2>{copy.galleryTitle}</h2>
         </div>
-        <GallerySlider items={magazineGallery} label="Galerie inspiration Mogador" />
+        <GallerySlider items={magazineGallery} label={copy.galleryLabel} t={t} lang={lang} />
       </section>
     </div>
   )
