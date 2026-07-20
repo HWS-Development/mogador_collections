@@ -91,7 +91,7 @@ export const translations = {
       pages: {
         about: ['Qui sommes-nous', 'Une marque emblématique de l’hôtellerie marocaine, un art de vivre et des traditions d’excellence.'],
         destinations: ['Destinations Mogador', 'Marrakech, Casablanca, Tanger, Agadir et Essaouira : choisissez la ville et consultez les hôtels disponibles.'],
-      hotels: ['Hôtels Mogador', 'Cinq établissements réservables en direct, avec leurs chambres, services et images issus du moteur officiel.'],
+        hotels: ['Hôtels Mogador', 'Cinq maisons, cinq atmosphères et autant de façons de vivre un séjour qui vous ressemble.'],
       hotel: ['Votre hôtel Mogador', 'Consultez les chambres, restaurants, services, espaces de détente et capacités événementielles de l’établissement.'],
       experiences: ['Expériences', 'Hammams, restaurants, piscines, loisirs et visites sont présentés selon les services de chaque hôtel.'],
       offers: ['Offres', 'Consultez les offres officielles Mogador et préparez votre prochain séjour au Maroc.'],

@@ -1,0 +1,312 @@
+/* Final motion layer: expressive on capable devices, quiet and accessible elsewhere. */
+.gm-home-intro {
+  transform: translate3d(0, 0, 0);
+  transition:
+    transform 820ms var(--gm-ease),
+    visibility 820ms;
+}
+
+.gm-home-intro.is-complete {
+  opacity: 1;
+  transform: translate3d(0, -100%, 0);
+}
+
+.gm-manifesto__copy > p::first-letter {
+  float: inline-start;
+  margin: -0.12em 0.1em -0.18em 0;
+  color: var(--gm-red);
+  font-family: var(--display-font);
+  font-size: 5.4rem;
+  line-height: 1;
+}
+
+.gm-home-divine :where(.gm-home-heading h2, .gm-manifesto__copy h2) {
+  text-wrap: balance;
+}
+
+@media (min-width: 981px) {
+  .gm-experiences-home .gm-home-heading > div:first-child,
+  .gm-collection-home .gm-home-heading > div:first-child {
+    padding-inline-start: clamp(2rem, 4vw, 4.5rem);
+  }
+
+  html body .gm-home-divine :where(
+    .gm-experiences-home,
+    .gm-collection-home
+  ) .gm-home-heading h2 {
+    max-width: 10ch !important;
+  }
+}
+
+@media (max-width: 980px) {
+  .gm-manifesto__composition {
+    display: block;
+  }
+
+  .gm-manifesto__primary {
+    min-height: min(92vw, 680px);
+  }
+
+  .gm-manifesto__primary figcaption {
+    inset-block: auto 0;
+    width: min(340px, 78%);
+  }
+
+  .gm-manifesto__detail {
+    width: 58%;
+    min-height: min(52vw, 400px);
+    margin: 1.5rem clamp(1rem, 5vw, 4rem) 0 auto;
+    border: 8px solid var(--gm-paper);
+  }
+
+  .gm-manifesto__seal {
+    display: none;
+  }
+
+  .gm-manifesto__copy {
+    max-width: 680px;
+    margin-inline: auto;
+    padding: 3.5rem clamp(0rem, 3vw, 2rem) 0;
+  }
+}
+
+.gm-numbers-home article strong {
+  display: inline-block;
+  transition:
+    color 320ms ease,
+    transform 520ms var(--gm-ease);
+}
+
+.gm-home-divine .reveal {
+  opacity: 0;
+  filter: blur(7px);
+  transform: translate3d(var(--gm-reveal-x, 0), 44px, 0) scale(0.985);
+  transition:
+    opacity 900ms var(--gm-ease),
+    filter 900ms var(--gm-ease),
+    transform 900ms var(--gm-ease);
+  transition-delay: var(--delay, 0ms);
+  will-change: opacity, filter, transform;
+}
+
+.gm-home-divine .reveal.is-visible {
+  opacity: 1;
+  filter: blur(0);
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+.gm-home-divine :where(
+  .gm-story__chapter,
+  .gm-home-moment,
+  .gm-direct-proof article
+):nth-child(even) {
+  --gm-reveal-x: 18px;
+}
+
+.gm-home-divine :where(
+  .gm-story__chapter,
+  .gm-home-moment,
+  .gm-direct-proof article
+):nth-child(odd) {
+  --gm-reveal-x: -18px;
+}
+
+.gm-home-divine :where(
+  .gm-experiences-home__grid,
+  .gm-story__chapters,
+  .gm-direct-proof
+) > :nth-child(2) { --delay: 90ms; }
+
+.gm-home-divine :where(
+  .gm-experiences-home__grid,
+  .gm-story__chapters,
+  .gm-direct-proof
+) > :nth-child(3) { --delay: 180ms; }
+
+.gm-home-divine :where(
+  .gm-experiences-home__grid,
+  .gm-story__chapters,
+  .gm-direct-proof
+) > :nth-child(4) { --delay: 270ms; }
+
+:where(.gm-home, .gm-page) :where(
+  .gm-home-moment,
+  .gm-story__chapter,
+  .gm-room-card,
+  .gm-offer-card,
+  .gm-editorial-card,
+  .gm-experience-card,
+  .gm-service-card,
+  .gm-destination-feature,
+  .gm-seminar-type,
+  .gm-contact-hotels__grid article,
+  .gm-magazine-gallery__item
+) {
+  transform: translateZ(0);
+  transition:
+    transform 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 320ms ease,
+    box-shadow 520ms cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+
+:where(.gm-home, .gm-page) :where(
+  .gm-home-moment,
+  .gm-room-card,
+  .gm-offer-card,
+  .gm-editorial-card,
+  .gm-experience-card,
+  .gm-service-card,
+  .gm-destination-feature,
+  .gm-magazine-gallery__item,
+  .gm-hotel-atelier__visual
+) :where(figure, picture, .gm-hotel-tile__media, .gm-room-card__media) {
+  overflow: hidden;
+}
+
+:where(.gm-home, .gm-page) :where(
+  .gm-home-moment,
+  .gm-room-card,
+  .gm-offer-card,
+  .gm-editorial-card,
+  .gm-experience-card,
+  .gm-service-card,
+  .gm-destination-feature,
+  .gm-magazine-gallery__item,
+  .gm-hotel-atelier__visual
+) img {
+  transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1), filter 500ms ease !important;
+}
+
+.gm-home-divine :where(.gm-values__tabs button, .gm-destination-stage__tabs button, .gm-collection-stage__index button),
+.gm-page :where(.gm-hotel-collection__index button, .gm-hotel-collection__filters button) {
+  transition:
+    color 280ms ease,
+    background-color 280ms ease,
+    border-color 280ms ease,
+    padding 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 420ms cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .gm-numbers-home article:hover strong {
+    color: var(--gm-sand-light);
+    transform: translateY(-5px);
+  }
+
+  :where(.gm-home, .gm-page) :where(
+    .gm-home-moment,
+    .gm-story__chapter,
+    .gm-room-card,
+    .gm-offer-card,
+    .gm-editorial-card,
+    .gm-experience-card,
+    .gm-service-card,
+    .gm-destination-feature,
+    .gm-seminar-type,
+    .gm-contact-hotels__grid article,
+    .gm-magazine-gallery__item
+  ):hover {
+    transform: translate3d(0, -8px, 0) !important;
+    box-shadow: 0 28px 70px rgba(24, 22, 20, 0.16) !important;
+  }
+
+  :where(.gm-home, .gm-page) :where(
+    .gm-home-moment,
+    .gm-room-card,
+    .gm-offer-card,
+    .gm-editorial-card,
+    .gm-experience-card,
+    .gm-service-card,
+    .gm-destination-feature,
+    .gm-magazine-gallery__item,
+    .gm-hotel-atelier__visual
+  ):hover img {
+    filter: saturate(1.06) contrast(1.035) !important;
+    transform: scale(1.055) !important;
+  }
+
+  .gm-home-divine :where(.gm-values__tabs button, .gm-destination-stage__tabs button, .gm-collection-stage__index button):hover,
+  .gm-page :where(.gm-hotel-collection__index button, .gm-hotel-collection__filters button):hover {
+    transform: translateX(6px);
+  }
+
+  html[dir="rtl"] .gm-home-divine :where(.gm-values__tabs button, .gm-destination-stage__tabs button, .gm-collection-stage__index button):hover,
+  html[dir="rtl"] .gm-page :where(.gm-hotel-collection__index button, .gm-hotel-collection__filters button):hover {
+    transform: translateX(-6px);
+  }
+}
+
+@media (max-width: 760px) {
+  .gm-manifesto__primary {
+    min-height: min(128vw, 620px);
+  }
+
+  .gm-manifesto__detail {
+    width: 100%;
+    min-height: min(112vw, 520px);
+    margin: 1rem 0 0 auto;
+    border-width: 0;
+  }
+
+  .gm-manifesto__primary figcaption {
+    width: min(300px, 88%);
+    padding: 0.9rem 1rem;
+  }
+
+  .gm-manifesto__copy {
+    max-width: none;
+    padding-top: 2.4rem;
+  }
+
+  html body .gm-home-divine :where(
+    .gm-home-heading h2,
+    .gm-manifesto__copy h2,
+    .gm-values__body h2,
+    .gm-booking-home__heading h2,
+    .gm-final-home h2,
+    .gm-mice-home__copy h2
+  ) {
+    max-width: 12ch !important;
+    font-size: clamp(2.35rem, 9.7vw, 3.7rem) !important;
+    line-height: 0.97 !important;
+    overflow-wrap: normal;
+    hyphens: none;
+  }
+
+  .gm-manifesto__copy > p::first-letter {
+    margin-right: 0.08em;
+    font-size: 3.9rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .gm-manifesto__copy > p::first-letter {
+    float: none;
+    margin: 0;
+    font-size: inherit;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gm-home-intro,
+  .gm-home-intro.is-complete {
+    transition: none !important;
+  }
+
+  .gm-home-divine .reveal,
+  .gm-home-divine .reveal.is-visible {
+    opacity: 1 !important;
+    filter: none !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  :where(.gm-home, .gm-page) *,
+  :where(.gm-home, .gm-page) *::before,
+  :where(.gm-home, .gm-page) *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

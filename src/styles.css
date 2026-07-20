@@ -1467,11 +1467,11 @@ html body .gm-luxury-motion.gm-magazine-page .gm-magazine-gallery__item:hover {
 }
 
 /* Global visibility safety: motion must never leave readable content transparent. */
-html body .gm-page .gm-reveal,
+html body .gm-page:not(.gm-motion-ready) .gm-reveal,
 html body .gm-home .gm-reveal,
-html body .gm-page .gm-reveal > *,
+html body .gm-page:not(.gm-motion-ready) .gm-reveal > *,
 html body .gm-home .gm-reveal > *,
-html body .gm-page .gm-reveal :where(h1, h2, h3, h4, p, span, strong, small, a, img, figure, div),
+html body .gm-page:not(.gm-motion-ready) .gm-reveal :where(h1, h2, h3, h4, p, span, strong, small, a, img, figure, div),
 html body .gm-home .gm-reveal :where(h1, h2, h3, h4, p, span, strong, small, a, img, figure, div) {
   opacity: 1 !important;
   visibility: visible !important;

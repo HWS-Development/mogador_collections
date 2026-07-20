@@ -126,19 +126,42 @@ export function useGmPageMotion(path) {
 
           gsap.utils.toArray('.gm-reveal').forEach((element, index) => {
             gsap.from(element, {
-              y: 30,
+              x: index % 2 === 0 ? -16 : 16,
+              y: 42,
+              scale: 0.985,
               autoAlpha: 0,
-              duration: 0.72,
-              delay: Math.min(index * 0.015, 0.12),
+              filter: 'blur(7px)',
+              duration: 0.9,
+              delay: Math.min(index * 0.018, 0.14),
               ease: 'power3.out',
-              clearProps: 'transform,opacity,visibility',
+              clearProps: 'transform,opacity,visibility,filter',
               immediateRender: false,
               scrollTrigger: {
                 trigger: element,
-                start: 'top 88%',
+                start: 'top 90%',
                 toggleActions: 'play none none none',
               },
             })
+          })
+
+          const motionFigures = new Set(gsap.utils.toArray('figure.gm-reveal, .gm-reveal > figure, .gm-reveal .gm-media-frame'))
+          motionFigures.forEach((figure) => {
+            const image = figure.querySelector('img')
+            gsap.fromTo(figure, { clipPath: 'inset(0 0 14% 0)' }, {
+              clipPath: 'inset(0 0 0% 0)',
+              duration: 1.05,
+              ease: 'power3.out',
+              scrollTrigger: { trigger: figure, start: 'top 90%', toggleActions: 'play none none none' },
+            })
+            if (image) {
+              gsap.fromTo(image, { scale: 1.09 }, {
+                scale: 1,
+                duration: 1.25,
+                ease: 'power3.out',
+                clearProps: 'transform',
+                scrollTrigger: { trigger: figure, start: 'top 90%', toggleActions: 'play none none none' },
+              })
+            }
           })
 
           gsap.utils.toArray('.gm-story-row figure, .gm-business-row figure, .gm-hotel-section figure, .gm-destination-feature figure, .gm-fs-featured-offer figure, .gm-magazine-feature figure, .gm-seminar-human figure').forEach((figure) => {
