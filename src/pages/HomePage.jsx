@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import BookingBar from '../components/BookingBar'
+import ResponsiveImage from '../components/ResponsiveImage'
 import Link from '../router/Link'
 import { images } from '../data/images'
 import { homeMedia } from '../data/homeMedia'
@@ -95,9 +96,9 @@ const homeCopy = {
     },
     collection: {
       eyebrow: 'La collection',
-      title: 'Douze expressions. Une même signature.',
+      title: 'Cinq adresses à réserver. Une même signature.',
       text: 'Palace face à l’Atlas, adresse urbaine, refuge en bord de mer ou séjour en famille : choisissez l’atmosphère qui vous ressemble.',
-      all: 'Voir les 12 hôtels',
+      all: 'Voir les 5 hôtels',
       details: 'Entrer dans la maison',
       book: 'Voir les disponibilités',
       index: 'Sélectionner une maison',
@@ -210,9 +211,9 @@ const homeCopy = {
     },
     collection: {
       eyebrow: 'The collection',
-      title: 'Twelve expressions. One signature.',
+      title: 'Five bookable hotels. One signature.',
       text: 'An Atlas-facing palace, an urban address, a seaside retreat or family escape: choose the atmosphere that feels like you.',
-      all: 'View all 12 hotels',
+      all: 'View all 5 hotels',
       details: 'Enter this hotel',
       book: 'Check availability',
       index: 'Select a hotel',
@@ -321,9 +322,9 @@ const homeCopy = {
     },
     collection: {
       eyebrow: 'مجموعة الفنادق',
-      title: 'اثنا عشر تعبيرا. توقيع واحد.',
+      title: 'خمسة فنادق للحجز. توقيع واحد.',
       text: 'قصر أمام الأطلس أو عنوان حضري أو ملاذ على البحر أو إقامة عائلية: اختاروا الأجواء التي تشبهكم.',
-      all: 'عرض الفنادق الاثني عشر',
+      all: 'عرض الفنادق الخمسة',
       details: 'ادخلوا إلى الفندق',
       book: 'تحققوا من التوفر',
       index: 'اختاروا فندقا',
@@ -390,6 +391,7 @@ export default function HomePage({ t, lang }) {
   const currentValue = copy.values.items[activeValue]
   const bookableHotels = bookableHotelOrder.map((slug) => hotels.find((hotel) => hotel.slug === slug)).filter(Boolean)
   const currentHotel = bookableHotels[activeHotel] || bookableHotels[0]
+  const currentDestinationHotelCount = bookableHotels.filter((hotel) => hotel.destination === currentDestination.name).length
 
   useEffect(() => {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -623,10 +625,10 @@ export default function HomePage({ t, lang }) {
               <span>{copy.destinations.label}</span>
               <h3>{copy.destinations.names[currentDestination.slug]}</h3>
               <p>{copy.destinations.descriptions[currentDestination.slug]}</p>
-              <small>{currentDestination.hotels} {currentDestination.hotels > 1 ? copy.destinations.hotelPlural : copy.destinations.hotelSingular}</small>
+              <small>{currentDestinationHotelCount} {currentDestinationHotelCount === 1 ? copy.destinations.hotelSingular : copy.destinations.hotelPlural}</small>
               <div className="gm-home-actions">
                 <Link className="gm-home-link gm-home-link--light" to={`/destinations#${currentDestination.slug}`}>{copy.destinations.explore}<Arrow /></Link>
-                <Link className="gm-home-cta gm-home-cta--outline" to="#reservation" data-destination={currentDestination.name}>{copy.destinations.stay}</Link>
+                {currentDestinationHotelCount ? <Link className="gm-home-cta gm-home-cta--outline" to="#reservation" data-destination={currentDestination.name}>{copy.destinations.stay}</Link> : null}
               </div>
             </article>
           </div>
@@ -661,7 +663,7 @@ export default function HomePage({ t, lang }) {
         <div className="gm-collection-stage reveal">
           <figure className="gm-collection-stage__media">
             {bookableHotels.map((hotel, index) => (
-              <img className={index === activeHotel ? 'is-active' : ''} src={homeMedia.hotels[hotel.slug] || hotel.image} alt={hotel.name} loading="lazy" decoding="async" key={hotel.slug} />
+              <ResponsiveImage className={index === activeHotel ? 'is-active' : ''} src={homeMedia.hotels[hotel.slug] || hotel.image} sizes="100vw" alt={hotel.name} loading="lazy" decoding="async" key={hotel.slug} />
             ))}
             <figcaption><span>{currentHotel.destination}</span><strong>{currentHotel.category}</strong></figcaption>
           </figure>

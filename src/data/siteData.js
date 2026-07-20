@@ -1,3 +1,6 @@
+import { hotelRunnerData } from './hotelRunnerData.js'
+import { officialHotelDetails } from './officialContent.js'
+
 export const brand = {
   name: 'Mogador Hotels & Resorts',
   phone: '+212 530 530 520',
@@ -138,7 +141,7 @@ export const destinations = [
   },
 ]
 
-export const hotels = [
+const hotelPortfolio = [
   {
     slug: 'grand-mogador-menara',
     name: 'Grand Mogador Menara',
@@ -367,6 +370,44 @@ export const hotels = [
     mice: ['Business travel', 'Petits groupes', 'Transit'],
   },
 ]
+
+function mergeHotelServices(...groups) {
+  const aliases = {
+    'bureau de change 24h/24h': 'bureau de change 24/24',
+    'jardin et parcs de jeux pour les enfants': 'jardin et jeux enfants',
+    'réception 24h/24h': 'réception 24/24',
+    'salles de conférences': 'salles de conférence',
+    "service d'étage 24/24": 'service en chambre 24h/24',
+  }
+  const seen = new Set()
+  return groups.flat().filter((service) => {
+    const normalized = service.toLocaleLowerCase('fr').trim()
+    const key = aliases[normalized] || normalized
+    if (seen.has(key)) return false
+    seen.add(key)
+    return true
+  })
+}
+
+export const hotels = hotelPortfolio.map((hotel) => {
+  const runner = hotelRunnerData[hotel.slug]
+  if (!runner) return hotel
+  const officialServices = officialHotelDetails[hotel.slug]?.sections
+    ?.find((section) => section.title.toLowerCase().includes('services'))?.items || []
+
+  return {
+    ...hotel,
+    bookingUrl: hotel.bookingUrl || runner.source,
+    hotelRunnerSource: runner.source,
+    image: runner.image,
+    gallery: runner.gallery,
+    services: mergeHotelServices(hotel.services || [], officialServices, runner.services),
+    roomTypes: runner.roomTypes,
+    rooms: runner.roomTypes.map((room) => room.name),
+  }
+})
+
+export const activeHotels = hotels.filter((hotel) => hotel.bookingUrl)
 
 export const additionalBrandMentions = ['Mogador Express Bab Doukkala - Marrakech', 'Grand Palais des Congrès Marrakech']
 

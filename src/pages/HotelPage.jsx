@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import PageHero from '../components/PageHero'
 import BookingBar from '../components/BookingBar'
 import GallerySlider from '../components/GallerySlider'
+import ResponsiveImage from '../components/ResponsiveImage'
 import Link from '../router/Link'
 import { hotels } from '../data/siteData'
 import { officialHotelDetails } from '../data/officialContent'
@@ -41,26 +42,52 @@ export default function HotelPage({ slug, t, lang }) {
   const gallery = safeGallery
   const heroImage = hotel.image || gallery[0] || details?.sections?.[0]?.image || '/assets/legacy/menara-salon.jpg'
   const overview = lang === 'fr' ? (details?.overview || [hotel.description]) : [t.pages.hotel[1]]
-  const sections = details?.sections || [
+  const baseSections = details?.sections || [
     { title: 'Hébergement', image: gallery[0] || heroImage, text: 'Catégories issues du portefeuille et de la charte Mogador.', items: hotel.rooms },
     { title: 'Restauration', image: gallery[1] || heroImage, items: hotel.dining },
     { title: 'Loisirs', image: gallery[2] || heroImage, items: hotel.wellness },
     { title: 'MICE', image: gallery[3] || heroImage, items: hotel.mice },
   ]
+  const normalizedSections = baseSections.map((section) => {
+    const title = section.title.toLowerCase()
+    if (title.includes('hébergement')) {
+      return { ...section, image: hotel.roomTypes?.[0]?.photos?.[0] || section.image, items: hotel.rooms }
+    }
+    if (title.includes('services') && hotel.services?.length) return { ...section, items: hotel.services }
+    return section
+  })
+  const sections = hotel.services?.length && !normalizedSections.some((section) => section.title.toLowerCase().includes('services'))
+    ? [normalizedSections[0], { title: 'Services', image: gallery[1] || heroImage, items: hotel.services }, ...normalizedSections.slice(1)]
+    : normalizedSections
   const accommodationImage = sections.find((section) => section.title.toLowerCase().includes('hébergement'))?.image || gallery[0] || heroImage
   const roomImages = [accommodationImage, ...gallery.filter((image) => /room|suite|apartment|salon|chambre/i.test(image))].filter(Boolean)
-  const rooms = hotel.rooms.map((room, index) => ({
-    name: room,
-    image: roomImages[index % roomImages.length] || accommodationImage,
-    photos: buildRoomPhotos(index, roomImages, gallery, accommodationImage),
-    description: getRoomDescription(room, hotel, lang),
-    facts: getRoomFacts(room, hotel, index, lang),
-  }))
+  const roomSources = hotel.roomTypes?.length ? hotel.roomTypes : hotel.rooms.map((name) => ({ name }))
+  const rooms = roomSources.map((room, index) => {
+    const fallbackPhotos = buildRoomPhotos(index, roomImages, gallery, accommodationImage)
+    const photos = room.photos?.length ? room.photos : fallbackPhotos
+    return {
+      ...room,
+      name: room.name,
+      image: photos[0] || roomImages[index % roomImages.length] || accommodationImage,
+      photos,
+      description: lang === 'fr' && room.description ? room.description : getRoomDescription(room.name, hotel, lang),
+      facts: getStructuredRoomFacts(room, hotel, index, lang),
+      amenities: room.amenities || [],
+    }
+  })
   const serviceGroups = buildServiceGroups(hotel, sections, gallery, heroImage, copy)
   const sliderImages = [...new Set([heroImage, ...gallery, ...sections.map((section) => section.image)].filter(Boolean))]
   const activeRoomData = rooms[activeRoom] || rooms[0]
   const activePhotos = activeRoomData?.photos?.length ? activeRoomData.photos : [activeRoomData?.image || accommodationImage].filter(Boolean)
-  const visiblePhoto = activePhotos[activePhoto % activePhotos.length] || activeRoomData?.image || accommodationImage
+  const activePhotoIndex = activePhoto % activePhotos.length
+  const visiblePhoto = activePhotos[activePhotoIndex] || activeRoomData?.image || accommodationImage
+  const thumbnailStart = Math.min(Math.max(activePhotoIndex - 3, 0), Math.max(activePhotos.length - 7, 0))
+  const visibleThumbnails = activePhotos.slice(thumbnailStart, thumbnailStart + 7)
+    .map((photo, index) => ({ photo, index: thumbnailStart + index }))
+  const roomDetails = activeRoomData
+    ? [...new Set([...activeRoomData.facts, ...activeRoomData.amenities].map((fact) => translateHotelLabel(fact, lang)))]
+    : []
+  const roomAmenitiesLabel = lang === 'en' ? 'Room amenities' : lang === 'ar' ? 'تجهيزات الغرفة' : 'Équipements de la chambre'
   const facilities = details?.facilities?.map(([title, body]) => translateFacility(title, body, lang)) || []
 
   const goRoomPhoto = (direction) => {
@@ -114,7 +141,7 @@ export default function HotelPage({ slug, t, lang }) {
         </section>
       ) : null}
 
-      <section className="gm-room-showcase gm-room-showcase--cinema gm-page-section" aria-label={copy.roomsTitle}>
+      <section id="room-showcase" className="gm-room-showcase gm-room-showcase--cinema gm-page-section" aria-label={copy.roomsTitle}>
         <div className="gm-room-showcase__intro gm-reveal">
           <span className="gm-label">{copy.sleep}</span>
           <h2>{copy.roomsTitle}</h2>
@@ -123,15 +150,15 @@ export default function HotelPage({ slug, t, lang }) {
         <div className="gm-room-cinematic gm-reveal" role="region" aria-label={`Catégories d’hébergement ${hotel.name}`}>
           <div className="gm-room-tabs" aria-label={copy.chooseRoom}>
             {rooms.map((room, index) => (
-              <button className={index === activeRoom ? 'is-active' : ''} type="button" onClick={() => setActiveRoom(index)} key={`${room.name}-tab`}>
+              <button className={index === activeRoom ? 'is-active' : ''} type="button" aria-pressed={index === activeRoom} aria-controls="active-room-panel" onClick={() => setActiveRoom(index)} key={`${room.name}-tab`}>
                 {translateHotelLabel(room.name, lang)}
               </button>
             ))}
           </div>
-          <div className="gm-room-cinematic__detail">
+          <div className="gm-room-cinematic__detail" id="active-room-panel">
             <div className="gm-room-cinematic__gallery">
               <div className="gm-room-cinema-frame" data-direction={photoDirection}>
-                <img src={visiblePhoto} alt={`${hotel.name} - ${translateHotelLabel(activeRoomData.name, lang)}`} loading="lazy" key={`${activeRoomData.name}-${visiblePhoto}-${activePhoto}`} />
+                <ResponsiveImage src={visiblePhoto} sizes="(max-width: 800px) 100vw, 64vw" alt={`${hotel.name} - ${translateHotelLabel(activeRoomData.name, lang)} - ${copy.photo} ${activePhotoIndex + 1} / ${activePhotos.length}`} loading="lazy" key={`${activeRoomData.name}-${visiblePhoto}-${activePhotoIndex}`} />
                 <div className="gm-room-cinema-frame__shade" />
                 <div className="gm-room-cinema-frame__border" />
                 <div className="gm-room-cinema-frame__label"><i />{translateDestinationName(hotel.destination, lang)} / {translateHotelLabel(hotel.category, lang)}</div>
@@ -141,21 +168,21 @@ export default function HotelPage({ slug, t, lang }) {
                 </div>
                 <button type="button" onClick={() => goRoomPhoto(-1)} aria-label={copy.previousPhoto}>‹</button>
                 <button type="button" onClick={() => goRoomPhoto(1)} aria-label={copy.nextPhoto}>›</button>
-                <div className="gm-room-photo-progress">
-                  <span>{copy.photo}</span>
-                  <i key={`${activeRoom}-${activePhoto}`} />
-                  <span>{copy.gallery}</span>
+                <div className="gm-room-photo-progress" aria-live="polite" aria-label={`${copy.photo} ${activePhotoIndex + 1} / ${activePhotos.length}`}>
+                  <span>{copy.photo} {activePhotoIndex + 1}</span>
+                  <i key={`${activeRoom}-${activePhotoIndex}`} />
+                  <span>{activePhotos.length}</span>
                 </div>
               </div>
-              <div className="gm-room-thumbs" style={{ '--thumb-count': Math.min(activePhotos.length, 7) }}>
-                {activePhotos.slice(0, 7).map((photo, index) => (
-                  <button className={index === activePhoto % activePhotos.length ? 'is-active' : ''} type="button" onClick={() => { setPhotoDirection(index > activePhoto ? 1 : -1); setActivePhoto(index) }} aria-label={`${copy.photo} ${index + 1}`} key={`${photo}-${index}`}>
-                    <img src={photo} alt="" loading="lazy" />
+              <div className="gm-room-thumbs" style={{ '--thumb-count': visibleThumbnails.length }}>
+                {visibleThumbnails.map(({ photo, index }) => (
+                  <button className={index === activePhotoIndex ? 'is-active' : ''} type="button" aria-pressed={index === activePhotoIndex} onClick={() => { setPhotoDirection(index > activePhotoIndex ? 1 : -1); setActivePhoto(index) }} aria-label={`${copy.photo} ${index + 1} / ${activePhotos.length}`} key={`${photo}-${index}`}>
+                    <ResponsiveImage src={photo} sizes="(max-width: 800px) 14vw, 9vw" alt="" loading="lazy" />
                   </button>
                 ))}
               </div>
             </div>
-            <article className="gm-room-info-card" key={`${activeRoomData.name}-desc`}>
+            <article className="gm-room-info-card" aria-live="polite">
               <span className="gm-room-corner gm-room-corner--tl" />
               <span className="gm-room-corner gm-room-corner--tr" />
               <span className="gm-room-corner gm-room-corner--bl" />
@@ -165,8 +192,10 @@ export default function HotelPage({ slug, t, lang }) {
               <i />
               <p>{activeRoomData.description}</p>
               <div>
-                <strong>{copy.useful}</strong>
-                <ul>{activeRoomData.facts.map((fact) => <li key={fact}>{fact}</li>)}</ul>
+                <strong>{roomAmenitiesLabel}</strong>
+                <ul>
+                  {roomDetails.map((fact) => <li key={fact}>{fact}</li>)}
+                </ul>
               </div>
               <footer>
                 <Link to="/#reservation" data-track={`room_book_${hotel.slug}_${activeRoom}`} data-hotel={hotel.name} data-destination={hotel.destination}>{copy.book}</Link>
@@ -192,7 +221,7 @@ export default function HotelPage({ slug, t, lang }) {
         <div className="gm-scroll-overlays__media">
           {sliderImages.slice(0, 4).map((image, index) => (
             <figure className="gm-scroll-overlay-card gm-reveal" style={{ '--delay': `${index * 70}ms` }} key={`${image}-overlay-${index}`}>
-              <img src={image} alt={`${hotel.name} - moment de séjour ${index + 1}`} loading="lazy" />
+              <ResponsiveImage src={image} sizes="(max-width: 800px) 100vw, 25vw" alt={`${hotel.name} - moment de séjour ${index + 1}`} loading="lazy" />
               <figcaption>{copy.moments[index] || copy.immersionLabel}</figcaption>
             </figure>
           ))}
@@ -207,7 +236,7 @@ export default function HotelPage({ slug, t, lang }) {
         <div className="gm-service-matrix__grid">
           {serviceGroups.map((group, index) => (
             <article className="gm-service-card gm-reveal" style={{ '--delay': `${index * 70}ms` }} key={group.title}>
-              <img src={group.image} alt={group.title} loading="lazy" />
+              <ResponsiveImage src={group.image} sizes="(max-width: 800px) 100vw, 50vw" alt={group.title} loading="lazy" />
               <div>
                 <span>{group.label}</span>
                 <h3>{group.title}</h3>
@@ -246,7 +275,7 @@ function HotelSection({ section, index, copy, lang }) {
   const title = Object.entries(copy.sectionLabels).find(([key]) => normalizedTitle.includes(key))?.[1] || section.title
   return (
     <article className={`gm-hotel-section ${index % 2 ? 'gm-hotel-section--reverse' : ''} gm-reveal`}>
-      <figure><img src={section.image} alt={title} loading="lazy" /></figure>
+      <figure><ResponsiveImage src={section.image} sizes="(max-width: 800px) 100vw, 50vw" alt={title} loading="lazy" /></figure>
       <div>
         <h2>{title}</h2>
         {section.text && lang === 'fr' ? <p>{section.text}</p> : null}
@@ -327,6 +356,27 @@ function buildServiceGroups(hotel, sections, gallery, heroImage, copy) {
       items: hotel.mice || ['Réunions', 'Groupes', 'Devis MICE'],
     },
   ]
+}
+
+function getStructuredRoomFacts(room, hotel, index, lang) {
+  const facts = []
+  if (room.capacity) {
+    if (lang === 'en') facts.push(`Up to ${room.capacity} guests`)
+    else if (lang === 'ar') facts.push(`حتى ${room.capacity} ضيوف`)
+    else facts.push(`Jusqu’à ${room.capacity} personnes`)
+  }
+  if (room.area) facts.push(`${room.area} m²`)
+  if (room.bedrooms) {
+    if (lang === 'en') facts.push(`${room.bedrooms} bedroom${room.bedrooms > 1 ? 's' : ''}`)
+    else if (lang === 'ar') facts.push(`${room.bedrooms} غرفة نوم`)
+    else facts.push(`${room.bedrooms} chambre${room.bedrooms > 1 ? 's' : ''}`)
+  }
+  if (room.bathrooms) {
+    if (lang === 'en') facts.push(`${room.bathrooms} bathroom${room.bathrooms > 1 ? 's' : ''}`)
+    else if (lang === 'ar') facts.push(`${room.bathrooms} حمام`)
+    else facts.push(`${room.bathrooms} salle${room.bathrooms > 1 ? 's' : ''} de bains`)
+  }
+  return facts.length ? facts : getRoomFacts(room.name, hotel, index, lang)
 }
 
 function translateFacility(title, body, lang) {

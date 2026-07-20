@@ -3,9 +3,9 @@ import { hotels } from '../data/siteData'
 import { translateDestinationName } from '../i18n/hotelLabels'
 
 const guestOptions = {
-  fr: [['1', '1 adulte'], ['2', '2 adultes'], ['3', '3 adultes'], ['4', '4 adultes']],
-  en: [['1', '1 adult'], ['2', '2 adults'], ['3', '3 adults'], ['4', '4 adults']],
-  ar: [['1', 'بالغ واحد'], ['2', 'بالغان'], ['3', '3 بالغين'], ['4', '4 بالغين']],
+  fr: [['1', '1 adulte'], ['2', '2 adultes'], ['3', '3 adultes'], ['4', '4 adultes'], ['5', '5 adultes'], ['6', '6 adultes']],
+  en: [['1', '1 adult'], ['2', '2 adults'], ['3', '3 adults'], ['4', '4 adults'], ['5', '5 adults'], ['6', '6 adults']],
+  ar: [['1', 'بالغ واحد'], ['2', 'بالغان'], ['3', '3 بالغين'], ['4', '4 بالغين'], ['5', '5 بالغين'], ['6', '6 بالغين']],
 }
 
 function formatLocalDate(date) {

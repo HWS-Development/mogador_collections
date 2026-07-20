@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import ResponsiveImage from './ResponsiveImage'
 
 export default function GallerySlider({ items, label = 'Galerie', className = '', t, lang = 'fr' }) {
   const slides = items.filter(Boolean).map((item) => (Array.isArray(item) ? { image: item[0], title: item[1], text: item[2] } : item))
@@ -68,7 +69,7 @@ export default function GallerySlider({ items, label = 'Galerie', className = ''
       <div className="gm-fs-gallery__stage">
         {count > 1 ? <SlidePreview slide={previous} side="previous" /> : null}
         <figure className="gm-fs-gallery__slide gm-fs-gallery__slide--active" key={`${current.image}-${active}`}>
-          <img src={current.image} alt={current.title || label} loading="lazy" />
+          <ResponsiveImage src={current.image} sizes="(max-width: 760px) 100vw, 72vw" alt={current.title || label} loading="lazy" />
           {(current.title || current.text) ? (
             <figcaption>
               {current.title ? <strong>{current.title}</strong> : null}
@@ -94,7 +95,7 @@ export default function GallerySlider({ items, label = 'Galerie', className = ''
 function SlidePreview({ slide, side }) {
   return (
     <figure className={`gm-fs-gallery__slide gm-fs-gallery__slide--${side}`} aria-hidden="true">
-      <img src={slide.image} alt="" loading="lazy" />
+      <ResponsiveImage src={slide.image} sizes="(max-width: 760px) 20vw, 14vw" alt="" loading="lazy" />
     </figure>
   )
 }

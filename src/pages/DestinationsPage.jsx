@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import PageHero from '../components/PageHero'
+import ResponsiveImage from '../components/ResponsiveImage'
 import Link from '../router/Link'
-import { destinations, hotels } from '../data/siteData'
+import { activeHotels as bookableHotels, destinations } from '../data/siteData'
 import { destinationGuides } from '../data/officialContent'
 import { useSeo } from '../hooks/usePageEffects'
 import { getInteriorCopy } from '../i18n/interiorCopy'
@@ -37,7 +38,7 @@ export default function DestinationsPage({ t, lang, routeLocation }) {
 
   const activeDestination = destinations.find((destination) => destination.slug === activeSlug) || destinations[0]
   const activeGuide = destinationGuides[activeDestination.slug]
-  const activeHotels = hotels.filter((hotel) => hotel.destination === activeDestination.name)
+  const activeHotels = bookableHotels.filter((hotel) => hotel.destination === activeDestination.name)
   const selectedFilter = filters.find((filter) => filter.key === activeFilter) || filters[0]
   const visibleDestinations = destinations.filter((destination) => selectedFilter.match(destination))
   const localizedGuide = copy.content[activeDestination.slug]
@@ -87,12 +88,15 @@ export default function DestinationsPage({ t, lang, routeLocation }) {
 
         <div className="gm-destination-lounge__grid">
           <aside className="gm-destination-menu" aria-label={copy.chooseAria}>
-            {visibleDestinations.map((destination) => (
-              <button id={destination.slug} className={destination.slug === activeDestination.slug ? 'is-active' : ''} type="button" aria-pressed={destination.slug === activeDestination.slug} onClick={() => selectDestination(destination.slug)} key={destination.slug}>
-                <span>{destination.hotels} {destination.hotels > 1 ? copy.pluralHotels : copy.singularHotel}</span>
-                <strong>{getDestinationName(destination, lang)}</strong>
-              </button>
-            ))}
+            {visibleDestinations.map((destination) => {
+              const hotelCount = bookableHotels.filter((hotel) => hotel.destination === destination.name).length
+              return (
+                <button id={destination.slug} className={destination.slug === activeDestination.slug ? 'is-active' : ''} type="button" aria-pressed={destination.slug === activeDestination.slug} onClick={() => selectDestination(destination.slug)} key={destination.slug}>
+                  <span>{hotelCount} {hotelCount === 1 ? copy.singularHotel : copy.pluralHotels}</span>
+                  <strong>{getDestinationName(destination, lang)}</strong>
+                </button>
+              )
+            })}
           </aside>
 
           <article className="gm-destination-feature gm-reveal gm-depth-object" key={activeDestination.slug}>
@@ -106,28 +110,30 @@ export default function DestinationsPage({ t, lang, routeLocation }) {
               {(localizedGuide?.intro || activeGuide?.intro || [activeDestination.text]).slice(0, 2).map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
               <div className="gm-keyword-line">{destinationTags.map((tag) => <span key={tag}>{tag}</span>)}</div>
               <div className="gm-actions">
-                <Link className="gm-button gm-button--primary" to="/#reservation" data-destination={activeDestination.name}>{copy.book}</Link>
-                <Link className="gm-button gm-button--secondary-dark" to="/hotels">{copy.seeHotels}</Link>
+                {activeHotels.length ? <Link className="gm-button gm-button--primary" to="/#reservation" data-destination={activeDestination.name}>{copy.book}</Link> : null}
+                <Link className={`gm-button ${activeHotels.length ? 'gm-button--secondary-dark' : 'gm-button--primary'}`} to="/hotels">{copy.seeHotels}</Link>
               </div>
             </div>
           </article>
         </div>
       </section>
 
-      <section className="gm-destination-hotels gm-page-section" aria-label={`${copy.associated}: ${displayName}`}>
-        <div className="gm-section-head gm-reveal">
-          <span className="gm-label">{copy.associated}</span>
-          <h2>{copy.stay.replace('{destination}', displayName)}</h2>
-        </div>
-        <div className="gm-destination-hotels__rail gm-reveal">
-          {activeHotels.map((hotel) => (
-            <Link className="gm-destination-hotel-card" to={`/hotels/${hotel.slug}`} key={hotel.slug}>
-              <img src={hotel.image || hotel.gallery?.[0]} alt={hotel.name} loading="lazy" />
-              <div><span>{translateHotelLabel(hotel.category, lang)}</span><strong>{hotel.name}</strong><p>{lang === 'fr' ? hotel.baseline : t.pages.hotel[1]}</p></div>
-            </Link>
-          ))}
-        </div>
-      </section>
+      {activeHotels.length ? (
+        <section className="gm-destination-hotels gm-page-section" aria-label={`${copy.associated}: ${displayName}`}>
+          <div className="gm-section-head gm-reveal">
+            <span className="gm-label">{copy.associated}</span>
+            <h2>{copy.stay.replace('{destination}', displayName)}</h2>
+          </div>
+          <div className="gm-destination-hotels__rail gm-reveal">
+            {activeHotels.map((hotel) => (
+              <Link className="gm-destination-hotel-card" to={`/hotels/${hotel.slug}`} key={hotel.slug}>
+                <ResponsiveImage src={hotel.image || hotel.gallery?.[0]} sizes="(max-width: 760px) 100vw, 33vw" alt={hotel.name} loading="lazy" />
+                <div><span>{translateHotelLabel(hotel.category, lang)}</span><strong>{hotel.name}</strong><p>{lang === 'fr' ? hotel.baseline : t.pages.hotel[1]}</p></div>
+              </Link>
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       <section className="gm-destination-attractions gm-page-section" aria-label={`${copy.live}: ${displayName}`}>
         <div className="gm-section-head gm-reveal">
@@ -150,10 +156,11 @@ export default function DestinationsPage({ t, lang, routeLocation }) {
       <section className="gm-destination-index gm-page-section" aria-label={copy.all}>
         {destinations.map((destination) => {
           const guide = destinationGuides[destination.slug]
+          const hotelCount = bookableHotels.filter((hotel) => hotel.destination === destination.name).length
           return (
              <button className={destination.slug === activeDestination.slug ? 'is-active' : ''} type="button" aria-pressed={destination.slug === activeDestination.slug} onClick={() => selectDestination(destination.slug)} key={destination.slug}>
               <img src={guide?.image || destination.image} alt="" loading="lazy" />
-              <span>{destination.hotels} {destination.hotels > 1 ? copy.pluralHotels : copy.singularHotel}</span>
+              <span>{hotelCount} {hotelCount === 1 ? copy.singularHotel : copy.pluralHotels}</span>
               <strong>{getDestinationName(destination, lang)}</strong>
             </button>
           )

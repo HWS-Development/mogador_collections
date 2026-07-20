@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { brand, destinations, hotels } from '../data/siteData'
+import { activeHotels, brand, destinations } from '../data/siteData'
 import { images } from '../data/images'
 import Link from '../router/Link'
 import { translateDestinationName } from '../i18n/hotelLabels'
@@ -85,7 +85,7 @@ export default function Footer({ t, lang }) {
         </div>
         <div>
           <h3>{t.nav.hotels}</h3>
-          {hotels.map((hotel) => <Link key={hotel.slug} to={`/hotels/${hotel.slug}`}>{hotel.name}</Link>)}
+          {activeHotels.map((hotel) => <Link key={hotel.slug} to={`/hotels/${hotel.slug}`}>{hotel.name}</Link>)}
         </div>
         <div>
           <h3>{copy.information}</h3>

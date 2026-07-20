@@ -72,7 +72,7 @@ export const translations = {
         undecided: 'Vous hésitez encore ?',
         alternatives: 'Comparez les adresses ou contactez l’équipe adaptée à votre séjour.',
         intents: [
-          ['Comparer les hôtels', 'Consultez les chambres, services et emplacements des douze adresses.', '/hotels'],
+          ['Comparer les hôtels', 'Consultez les chambres, services et photographies des cinq adresses réservables.', '/hotels'],
           ['Voir les offres', 'Découvrez les offres officielles disponibles selon vos dates.', '/offres'],
           ['Voyager en groupe', 'Préparez un congrès, un séminaire ou un séjour de groupe.', '/reunions-evenements'],
         ],
@@ -91,7 +91,7 @@ export const translations = {
       pages: {
         about: ['Qui sommes-nous', 'Une marque emblématique de l’hôtellerie marocaine, un art de vivre et des traditions d’excellence.'],
         destinations: ['Destinations Mogador', 'Marrakech, Casablanca, Tanger, Agadir et Essaouira : choisissez la ville et consultez les hôtels disponibles.'],
-      hotels: ['Hôtels Mogador', 'Douze établissements de 4 et 5 étoiles pour les séjours en ville, en famille, face à l’océan ou près de l’Atlas.'],
+      hotels: ['Hôtels Mogador', 'Cinq établissements réservables en direct, avec leurs chambres, services et images issus du moteur officiel.'],
       hotel: ['Votre hôtel Mogador', 'Consultez les chambres, restaurants, services, espaces de détente et capacités événementielles de l’établissement.'],
       experiences: ['Expériences', 'Hammams, restaurants, piscines, loisirs et visites sont présentés selon les services de chaque hôtel.'],
       offers: ['Offres', 'Consultez les offres officielles Mogador et préparez votre prochain séjour au Maroc.'],
@@ -179,7 +179,7 @@ export const translations = {
         undecided: 'Still deciding?',
         alternatives: 'Compare our hotels or contact the team best suited to your stay.',
         intents: [
-          ['Compare hotels', 'Explore rooms, services and locations across all twelve hotels.', '/hotels'],
+          ['Compare hotels', 'Explore rooms, services and photography across the five bookable hotels.', '/hotels'],
           ['View offers', 'Discover official offers available for your travel dates.', '/offres'],
           ['Travel as a group', 'Plan a congress, seminar or group stay.', '/reunions-evenements'],
         ],
@@ -286,7 +286,7 @@ export const translations = {
         undecided: 'لم تحسم اختيارك بعد؟',
         alternatives: 'قارن بين فنادقنا أو تواصل مع الفريق المناسب لإقامتك.',
         intents: [
-          ['قارن الفنادق', 'اكتشف الغرف والخدمات والمواقع في فنادقنا الاثني عشر.', '/hotels'],
+          ['قارن الفنادق', 'اكتشف الغرف والخدمات والصور في الفنادق الخمسة المتاحة للحجز.', '/hotels'],
           ['شاهد العروض', 'اكتشف العروض الرسمية المتاحة حسب تواريخ سفرك.', '/offres'],
           ['السفر ضمن مجموعة', 'حضّر مؤتمرا أو ندوة أو إقامة جماعية.', '/reunions-evenements'],
         ],

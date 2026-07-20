@@ -1,5 +1,6 @@
 import Link from '../router/Link'
 import { images } from '../data/images'
+import ResponsiveImage from './ResponsiveImage'
 
 export default function PageHero({ eyebrow, title, text, scene = 'hero', image, primary, secondary, compact = false, t }) {
   const heroImage = image || images.media[scene] || images.legacy.agdalPalace
@@ -8,7 +9,7 @@ export default function PageHero({ eyebrow, title, text, scene = 'hero', image, 
   return (
     <section className={`gm-page-hero gm-owned-hero gm-page-hero--${scene} ${compact ? 'gm-page-hero--compact' : ''}`}>
       <figure className="gm-page-hero__media" aria-hidden="true">
-        <img src={heroImage} alt="" fetchPriority="high" decoding="async" />
+        <ResponsiveImage src={heroImage} sizes="100vw" alt="" fetchPriority="high" decoding="async" />
         <span className="gm-page-hero__veil" />
       </figure>
       <div className="gm-page-hero__content">

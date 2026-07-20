@@ -1,7 +1,8 @@
 import PageHero from '../components/PageHero'
 import GallerySlider from '../components/GallerySlider'
+import ResponsiveImage from '../components/ResponsiveImage'
 import Link from '../router/Link'
-import { hotels, mice } from '../data/siteData'
+import { activeHotels, mice } from '../data/siteData'
 import { useSeo } from '../hooks/usePageEffects'
 import { getInteriorCopy } from '../i18n/interiorCopy'
 import { translateDestinationName, translateHotelLabel } from '../i18n/hotelLabels'
@@ -33,7 +34,7 @@ const businessRows = [
   },
 ]
 
-const seminarLocations = hotels
+const seminarLocations = activeHotels
   .filter((hotel) => hotel.mice?.length)
   .slice(0, 4)
 
@@ -144,7 +145,7 @@ export default function MicePage({ t, lang }) {
         <div className="gm-seminar-venues__grid">
           {seminarLocations.map((hotel, index) => (
             <article className="gm-reveal" style={{ '--delay': `${index * 70}ms` }} key={hotel.slug}>
-              <img src={hotel.image || hotel.gallery?.[0]} alt={hotel.name} loading="lazy" />
+              <ResponsiveImage src={hotel.image || hotel.gallery?.[0]} sizes="(max-width: 760px) 100vw, 33vw" alt={hotel.name} loading="lazy" />
               <div>
                 <span>{translateDestinationName(hotel.destination, lang)}</span>
                 <h3>{hotel.name}</h3>

@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
 import PageHero from '../components/PageHero'
 import BookingBar from '../components/BookingBar'
+import ResponsiveImage from '../components/ResponsiveImage'
 import Link from '../router/Link'
-import { brand, destinations, hotels } from '../data/siteData'
+import { activeHotels as hotels, brand, destinations } from '../data/siteData'
 import { officialHotelDetails } from '../data/officialContent'
 import { useSeo } from '../hooks/usePageEffects'
 import { getInteriorCopy } from '../i18n/interiorCopy'
@@ -14,10 +15,11 @@ export default function HotelsPage({ t, lang }) {
   const benefits = getInteriorCopy(lang).benefits
   const [activeHotel, setActiveHotel] = useState(0)
   const [activeDestination, setActiveDestination] = useState('all')
+  const hotelDestinations = destinations.filter((destination) => hotels.some((hotel) => hotel.destination === destination.name))
   const filteredHotels = activeDestination === 'all' ? hotels : hotels.filter((hotel) => hotel.destination === activeDestination)
   const activeHotelData = filteredHotels[activeHotel] || filteredHotels[0]
   const activeHotelDetails = activeHotelData ? officialHotelDetails[activeHotelData.slug] : null
-  const activeProofs = activeHotelData ? [activeHotelData.category, activeHotelData.family, ...(activeHotelData.facts || [])].slice(0, 4) : []
+  const activeProofs = activeHotelData ? getHotelProofs(activeHotelData, lang) : []
 
   useEffect(() => {
     setActiveHotel(0)
@@ -26,7 +28,19 @@ export default function HotelsPage({ t, lang }) {
   useSeo({ title: `${title} | Mogador Hotels & Resorts`, description: text, lang })
 
   const goToHotel = (direction) => {
+    if (filteredHotels.length < 2) return
     setActiveHotel((value) => (value + direction + filteredHotels.length) % filteredHotels.length)
+  }
+
+  const onCarouselKeyDown = (event) => {
+    if (event.key === 'ArrowLeft') {
+      event.preventDefault()
+      goToHotel(lang === 'ar' ? 1 : -1)
+    }
+    if (event.key === 'ArrowRight') {
+      event.preventDefault()
+      goToHotel(lang === 'ar' ? -1 : 1)
+    }
   }
 
   return (
@@ -55,83 +69,100 @@ export default function HotelsPage({ t, lang }) {
         </div>
       </section>
 
-      <section className="gm-hotel-directory gm-hotel-carousel-section" aria-label={copy.collectionTitle}>
+      <section id="hotel-collection" className="gm-hotel-collection gm-page-section" aria-label={copy.collectionTitle}>
         <div className="gm-section-head gm-reveal">
           <span className="gm-label">{copy.collection}</span>
           <h2>{copy.collectionTitle}</h2>
           <p>{copy.collectionText}</p>
         </div>
-        <div className="gm-hotel-compass gm-reveal" aria-label={copy.choose}>
-          <div className="gm-hotel-compass__filters" aria-label={copy.collection}>
-            {['all', ...destinations.map((destination) => destination.name)].map((destination) => (
-              <button
-                type="button"
-                className={destination === activeDestination ? 'is-active' : ''}
-                onClick={() => setActiveDestination(destination)}
-                key={destination}
-              >
-                {destination === 'all' ? copy.all : translateDestinationName(destination, lang)}
-              </button>
-            ))}
-          </div>
-          {activeHotelData ? (
-            <article className="gm-hotel-compass__active" aria-label={`${copy.selected}: ${activeHotelData.name}`}>
-              <span aria-hidden="true">{String(activeHotel + 1).padStart(2, '0')}</span>
-              <div>
-                <strong>{activeHotelData.name}</strong>
-                <p>{lang === 'fr' ? (activeHotelDetails?.overview?.[0] || activeHotelData.description || activeHotelData.baseline) : `${activeHotelData.family} · ${translateDestinationName(activeHotelData.destination, lang)}. ${text}`}</p>
+        <div className="gm-hotel-collection__filters gm-reveal" aria-label={copy.collection}>
+          {['all', ...hotelDestinations.map((destination) => destination.name)].map((destination) => (
+            <button
+              type="button"
+              className={destination === activeDestination ? 'is-active' : ''}
+              aria-pressed={destination === activeDestination}
+              onClick={() => setActiveDestination(destination)}
+              key={destination}
+            >
+              {destination === 'all' ? copy.all : translateDestinationName(destination, lang)}
+            </button>
+          ))}
+        </div>
+
+        {activeHotelData ? (
+          <div className="gm-hotel-atelier gm-reveal" role="region" aria-label={copy.carousel} tabIndex={0} onKeyDown={onCarouselKeyDown}>
+            <div className="gm-hotel-atelier__visual">
+              <Link to={`/hotels/${activeHotelData.slug}`} aria-label={`${copy.explore}: ${activeHotelData.name}`}>
+                <ResponsiveImage src={activeHotelData.image || activeHotelData.gallery?.[0]} sizes="(max-width: 760px) 100vw, 64vw" alt={activeHotelData.name} key={activeHotelData.slug} />
+                <span aria-hidden="true" />
+              </Link>
+              <div className="gm-hotel-atelier__meta">
+                <span>{translateDestinationName(activeHotelData.destination, lang)}</span>
+                <span>{translateHotelLabel(activeHotelData.category, lang)}</span>
               </div>
-              <div className="gm-hotel-compass__proofs">
+              <div className="gm-hotel-atelier__count" aria-hidden="true">
+                <strong>{String(activeHotel + 1).padStart(2, '0')}</strong>
+                <i />
+                <span>{String(filteredHotels.length).padStart(2, '0')}</span>
+              </div>
+            </div>
+
+            <article className="gm-hotel-atelier__story" id="hotel-collection-panel" aria-live="polite">
+              <header>
+                <span>{activeHotelData.family}</span>
+                <div className="gm-hotel-atelier__controls">
+                  <button type="button" onClick={() => goToHotel(-1)} aria-label={copy.previous} disabled={filteredHotels.length < 2}><CollectionArrow direction="back" /></button>
+                  <button type="button" onClick={() => goToHotel(1)} aria-label={copy.next} disabled={filteredHotels.length < 2}><CollectionArrow /></button>
+                </div>
+              </header>
+              <div className="gm-hotel-atelier__line" aria-hidden="true"><span style={{ '--hotel-progress': `${((activeHotel + 1) / filteredHotels.length) * 100}%` }} /></div>
+              <h3>{activeHotelData.name}</h3>
+              <p>{lang === 'fr' ? (activeHotelDetails?.overview?.[0] || activeHotelData.description || activeHotelData.baseline) : `${activeHotelData.family} · ${translateDestinationName(activeHotelData.destination, lang)}. ${text}`}</p>
+              <div className="gm-hotel-atelier__proofs">
                 {activeProofs.map((proof) => <small key={proof}>{translateHotelLabel(proof, lang)}</small>)}
               </div>
-              <nav aria-label={`${activeHotelData.name}`}>
-                <Link to={`/hotels/${activeHotelData.slug}`}>{copy.explore}</Link>
+              <div className="gm-hotel-atelier__actions">
+                <Link to={`/hotels/${activeHotelData.slug}`} data-track={`hotel_collection_details_${activeHotelData.slug}`}>{copy.explore}<CollectionArrow /></Link>
                 <Link to="/#reservation" data-hotel={activeHotelData.name} data-destination={activeHotelData.destination}>{copy.book}</Link>
-                <a href={`tel:${brand.phone.replaceAll(' ', '')}`}>{copy.call}</a>
-              </nav>
+              </div>
+              <a className="gm-hotel-atelier__call" href={`tel:${brand.phone.replaceAll(' ', '')}`}>{copy.call} · {brand.phone}</a>
             </article>
-          ) : null}
-        </div>
-        <div className="gm-hotel-carousel gm-reveal" role="region" aria-label={copy.carousel}>
-          <div className="gm-hotel-carousel__viewport">
-            <div className="gm-hotel-carousel__track" style={{ '--active-hotel': activeHotel }}>
-              {filteredHotels.map((hotel, index) => <HotelTile hotel={hotel} index={index} active={index === activeHotel} copy={copy} lang={lang} fallbackText={text} key={hotel.slug} />)}
-            </div>
           </div>
-          <div className="gm-hotel-carousel__controls" aria-label={copy.carousel}>
-            <button type="button" onClick={() => goToHotel(-1)} aria-label={copy.previous}>‹</button>
-            <strong>{copy.browse}</strong>
-            <button type="button" onClick={() => goToHotel(1)} aria-label={copy.next}>›</button>
-          </div>
-          <div className="gm-hotel-carousel__progress" aria-label={copy.choose}>
-            {filteredHotels.map((hotel, index) => (
-              <button type="button" className={index === activeHotel ? 'is-active' : ''} onClick={() => setActiveHotel(index)} key={hotel.slug} aria-label={`${copy.display} ${hotel.name}`}>
-                <span>{hotel.name}</span>
-              </button>
-            ))}
-          </div>
-        </div>
+        ) : null}
+
+        <nav className="gm-hotel-collection__index gm-reveal" aria-label={copy.choose}>
+          {filteredHotels.map((hotel, index) => (
+            <button
+              type="button"
+              className={index === activeHotel ? 'is-active' : ''}
+              aria-pressed={index === activeHotel}
+              aria-controls="hotel-collection-panel"
+              onClick={() => setActiveHotel(index)}
+              key={hotel.slug}
+            >
+              <span>{String(index + 1).padStart(2, '0')}</span>
+              <strong>{hotel.name}</strong>
+              <small>{translateDestinationName(hotel.destination, lang)}</small>
+            </button>
+          ))}
+        </nav>
       </section>
     </div>
   )
 }
 
-function HotelTile({ hotel, index, active, copy, lang, fallbackText }) {
-  const highlights = (hotel.facts?.length ? hotel.facts : [hotel.destination, hotel.category, hotel.family]).slice(0, 3)
-
+function CollectionArrow({ direction = 'forward' }) {
   return (
-    <article className={`gm-hotel-tile gm-hotel-tile--${hotel.palette} ${active ? 'is-active' : ''}`} style={{ '--delay': `${index * 55}ms` }}>
-      <Link className="gm-hotel-tile__media" to={`/hotels/${hotel.slug}`}>
-        <img src={hotel.image || hotel.gallery?.[0]} alt={hotel.name} loading="lazy" />
-      </Link>
-      <div className="gm-hotel-tile__body">
-        <span className="gm-hotel-tile__topline">{translateDestinationName(hotel.destination, lang)} / {translateHotelLabel(hotel.category, lang)}</span>
-        <h3>{hotel.name}</h3>
-        <i />
-        <p>{lang === 'fr' ? hotel.baseline : `${translateDestinationName(hotel.destination, lang)}. ${fallbackText}`}</p>
-        <div className="gm-hotel-tile__badges">{highlights.map((highlight) => <small key={highlight}>{translateHotelLabel(highlight, lang)}</small>)}</div>
-        <div className="gm-hotel-tile__actions"><Link className="gm-hotel-tile__details" to={`/hotels/${hotel.slug}`} data-track={`hotel_card_details_${hotel.slug}`}>{copy.details}</Link></div>
-      </div>
-    </article>
+    <svg viewBox="0 0 28 16" aria-hidden="true">
+      <path d={direction === 'back' ? 'M27 8H2M8 1 1 8l7 7' : 'M1 8h25M20 1l7 7-7 7'} />
+    </svg>
   )
+}
+
+function getHotelProofs(hotel, lang) {
+  const roomCount = hotel.roomTypes?.length || hotel.rooms?.length || 0
+  const serviceCount = hotel.services?.length || 0
+  if (lang === 'en') return [hotel.category, `${roomCount} room categories`, `${serviceCount} listed service${serviceCount === 1 ? '' : 's'}`]
+  if (lang === 'ar') return [hotel.category, `${roomCount} فئات غرف`, `${serviceCount} خدمات مدرجة`]
+  return [hotel.category, `${roomCount} catégories de chambres`, `${serviceCount} service${serviceCount === 1 ? '' : 's'} référencé${serviceCount === 1 ? '' : 's'}`]
 }
