@@ -3,7 +3,7 @@ import { officialHotelDetails } from './officialContent.js'
 
 export const brand = {
   name: 'Mogador Hotels & Resorts',
-  phone: '+212 530 530 520',
+  phone: '+212 530 530 530',
   email: 'commercial@mogadorhotels.com',
   website: 'www.mogadorhotels.com',
   positioning: 'Une collection de maisons marocaines, un art de recevoir sincère et des séjours qui restent en mémoire.',

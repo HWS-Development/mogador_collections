@@ -404,30 +404,35 @@ export default function HomePage({ t, lang }) {
   }, [])
 
   useEffect(() => {
-    const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)')
-    const syncVideo = () => {
-      if (!videoRef.current) return
-      if (motionPreference.matches) {
-        videoRef.current.pause()
-        setVideoPlaying(false)
-        return
-      }
-      videoRef.current.play().then(() => setVideoPlaying(true)).catch(() => setVideoPlaying(false))
-    }
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || copy.values.items.length < 2) return undefined
+    const timer = window.setInterval(() => {
+      setActiveValue((current) => (current + 1) % copy.values.items.length)
+    }, 3000)
+    return () => window.clearInterval(timer)
+  }, [copy.values.items.length])
 
-    syncVideo()
-    motionPreference.addEventListener?.('change', syncVideo)
-    return () => motionPreference.removeEventListener?.('change', syncVideo)
-  }, [])
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || bookableHotels.length < 2) return undefined
+    const timer = window.setInterval(() => {
+      setActiveHotel((current) => (current + 1) % bookableHotels.length)
+    }, 4000)
+    return () => window.clearInterval(timer)
+  }, [bookableHotels.length])
 
   const toggleVideo = () => {
     if (!videoRef.current) return
     if (videoRef.current.paused) {
+      if (videoRef.current.ended || videoRef.current.currentTime >= videoRef.current.duration) videoRef.current.currentTime = 0
       videoRef.current.play().then(() => setVideoPlaying(true)).catch(() => setVideoPlaying(false))
     } else {
       videoRef.current.pause()
       setVideoPlaying(false)
     }
+  }
+
+  const resetVideo = () => {
+    if (videoRef.current) videoRef.current.currentTime = 0
+    setVideoPlaying(false)
   }
 
   return (
@@ -439,7 +444,7 @@ export default function HomePage({ t, lang }) {
         <button type="button" onClick={() => setIntroComplete(true)}>{copy.intro.skip}</button>
       </div>
 
-      <section className="gm-divine-hero" aria-labelledby="home-hero-title">
+      <section className={`gm-divine-hero${videoPlaying ? ' is-film-playing' : ''}`} aria-labelledby="home-hero-title">
         <div className="gm-divine-hero__media" aria-hidden="true">
           <img src={homeMedia.hero.poster} alt="" fetchPriority="high" />
           <video
@@ -447,11 +452,11 @@ export default function HomePage({ t, lang }) {
             src={homeMedia.hero.video}
             poster={homeMedia.hero.poster}
             muted
-            loop
             playsInline
             preload="metadata"
             onPlay={() => setVideoPlaying(true)}
             onPause={() => setVideoPlaying(false)}
+            onEnded={resetVideo}
           />
         </div>
         <div className="gm-divine-hero__veil" aria-hidden="true" />
@@ -459,7 +464,7 @@ export default function HomePage({ t, lang }) {
           <img src={images.brand.mark} alt="" />
           <span />
         </div>
-        <div className="gm-divine-hero__content">
+        <div className="gm-divine-hero__content" aria-hidden={videoPlaying} inert={videoPlaying ? true : undefined}>
           <span className="gm-home-eyebrow gm-divine-hero__eyebrow">{copy.hero.eyebrow}</span>
           <h1 id="home-hero-title">
             <span>{copy.hero.title[0]}</span>
@@ -471,10 +476,10 @@ export default function HomePage({ t, lang }) {
             <Link className="gm-home-link gm-home-link--light" to="#collection">{copy.hero.secondary}</Link>
           </div>
         </div>
-        <div className="gm-divine-hero__facts" aria-label={copy.numbers.eyebrow}>
+        <div className="gm-divine-hero__facts" aria-label={copy.numbers.eyebrow} aria-hidden={videoPlaying}>
           {copy.hero.facts.map(([value, label]) => <span key={label}><strong>{value}</strong><small>{label}</small></span>)}
         </div>
-        <Link className="gm-divine-hero__scroll" to="#heritage"><span>{copy.hero.scroll}</span><Arrow direction="down" /></Link>
+        <Link className="gm-divine-hero__scroll" to="#heritage" aria-hidden={videoPlaying} tabIndex={videoPlaying ? -1 : undefined}><span>{copy.hero.scroll}</span><Arrow direction="down" /></Link>
         <button className="gm-divine-hero__control" type="button" onClick={toggleVideo} aria-label={videoPlaying ? copy.hero.pause : copy.hero.play}>
           <span aria-hidden="true" className={videoPlaying ? 'is-playing' : ''} />
           {videoPlaying ? copy.hero.pause : copy.hero.play}

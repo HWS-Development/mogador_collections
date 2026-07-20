@@ -182,7 +182,7 @@ export default function MicePage({ t, lang }) {
           <span className="gm-label">{copy.humanLabel}</span>
           <h2>{copy.humanTitle}</h2>
           <p>{copy.humanText}</p>
-          <div className="gm-actions"><Link className="gm-button gm-button--primary" to="/contact?request=mice#contact-form">{copy.send}</Link><a className="gm-button gm-button--secondary-dark" href="tel:+212530530520">{copy.call}</a></div>
+          <div className="gm-actions"><Link className="gm-button gm-button--primary" to="/contact?request=mice#contact-form">{copy.send}</Link><a className="gm-button gm-button--secondary-dark" href="tel:+212530530530">{copy.call}</a></div>
         </div>
         <figure className="gm-reveal"><img src="/assets/official/team-official.jpg" alt="Équipe Mogador" loading="lazy" /></figure>
       </section>

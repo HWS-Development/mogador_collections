@@ -379,6 +379,45 @@ html body .gm-home-divine .gm-home-heading h2 {
   transform: scale(1.025);
 }
 
+.gm-divine-hero__media video,
+.gm-divine-hero__veil,
+.gm-divine-hero__mark,
+.gm-divine-hero__content,
+.gm-divine-hero__facts,
+.gm-divine-hero__scroll {
+  transition: opacity 320ms ease, visibility 320ms ease, filter 320ms ease;
+}
+
+.gm-divine-hero.is-film-playing .gm-divine-hero__media video {
+  opacity: 1 !important;
+  filter: saturate(1.08) contrast(1.18) brightness(1) !important;
+}
+
+.gm-divine-hero.is-film-playing .gm-divine-hero__veil,
+.gm-divine-hero.is-film-playing .gm-divine-hero__mark,
+.gm-divine-hero.is-film-playing .gm-divine-hero__content,
+.gm-divine-hero.is-film-playing .gm-divine-hero__facts,
+.gm-divine-hero.is-film-playing .gm-divine-hero__scroll {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+.gm-divine-hero:not(.is-film-playing) :where(
+  .gm-divine-hero__content,
+  .gm-divine-hero__content > *,
+  .gm-divine-hero__content h1 span,
+  .gm-divine-hero__facts,
+  .gm-divine-hero__facts > span,
+  .gm-divine-hero__scroll,
+  .gm-divine-hero__control
+) {
+  opacity: 1 !important;
+  visibility: visible !important;
+  filter: none !important;
+  transform: none !important;
+}
+
 .gm-divine-hero__veil {
   z-index: -2;
   background:
@@ -545,9 +584,9 @@ html body .gm-home-divine .gm-divine-hero__content > p {
   gap: 0.65rem;
   min-height: 44px;
   padding: 0.65rem 0.8rem;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  color: rgba(255, 255, 255, 0.78);
-  background: rgba(15, 17, 29, 0.32);
+  border: 1px solid var(--gm-red);
+  color: var(--gm-paper);
+  background: var(--gm-red);
   font-family: var(--title-font);
   font-size: 0.56rem;
   font-weight: 700;
@@ -2643,10 +2682,6 @@ html[dir="rtl"] .gm-story__thread::after {
   .gm-home-divine .reveal.is-visible {
     opacity: 1 !important;
     transform: none !important;
-  }
-
-  .gm-divine-hero__media video {
-    display: none;
   }
 
   .gm-story__thread span {

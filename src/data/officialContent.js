@@ -448,31 +448,31 @@ export const hotelContacts = [
   {
     name: 'Grand Mogador Aqua Resort',
     address: 'Ourika Road, Marrakesh 40000',
-    phone: '+212 530 530 520',
+    phone: '+212 530 530 530',
     email: 'haquaresa@mogadorhotels.com',
   },
   {
     name: 'Grand Mogador Sea View',
     address: '10 housing development Al Ghandouri, 90000, Tanger, Morocco',
-    phone: '+212 530 530 520',
+    phone: '+212 530 530 530',
     email: 'htangerresa@mogadorhotels.com',
   },
   {
     name: 'Grand Mogador Menara',
     address: 'Mohamed VI Street, Marrakesh 40000',
-    phone: '+212 530 530 520',
+    phone: '+212 530 530 530',
     email: 'menara@mogadorhotels.com',
   },
   {
     name: 'Grand Mogador Agdal',
     address: 'Tourist Zone Agdal, Marrakesh 40000',
-    phone: '+212 530 530 520',
+    phone: '+212 530 530 530',
     email: 'hagdalresa@mogadorhotels.com',
   },
   {
     name: 'Mogador Menzah',
     address: 'Mohamed VI Street, Marrakesh 40000',
-    phone: '+212 530 530 520',
+    phone: '+212 530 530 530',
     email: 'hmenzahcommercial@mogadorhotels.com',
   },
 ]

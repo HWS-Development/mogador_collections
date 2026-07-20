@@ -115,7 +115,6 @@ export default function HotelsPage({ t, lang }) {
                   <button type="button" onClick={() => goToHotel(1)} aria-label={copy.next} disabled={filteredHotels.length < 2}><CollectionArrow /></button>
                 </div>
               </header>
-              <div className="gm-hotel-atelier__line" aria-hidden="true"><span style={{ '--hotel-progress': `${((activeHotel + 1) / filteredHotels.length) * 100}%` }} /></div>
               <h3>{activeHotelData.name}</h3>
               <p>{lang === 'fr' ? (activeHotelDetails?.overview?.[0] || activeHotelData.description || activeHotelData.baseline) : `${activeHotelData.family} · ${translateDestinationName(activeHotelData.destination, lang)}. ${text}`}</p>
               <div className="gm-hotel-atelier__proofs">
