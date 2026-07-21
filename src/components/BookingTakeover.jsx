@@ -72,7 +72,7 @@ export default function BookingTakeover({ t, lang }) {
       }
       if (event.key !== 'Tab') return
 
-      const focusable = Array.from(panelRef.current?.querySelectorAll('a[href], button:not([disabled]), input:not([disabled]), select:not([disabled])') || [])
+      const focusable = Array.from(panelRef.current?.querySelectorAll('a[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled])') || [])
       if (!focusable.length) return
       const first = focusable[0]
       const last = focusable[focusable.length - 1]

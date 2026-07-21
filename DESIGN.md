@@ -74,6 +74,9 @@ Red is reserved for booking actions, active navigation, and the horizon line. La
 - Captions: a narrow mineral or ink rail attached to the image edge, never a floating glass chip.
 - Values manifesto: one hospitality portrait, one featured commitment, then a readable 2x2 sequence; never five equal narrow columns.
 - Closing conversion: a full-width local photograph with a directional veil, concise copy, and direct booking as the decisive action.
+- Header states: the hero state remains transparent; solid and compact states use warm ivory `#F3EDE5`, never pure white.
+- Footer: Mogador mineral beige `#BFA593` with warm `#EADFD2` and `#F2E8DC` surfaces, red horizon lines, a cinematic logo reveal, and no dark background block.
+- Booking folio: numbered custom controls, localized DatePicker ranges, mobile sheets, and desktop popovers; no visible native selects or date inputs.
 - Forms: labels above fields, visible focus, no floating labels.
 
 ## Page Patterns

@@ -6,6 +6,7 @@ import './group-home.css'
 import './home-enhancements.css'
 import './interior-gallery.css'
 import './motion-polish.css'
+import './booking-premium.css'
 import App from './App.jsx'
 
 createRoot(document.getElementById('root')).render(

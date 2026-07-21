@@ -1,0 +1,1107 @@
+/* Mogador booking folio: one mobile-first interaction system for every booking entry point. */
+html body #root .booking-bar.booking-bar--premium {
+  --booking-paper: #f7f0e8;
+  --booking-paper-deep: #eadccf;
+  --booking-ink: #27252b;
+  --booking-muted: #6b6460;
+  --booking-red: #9a1917;
+  --booking-red-dark: #761513;
+  --booking-line: rgb(70 49 43 / 0.18);
+  position: relative !important;
+  isolation: isolate;
+  z-index: 20 !important;
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  gap: 0 !important;
+  width: min(100%, 1440px) !important;
+  max-width: 100% !important;
+  padding: 0 !important;
+  overflow: visible !important;
+  border: 1px solid var(--booking-line) !important;
+  border-block-start: 3px solid var(--booking-red) !important;
+  border-radius: 2px !important;
+  color: var(--booking-ink) !important;
+  background: var(--booking-paper) !important;
+  box-shadow: 0 24px 70px rgb(63 42 34 / 0.13) !important;
+  backdrop-filter: none !important;
+}
+
+html body #root .booking-bar.booking-bar--premium:has(:is(.booking-choice.is-open, .booking-datepicker.is-open)) {
+  z-index: 1000 !important;
+}
+
+html body #root .booking-bar--premium,
+html body #root .booking-bar--premium *,
+html body #root .booking-bar--premium *::before,
+html body #root .booking-bar--premium *::after {
+  box-sizing: border-box;
+}
+
+html body #root .booking-bar--premium .booking-bar__seal {
+  display: flex !important;
+  min-width: 0 !important;
+  min-height: 86px !important;
+  align-items: center !important;
+  gap: 0.85rem !important;
+  margin: 0 !important;
+  padding: 1rem !important;
+  border: 0 !important;
+  border-block-end: 1px solid var(--booking-line) !important;
+  border-radius: 0 !important;
+  color: var(--booking-ink) !important;
+  background:
+    linear-gradient(115deg, rgb(255 255 255 / 0.18), transparent 48%),
+    var(--booking-paper-deep) !important;
+}
+
+html body #root .booking-bar--premium .booking-bar__seal-mark {
+  display: grid !important;
+  flex: 0 0 46px;
+  width: 46px;
+  height: 46px;
+  place-items: center;
+  border: 1px solid rgb(154 25 23 / 0.28);
+  color: var(--booking-red) !important;
+  background: rgb(247 240 232 / 0.52);
+}
+
+html body #root .booking-bar--premium .booking-bar__seal-mark img {
+  display: block;
+  width: 30px !important;
+  max-width: 30px !important;
+  height: 38px !important;
+  object-fit: contain;
+}
+
+html body #root .booking-bar--premium .booking-bar__seal-copy {
+  display: grid !important;
+  min-width: 0;
+  gap: 0.18rem;
+}
+
+html body #root .booking-bar--premium .booking-bar__seal-copy small {
+  color: var(--booking-red) !important;
+  font-size: 0.59rem !important;
+  font-weight: 800 !important;
+  line-height: 1.2 !important;
+  letter-spacing: 0.15em !important;
+  text-transform: uppercase !important;
+}
+
+html body #root .booking-bar--premium .booking-bar__seal-copy strong {
+  max-width: 18ch;
+  color: var(--booking-ink) !important;
+  font-family: var(--display-font) !important;
+  font-size: 1rem !important;
+  font-weight: 500 !important;
+  line-height: 1.05 !important;
+  letter-spacing: 0 !important;
+  overflow-wrap: normal !important;
+  word-break: normal !important;
+  hyphens: none !important;
+  text-transform: none !important;
+}
+
+html body #root .booking-bar--premium .booking-bar__fields {
+  position: relative;
+  z-index: 2;
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  min-width: 0;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+}
+
+html body #root .booking-bar--premium .booking-field {
+  position: relative;
+  display: grid !important;
+  min-width: 0 !important;
+  min-height: 86px !important;
+  align-content: center !important;
+  gap: 0.48rem !important;
+  margin: 0 !important;
+  padding: 0.85rem 1rem !important;
+  border: 0 !important;
+  border-block-end: 1px solid var(--booking-line) !important;
+  border-radius: 0 !important;
+  color: var(--booking-ink) !important;
+  background: transparent !important;
+  transition: background-color 180ms ease, box-shadow 180ms ease !important;
+}
+
+html body #root .booking-bar--premium .booking-field:focus-within,
+html body #root .booking-bar--premium .booking-choice.is-open,
+html body #root .booking-bar--premium .booking-datepicker.is-open {
+  z-index: 72;
+  background: rgb(255 251 246 / 0.72) !important;
+  box-shadow: inset 0 -2px var(--booking-red) !important;
+}
+
+html body #root .booking-bar--premium .booking-choice.has-error {
+  background: rgb(154 25 23 / 0.055) !important;
+  box-shadow: inset 3px 0 var(--booking-red) !important;
+}
+
+html body #root .booking-bar--premium .booking-field__label,
+html body #root .booking-bar--premium label .booking-field__label,
+html body #root .booking-bar--premium .booking-choice .booking-field__label {
+  display: flex !important;
+  min-width: 0;
+  align-items: center;
+  gap: 0.5rem !important;
+  margin: 0 !important;
+  color: var(--booking-muted) !important;
+  font-family: var(--title-font) !important;
+  font-size: 0.6rem !important;
+  font-weight: 800 !important;
+  line-height: 1.2 !important;
+  letter-spacing: 0.13em !important;
+  text-transform: uppercase !important;
+}
+
+html body #root .booking-bar--premium .booking-field__label b {
+  color: var(--booking-red) !important;
+  font: inherit !important;
+  letter-spacing: 0.04em !important;
+}
+
+html body #root .booking-bar--premium .booking-field__label b::after {
+  content: "/";
+  margin-inline-start: 0.35rem;
+  color: rgb(107 100 96 / 0.5);
+}
+
+html body #root .booking-bar--premium .booking-field__label > span {
+  color: inherit !important;
+  font: inherit !important;
+  letter-spacing: inherit !important;
+  text-transform: inherit !important;
+}
+
+html body #root .booking-bar--premium .booking-icon {
+  display: block;
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  color: var(--booking-red);
+}
+
+html body #root .booking-bar--premium .booking-choice__trigger,
+html body #root .booking-bar--premium .booking-datepicker__trigger {
+  position: relative;
+  display: grid !important;
+  grid-template-columns: 22px minmax(0, 1fr) 16px !important;
+  min-width: 0 !important;
+  min-height: 44px !important;
+  align-items: center !important;
+  gap: 0.7rem !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  color: var(--booking-ink) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  text-align: start !important;
+  text-transform: none !important;
+  transform: none !important;
+}
+
+html body #root .booking-bar--premium :is(.booking-choice__trigger, .booking-datepicker__trigger) {
+  width: 100% !important;
+  cursor: pointer !important;
+  touch-action: manipulation;
+}
+
+html body #root .booking-bar--premium :is(.booking-choice__trigger, .booking-datepicker__trigger):hover {
+  color: var(--booking-red) !important;
+  background: transparent !important;
+  transform: none !important;
+}
+
+html body #root .booking-bar--premium :is(.booking-choice__trigger, .booking-datepicker__trigger):focus-visible {
+  outline: 2px solid var(--booking-red) !important;
+  outline-offset: 4px !important;
+}
+
+html body #root .booking-bar--premium .booking-choice__value,
+html body #root .booking-bar--premium .booking-datepicker__trigger > span,
+html body #root .booking-bar--premium .booking-promo__toggle > span {
+  display: grid !important;
+  min-width: 0;
+  gap: 0.1rem !important;
+  color: inherit !important;
+  text-align: start !important;
+}
+
+html body #root .booking-bar--premium :is(.booking-choice__value, .booking-datepicker__trigger > span, .booking-promo__toggle > span) strong {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--booking-ink) !important;
+  font-family: var(--title-font) !important;
+  font-size: 0.94rem !important;
+  font-weight: 750 !important;
+  line-height: 1.22 !important;
+  letter-spacing: 0 !important;
+  text-overflow: ellipsis;
+  text-transform: none !important;
+  white-space: nowrap;
+}
+
+html body #root .booking-bar--premium :is(.booking-choice__value, .booking-datepicker__trigger > span, .booking-promo__toggle > span) small {
+  overflow: hidden;
+  color: var(--booking-muted) !important;
+  font-size: 0.67rem !important;
+  font-weight: 500 !important;
+  line-height: 1.25 !important;
+  letter-spacing: 0 !important;
+  text-overflow: ellipsis;
+  text-transform: none !important;
+  white-space: nowrap;
+}
+
+html body #root .booking-bar--premium .booking-icon--chevron {
+  width: 16px;
+  height: 16px;
+  color: var(--booking-muted);
+  transition: transform 180ms ease;
+}
+
+html body #root .booking-bar--premium .booking-choice.is-open .booking-choice__trigger > .booking-icon--chevron {
+  color: var(--booking-red);
+  transform: rotate(180deg);
+}
+
+html body #root .booking-bar--premium .booking-datepicker.is-open .booking-datepicker__trigger > .booking-icon--chevron {
+  color: var(--booking-red);
+  transform: rotate(180deg);
+}
+
+html body #root .booking-bar--premium .booking-field__error {
+  display: block !important;
+  margin: 0 !important;
+  color: var(--booking-red-dark) !important;
+  font-size: 0.7rem !important;
+  font-weight: 700 !important;
+  line-height: 1.3 !important;
+}
+
+html body #root .booking-bar--premium .booking-promo {
+  display: block !important;
+  min-width: 0;
+}
+
+html body #root .booking-bar--premium .booking-promo__toggle {
+  display: grid !important;
+  grid-template-columns: 22px minmax(0, 1fr) 18px !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 66px !important;
+  align-items: center !important;
+  gap: 0.7rem !important;
+  margin: 0 !important;
+  padding: 0.75rem 1rem !important;
+  border: 0 !important;
+  border-block-end: 1px solid var(--booking-line) !important;
+  border-radius: 0 !important;
+  color: var(--booking-ink) !important;
+  background: rgb(234 220 207 / 0.36) !important;
+  box-shadow: none !important;
+  text-align: start !important;
+  text-transform: none !important;
+  transform: none !important;
+  cursor: pointer !important;
+}
+
+html body #root .booking-bar--premium .booking-promo__toggle:hover,
+html body #root .booking-bar--premium .booking-promo__toggle:focus-visible {
+  color: var(--booking-red) !important;
+  background: rgb(234 220 207 / 0.58) !important;
+  transform: none !important;
+}
+
+html body #root .booking-bar--premium .booking-promo__toggle:focus-visible {
+  outline: 2px solid var(--booking-red) !important;
+  outline-offset: -4px !important;
+}
+
+html body #root .booking-bar--premium .booking-promo__toggle .booking-icon--plus {
+  width: 18px;
+  height: 18px;
+}
+
+html body #root .booking-bar--premium .booking-field--promo {
+  display: none !important;
+}
+
+html body #root .booking-bar--premium .booking-promo.is-open .booking-promo__toggle {
+  display: none !important;
+}
+
+html body #root .booking-bar--premium .booking-promo.is-open .booking-field--promo {
+  display: grid !important;
+}
+
+html body #root .booking-bar--premium .booking-promo__control {
+  display: grid !important;
+  grid-template-columns: 22px minmax(0, 1fr) !important;
+  min-height: 44px;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+html body #root .booking-bar--premium .booking-promo__control input {
+  display: block !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 42px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  outline: 0 !important;
+  color: var(--booking-ink) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  font-family: var(--title-font) !important;
+  font-size: 1rem !important;
+  font-weight: 700 !important;
+}
+
+html body #root .booking-bar--premium .booking-promo__control input::placeholder {
+  color: rgb(107 100 96 / 0.62) !important;
+}
+
+html body #root .booking-bar--premium .booking-bar__submit {
+  display: flex !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 62px !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 1rem !important;
+  margin: 0 !important;
+  padding: 1rem 1.15rem !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  color: #fffaf4 !important;
+  background: var(--booking-red) !important;
+  box-shadow: none !important;
+  font-family: var(--title-font) !important;
+  font-size: 0.71rem !important;
+  font-weight: 850 !important;
+  line-height: 1.25 !important;
+  letter-spacing: 0.11em !important;
+  text-align: start !important;
+  text-transform: uppercase !important;
+  transform: none !important;
+  cursor: pointer !important;
+  touch-action: manipulation;
+  transition: background-color 180ms ease !important;
+}
+
+html body #root .booking-bar--premium .booking-bar__submit:hover,
+html body #root .booking-bar--premium .booking-bar__submit:focus-visible {
+  color: #fffaf4 !important;
+  background: var(--booking-red-dark) !important;
+  transform: none !important;
+}
+
+html body #root .booking-bar--premium .booking-bar__submit:focus-visible {
+  outline: 3px solid var(--booking-ink) !important;
+  outline-offset: 3px !important;
+}
+
+html body #root .booking-bar--premium .booking-bar__submit .booking-icon {
+  width: 22px;
+  height: 22px;
+  color: currentColor;
+  transition: transform 180ms ease;
+}
+
+html body #root .booking-bar--premium .booking-bar__submit:hover .booking-icon--arrow {
+  transform: translateX(4px);
+}
+
+html body #root .booking-bar--premium .booking-bar__note,
+html body #root .booking-bar--premium > p.booking-bar__note {
+  display: flex !important;
+  grid-column: auto !important;
+  min-width: 0;
+  width: 100% !important;
+  max-width: none !important;
+  min-height: 48px;
+  align-items: center;
+  gap: 0.65rem;
+  margin: 0 !important;
+  padding: 0.7rem 1rem !important;
+  border: 0 !important;
+  border-block-start: 1px solid var(--booking-line) !important;
+  color: var(--booking-muted) !important;
+  background: rgb(234 220 207 / 0.42) !important;
+  font-size: 0.71rem !important;
+  font-weight: 500 !important;
+  line-height: 1.4 !important;
+}
+
+html body #root .booking-bar--premium .booking-bar__note .booking-icon {
+  width: 18px;
+  height: 18px;
+}
+
+html body #root .booking-bar--premium .booking-choice__backdrop {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 990 !important;
+  display: block !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: rgb(29 24 22 / 0.44) !important;
+  box-shadow: none !important;
+  backdrop-filter: blur(2px);
+  transform: none !important;
+  cursor: default !important;
+  animation: booking-backdrop-in 180ms ease-out both;
+}
+
+html body #root .booking-bar--premium .booking-choice__popover {
+  position: fixed;
+  inset: auto max(0.75rem, env(safe-area-inset-right)) max(0.75rem, env(safe-area-inset-bottom)) max(0.75rem, env(safe-area-inset-left));
+  z-index: 1000;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  max-height: min(72dvh, 620px);
+  overflow: hidden;
+  border: 1px solid rgb(255 255 255 / 0.24);
+  border-block-start: 3px solid var(--booking-red);
+  border-radius: 18px 18px 4px 4px;
+  color: var(--booking-ink);
+  background: #f7f0e8;
+  box-shadow: 0 30px 100px rgb(22 17 15 / 0.32);
+  animation: booking-sheet-in 260ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+html body #root .booking-bar--premium .booking-choice__header {
+  position: relative;
+  display: flex;
+  min-height: 64px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1rem 0.75rem;
+  border-block-end: 1px solid var(--booking-line);
+  color: var(--booking-ink);
+}
+
+html body #root .booking-bar--premium .booking-choice__header::before {
+  content: "";
+  position: absolute;
+  inset-block-start: 0.45rem;
+  inset-inline-start: 50%;
+  width: 38px;
+  height: 3px;
+  border-radius: 999px;
+  background: rgb(107 100 96 / 0.28);
+  transform: translateX(-50%);
+}
+
+html body #root .booking-bar--premium .booking-choice__header > span {
+  color: var(--booking-ink) !important;
+  font-family: var(--display-font) !important;
+  font-size: 1.35rem !important;
+  font-weight: 500 !important;
+  line-height: 1.1 !important;
+}
+
+html body #root .booking-bar--premium .booking-choice__close {
+  display: grid !important;
+  flex: 0 0 44px;
+  width: 44px !important;
+  min-width: 44px !important;
+  height: 44px !important;
+  min-height: 44px !important;
+  place-items: center !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 1px solid var(--booking-line) !important;
+  border-radius: 50% !important;
+  color: var(--booking-red) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  transform: none !important;
+  cursor: pointer !important;
+}
+
+html body #root .booking-bar--premium .booking-choice__close:hover,
+html body #root .booking-bar--premium .booking-choice__close:focus-visible {
+  color: #fffaf4 !important;
+  background: var(--booking-red) !important;
+  transform: none !important;
+}
+
+html body #root .booking-bar--premium .booking-choice__close .booking-icon {
+  width: 18px;
+  height: 18px;
+  color: currentColor;
+}
+
+html body #root .booking-bar--premium .booking-choice__list {
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 0.35rem 0.75rem calc(0.75rem + env(safe-area-inset-bottom));
+  scrollbar-color: rgb(154 25 23 / 0.45) transparent;
+  scrollbar-width: thin;
+}
+
+html body #root .booking-bar--premium .booking-choice__option {
+  display: grid !important;
+  grid-template-columns: 24px minmax(0, 1fr) !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 64px !important;
+  align-items: center !important;
+  gap: 0.75rem !important;
+  margin: 0 !important;
+  padding: 0.8rem 0.4rem !important;
+  border: 0 !important;
+  border-block-end: 1px solid var(--booking-line) !important;
+  border-radius: 0 !important;
+  color: var(--booking-ink) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  text-align: start !important;
+  text-transform: none !important;
+  transform: none !important;
+  cursor: pointer !important;
+}
+
+html body #root .booking-bar--premium .booking-choice__option:hover,
+html body #root .booking-bar--premium .booking-choice__option:focus-visible,
+html body #root .booking-bar--premium .booking-choice__option.is-selected {
+  color: var(--booking-ink) !important;
+  background: rgb(234 220 207 / 0.52) !important;
+  transform: none !important;
+}
+
+html body #root .booking-bar--premium .booking-choice__option:focus-visible {
+  outline: 2px solid var(--booking-red) !important;
+  outline-offset: -3px !important;
+}
+
+html body #root .booking-bar--premium .booking-choice__option > .booking-icon--check {
+  width: 20px;
+  height: 20px;
+  opacity: 0;
+}
+
+html body #root .booking-bar--premium .booking-choice__option.is-selected > .booking-icon--check {
+  opacity: 1;
+}
+
+html body #root .booking-bar--premium .booking-choice__option > span {
+  display: grid !important;
+  min-width: 0;
+  gap: 0.2rem !important;
+}
+
+html body #root .booking-bar--premium .booking-choice__option strong {
+  color: var(--booking-ink) !important;
+  font-family: var(--title-font) !important;
+  font-size: 0.94rem !important;
+  font-weight: 700 !important;
+  line-height: 1.25 !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+}
+
+html body #root .booking-bar--premium .booking-choice__option small {
+  color: var(--booking-muted) !important;
+  font-size: 0.7rem !important;
+  font-weight: 500 !important;
+  line-height: 1.3 !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+}
+
+html body #root .booking-bar--premium .booking-datepicker__popover {
+  position: fixed;
+  inset: auto max(0.125rem, env(safe-area-inset-right)) max(0.25rem, env(safe-area-inset-bottom)) max(0.125rem, env(safe-area-inset-left));
+  z-index: 1000;
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr);
+  max-height: min(78dvh, 580px);
+  overflow: hidden;
+  border: 1px solid rgb(255 255 255 / 0.24);
+  border-block-start: 3px solid var(--booking-red);
+  border-radius: 18px 18px 4px 4px;
+  color: var(--booking-ink);
+  background: #f7f0e8;
+  box-shadow: 0 30px 100px rgb(22 17 15 / 0.32);
+  animation: booking-sheet-in 260ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+html body #root .booking-bar--premium .booking-datepicker__header {
+  position: relative;
+  display: flex;
+  min-height: 62px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 0.85rem 0.65rem;
+  border-block-end: 1px solid var(--booking-line);
+}
+
+html body #root .booking-bar--premium .booking-datepicker__header::before {
+  content: "";
+  position: absolute;
+  inset-block-start: 0.4rem;
+  inset-inline-start: 50%;
+  width: 38px;
+  height: 3px;
+  border-radius: 999px;
+  background: rgb(107 100 96 / 0.28);
+  transform: translateX(-50%);
+}
+
+html body #root .booking-bar--premium .booking-datepicker__header > span {
+  color: var(--booking-ink) !important;
+  font-family: var(--display-font) !important;
+  font-size: 1.28rem !important;
+  font-weight: 500 !important;
+  line-height: 1.1 !important;
+}
+
+html body #root .booking-bar--premium .booking-datepicker__month-nav {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) 44px;
+  min-height: 58px;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.45rem;
+}
+
+html body #root .booking-bar--premium .booking-datepicker__month-nav > strong {
+  color: var(--booking-ink) !important;
+  font-family: var(--title-font) !important;
+  font-size: 0.92rem !important;
+  font-weight: 750 !important;
+  line-height: 1.2 !important;
+  letter-spacing: 0 !important;
+  text-align: center !important;
+  text-transform: capitalize !important;
+}
+
+html body #root .booking-bar--premium .booking-datepicker__month-nav > button {
+  display: grid !important;
+  grid-column: auto !important;
+  width: 44px !important;
+  min-width: 44px !important;
+  height: 44px !important;
+  min-height: 44px !important;
+  place-items: center !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 1px solid var(--booking-line) !important;
+  border-radius: 50% !important;
+  color: var(--booking-red) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  transform: none !important;
+  cursor: pointer !important;
+}
+
+html body #root .booking-bar--premium .booking-datepicker__month-nav > button:is(:hover, :focus-visible) {
+  color: #fffaf4 !important;
+  background: var(--booking-red) !important;
+  transform: none !important;
+}
+
+html body #root .booking-bar--premium .booking-datepicker__month-nav > button:focus-visible {
+  outline: 2px solid var(--booking-ink) !important;
+  outline-offset: 2px !important;
+}
+
+html body #root .booking-bar--premium .booking-datepicker__month-nav > button:disabled {
+  color: var(--booking-muted) !important;
+  background: transparent !important;
+  opacity: 0.32;
+  cursor: not-allowed !important;
+}
+
+html body #root .booking-bar--premium .booking-datepicker__month-nav .booking-icon {
+  width: 18px;
+  height: 18px;
+  color: currentColor;
+}
+
+html body #root .booking-bar--premium .booking-datepicker__calendar {
+  min-height: 0;
+  padding: 0 0.125rem 0.65rem;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+html body #root .booking-bar--premium .booking-datepicker__weekdays,
+html body #root .booking-bar--premium .booking-datepicker__week {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+html body #root .booking-bar--premium .booking-datepicker__weekdays > span {
+  display: grid !important;
+  min-height: 30px;
+  place-items: center;
+  color: var(--booking-muted) !important;
+  font-size: 0.62rem !important;
+  font-weight: 800 !important;
+  line-height: 1 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+}
+
+html body #root .booking-bar--premium .booking-datepicker__day {
+  position: relative;
+  display: grid !important;
+  grid-column: auto !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 44px !important;
+  place-items: center !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  color: var(--booking-ink) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  font-family: var(--title-font) !important;
+  font-size: 0.82rem !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  transform: none !important;
+  cursor: pointer !important;
+}
+
+html body #root .booking-bar--premium .booking-datepicker__day > span {
+  position: relative;
+  z-index: 1;
+  display: grid !important;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  color: inherit !important;
+  font: inherit !important;
+}
+
+html body #root .booking-bar--premium .booking-datepicker__day.is-in-range {
+  background: rgb(191 165 147 / 0.26) !important;
+}
+
+html body #root .booking-bar--premium .booking-datepicker__day.is-range-start {
+  background: linear-gradient(90deg, transparent 50%, rgb(191 165 147 / 0.26) 50%) !important;
+}
+
+html body #root .booking-bar--premium .booking-datepicker__day.is-range-end {
+  background: linear-gradient(90deg, rgb(191 165 147 / 0.26) 50%, transparent 50%) !important;
+}
+
+html body #root .booking-bar--premium .booking-datepicker__day:is(.is-selected, .is-range-start, .is-range-end) > span {
+  border-color: var(--booking-red);
+  color: #fffaf4 !important;
+  background: var(--booking-red);
+}
+
+html body #root .booking-bar--premium .booking-datepicker__day.is-today:not(.is-selected, .is-range-start, .is-range-end) > span {
+  border-color: var(--booking-red);
+  color: var(--booking-red) !important;
+}
+
+html body #root .booking-bar--premium .booking-datepicker__day.is-outside {
+  color: rgb(107 100 96 / 0.5) !important;
+}
+
+html body #root .booking-bar--premium .booking-datepicker__day:disabled {
+  color: rgb(107 100 96 / 0.28) !important;
+  background: transparent !important;
+  cursor: not-allowed !important;
+}
+
+html body #root .booking-bar--premium .booking-datepicker__day:not(:disabled):is(:hover, :focus-visible) > span {
+  border-color: var(--booking-red);
+}
+
+html body #root .booking-bar--premium .booking-datepicker__day:focus-visible {
+  outline: 0 !important;
+}
+
+html body #root .booking-bar--premium .booking-datepicker__day:focus-visible > span {
+  outline: 2px solid var(--booking-red) !important;
+  outline-offset: 2px !important;
+}
+
+html[dir="rtl"] body #root .booking-bar--premium .booking-datepicker__month-nav .booking-icon--previous,
+html[dir="rtl"] body #root .booking-bar--premium .booking-datepicker__month-nav .booking-icon--next {
+  transform: scaleX(-1);
+}
+
+html[dir="rtl"] body #root .booking-bar--premium .booking-datepicker__day.is-range-start {
+  background: linear-gradient(90deg, rgb(191 165 147 / 0.26) 50%, transparent 50%) !important;
+}
+
+html[dir="rtl"] body #root .booking-bar--premium .booking-datepicker__day.is-range-end {
+  background: linear-gradient(90deg, transparent 50%, rgb(191 165 147 / 0.26) 50%) !important;
+}
+
+html[dir="rtl"] body #root .booking-bar--premium .booking-bar__submit .booking-icon--arrow {
+  transform: scaleX(-1);
+}
+
+html[dir="rtl"] body #root .booking-bar--premium .booking-bar__submit:hover .booking-icon--arrow {
+  transform: scaleX(-1) translateX(4px);
+}
+
+@media (min-width: 560px) {
+  html body #root .booking-bar--premium .booking-bar__fields {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  html body #root .booking-bar--premium .booking-bar__fields > .booking-choice:first-child {
+    grid-column: 1 / -1;
+  }
+
+  html body #root .booking-bar--premium .booking-field,
+  html body #root .booking-bar--premium .booking-promo__toggle {
+    border-inline-end: 1px solid var(--booking-line) !important;
+  }
+}
+
+@media (min-width: 768px) {
+  html body #root .booking-bar--premium .booking-bar__seal {
+    padding-inline: 1.25rem !important;
+  }
+
+  html body #root .booking-bar--premium .booking-promo__toggle {
+    display: none !important;
+  }
+
+  html body #root .booking-bar--premium .booking-field--promo,
+  html body #root .booking-bar--premium .booking-promo.is-open .booking-field--promo {
+    display: grid !important;
+  }
+
+  html body #root .booking-bar--premium .booking-choice__backdrop {
+    background: transparent !important;
+    backdrop-filter: none;
+    animation: none;
+  }
+
+  html body #root .booking-bar--premium .booking-choice__popover {
+    position: absolute;
+    inset: calc(100% + 10px) auto auto 0;
+    width: min(440px, calc(100vw - 3rem));
+    max-height: 410px;
+    border: 1px solid var(--booking-line);
+    border-block-start: 3px solid var(--booking-red);
+    border-radius: 2px;
+    box-shadow: 0 24px 70px rgb(44 31 27 / 0.22);
+    animation: booking-popover-in 190ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  html body #root .booking-bar--premium .booking-datepicker__popover {
+    position: absolute;
+    inset-block-start: calc(100% + 10px);
+    inset-block-end: auto;
+    inset-inline-start: 0;
+    inset-inline-end: auto;
+    width: min(380px, calc(100vw - 2rem));
+    max-height: 500px;
+    border: 1px solid var(--booking-line);
+    border-block-start: 3px solid var(--booking-red);
+    border-radius: 2px;
+    box-shadow: 0 24px 70px rgb(44 31 27 / 0.22);
+    animation: booking-popover-in 190ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  html body #root .booking-bar--premium .booking-datepicker--departure .booking-datepicker__popover {
+    inset-inline-start: auto;
+    inset-inline-end: 0;
+  }
+
+  html body #root .booking-bar--premium .booking-datepicker__header {
+    min-height: 54px;
+    padding: 0.75rem 0.85rem;
+  }
+
+  html body #root .booking-bar--premium .booking-datepicker__header::before {
+    display: none;
+  }
+
+  html body #root .booking-bar--premium .booking-datepicker__header > span {
+    font-size: 1.08rem !important;
+  }
+
+  html[dir="rtl"] body #root .booking-bar--premium .booking-choice__popover {
+    inset: calc(100% + 10px) 0 auto auto;
+  }
+
+  html body #root .booking-bar--premium .booking-choice__header {
+    min-height: 54px;
+    padding: 0.75rem 0.85rem;
+  }
+
+  html body #root .booking-bar--premium .booking-choice__header::before {
+    display: none;
+  }
+
+  html body #root .booking-bar--premium .booking-choice__header > span {
+    font-size: 1.1rem !important;
+  }
+
+  html body #root .booking-bar--premium .booking-choice__close {
+    flex-basis: 38px;
+    width: 38px !important;
+    min-width: 38px !important;
+    height: 38px !important;
+    min-height: 38px !important;
+  }
+
+  html body #root .booking-bar--premium .booking-choice__list {
+    padding: 0.3rem 0.7rem 0.7rem;
+  }
+
+  html body #root .booking-bar--premium .booking-choice__option {
+    min-height: 58px !important;
+    padding: 0.65rem 0.35rem !important;
+  }
+
+  html body #root .booking-bar--premium .booking-bar__note {
+    padding-inline: 1.25rem !important;
+  }
+}
+
+@media (min-width: 1180px) {
+  html body #root .booking-bar--premium.booking-bar--default {
+    grid-template-columns: 175px minmax(0, 1fr) 195px !important;
+    align-items: stretch !important;
+  }
+
+  html body #root .booking-bar--premium.booking-bar--default .booking-bar__seal {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    min-height: 100% !important;
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    justify-items: start !important;
+    align-content: center !important;
+    gap: 0.7rem !important;
+    padding: 1.1rem !important;
+    border-block-end: 0 !important;
+    border-inline-end: 1px solid var(--booking-line) !important;
+  }
+
+  html body #root .booking-bar--premium.booking-bar--default .booking-bar__seal-mark {
+    width: 40px;
+    height: 40px;
+    flex-basis: 40px;
+  }
+
+  html body #root .booking-bar--premium.booking-bar--default .booking-bar__seal-mark img {
+    width: 27px !important;
+    max-width: 27px !important;
+    height: 34px !important;
+  }
+
+  html body #root .booking-bar--premium.booking-bar--default .booking-bar__seal-copy strong {
+    max-width: none;
+    font-size: 0.94rem !important;
+  }
+
+  html body #root .booking-bar--premium.booking-bar--default .booking-bar__fields {
+    grid-column: 2;
+    grid-row: 1;
+    grid-template-columns: minmax(0, 1.45fr) repeat(2, minmax(0, 0.9fr)) repeat(2, minmax(0, 0.8fr)) !important;
+  }
+
+  html body #root .booking-bar--premium.booking-bar--default.booking-bar--no-promo .booking-bar__fields {
+    grid-template-columns: minmax(0, 1.35fr) repeat(2, minmax(0, 0.9fr)) minmax(0, 0.75fr) !important;
+  }
+
+  html body #root .booking-bar--premium.booking-bar--default .booking-bar__fields > .booking-choice:first-child {
+    grid-column: auto;
+  }
+
+  html body #root .booking-bar--premium.booking-bar--default .booking-field,
+  html body #root .booking-bar--premium.booking-bar--default .booking-promo__toggle {
+    min-height: 94px !important;
+    padding-inline: 0.7rem !important;
+    border-block-end: 0 !important;
+    border-inline-end: 1px solid var(--booking-line) !important;
+  }
+
+  html body #root .booking-bar--premium.booking-bar--default :is(.booking-choice__trigger, .booking-datepicker__trigger) {
+    grid-template-columns: 20px minmax(0, 1fr) 14px !important;
+    gap: 0.45rem !important;
+  }
+
+  html body #root .booking-bar--premium.booking-bar--default .booking-promo__control {
+    grid-template-columns: 20px minmax(0, 1fr) !important;
+    gap: 0.45rem;
+  }
+
+  html body #root .booking-bar--premium.booking-bar--default .booking-bar__submit {
+    grid-column: 3;
+    grid-row: 1;
+    min-height: 94px !important;
+    padding: 1rem 1.35rem !important;
+  }
+
+  html body #root .booking-bar--premium.booking-bar--default .booking-bar__note {
+    grid-column: 2 / -1 !important;
+    grid-row: 2;
+  }
+
+  html body #root .booking-bar--premium.booking-bar--default .booking-choice--guests .booking-choice__popover {
+    inset-inline: auto 0;
+    width: 300px;
+  }
+}
+
+@keyframes booking-backdrop-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes booking-sheet-in {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes booking-popover-in {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html body #root .booking-bar--premium *,
+  html body #root .booking-bar--premium *::before,
+  html body #root .booking-bar--premium *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

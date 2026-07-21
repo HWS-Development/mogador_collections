@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { activeHotels, brand, destinations } from '../data/siteData'
 import { images } from '../data/images'
 import Link from '../router/Link'
@@ -17,6 +17,8 @@ const footerCopy = {
     subject: 'Inscription aux actualités Mogador',
     body: 'Je souhaite recevoir les actualités Mogador à l’adresse {email}.',
     information: 'Informations',
+    journal: 'Le carnet Mogador',
+    since: 'Depuis 1999',
     copyright: '© Mogador Hotels & Resorts. Site officiel du groupe.',
   },
   en: {
@@ -31,6 +33,8 @@ const footerCopy = {
     subject: 'Mogador news subscription',
     body: 'I would like to receive Mogador news at {email}.',
     information: 'Information',
+    journal: 'The Mogador journal',
+    since: 'Since 1999',
     copyright: '© Mogador Hotels & Resorts. Official Group website.',
   },
   ar: {
@@ -45,13 +49,27 @@ const footerCopy = {
     subject: 'التسجيل في أخبار موغادور',
     body: 'أرغب في تلقي أخبار موغادور على البريد {email}.',
     information: 'معلومات',
+    journal: 'دفتر موغادور',
+    since: 'منذ 1999',
     copyright: '© فنادق ومنتجعات موغادور. الموقع الرسمي للمجموعة.',
   },
 }
 
 export default function Footer({ t, lang }) {
   const [newsletterStatus, setNewsletterStatus] = useState('')
+  const [mobileFooter, setMobileFooter] = useState(() => window.matchMedia('(max-width: 700px)').matches)
+  const [openGroup, setOpenGroup] = useState(null)
   const copy = footerCopy[lang] || footerCopy.fr
+
+  useEffect(() => {
+    const media = window.matchMedia('(max-width: 700px)')
+    const onChange = (event) => {
+      setMobileFooter(event.matches)
+      if (!event.matches) setOpenGroup(null)
+    }
+    media.addEventListener('change', onChange)
+    return () => media.removeEventListener('change', onChange)
+  }, [])
 
   const handleNewsletter = (event) => {
     event.preventDefault()
@@ -62,50 +80,76 @@ export default function Footer({ t, lang }) {
 
   return (
     <footer className="site-footer" id="footer">
-      <section className="gm-owned-prefooter" aria-label={copy.official}>
-        <div>
+      <div className="site-footer__decor" aria-hidden="true">
+        <img src={images.brand.mark} alt="" />
+      </div>
+      <section className="site-footer__signature" aria-label={copy.positioning}>
+        <div className="site-footer__identity">
           <span>{copy.official}</span>
-          <h2>{copy.title}</h2>
+          <Link className="site-footer__logo-stage reveal" to="/" aria-label="Mogador Hotels & Resorts">
+            <i aria-hidden="true" />
+            <img src={images.brand.logo} alt="" />
+          </Link>
+          <small>{copy.since}</small>
+        </div>
+        <div className="site-footer__promise reveal" style={{ '--delay': '100ms' }}>
+          <h2>{copy.positioning}</h2>
+          <div>
+            <Link className="site-footer__book" to="/#reservation" data-track="footer_booking">{t.common.book}</Link>
+            <Link className="site-footer__contact" to="/contact">{t.nav.contact}</Link>
+          </div>
+        </div>
+      </section>
+      <section className="gm-owned-prefooter" aria-label={copy.official}>
+        <div className="site-footer__newsletter-copy">
+          <span>{copy.journal}</span>
+          <h3>{copy.title}</h3>
           <p>{copy.text}</p>
         </div>
-        <form onSubmit={handleNewsletter}>
+        <form className="site-footer__newsletter-form" onSubmit={handleNewsletter}>
           <label><span>{copy.email}</span><input name="email" type="email" autoComplete="email" placeholder={copy.placeholder} required /></label>
           <button type="submit">{copy.subscribe}</button>
           <small aria-live="polite">{newsletterStatus}</small>
         </form>
       </section>
-      <div className="site-footer__brand">
-        <img src={images.brand.logoWhite} alt="Mogador Hotels & Resorts" />
-        <p>{copy.positioning}</p>
-      </div>
-      <div className="site-footer__grid">
-        <div>
-          <h3>{t.nav.destinations}</h3>
+      <nav className="site-footer__grid" aria-label={t.nav.information || copy.information}>
+        <FooterGroup id="destinations" title={t.nav.destinations} mobile={mobileFooter} open={openGroup === 0} onToggle={() => setOpenGroup(openGroup === 0 ? null : 0)}>
           {destinations.map((destination) => <Link key={destination.slug} to={`/destinations#${destination.slug}`}>{translateDestinationName(destination.name, lang)}</Link>)}
-        </div>
-        <div>
-          <h3>{t.nav.hotels}</h3>
+        </FooterGroup>
+        <FooterGroup id="hotels" title={t.nav.hotels} mobile={mobileFooter} open={openGroup === 1} onToggle={() => setOpenGroup(openGroup === 1 ? null : 1)}>
           {activeHotels.map((hotel) => <Link key={hotel.slug} to={`/hotels/${hotel.slug}`}>{hotel.name}</Link>)}
-        </div>
-        <div>
-          <h3>{copy.information}</h3>
+        </FooterGroup>
+        <FooterGroup id="information" title={copy.information} mobile={mobileFooter} open={openGroup === 2} onToggle={() => setOpenGroup(openGroup === 2 ? null : 2)}>
           <Link to="/a-propos">{t.nav.about}</Link>
           <Link to="/offres">{t.nav.offers}</Link>
           <Link to="/reunions-evenements">{t.nav.mice}</Link>
           <Link to="/programme-fidelite">{t.nav.loyalty}</Link>
           <Link to="/magazine">{t.nav.magazine}</Link>
-        </div>
-        <div>
-          <h3>{t.nav.contact}</h3>
+        </FooterGroup>
+        <FooterGroup id="contact" title={t.nav.contact} mobile={mobileFooter} open={openGroup === 3} onToggle={() => setOpenGroup(openGroup === 3 ? null : 3)}>
           <a href={`tel:${brand.phone}`}>{brand.phone}</a>
           <a href={`mailto:${brand.email}`}>{brand.email}</a>
           <span>{brand.website}</span>
-        </div>
-      </div>
+        </FooterGroup>
+      </nav>
       <div className="site-footer__bottom">
         <span>{copy.copyright}</span>
         <Link to="/contact">{t.nav.contact}</Link>
       </div>
     </footer>
+  )
+}
+
+function FooterGroup({ id, title, mobile, open, onToggle, children }) {
+  const contentId = `footer-${id}`
+  return (
+    <section className={`site-footer__group${open ? ' is-open' : ''}`}>
+      {mobile ? (
+        <button type="button" aria-expanded={open} aria-controls={contentId} onClick={onToggle}>
+          <span>{title}</span><i aria-hidden="true" />
+        </button>
+      ) : <h3>{title}</h3>}
+      <div id={contentId} hidden={mobile && !open}>{children}</div>
+    </section>
   )
 }
