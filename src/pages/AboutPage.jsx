@@ -55,13 +55,23 @@ export default function AboutPage({ t, lang }) {
           <span className="gm-label">{copy.valuesLabel}</span>
           <h2>{copy.valuesTitle}</h2>
         </div>
-        <div className="gm-values__grid">
-          {copy.values.map(([title, text]) => (
-            <article className="gm-reveal" key={title}>
-              <h3>{title}</h3>
-              <p>{text}</p>
-            </article>
-          ))}
+        <div className="gm-values__showcase">
+          <figure className="gm-values__visual gm-reveal">
+            <img src="/assets/showcase/service-detail-portrait.webp" alt="" loading="lazy" />
+            <figcaption>
+              <div><span>{copy.valuesLabel}</span><strong>Mogador Hotels & Resorts</strong></div>
+              <Link className="gm-button gm-button--primary" to="/#reservation">{copy.finalBook}</Link>
+            </figcaption>
+          </figure>
+          <div className="gm-values__grid">
+            {copy.values.map(([title, text], index) => (
+              <article className="gm-reveal" style={{ '--delay': `${index * 60}ms` }} key={title}>
+                <span className="gm-values__index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+                <h3>{title}</h3>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 

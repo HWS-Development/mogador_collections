@@ -16,9 +16,16 @@
   --gm-width: 1480px;
   --gm-section: clamp(6rem, 10vw, 11rem);
   --gm-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --gm-image-ease: 800ms var(--gm-ease);
+  --gm-image-rest: saturate(0.9) contrast(1.025);
+  --gm-image-active: saturate(0.98) contrast(1.02);
   position: relative;
   color: var(--gm-text);
   background: var(--gm-canvas);
+  overflow: clip;
+}
+
+html body:not(.gm-interior-route) main#content {
   overflow: clip;
 }
 
@@ -369,7 +376,9 @@ html body .gm-home-divine .gm-home-heading h2 {
   height: 100%;
   object-fit: cover;
   object-position: center;
-  filter: saturate(0.78) contrast(1.08) brightness(0.78);
+  filter: saturate(0.9) contrast(1.04) brightness(0.88);
+  transform: scale(1.01);
+  transition: transform 1200ms var(--gm-ease), filter 600ms ease;
 }
 
 .gm-divine-hero__media img { z-index: 0; }
@@ -421,8 +430,8 @@ html body .gm-home-divine .gm-home-heading h2 {
 .gm-divine-hero__veil {
   z-index: -2;
   background:
-    linear-gradient(90deg, rgba(13, 15, 27, 0.9) 0%, rgba(13, 15, 27, 0.64) 42%, rgba(13, 15, 27, 0.12) 74%),
-    linear-gradient(0deg, rgba(13, 15, 27, 0.78) 0%, transparent 52%);
+    linear-gradient(90deg, rgba(13, 15, 27, 0.8) 0%, rgba(13, 15, 27, 0.5) 42%, rgba(13, 15, 27, 0.08) 76%),
+    linear-gradient(0deg, rgba(13, 15, 27, 0.62) 0%, transparent 58%);
 }
 
 .gm-divine-hero__veil::after {
@@ -667,6 +676,7 @@ html body .gm-home-divine .gm-manifesto__statement > p {
   position: relative;
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-template-rows: auto 1fr;
   gap: clamp(1rem, 2vw, 2rem);
   width: min(var(--gm-width), 100%);
   margin: 0 auto;
@@ -684,15 +694,19 @@ html body .gm-home-divine .gm-manifesto__statement > p {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 900ms var(--gm-ease), filter 420ms ease;
+  filter: var(--gm-image-rest);
+  transform: scale(1.01);
+  transition: transform var(--gm-image-ease), filter 420ms ease;
 }
 
 .gm-manifesto__composition figure:hover img {
+  filter: var(--gm-image-active);
   transform: scale(1.035);
 }
 
 .gm-manifesto__primary {
   grid-column: 1 / 8;
+  grid-row: 1 / 3;
   min-height: clamp(500px, 54vw, 800px);
 }
 
@@ -707,7 +721,8 @@ html body .gm-home-divine .gm-manifesto__statement > p {
   max-width: 340px;
   padding: 1rem 1.2rem;
   color: var(--gm-paper);
-  background: var(--gm-red);
+  border-block-start: 2px solid var(--gm-red);
+  background: rgba(31, 34, 56, 0.9);
   font-family: var(--title-font);
   font-size: 0.62rem;
   font-weight: 700;
@@ -718,6 +733,7 @@ html body .gm-home-divine .gm-manifesto__statement > p {
 
 .gm-manifesto__detail {
   grid-column: 8 / 13;
+  grid-row: 1;
   align-self: start;
   min-height: clamp(310px, 31vw, 470px);
   margin-top: clamp(2rem, 7vw, 7rem);
@@ -763,6 +779,7 @@ html body .gm-home-divine .gm-manifesto__statement > p {
 
 .gm-manifesto__copy {
   grid-column: 8 / 13;
+  grid-row: 2;
   align-self: end;
   padding: clamp(1rem, 3vw, 3rem) clamp(0rem, 2vw, 2rem) 0;
 }
@@ -918,7 +935,7 @@ html body .gm-home-divine .gm-story__chapter h3 {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(0deg, rgba(14, 16, 28, 0.66), transparent 52%);
+  background: linear-gradient(0deg, rgba(14, 16, 28, 0.48), transparent 58%);
   pointer-events: none;
 }
 
@@ -929,15 +946,15 @@ html body .gm-home-divine .gm-story__chapter h3 {
   height: 100%;
   object-fit: cover;
   opacity: 0;
-  filter: saturate(0.72) contrast(1.05);
-  transform: scale(1.08);
-  transition: opacity 520ms ease, transform 900ms var(--gm-ease), filter 520ms ease;
+  filter: var(--gm-image-rest);
+  transform: scale(1.035);
+  transition: opacity 520ms ease, transform var(--gm-image-ease), filter 520ms ease;
 }
 
 .gm-values__media img.is-active {
   opacity: 1;
-  filter: saturate(0.95) contrast(1.04);
-  transform: scale(1.02);
+  filter: var(--gm-image-active);
+  transform: scale(1.01);
 }
 
 .gm-values__media > span {
@@ -1166,7 +1183,7 @@ html body .gm-home-divine .gm-values__body h2 {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(0deg, rgba(16, 18, 31, 0.52), transparent 50%);
+  background: linear-gradient(0deg, rgba(16, 18, 31, 0.42), transparent 56%);
 }
 
 .gm-destination-stage__media img {
@@ -1176,15 +1193,15 @@ html body .gm-home-divine .gm-values__body h2 {
   height: 100%;
   object-fit: cover;
   opacity: 0;
-  filter: saturate(0.78) contrast(1.04);
-  transform: scale(1.08);
-  transition: opacity 520ms ease, transform 900ms var(--gm-ease), filter 520ms ease;
+  filter: var(--gm-image-rest);
+  transform: scale(1.035);
+  transition: opacity 520ms ease, transform var(--gm-image-ease), filter 520ms ease;
 }
 
 .gm-destination-stage__media img.is-active {
   opacity: 1;
-  filter: saturate(0.95) contrast(1.03);
-  transform: scale(1.02);
+  filter: var(--gm-image-active);
+  transform: scale(1.01);
 }
 
 .gm-destination-stage__count {
@@ -1342,15 +1359,16 @@ html body .gm-home-divine .gm-destination-stage__content h3 {
 
 .gm-home-moment figure::after {
   content: "";
-  background: linear-gradient(0deg, rgba(14, 16, 28, 0.94) 0%, rgba(14, 16, 28, 0.14) 70%);
+  background: linear-gradient(0deg, rgba(14, 16, 28, 0.82) 0%, rgba(14, 16, 28, 0.1) 72%);
   transition: background 380ms ease;
 }
 
 .gm-home-moment img {
   height: 100%;
   object-fit: cover;
-  filter: saturate(0.76) contrast(1.05);
-  transition: transform 900ms var(--gm-ease), filter 420ms ease;
+  filter: var(--gm-image-rest);
+  transform: scale(1.01);
+  transition: transform var(--gm-image-ease), filter 420ms ease;
 }
 
 .gm-home-moment > div {
@@ -1420,8 +1438,8 @@ html body .gm-home-divine .gm-home-moment p {
 
 .gm-home-moment:hover img,
 .gm-home-moment:focus-visible img {
-  filter: saturate(0.98) contrast(1.04);
-  transform: scale(1.045);
+  filter: var(--gm-image-active);
+  transform: scale(1.035);
 }
 
 .gm-home-moment:hover > div,
@@ -1479,7 +1497,7 @@ html body .gm-home-divine .gm-collection-home .gm-home-heading h2 {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(0deg, rgba(13, 15, 27, 0.58), transparent 48%);
+  background: linear-gradient(0deg, rgba(13, 15, 27, 0.46), transparent 54%);
 }
 
 .gm-collection-stage__media > img {
@@ -1489,15 +1507,15 @@ html body .gm-home-divine .gm-collection-home .gm-home-heading h2 {
   height: 100%;
   object-fit: cover;
   opacity: 0;
-  filter: saturate(0.76) contrast(1.04);
-  transform: scale(1.08);
-  transition: opacity 520ms ease, transform 900ms var(--gm-ease), filter 520ms ease;
+  filter: var(--gm-image-rest);
+  transform: scale(1.035);
+  transition: opacity 520ms ease, transform var(--gm-image-ease), filter 520ms ease;
 }
 
 .gm-collection-stage__media > img.is-active {
   opacity: 1;
-  filter: saturate(0.94) contrast(1.04);
-  transform: scale(1.02);
+  filter: var(--gm-image-active);
+  transform: scale(1.01);
 }
 
 .gm-collection-stage__media figcaption {
@@ -1510,12 +1528,13 @@ html body .gm-home-divine .gm-collection-home .gm-home-heading h2 {
   align-items: center;
   padding: 0.75rem 0.9rem;
   color: var(--gm-paper);
-  background: rgba(21, 23, 37, 0.66);
+  border-block-start: 2px solid var(--gm-red);
+  background: rgba(21, 23, 37, 0.9);
   font-family: var(--title-font);
   font-size: 0.59rem;
   letter-spacing: 0.11em;
   text-transform: uppercase;
-  backdrop-filter: blur(10px);
+  backdrop-filter: none;
 }
 
 .gm-collection-stage__media figcaption span {
@@ -1633,13 +1652,15 @@ html body .gm-home-divine .gm-collection-stage__copy h3 {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(0deg, rgba(21, 23, 37, 0.55), transparent 48%);
+  background: linear-gradient(0deg, rgba(21, 23, 37, 0.42), transparent 56%);
 }
 
 .gm-mice-home__media img {
   height: 100%;
   object-fit: cover;
-  filter: saturate(0.86);
+  filter: var(--gm-image-rest);
+  transform: scale(1.01);
+  transition: transform var(--gm-image-ease), filter 420ms ease;
 }
 
 .gm-mice-home__media figcaption {
@@ -1649,12 +1670,20 @@ html body .gm-home-divine .gm-collection-stage__copy h3 {
   z-index: 2;
   padding: 0.8rem 1rem;
   color: var(--gm-paper);
-  background: var(--gm-red);
+  border-block-start: 2px solid var(--gm-red);
+  background: rgba(31, 34, 56, 0.9);
   font-family: var(--title-font);
   font-size: 0.61rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .gm-mice-home__media:hover img {
+    filter: var(--gm-image-active);
+    transform: scale(1.025);
+  }
 }
 
 .gm-mice-home__copy {

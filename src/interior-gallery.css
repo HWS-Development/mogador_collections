@@ -14,6 +14,9 @@
   --ig-width: 1480px;
   --ig-section: clamp(5rem, 9vw, 9rem);
   --ig-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --ig-image-ease: 800ms var(--ig-ease);
+  --ig-image-rest: saturate(0.92) contrast(1.02);
+  --ig-image-active: saturate(1) contrast(1.02);
 }
 
 .site-logo__inverse {
@@ -217,6 +220,9 @@ html body.gm-interior-route .gm-page :is(h1, h2, h3, h4) {
   text-align-last: start !important;
   text-transform: none !important;
   text-wrap: balance;
+  overflow-wrap: normal !important;
+  word-break: normal !important;
+  hyphens: none !important;
 }
 
 html body.gm-interior-route .gm-page p {
@@ -281,8 +287,9 @@ html body.gm-interior-route .gm-page .gm-page-hero__media img {
   margin: 0 !important;
   object-fit: cover !important;
   object-position: center !important;
-  filter: saturate(0.94) contrast(1.03) !important;
-  transform: scale(1.02);
+  filter: var(--ig-image-rest) !important;
+  transform: scale(1.01);
+  transition: transform 1200ms var(--ig-ease), filter 600ms ease !important;
 }
 
 html body.gm-interior-route .gm-about-page .gm-page-hero__media img,
@@ -295,8 +302,8 @@ html body.gm-interior-route .gm-page .gm-page-hero__veil {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, rgba(15, 17, 31, 0.78) 0%, rgba(15, 17, 31, 0.48) 43%, rgba(15, 17, 31, 0.06) 78%),
-    linear-gradient(0deg, rgba(15, 17, 31, 0.66) 0%, transparent 52%);
+    linear-gradient(90deg, rgba(15, 17, 31, 0.72) 0%, rgba(15, 17, 31, 0.42) 43%, rgba(15, 17, 31, 0.04) 78%),
+    linear-gradient(0deg, rgba(15, 17, 31, 0.58) 0%, transparent 58%);
 }
 
 html body.gm-interior-route .gm-page .gm-page-hero__content {
@@ -646,8 +653,9 @@ html body.gm-interior-route .gm-page :is(.gm-story-row, .gm-business-row, .gm-ho
   height: 100% !important;
   min-height: inherit !important;
   object-fit: cover !important;
-  filter: saturate(0.94) !important;
-  transform: scale(1.035);
+  filter: var(--ig-image-rest) !important;
+  transform: scale(1.025);
+  transition: transform var(--ig-image-ease), filter 420ms ease !important;
 }
 
 html body.gm-interior-route .gm-page :is(.gm-story-row, .gm-business-row, .gm-hotel-section) > div {
@@ -713,7 +721,7 @@ html body.gm-interior-route .gm-page .gm-fs-gallery {
   position: relative !important;
   display: block !important;
   width: min(100%, var(--ig-width)) !important;
-  min-height: clamp(570px, 66svh, 760px) !important;
+  min-height: clamp(620px, 70svh, 820px) !important;
   margin: 0 auto !important;
   padding: 0 !important;
   overflow: hidden !important;
@@ -751,7 +759,9 @@ html body.gm-interior-route .gm-page .gm-fs-gallery__slide img {
   width: 100% !important;
   height: 100% !important;
   object-fit: cover !important;
-  transform: none !important;
+  filter: var(--ig-image-rest) !important;
+  transform: scale(1.01) !important;
+  transition: transform var(--ig-image-ease), filter 420ms ease !important;
 }
 
 html body.gm-interior-route .gm-page .gm-fs-gallery__slide--previous {
@@ -774,7 +784,8 @@ html body.gm-interior-route .gm-page .gm-fs-gallery__slide--active figcaption {
   gap: 0.35rem !important;
   padding: clamp(1.3rem, 2.7vw, 2.5rem) !important;
   color: var(--ig-paper) !important;
-  background: linear-gradient(0deg, rgba(15, 17, 31, 0.9), transparent) !important;
+  border-block-start: 2px solid var(--ig-red) !important;
+  background: linear-gradient(90deg, rgba(15, 17, 31, 0.94), rgba(15, 17, 31, 0.72)) !important;
 }
 
 html body.gm-interior-route .gm-page .gm-fs-gallery__slide--active figcaption strong {
@@ -838,10 +849,61 @@ html body.gm-interior-route .gm-page .gm-fs-gallery__counter {
   inset-block-end: 1rem !important;
   z-index: 7 !important;
   max-width: 46ch;
-  color: var(--ig-muted) !important;
+  padding: 0.55rem 0.7rem !important;
+  color: rgba(255, 254, 251, 0.76) !important;
+  background: rgba(15, 17, 31, 0.82) !important;
   font-size: 0.57rem !important;
   letter-spacing: 0.1em;
   text-transform: uppercase;
+}
+
+@media (min-width: 901px) {
+  html body.gm-interior-route .gm-page .gm-fs-gallery__slide--active {
+    inset-block: 0 !important;
+    inset-inline-start: 0 !important;
+    inset-inline-end: auto !important;
+    z-index: 2 !important;
+    display: grid !important;
+    grid-template-rows: minmax(0, 1fr) auto !important;
+    width: calc(65% - 0.5rem) !important;
+    height: 100% !important;
+    transform: none !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-fs-gallery__slide--previous,
+  html body.gm-interior-route .gm-page .gm-fs-gallery__slide--next {
+    inset-inline-start: auto !important;
+    inset-inline-end: 0 !important;
+    width: calc(35% - 0.5rem) !important;
+    height: calc(50% - 0.5rem) !important;
+    opacity: 0.82 !important;
+    filter: saturate(0.8) !important;
+    transform: none !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-fs-gallery__slide--previous {
+    inset-block-start: 0 !important;
+    inset-block-end: auto !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-fs-gallery__slide--next {
+    inset-block-start: auto !important;
+    inset-block-end: 0 !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-fs-gallery__slide--active figcaption {
+    position: static !important;
+    gap: 0.25rem !important;
+    min-height: 96px !important;
+    padding: 1.1rem 1.4rem !important;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  html body.gm-interior-route .gm-page .gm-fs-gallery:is(:hover, :focus-within) .gm-fs-gallery__slide--active img {
+    filter: var(--ig-image-active) !important;
+    transform: scale(1.035) !important;
+  }
 }
 
 /* Conversion sections stay direct and quiet. */
@@ -970,53 +1032,232 @@ html body.gm-interior-route .gm-page .booking-bar > p {
   line-height: 1.35 !important;
 }
 
-/* About, loyalty and shared proof systems use rules instead of cards. */
-html body.gm-interior-route .gm-page .gm-values {
+/* Values become a hospitality portrait and a paced editorial sequence. */
+html body.gm-interior-route .gm-about-page .gm-values {
+  position: relative;
+  isolation: isolate;
+  display: block !important;
   width: 100% !important;
   max-width: none !important;
   padding: var(--ig-section) var(--ig-gutter) !important;
+  overflow: hidden !important;
+  color: var(--ig-paper) !important;
+  background: var(--ig-ink) !important;
+}
+
+html body.gm-interior-route .gm-about-page .gm-values::before {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  inset-inline-end: 0;
+  z-index: -1;
+  width: clamp(100px, 12vw, 190px);
+  opacity: 0.045;
+  background: url("/assets/brand/mogador-pattern.svg") center top / 130px auto repeat-y;
+  filter: brightness(0) invert(1);
+  pointer-events: none;
+}
+
+html body.gm-interior-route .gm-about-page .gm-values .gm-section-head {
+  grid-template-columns: minmax(130px, 0.22fr) minmax(0, 0.78fr) !important;
+  width: min(100%, var(--ig-width)) !important;
+  margin: 0 auto clamp(3rem, 6vw, 6rem) !important;
+}
+
+html body.gm-interior-route .gm-about-page .gm-values .gm-section-head .gm-label {
+  color: var(--ig-mineral) !important;
+}
+
+html body.gm-interior-route .gm-about-page .gm-values .gm-section-head h2 {
+  max-width: 13ch !important;
+  color: var(--ig-paper) !important;
+}
+
+html body.gm-interior-route .gm-about-page .gm-values__showcase {
+  display: grid !important;
+  grid-template-columns: minmax(360px, 0.72fr) minmax(0, 1.28fr) !important;
+  width: min(100%, var(--ig-width)) !important;
+  min-height: 760px !important;
+  margin-inline: auto !important;
+  border: 1px solid rgba(255, 254, 251, 0.18) !important;
+  background: rgba(255, 254, 251, 0.03) !important;
+}
+
+html body.gm-interior-route .gm-about-page .gm-values__visual {
+  position: relative;
+  min-height: 760px !important;
+  overflow: hidden !important;
+  background: #b69a82 !important;
+}
+
+html body.gm-interior-route .gm-about-page .gm-values__visual::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(0deg, rgba(15, 17, 31, 0.66), transparent 58%),
+    linear-gradient(90deg, rgba(15, 17, 31, 0.14), transparent 50%);
+  pointer-events: none;
+}
+
+html body.gm-interior-route .gm-about-page .gm-values__visual > img {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center 28% !important;
+  filter: var(--ig-image-rest) !important;
+  transform: scale(1.01) !important;
+  transition: transform var(--ig-image-ease), filter 420ms ease !important;
+}
+
+html body.gm-interior-route .gm-about-page .gm-values__visual figcaption {
+  position: absolute !important;
+  inset-inline: 0 !important;
+  inset-block-end: 0 !important;
+  z-index: 2;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 1.25rem !important;
+  padding: 1.25rem !important;
+  border-block-start: 2px solid var(--ig-red) !important;
+  color: var(--ig-paper) !important;
+  background: rgba(15, 17, 31, 0.9) !important;
+}
+
+html body.gm-interior-route .gm-about-page .gm-values__visual figcaption > div {
+  display: grid !important;
+  gap: 0.28rem !important;
+}
+
+html body.gm-interior-route .gm-about-page .gm-values__visual figcaption span {
+  color: var(--ig-mineral) !important;
+  font-size: 0.57rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.14em !important;
+  text-transform: uppercase !important;
+}
+
+html body.gm-interior-route .gm-about-page .gm-values__visual figcaption strong {
+  color: var(--ig-paper) !important;
+  font-family: var(--display-font) !important;
+  font-size: clamp(1.1rem, 1.55vw, 1.55rem) !important;
+  font-weight: 400 !important;
+}
+
+html body.gm-interior-route .gm-about-page .gm-values__visual figcaption .gm-button {
+  flex: 0 0 auto;
+  width: auto !important;
+  min-height: 48px !important;
+}
+
+html body.gm-interior-route .gm-about-page .gm-values__grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  align-content: stretch !important;
+  gap: 0 !important;
+  width: 100% !important;
+  margin: 0 !important;
+  border: 0 !important;
+}
+
+html body.gm-interior-route .gm-about-page .gm-values__grid article {
+  position: relative;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: flex-end !important;
+  gap: 0.75rem !important;
+  min-height: 250px !important;
+  padding: clamp(1.5rem, 2.5vw, 2.5rem) !important;
+  overflow: hidden !important;
+  border: 0 !important;
+  border-inline-start: 1px solid rgba(255, 254, 251, 0.14) !important;
+  border-bottom: 1px solid rgba(255, 254, 251, 0.14) !important;
+  color: var(--ig-paper) !important;
+  background: rgba(255, 254, 251, 0.025) !important;
+  transform: none !important;
+  transition: background-color 420ms ease !important;
+}
+
+html body.gm-interior-route .gm-about-page .gm-values__grid article::after {
+  content: "";
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--ig-red), var(--ig-mineral));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 520ms var(--ig-ease);
+}
+
+html body.gm-interior-route .gm-about-page .gm-values__grid article:first-child {
+  grid-column: 1 / -1 !important;
+  min-height: 260px !important;
   color: var(--ig-text) !important;
   background: var(--ig-paper) !important;
 }
 
-html body.gm-interior-route .gm-page .gm-values__grid {
-  display: grid !important;
-  grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
-  gap: 0 !important;
-  width: min(100%, var(--ig-width)) !important;
-  margin-inline: auto !important;
-  border-block: 1px solid var(--ig-line) !important;
+html body.gm-interior-route .gm-about-page .gm-values__grid article:first-child::after {
+  transform: scaleX(1);
 }
 
-html body.gm-interior-route .gm-page .gm-values__grid article {
-  display: grid !important;
-  align-content: start !important;
-  min-height: 300px !important;
-  padding: 2rem 1.35rem !important;
-  border: 0 !important;
-  border-inline-end: 1px solid var(--ig-line) !important;
-  background: transparent !important;
-  transform: none !important;
-}
-
-html body.gm-interior-route .gm-page .gm-values__grid article::before {
-  content: "";
-  width: 42px;
-  height: 3px;
+html body.gm-interior-route .gm-about-page .gm-values__index {
   margin-bottom: auto;
-  background: var(--ig-red);
+  color: var(--ig-mineral) !important;
+  font-family: var(--display-font) !important;
+  font-size: 1.05rem !important;
+  line-height: 1 !important;
 }
 
-html body.gm-interior-route .gm-page .gm-values__grid h3 {
+html body.gm-interior-route .gm-about-page .gm-values__grid article:first-child .gm-values__index {
+  color: var(--ig-red) !important;
+}
+
+html body.gm-interior-route .gm-about-page .gm-values__grid h3 {
+  max-width: 18ch !important;
+  color: var(--ig-paper) !important;
+  font-size: clamp(1.45rem, 2.1vw, 2.35rem) !important;
+  line-height: 1.02 !important;
+}
+
+html body.gm-interior-route .gm-about-page .gm-values__grid article:first-child h3 {
   color: var(--ig-ink) !important;
-  font-size: clamp(1.25rem, 1.7vw, 1.8rem) !important;
-  line-height: 1.08 !important;
+  font-size: clamp(2rem, 3.25vw, 3.7rem) !important;
 }
 
-html body.gm-interior-route .gm-page .gm-values__grid p {
-  margin-top: 1rem !important;
-  font-size: 0.9rem !important;
-  line-height: 1.58 !important;
+html body.gm-interior-route .gm-about-page .gm-values__grid p {
+  max-width: 46ch !important;
+  margin: 0 !important;
+  color: rgba(255, 254, 251, 0.66) !important;
+  font-size: 0.92rem !important;
+  line-height: 1.62 !important;
+}
+
+html body.gm-interior-route .gm-about-page .gm-values__grid article:first-child p {
+  color: var(--ig-muted) !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  html body.gm-interior-route .gm-about-page .gm-values__visual:hover > img {
+    filter: var(--ig-image-active) !important;
+    transform: scale(1.025) !important;
+  }
+
+  html body.gm-interior-route .gm-about-page .gm-values__grid article:hover {
+    background: rgba(255, 254, 251, 0.075) !important;
+  }
+
+  html body.gm-interior-route .gm-about-page .gm-values__grid article:first-child:hover {
+    background: #f7f3ed !important;
+  }
+
+  html body.gm-interior-route .gm-about-page .gm-values__grid article:hover::after {
+    transform: scaleX(1);
+  }
 }
 
 html body.gm-interior-route .gm-page :is(.gm-numbers--page, .gm-direct-proof) {
@@ -1222,6 +1463,16 @@ html body.gm-interior-route .gm-page .gm-destination-menu button strong {
   font-weight: 400 !important;
 }
 
+html body.gm-interior-route .gm-page :is(
+  .gm-destination-menu button strong,
+  .gm-destination-feature h2,
+  .gm-destination-index button strong
+) {
+  overflow-wrap: normal !important;
+  word-break: normal !important;
+  hyphens: none !important;
+}
+
 html body.gm-interior-route .gm-page .gm-destination-menu button:is(.is-active, :hover, :focus-visible) {
   padding-inline-start: 1.7rem !important;
   color: var(--ig-paper) !important;
@@ -1258,8 +1509,9 @@ html body.gm-interior-route .gm-page .gm-destination-feature figure img {
   height: 100% !important;
   margin: 0 !important;
   object-fit: cover !important;
-  filter: saturate(0.94) !important;
-  transform: scale(1.035);
+  filter: var(--ig-image-rest) !important;
+  transform: scale(1.025);
+  transition: transform var(--ig-image-ease), filter 420ms ease !important;
 }
 
 html body.gm-interior-route .gm-page .gm-destination-feature > div {
@@ -1349,12 +1601,12 @@ html body.gm-interior-route .gm-page .gm-destination-hotel-card img {
   object-fit: cover !important;
   filter: saturate(0.92) !important;
   transform: scale(1.01) !important;
-  transition: transform 600ms var(--ig-ease), filter 300ms ease !important;
+  transition: transform var(--ig-image-ease), filter 420ms ease !important;
 }
 
 html body.gm-interior-route .gm-page .gm-destination-hotel-card:is(:hover, :focus-visible) img {
-  filter: saturate(1.03) !important;
-  transform: scale(1.045) !important;
+  filter: var(--ig-image-active) !important;
+  transform: scale(1.035) !important;
 }
 
 html body.gm-interior-route .gm-page .gm-destination-hotel-card > div {
@@ -1424,11 +1676,12 @@ html body.gm-interior-route .gm-page .gm-destination-attractions__grid img {
   clip-path: none !important;
   filter: saturate(0.92) !important;
   transform: scale(1.01) !important;
-  transition: transform 600ms var(--ig-ease) !important;
+  transition: transform var(--ig-image-ease), filter 420ms ease !important;
 }
 
 html body.gm-interior-route .gm-page .gm-destination-attractions__grid article:hover img {
-  transform: scale(1.045) !important;
+  filter: var(--ig-image-active) !important;
+  transform: scale(1.035) !important;
 }
 
 html body.gm-interior-route .gm-page .gm-destination-attractions__grid article > div {
@@ -1492,12 +1745,12 @@ html body.gm-interior-route .gm-page .gm-destination-index button img {
   object-fit: cover !important;
   filter: saturate(0.62) !important;
   transform: scale(1.02) !important;
-  transition: transform 600ms var(--ig-ease), filter 300ms ease !important;
+  transition: transform var(--ig-image-ease), filter 420ms ease !important;
 }
 
 html body.gm-interior-route .gm-page .gm-destination-index button:is(:hover, :focus-visible, .is-active) img {
-  filter: saturate(1) !important;
-  transform: scale(1.07) !important;
+  filter: var(--ig-image-active) !important;
+  transform: scale(1.035) !important;
 }
 
 html body.gm-interior-route .gm-page .gm-destination-index button :is(span, strong) {
@@ -1691,7 +1944,7 @@ html body.gm-interior-route .gm-hotels-page .gm-hotel-tile__media img {
 }
 
 html body.gm-interior-route .gm-hotels-page .gm-hotel-tile:hover .gm-hotel-tile__media img {
-  transform: scale(1.045) !important;
+  transform: scale(1.035) !important;
 }
 
 html body.gm-interior-route .gm-hotels-page .gm-hotel-tile__body {
@@ -1980,7 +2233,7 @@ html body.gm-interior-route .gm-hotels-page .gm-hotel-atelier__visual > a:is(:ho
 }
 
 @keyframes gm-hotel-atelier-image {
-  from { opacity: 0.35; transform: scale(1.045); }
+  from { opacity: 0.35; transform: scale(1.035); }
   to { opacity: 1; transform: scale(1); }
 }
 
@@ -2764,12 +3017,12 @@ html body.gm-interior-route .gm-page :is(.gm-service-card, .gm-experience-card, 
   clip-path: none !important;
   filter: saturate(0.92) !important;
   transform: scale(1.01) !important;
-  transition: transform 650ms var(--ig-ease), filter 300ms ease !important;
+  transition: transform var(--ig-image-ease), filter 420ms ease !important;
 }
 
 html body.gm-interior-route .gm-page :is(.gm-service-card, .gm-experience-card, .gm-fs-offer-card, .gm-editorial-card, .gm-seminar-venues__grid > article):hover > :is(figure, img) {
-  filter: saturate(1.02) !important;
-  transform: scale(1.045) !important;
+  filter: var(--ig-image-active) !important;
+  transform: scale(1.035) !important;
 }
 
 html body.gm-interior-route .gm-page .gm-experience-card > figure img {
@@ -3469,28 +3722,53 @@ html body.gm-interior-route .gm-page .gm-contact-hotels__grid a {
 /* Closing panel and interior footer. */
 html body.gm-interior-route .gm-page .gm-final,
 html body.gm-interior-route .gm-page .gm-final--compact {
+  position: relative;
+  isolation: isolate;
   display: grid !important;
+  align-content: end !important;
   justify-items: start !important;
   gap: 1rem !important;
   width: 100% !important;
-  min-height: 0 !important;
+  min-height: clamp(560px, 70svh, 760px) !important;
   padding: var(--ig-section) var(--ig-gutter) !important;
+  overflow: hidden !important;
   border-top: 1px solid var(--ig-line) !important;
-  color: var(--ig-text) !important;
-  background: var(--ig-paper) !important;
+  color: var(--ig-paper) !important;
+  background:
+    linear-gradient(90deg, rgba(15, 17, 31, 0.9) 0%, rgba(15, 17, 31, 0.64) 48%, rgba(15, 17, 31, 0.16) 82%),
+    linear-gradient(0deg, rgba(15, 17, 31, 0.78) 0%, transparent 62%),
+    url("/assets/editorial/hero-film-poster.jpg") center 48% / cover no-repeat !important;
   text-align: start !important;
+}
+
+html body.gm-interior-route .gm-page .gm-final::after,
+html body.gm-interior-route .gm-page .gm-final--compact::after {
+  content: "";
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: var(--ig-gutter);
+  width: min(24vw, 360px);
+  height: 3px;
+  background: var(--ig-red);
 }
 
 html body.gm-interior-route .gm-page .gm-final > *,
 html body.gm-interior-route .gm-page .gm-final--compact > * {
+  position: relative;
+  z-index: 1;
   width: min(100%, var(--ig-width)) !important;
   margin-inline: auto !important;
+}
+
+html body.gm-interior-route .gm-page .gm-final .gm-label,
+html body.gm-interior-route .gm-page .gm-final--compact .gm-label {
+  color: var(--ig-mineral) !important;
 }
 
 html body.gm-interior-route .gm-page .gm-final h2,
 html body.gm-interior-route .gm-page .gm-final--compact h2 {
   max-width: 14ch !important;
-  color: var(--ig-ink) !important;
+  color: var(--ig-paper) !important;
   font-size: clamp(2.6rem, 4.5vw, 5.2rem) !important;
   line-height: 0.97 !important;
   text-align: start !important;
@@ -3500,6 +3778,30 @@ html body.gm-interior-route .gm-page .gm-final p,
 html body.gm-interior-route .gm-page .gm-final .gm-actions {
   margin-inline: auto !important;
   text-align: start !important;
+}
+
+html body.gm-interior-route .gm-page .gm-final p,
+html body.gm-interior-route .gm-page .gm-final--compact p {
+  max-width: 56ch !important;
+  color: rgba(255, 254, 251, 0.76) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-final .gm-actions,
+html body.gm-interior-route .gm-page .gm-final--compact .gm-actions {
+  margin-top: 0.8rem !important;
+}
+
+html body.gm-interior-route .gm-page .gm-final .gm-button--secondary-dark,
+html body.gm-interior-route .gm-page .gm-final--compact .gm-button--secondary-dark {
+  border-color: rgba(255, 254, 251, 0.5) !important;
+  color: var(--ig-paper) !important;
+  background: rgba(15, 17, 31, 0.18) !important;
+}
+
+html body.gm-interior-route .gm-page .gm-final .gm-button--secondary-dark:is(:hover, :focus-visible),
+html body.gm-interior-route .gm-page .gm-final--compact .gm-button--secondary-dark:is(:hover, :focus-visible) {
+  color: var(--ig-ink) !important;
+  background: var(--ig-paper) !important;
 }
 
 html body.gm-interior-route .site-footer .gm-owned-prefooter {
@@ -3662,8 +3964,30 @@ html[dir="rtl"] body.gm-interior-route .gm-route-transition__signature {
     grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
   }
 
+  html body.gm-interior-route .gm-about-page .gm-values__showcase {
+    grid-template-columns: minmax(320px, 0.82fr) minmax(0, 1.18fr) !important;
+  }
+
+  html body.gm-interior-route .gm-about-page .gm-values__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
   html body.gm-interior-route .gm-page .gm-contact-hotels__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-seminar-finder {
+    grid-template-columns: 1fr !important;
+    align-items: start !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-seminar-search {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-seminar-search .gm-button {
+    grid-column: 1 / -1 !important;
+    min-height: 60px !important;
   }
 }
 
@@ -3695,6 +4019,24 @@ html[dir="rtl"] body.gm-interior-route .gm-route-transition__signature {
   }
 
   html body.gm-interior-route .gm-page .gm-page-hero__meta {
+    display: none !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-fs-gallery {
+    min-height: clamp(540px, 78vw, 680px) !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-fs-gallery__slide {
+    width: calc(100% - 2rem) !important;
+    height: calc(100% - 2rem) !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-fs-gallery__slide--previous,
+  html body.gm-interior-route .gm-page .gm-fs-gallery__slide--next {
+    display: none !important;
+  }
+
+  html body.gm-interior-route .gm-page .gm-fs-gallery__counter {
     display: none !important;
   }
 
@@ -3858,6 +4200,14 @@ html[dir="rtl"] body.gm-interior-route .gm-route-transition__signature {
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
   }
 
+  html body.gm-interior-route .gm-about-page .gm-values__showcase {
+    grid-template-columns: 1fr !important;
+  }
+
+  html body.gm-interior-route .gm-about-page .gm-values__visual {
+    min-height: clamp(500px, 82vw, 680px) !important;
+  }
+
   html body.gm-interior-route .site-footer .gm-owned-prefooter {
     grid-template-columns: 1fr !important;
   }
@@ -4009,6 +4359,34 @@ html[dir="rtl"] body.gm-interior-route .gm-route-transition__signature {
   html body.gm-interior-route .gm-page .gm-values__grid article,
   html body.gm-interior-route .gm-page .gm-loyalty-ledger article {
     min-height: 250px !important;
+  }
+
+  html body.gm-interior-route .gm-about-page .gm-values__showcase {
+    min-height: 0 !important;
+  }
+
+  html body.gm-interior-route .gm-about-page .gm-values__visual {
+    min-height: min(126vw, 520px) !important;
+  }
+
+  html body.gm-interior-route .gm-about-page .gm-values__visual figcaption {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+  }
+
+  html body.gm-interior-route .gm-about-page .gm-values__visual figcaption .gm-button {
+    width: 100% !important;
+  }
+
+  html body.gm-interior-route .gm-about-page .gm-values__grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  html body.gm-interior-route .gm-about-page .gm-values__grid article,
+  html body.gm-interior-route .gm-about-page .gm-values__grid article:first-child {
+    grid-column: 1 !important;
+    min-height: 220px !important;
+    border-inline-start: 0 !important;
   }
 
   html body.gm-interior-route .gm-page .gm-destination-menu {
